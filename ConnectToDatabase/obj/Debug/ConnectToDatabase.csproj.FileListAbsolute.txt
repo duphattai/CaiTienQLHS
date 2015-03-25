@@ -1,0 +1,9 @@
+C:\Users\Tai\Desktop\PTVHBTPM\ConnectToDatabase\bin\Debug\ConnectToDatabase.dll.config
+C:\Users\Tai\Desktop\PTVHBTPM\ConnectToDatabase\bin\Debug\ConnectToDatabase.dll
+C:\Users\Tai\Desktop\PTVHBTPM\ConnectToDatabase\bin\Debug\ConnectToDatabase.pdb
+C:\Users\Tai\Desktop\PTVHBTPM\ConnectToDatabase\obj\Debug\ConnectToDatabase.csprojResolveAssemblyReference.cache
+C:\Users\Tai\Desktop\PTVHBTPM\ConnectToDatabase\obj\Debug\ConnectToDatabase.frConnectToDatabase.resources
+C:\Users\Tai\Desktop\PTVHBTPM\ConnectToDatabase\obj\Debug\ConnectToDatabase.Properties.Resources.resources
+C:\Users\Tai\Desktop\PTVHBTPM\ConnectToDatabase\obj\Debug\ConnectToDatabase.csproj.GenerateResource.Cache
+C:\Users\Tai\Desktop\PTVHBTPM\ConnectToDatabase\obj\Debug\ConnectToDatabase.dll
+C:\Users\Tai\Desktop\PTVHBTPM\ConnectToDatabase\obj\Debug\ConnectToDatabase.pdb
