@@ -14,583 +14,734 @@ using System.Data.Linq;
 
 namespace frMain
 {
-    public partial class frPhanLop : DevExpress.XtraEditors.XtraForm
+    public partial class FormPhanLop : DevExpress.XtraEditors.XtraForm
     {
-        public frPhanLop()
+        #region Biến toàn cục
+        private NamHoc_BUS _NamHocBUS = new NamHoc_BUS(); // biến dùng để truy xuất bảng NAMHOC từ database
+        private Khoi_BUS _KhoiBUS = new Khoi_BUS(); // truy xuất bảng KHOI
+        private DanhSachLop_BUS _DanhSachLopBus = new DanhSachLop_BUS(); 
+        private XepLop_BUS _XepLopBus = new XepLop_BUS(); // truy xuất bảng XEPLOP
+        private HoSoHocSinh_Bus _HoSoHocSinhBUS = new HoSoHocSinh_Bus(); // truy xuất bảng HOSOHOCSINH
+        private QuiDinh_BUS _QuiDinhBus = new QuiDinh_BUS();// truy xuất bảng QUIDINH
+
+        List<CLopChange> _ListLopChange = new List<CLopChange>(); // lưu danh sách lớp có danh sách học sinh bi thay đổi (sự thay đổi chưa được lưu xuống database)
+        List<CChuaPhanLopChange> _ListChuaPhanLopChange = new List<CChuaPhanLopChange>(); // lưu danh sách hoc sinh chưa phân lớp bị thay đối  (sự thay đổi chưa được lưu xuống database)
+        #endregion
+
+        public FormPhanLop()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Bắt sự kiện khi form PhanLop được load lên, nếu tồn tại năm học thì sẽ cho phép mở, không thì sẽ đóng form lại.
+        /// </summary>
+        private void formPhanLop_Load(object sender, EventArgs e)
+        {
+            LoadDanhSachNam();
+
+            // kiểm tra xem năm học có tồn tại không
+            if (comBoBoxNamCurrent.Items.Count > 0)
+            {
+                LoadDanhSachKhoi();
+                comBoBoxNamCurrent.SelectedIndex = 0;// thiết lập chọn item có index = 0
+                comBoBoxNamHocMoi.SelectedIndex = 0;// thiết lập chọn item có index = 0
+                radioButtonPhanLopHoSo_ChuaPhanLop.Checked = true; // thiết lập mặc định chọn danh sách hoc sinh chưa phân lớp
+            }
+            else
+            {
+                MessageBox.Show("Bạn hiện không có năm học nào trong cơ sở dữ liệu", "Error");
+                this.Close(); // đóng form vừa mở
+            }
+        }
+     
         #region Wrap Class
+
+        // Đối tương dùng để chứa danh sách học sinh theo lớp
         public class CLopChange
         {
-            public int _MaLop;
-            public List<usp_SelectHocSinhTheoMALOPResult> _ListLop;
+            public int MaLop;
+            public List<usp_SelectHocSinhTheoMALOPResult> ListLop; // danh sách học sinh lấy từ database theo mã lớp
 
-            public CLopChange(int MaLop, List<usp_SelectHocSinhTheoMALOPResult> ListLop)
+            public CLopChange(int maLop, List<usp_SelectHocSinhTheoMALOPResult> listLop)
             {
-                _MaLop = MaLop;
-                _ListLop = ListLop;
+                MaLop = maLop;
+                ListLop = listLop;
             }
         }
+
+        // Đối tượng dùng để chứa danh sách học sinh chưa phân lớp tương ứng với năm học
         class CChuaPhanLopChange
         {
-            public string _NamHoc;
-            public List<usp_SelectHocSinhChuaPhanLopResult> _List;
+            public string NamHoc;
+            public List<usp_SelectHocSinhChuaPhanLopResult> DanhSachHocSinh; // dùng để lưu danh sách học sinh theo năm học
 
-            public CChuaPhanLopChange(string NamHoc, List<usp_SelectHocSinhChuaPhanLopResult> List)
+            public CChuaPhanLopChange(string namHoc, List<usp_SelectHocSinhChuaPhanLopResult> list)
             {
-                _NamHoc = NamHoc;
-                _List = List;
+                NamHoc = namHoc;
+                DanhSachHocSinh = list;
             }
         }
         #endregion
 
-        #region Biến toàn cục
-        NamHoc_BUS _NHBUS = new NamHoc_BUS();
-        Khoi_BUS _KBUS = new Khoi_BUS();
-        DanhSachLop_BUS _LopBus = new DanhSachLop_BUS();
-        XepLop_BUS _XepBus = new XepLop_BUS();
-        HoSoHocSinh_Bus _HSBUS = new HoSoHocSinh_Bus();
-        QuiDinh_BUS _QuiDinhBus = new QuiDinh_BUS();
-
-        List<CLopChange> _ListLopChange = new List<CLopChange>();
-        List<CChuaPhanLopChange> _ListChuaPhanLopChange = new List<CChuaPhanLopChange>();
-        #endregion
+    
 
         #region Các hàm chức năng
-
+        
+        /// <summary>
+        /// Lấy danh sach năm học từ database sau đó add vào comBoBoxNamHoc
+        /// </summary>
         void LoadDanhSachNam()
         {
-            foreach (NAMHOC NH in _NHBUS.LayNamHoc())
+            foreach (NAMHOC NH in _NamHocBUS.LayNamHoc())
             {
-                comboNamCurrent.Items.Add(NH.NAMHOC1.ToString());
-                comboNamnew.Items.Add(NH.NAMHOC1.ToString());
+                // add các năm học vào các combobox
+                comBoBoxNamCurrent.Items.Add(NH.NAMHOC1.ToString());
+                comBoBoxNamHocMoi.Items.Add(NH.NAMHOC1.ToString());
             }
         }
 
+        /// <summary>
+        /// Lấy danh sách khối từ database thêm vào comBoBoxKhoi 
+        /// </summary>
         void LoadDanhSachKhoi()
         {
-            comboKhoiCurrent.Items.Clear();
-            comboKhoinew.Items.Clear();
-            foreach (usp_SelectKhoisAllResult khoi in _KBUS.LayDanhSachKhoi())
+            // xóa các dữ liệu cũ đã add vào comBoBoxKhoiCurrent và comBoBoxKhoiMoi
+            comBoBoxKhoiCurrent.Items.Clear();
+            comBoBoxKhoiMoi.Items.Clear();
+
+            foreach (usp_SelectKhoisAllResult khoi in _KhoiBUS.LayDanhSachKhoi())
             {
-                comboKhoiCurrent.Items.Add(khoi.KHOI.ToString());
-                comboKhoinew.Items.Add(khoi.KHOI.ToString());
+                // add dữ liệu mới vào các combobox
+                comBoBoxKhoiCurrent.Items.Add(khoi.KHOI.ToString());
+                comBoBoxKhoiMoi.Items.Add(khoi.KHOI.ToString());
             }
         }
 
+        /// <summary>
+        /// Lấy danh sach lớp đã có từ database lên thêm vào comBoBoxLopCurrent
+        /// </summary>
         void LoadDanhSachLopCu()
         {
-            comboLopCurrent.Items.Clear();
-            foreach (usp_SelectLopsByMAKHOI_NAMHOCResult lop in _LopBus.LayDanhSachLopTheoKhoiMaNam(comboKhoiCurrent.Tag.ToString(), comboNamCurrent.Text))
+            comBoBoxLopCurrent.Items.Clear(); // xóa dữ liệu đã thêm vào
+
+            foreach (usp_SelectLopsByMAKHOI_NAMHOCResult lop in _DanhSachLopBus.LayDanhSachLopTheoKhoiMaNam(comBoBoxKhoiCurrent.Tag.ToString(), comBoBoxNamCurrent.Text))
             {
-                comboLopCurrent.Items.Add(lop.TENLOP);
+                comBoBoxLopCurrent.Items.Add(lop.TENLOP); // thêm dữ liệu mới vào
             }
         }
 
+        /// <summary>
+        /// Lấy danh sách lớp mới từ database thêm vào comBoBoxLopMoi
+        /// </summary>
         void LoadDanhSachLopMoi()
         {
-            comboLopnew.Items.Clear();
-            foreach (usp_SelectLopsByMAKHOI_NAMHOCResult lop in _LopBus.LayDanhSachLopTheoKhoiMaNam(comboKhoinew.Tag.ToString(), comboNamnew.Text))
+            comBoBoxLopMoi.Items.Clear(); // xóa dữ liệu cũ đã thêm vào
+
+            foreach (usp_SelectLopsByMAKHOI_NAMHOCResult lop in _DanhSachLopBus.LayDanhSachLopTheoKhoiMaNam(comBoBoxKhoiMoi.Tag.ToString(), comBoBoxNamHocMoi.Text))
             {
-                comboLopnew.Items.Add(lop.TENLOP);
+                comBoBoxLopMoi.Items.Add(lop.TENLOP); // thêm dữ liệu mới vào
             }
         }
 
+        /// <summary>
+        /// Kiểu trả về: List<usp_SelectHocSinhTheoMALOPResult>
+        /// Tham số truyền vào là mã lớp theo kiểu chuỗi
+        /// Lấy danh sách học sinh từ database theo mã lớp
+        /// </summary>
         List<usp_SelectHocSinhTheoMALOPResult> LoadDanhSachHocSinhTheoMaLop(int MaLop)
         {
             List<usp_SelectHocSinhTheoMALOPResult> ListHSLop = new List<usp_SelectHocSinhTheoMALOPResult>();
-            foreach (usp_SelectHocSinhTheoMALOPResult hs in _LopBus.LayDanhSachHocSinhTheoMaLop(MaLop))
+            foreach (usp_SelectHocSinhTheoMALOPResult hs in _DanhSachLopBus.LayDanhSachHocSinhTheoMaLop(MaLop))
             {
                 ListHSLop.Add(hs);
             }
             return ListHSLop;
         }
 
+        /// <summary>
+        /// Kiểu trả về: List<usp_SelectHocSinhChuaPhanLopResult>
+        /// Tham số truyền vào là năm học theo kiểu chuỗi
+        /// Lấy danh sách học sinh chưa phân lớp theo năm học  từ database
+        /// </summary>
         List<usp_SelectHocSinhChuaPhanLopResult> LoadDanhSachHocSinhChuaPhanLop(string NamHoc)
         {
+            // biến tạm thời dùng lưu trữ dữ liệu lấy từ database
             List<usp_SelectHocSinhChuaPhanLopResult> _ListHS = new List<usp_SelectHocSinhChuaPhanLopResult>();
-            foreach (usp_SelectHocSinhChuaPhanLopResult hs in _LopBus.LayDanhSachHocSinhChuaPhanLop(NamHoc))
+            foreach (usp_SelectHocSinhChuaPhanLopResult hs in _DanhSachLopBus.LayDanhSachHocSinhChuaPhanLop(NamHoc))
             {
-                _ListHS.Add(hs);
+                _ListHS.Add(hs); // them dữ liệu vào
             }
             return _ListHS;
         }
         #endregion
 
         #region Các event của form
+        
+        /// <summary>
+        /// Hiển thị danh sách học sinh lên dataGridViewCurrent tương ứng theo comBoBoxNamCurrent và loại danh sách học sinh(phân lớp và chưa phân lớp)
+        /// Nếu là danh sách chưa phân lớp thì chức năng xóa hoặc sắp xếp vào lớp có thể sử dụng, ngược lại thì không.
+        /// </summary>
         void LoadDataGridViewCurrent()
         {
+            // xử lý cho trường hợp danh sách học sinh chưa phân lớp
             if (radioButtonPhanLopHoSo_ChuaPhanLop.Checked)
             {
-                btnRemove.Enabled = true;
-                btnSwap.Enabled = true;
-                int i = CheckExistedInListChuaPhanLopLopChange(comboNamCurrent.Text);
-                if (i != -1)
+                btnRemove.Enabled = true; // bật chức năng button Bỏ
+                buttonDoiCho.Enabled = true; // bật chức năng button Đổi Chỗ
+                
+                int i = CheckExistedInListChuaPhanLopLopChange(comBoBoxNamCurrent.Text); // Kiểm tra xem đã tồn tại danh sách hoc sinh chưa phân lớp đã có sự thay đổi hay chưa
+                if (i != -1) // nếu tồn tại thì hiển thị danh sách đó lên
                 {
-                    dataGridViewcurrent.DataSource = _ListChuaPhanLopChange[i]._List.ToArray();
+                    dataGridViewCurrent.DataSource = _ListChuaPhanLopChange[i].DanhSachHocSinh.ToArray();// Hiển thị dữ liệu lên datagridview
                 }
-                else
+                else // nếu chưa thì lấy danh sách từ database lên
                 {
-                    dataGridViewcurrent.DataSource = LoadDanhSachHocSinhChuaPhanLop(comboNamCurrent.Text).ToArray();
+                    dataGridViewCurrent.DataSource = LoadDanhSachHocSinhChuaPhanLop(comBoBoxNamCurrent.Text).ToArray();// Hiển thị dữ liệu lên datagridview
                 }
             }
-            else
+            else // trường hợp danh sách học sinh đã phân lớp rồi
             {
-                if (comboNamCurrent.SelectedIndex != -1 && comboLopCurrent.SelectedIndex != -1 && comboKhoiCurrent.SelectedIndex != -1)
+                if (comBoBoxNamCurrent.SelectedIndex != -1 && comBoBoxLopCurrent.SelectedIndex != -1 && comBoBoxKhoiCurrent.SelectedIndex != -1)
                 {
-                    int i = CheckExistedInListLopChange(int.Parse(comboLopCurrent.Tag.ToString()));
-                    if (i != -1)
+                    int i = CheckExistedInListLopChange(int.Parse(comBoBoxLopCurrent.Tag.ToString())); //Kiểm tra xem tương ứng với lớp học đó thì danh sách hoc sinh có thay đổi chưa (người dùng thay đổi mà chưa lưu lại, còn thay đổi tiếp tục)
+                    if (i != -1) // tồn tại thì sẽ lấy danh sách đã thay đổi đó
                     {
-                        dataGridViewcurrent.DataSource = _ListLopChange[i]._ListLop.ToArray();
+                        dataGridViewCurrent.DataSource = _ListLopChange[i].ListLop.ToArray();
                     }
-                    else
+                    else // không thì lấy từ database lên
                     {
-                        dataGridViewcurrent.DataSource = LoadDanhSachHocSinhTheoMaLop(int.Parse(comboLopCurrent.Tag.ToString())).ToArray();
+                        dataGridViewCurrent.DataSource = LoadDanhSachHocSinhTheoMaLop(int.Parse(comBoBoxLopCurrent.Tag.ToString())).ToArray();
                     }
-                    btnRemove.Enabled = true;
-                    btnSwap.Enabled = true;
+
+                    btnRemove.Enabled = true; // bật chức năng của button bỏ
+                    buttonDoiCho.Enabled = true; // bật chức năng của button đổi chỗ
                 }
                 else
                 {
-                    dataGridViewcurrent.DataSource = new List<usp_SelectHocSinhTheoMALOPResult>();
+                    dataGridViewCurrent.DataSource = new List<usp_SelectHocSinhTheoMALOPResult>();
                     btnRemove.Enabled = false;
-                    btnSwap.Enabled = false;
+                    buttonDoiCho.Enabled = false;
                 }
             }
         }
 
+        /// <summary>
+        /// Hiển thị danh sách học sinh tương ứng với lớp đã chọn trên comBoBoxLopMoi
+        /// </summary>
         void LoadDataGridViewNew()
         {
-            if (comboNamnew.SelectedIndex != -1 && comboLopnew.SelectedIndex != -1 && comboKhoinew.SelectedIndex != -1)
+            if (comBoBoxNamHocMoi.SelectedIndex != -1 && comBoBoxLopMoi.SelectedIndex != -1 && comBoBoxKhoiMoi.SelectedIndex != -1)
             {
-                int i = CheckExistedInListLopChange(int.Parse(comboLopnew.Tag.ToString()));
+                int i = CheckExistedInListLopChange(int.Parse(comBoBoxLopMoi.Tag.ToString()));
                 if (i != -1)
                 {
-                    dataGridViewnew.DataSource = _ListLopChange[i]._ListLop.ToArray();
+                    dataGridViewNew.DataSource = _ListLopChange[i].ListLop.ToArray(); // Hiển thị dữ liệu lên datagridview
                 }
                 else
                 {
-                    dataGridViewnew.DataSource = LoadDanhSachHocSinhTheoMaLop(int.Parse(comboLopnew.Tag.ToString())).ToArray();
+                    dataGridViewNew.DataSource = LoadDanhSachHocSinhTheoMaLop(int.Parse(comBoBoxLopMoi.Tag.ToString())).ToArray();// Hiển thị dữ liệu lên datagridview
                 }
-                btnAdd.Enabled = true;
-                btnSwap.Enabled = true;
+                buttonThem.Enabled = true;
+                buttonDoiCho.Enabled = true;
             }
             else
             {
-                dataGridViewnew.DataSource = new List<usp_SelectHocSinhTheoMALOPResult>();
-                btnAdd.Enabled = false;
-                btnSwap.Enabled = false;
+                dataGridViewNew.DataSource = new List<usp_SelectHocSinhTheoMALOPResult>();
+                buttonThem.Enabled = false;
+                buttonDoiCho.Enabled = false;
             }
         }
 
-        //nếu không tồn tại trả về -1, ngược lại trả về index của mã lớp đang tìm trong list
+        /// <summary>
+        /// Kiểm tra lớp đó có nằm trong danh sách lớp có danh sách học sinh đã bị thay đổi, nếu không tồn tại trả về -1, ngược lại trả về index của mã lớp đã tìm được trong list
+        /// </summary>
         int CheckExistedInListLopChange(int MaLop)
         {
             for (int i = 0; i < _ListLopChange.Count; i++)
             {
-                if (_ListLopChange[i]._MaLop == MaLop)
+                if (_ListLopChange[i].MaLop == MaLop)
                     return i;
             }
             return -1;
         }
 
-        //nếu không tồn tại trả về -1, ngược lại trả về index của mã lớp đang tìm trong list
+        
+        /// <summary>
+        /// Kiểm tra trong các năm học thì danh sách học sinh chưa phân lớp ứng với năm học đó có bị thay đổi rồi chưa, nếu không trả về -1, ngược lại trả về index của mã lớp đang tìm trong list
+        /// </summary>
         int CheckExistedInListChuaPhanLopLopChange(string NamHoc)
         {
             for (int i = 0; i < _ListChuaPhanLopChange.Count; i++)
             {
-                if (_ListChuaPhanLopChange[i]._NamHoc == NamHoc)
+                if (_ListChuaPhanLopChange[i].NamHoc == NamHoc)
                     return i;
             }
             return -1;
         }
 
-        private void frPhanLop_Load(object sender, EventArgs e)
-        {
-            LoadDanhSachNam();
-            if (comboNamCurrent.Items.Count > 0)
-            {
-                LoadDanhSachKhoi();
-                comboNamCurrent.SelectedIndex = 0;
-                comboNamnew.SelectedIndex = 0;
-                radioButtonPhanLopHoSo_ChuaPhanLop.Checked = true;
-            }
-            else
-            {
-                MessageBox.Show("Bạn hiện không có năm học nào trong cơ sở dữ liệu", "Error");
-                this.Close();
-            }
-        }
+       
 
         #region button
-        private void btnAdd_Click(object sender, EventArgs e) //Add HOcSInh
+
+        // Coder: Tai
+        void copyInformationClassFromAnotherClass(usp_SelectHocSinhTheoMALOPResult dest, usp_SelectHocSinhChuaPhanLopResult src)
         {
-            if (comboNamCurrent.Text == comboNamnew.Text && comboKhoiCurrent.Text == comboKhoinew.Text && comboLopCurrent.Text == comboLopnew.Text)
+            dest.DIACHI = src.DIACHI;
+            dest.EMAIL = src.EMAIL;
+            dest.GIOITINH = src.GIOITINH;
+            dest.HOTEN = src.HOTEN;
+            dest.MAHOCSINH = src.MAHOCSINH;
+            dest.NGAYSINH = src.NGAYSINH;
+        }
+
+        // Coder: Tai
+        void copyInformationClassFromAnotherClass(usp_SelectHocSinhChuaPhanLopResult dest, usp_SelectHocSinhTheoMALOPResult src)
+        {
+            dest.DIACHI = src.DIACHI;
+            dest.EMAIL = src.EMAIL;
+            dest.GIOITINH = src.GIOITINH;
+            dest.HOTEN = src.HOTEN;
+            dest.MAHOCSINH = src.MAHOCSINH;
+            dest.NGAYSINH = src.NGAYSINH;
+        }
+
+        /// <summary>
+        /// Sự kiện: bắt sự kiện khi button Thêm được click vào
+        /// Thêm học sinh được chọn vào lớp đang thao tác 
+        /// </summary>
+        private void buttonThem_Click(object sender, EventArgs e)
+        {
+            if (comBoBoxNamCurrent.Text == comBoBoxNamHocMoi.Text && comBoBoxKhoiCurrent.Text == comBoBoxKhoiMoi.Text && comBoBoxLopCurrent.Text == comBoBoxLopMoi.Text)
             {
                 MessageBox.Show("Bạn không thể chuyển học sinh trong cùng một lớp", "Error");
             }
             else
             {
-                ICollection<int> ListIndexRemove = new List<int>();
-                int RemoveIndex = -1;
-                foreach (DataGridViewRow row in dataGridViewcurrent.SelectedRows)
+                ICollection<int> ListIndexRemove = new List<int>(); // lưu vị trí của học sinh sẽ bị xóa khỏi trên datagridviewcurrent
+                int RemoveIndex = -1; // vị trí của học sinh đã được chọn trên datagridview
+                foreach (DataGridViewRow row in dataGridViewCurrent.SelectedRows)
                 {
                     if (radioButtonPhanLopHoSo_ChuaPhanLop.Checked)
                     {
-                        int i = CheckExistedInListChuaPhanLopLopChange(comboNamCurrent.Text);
-                        int j = CheckExistedInListLopChange(int.Parse(comboLopnew.Tag.ToString()));
-                        //Đã tồn tại
-                        if (i != -1)
+                        int i = CheckExistedInListChuaPhanLopLopChange(comBoBoxNamCurrent.Text); // kiểm tra danh sách hoc sinh chưa phân lớp có bị thay đổi so với lúc lấy từ database lên chưa
+                        int j = CheckExistedInListLopChange(int.Parse(comBoBoxLopMoi.Tag.ToString())); // kiểm tra lớp đó có danh sách học sinh bị thay đổi so với lúc lấy từ database lên chưa
+                        
+                        if (i != -1) // danh sách chưa phân lớp đã có sự thay đồi
                         {
-                            //Đã tồn tại
+                            // danh sách học sinh trong lớp đó đã thay đổi
                             if (j != -1)
                             {
-                                if (_ListLopChange[j]._ListLop.Count == _QuiDinhBus.LaySiSoToiDa())
+                                if (_ListLopChange[j].ListLop.Count == _QuiDinhBus.LaySiSoToiDa())
                                 {
                                     MessageBox.Show("Sĩ số học sinh của một lớp không thể vượt quá " + _QuiDinhBus.LaySiSoToiDa().ToString() + "\nBạn phải sửa qui định nếu muốn thêm vào");
                                     break;
                                 }
-                                _ListLopChange[j]._ListLop.Add(new usp_SelectHocSinhTheoMALOPResult());
-                                _ListLopChange[j]._ListLop[_ListLopChange[j]._ListLop.Count - 1].MAHOCSINH = _ListChuaPhanLopChange[i]._List[row.Index].MAHOCSINH;
-                                _ListLopChange[j]._ListLop[_ListLopChange[j]._ListLop.Count - 1].HOTEN = _ListChuaPhanLopChange[i]._List[row.Index].HOTEN;
-                                _ListLopChange[j]._ListLop[_ListLopChange[j]._ListLop.Count - 1].EMAIL = _ListChuaPhanLopChange[i]._List[row.Index].EMAIL;
-                                _ListLopChange[j]._ListLop[_ListLopChange[j]._ListLop.Count - 1].DIACHI = _ListChuaPhanLopChange[i]._List[row.Index].DIACHI;
-                                _ListLopChange[j]._ListLop[_ListLopChange[j]._ListLop.Count - 1].NGAYSINH = _ListChuaPhanLopChange[i]._List[row.Index].NGAYSINH;
-                                _ListLopChange[j]._ListLop[_ListLopChange[j]._ListLop.Count - 1].GIOITINH = _ListChuaPhanLopChange[i]._List[row.Index].GIOITINH;
-                            }
-                            else
-                            {
+                                _ListLopChange[j].ListLop.Add(new usp_SelectHocSinhTheoMALOPResult()); // add một đối tượng (thông tin học sinh)
 
-                                _ListLopChange.Add(new CLopChange(int.Parse(comboLopnew.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comboLopnew.Tag.ToString()))));
+                                // Coder: Tài
+                                // rút ngắn dòng code
+                                // sao chép thông tin học sinh vào đối tượng vừa mới thêm vào
+                                copyInformationClassFromAnotherClass(_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1], _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index]);
+
+                                //_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1].MAHOCSINH = _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index].MAHOCSINH;
+                                //_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1].HOTEN = _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index].HOTEN;
+                                //_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1].EMAIL = _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index].EMAIL;
+                                //_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1].DIACHI = _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index].DIACHI;
+                                //_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1].NGAYSINH = _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index].NGAYSINH;
+                                //_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1].GIOITINH = _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index].GIOITINH;
+                            }
+                            else // danh sách học sinh trong lớp đó chưa thay đổi
+                            {
+                                // thêm một lớp có danh sách học sinh bị thay đổi, thông tin danh sách học sinh ban đầu của lớp đó lấy từ database lên
+                                _ListLopChange.Add(new CLopChange(int.Parse(comBoBoxLopMoi.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comBoBoxLopMoi.Tag.ToString()))));
                                 int index = _ListLopChange.Count - 1;
-                                if (_ListLopChange[index]._ListLop.Count == _QuiDinhBus.LaySiSoToiDa())
+                                if (_ListLopChange[index].ListLop.Count == _QuiDinhBus.LaySiSoToiDa())
                                 {
                                     MessageBox.Show("Sĩ số học sinh của một lớp không thể vượt quá " + _QuiDinhBus.LaySiSoToiDa().ToString() + "\nBạn phải sửa qui định nếu muốn thêm vào");
                                     break;
                                 }
-                                _ListLopChange[index]._ListLop.Add(new usp_SelectHocSinhTheoMALOPResult());
-                                _ListLopChange[index]._ListLop[_ListLopChange[index]._ListLop.Count - 1].MAHOCSINH = _ListChuaPhanLopChange[i]._List[row.Index].MAHOCSINH;
-                                _ListLopChange[index]._ListLop[_ListLopChange[index]._ListLop.Count - 1].HOTEN = _ListChuaPhanLopChange[i]._List[row.Index].HOTEN;
-                                _ListLopChange[index]._ListLop[_ListLopChange[index]._ListLop.Count - 1].EMAIL = _ListChuaPhanLopChange[i]._List[row.Index].EMAIL;
-                                _ListLopChange[index]._ListLop[_ListLopChange[index]._ListLop.Count - 1].DIACHI = _ListChuaPhanLopChange[i]._List[row.Index].DIACHI;
-                                _ListLopChange[index]._ListLop[_ListLopChange[index]._ListLop.Count - 1].NGAYSINH = _ListChuaPhanLopChange[i]._List[row.Index].NGAYSINH;
-                                _ListLopChange[index]._ListLop[_ListLopChange[index]._ListLop.Count - 1].GIOITINH = _ListChuaPhanLopChange[i]._List[row.Index].GIOITINH;
+                                _ListLopChange[index].ListLop.Add(new usp_SelectHocSinhTheoMALOPResult()); // trong lớp vừa thêm vào, thêm một đối tượng (thông tin học sinh) vào danh sách lớp đó
+                                
+                                // Coder: Tài
+                                // rút ngắn dòng code
+                                // sao chép dữ liệu học sinh vào đối tượng (thông tin học sinh) vừa mới thêm vào
+                                copyInformationClassFromAnotherClass(_ListLopChange[index].ListLop[_ListLopChange[index].ListLop.Count - 1], _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index]);
+                               
+                                //_ListLopChange[index].ListLop[_ListLopChange[index].ListLop.Count - 1].MAHOCSINH = _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index].MAHOCSINH;
+                                //_ListLopChange[index].ListLop[_ListLopChange[index].ListLop.Count - 1].HOTEN = _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index].HOTEN;
+                                //_ListLopChange[index].ListLop[_ListLopChange[index].ListLop.Count - 1].EMAIL = _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index].EMAIL;
+                                //_ListLopChange[index].ListLop[_ListLopChange[index].ListLop.Count - 1].DIACHI = _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index].DIACHI;
+                                //_ListLopChange[index].ListLop[_ListLopChange[index].ListLop.Count - 1].NGAYSINH = _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index].NGAYSINH;
+                                //_ListLopChange[index].ListLop[_ListLopChange[index].ListLop.Count - 1].GIOITINH = _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index].GIOITINH;
                             }
-                            RemoveIndex = i;
+                            RemoveIndex = i; // dùng để lưu vị trí học sinh chọn trên datagridview chút nữa sẽ xóa khỏi datagridview 
 
                         }
-                        else
+                        else// danh sách chưa phân lớp không có sự thay đồi
                         {
-                            _ListChuaPhanLopChange.Add(new CChuaPhanLopChange(comboNamCurrent.Text, LoadDanhSachHocSinhChuaPhanLop(comboNamCurrent.Text)));
+                            // thêm một danh sách học sinh chưa phân lớp tương ứng với năm học
+                            _ListChuaPhanLopChange.Add(new CChuaPhanLopChange(comBoBoxNamCurrent.Text, LoadDanhSachHocSinhChuaPhanLop(comBoBoxNamCurrent.Text)));
                             int index = _ListChuaPhanLopChange.Count - 1;
-                            //Đã tồn tại
-                            if (j != -1)
+
+                            if (j != -1) // danh sách học sinh trong lớp đó đã thay đổi
                             {
-                                if (_ListLopChange[j]._ListLop.Count == _QuiDinhBus.LaySiSoToiDa())
+                                if (_ListLopChange[j].ListLop.Count == _QuiDinhBus.LaySiSoToiDa())
                                 {
                                     MessageBox.Show("Sĩ số học sinh của một lớp không thể vượt quá " + _QuiDinhBus.LaySiSoToiDa().ToString() + "\nBạn phải sửa qui định nếu muốn thêm vào");
                                     break;
                                 }
-                                _ListLopChange[j]._ListLop.Add(new usp_SelectHocSinhTheoMALOPResult());
-                                _ListLopChange[j]._ListLop[_ListLopChange[j]._ListLop.Count - 1].MAHOCSINH = _ListChuaPhanLopChange[index]._List[row.Index].MAHOCSINH;
-                                _ListLopChange[j]._ListLop[_ListLopChange[j]._ListLop.Count - 1].HOTEN = _ListChuaPhanLopChange[index]._List[row.Index].HOTEN;
-                                _ListLopChange[j]._ListLop[_ListLopChange[j]._ListLop.Count - 1].EMAIL = _ListChuaPhanLopChange[index]._List[row.Index].EMAIL;
-                                _ListLopChange[j]._ListLop[_ListLopChange[j]._ListLop.Count - 1].DIACHI = _ListChuaPhanLopChange[index]._List[row.Index].DIACHI;
-                                _ListLopChange[j]._ListLop[_ListLopChange[j]._ListLop.Count - 1].NGAYSINH = _ListChuaPhanLopChange[index]._List[row.Index].NGAYSINH;
-                                _ListLopChange[j]._ListLop[_ListLopChange[j]._ListLop.Count - 1].GIOITINH = _ListChuaPhanLopChange[index]._List[row.Index].GIOITINH;
+                                _ListLopChange[j].ListLop.Add(new usp_SelectHocSinhTheoMALOPResult()); // thêm đối tượng(thông tin học sinh)
+
+                                // Coder: Tài
+                                // rút ngắn dòng code
+                                // sao chép thông tin học sinh vào đối tượng vừa thêm
+                                copyInformationClassFromAnotherClass(_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1], _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index]);
+                                
+                                //_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1].MAHOCSINH = _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index].MAHOCSINH;
+                                //_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1].HOTEN = _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index].HOTEN;
+                                //_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1].EMAIL = _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index].EMAIL;
+                                //_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1].DIACHI = _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index].DIACHI;
+                                //_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1].NGAYSINH = _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index].NGAYSINH;
+                                //_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1].GIOITINH = _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index].GIOITINH;
                             }
-                            else
+                            else// danh sách học sinh trong lớp đó chưa thay đổi
                             {
-                                _ListLopChange.Add(new CLopChange(int.Parse(comboLopnew.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comboLopnew.Tag.ToString()))));
+                                // thêm một lớp có danh sách học sinh sẽ bị thay đổi, với danh sách ban đầu lấy từ database lên
+                                _ListLopChange.Add(new CLopChange(int.Parse(comBoBoxLopMoi.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comBoBoxLopMoi.Tag.ToString()))));
                                 int index2 = _ListLopChange.Count - 1;
 
-                                if (_ListLopChange[index2]._ListLop.Count == _QuiDinhBus.LaySiSoToiDa())
+                                if (_ListLopChange[index2].ListLop.Count == _QuiDinhBus.LaySiSoToiDa())
                                 {
                                     MessageBox.Show("Sĩ số học sinh của một lớp không thể vượt quá " + _QuiDinhBus.LaySiSoToiDa().ToString() + "\nBạn phải sửa qui định nếu muốn thêm vào");
                                     break;
                                 }
-                                _ListLopChange[index2]._ListLop.Add(new usp_SelectHocSinhTheoMALOPResult());
-                                _ListLopChange[index2]._ListLop[_ListLopChange[index2]._ListLop.Count - 1].MAHOCSINH = _ListChuaPhanLopChange[index]._List[row.Index].MAHOCSINH;
-                                _ListLopChange[index2]._ListLop[_ListLopChange[index2]._ListLop.Count - 1].HOTEN = _ListChuaPhanLopChange[index]._List[row.Index].HOTEN;
-                                _ListLopChange[index2]._ListLop[_ListLopChange[index2]._ListLop.Count - 1].EMAIL = _ListChuaPhanLopChange[index]._List[row.Index].EMAIL;
-                                _ListLopChange[index2]._ListLop[_ListLopChange[index2]._ListLop.Count - 1].DIACHI = _ListChuaPhanLopChange[index]._List[row.Index].DIACHI;
-                                _ListLopChange[index2]._ListLop[_ListLopChange[index2]._ListLop.Count - 1].NGAYSINH = _ListChuaPhanLopChange[index]._List[row.Index].NGAYSINH;
-                                _ListLopChange[index2]._ListLop[_ListLopChange[index2]._ListLop.Count - 1].GIOITINH = _ListChuaPhanLopChange[index]._List[row.Index].GIOITINH;
+                                _ListLopChange[index2].ListLop.Add(new usp_SelectHocSinhTheoMALOPResult());// thêm đôi tượng (thông tin học sinh)
+
+                                // Coder: Tài
+                                // rút ngắn dòng code
+                                // sao chép thông tin học sinh vào đối tượng vừa thêm
+                                copyInformationClassFromAnotherClass(_ListLopChange[index2].ListLop[_ListLopChange[index2].ListLop.Count - 1], _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index]);
+                                
+                                //_ListLopChange[index2].ListLop[_ListLopChange[index2].ListLop.Count - 1].MAHOCSINH = _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index].MAHOCSINH;
+                                //_ListLopChange[index2].ListLop[_ListLopChange[index2].ListLop.Count - 1].HOTEN = _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index].HOTEN;
+                                //_ListLopChange[index2].ListLop[_ListLopChange[index2].ListLop.Count - 1].EMAIL = _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index].EMAIL;
+                                //_ListLopChange[index2].ListLop[_ListLopChange[index2].ListLop.Count - 1].DIACHI = _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index].DIACHI;
+                                //_ListLopChange[index2].ListLop[_ListLopChange[index2].ListLop.Count - 1].NGAYSINH = _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index].NGAYSINH;
+                                //_ListLopChange[index2].ListLop[_ListLopChange[index2].ListLop.Count - 1].GIOITINH = _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index].GIOITINH;
                             }
                             RemoveIndex = index;
                         }
                     }
-                    else
+                    else // xử lý đổi với danh sách học sinh đã phân lớp
                     {
-                        int i = CheckExistedInListLopChange(int.Parse(comboLopCurrent.Tag.ToString()));
-                        int j = CheckExistedInListLopChange(int.Parse(comboLopnew.Tag.ToString()));
-                        if (i != -1)
+                        int i = CheckExistedInListLopChange(int.Parse(comBoBoxLopCurrent.Tag.ToString())); // Kiểm tra lớp đó danh sách học sinh bị thay đổi chưa
+                        int j = CheckExistedInListLopChange(int.Parse(comBoBoxLopMoi.Tag.ToString()));// Kiểm tra lớp đó danh sách học sinh bị thay đổi chưa
+                        if (i != -1) // danh sách lớp current đã bị thay đổi
                         {
-                            if (j != -1)
+                            if (j != -1) // danh sách lớp mới đã bị thay đổi
                             {
-                                if (_ListLopChange[j]._ListLop.Count == _QuiDinhBus.LaySiSoToiDa())
+                                if (_ListLopChange[j].ListLop.Count == _QuiDinhBus.LaySiSoToiDa())
                                 {
                                     MessageBox.Show("Sĩ số học sinh của một lớp không thể vượt quá " + _QuiDinhBus.LaySiSoToiDa().ToString() + "\nBạn phải sửa qui định nếu muốn thêm vào");
                                     break;
                                 }
-                                _ListLopChange[j]._ListLop.Add(_ListLopChange[i]._ListLop[row.Index]);
+                                _ListLopChange[j].ListLop.Add(_ListLopChange[i].ListLop[row.Index]); // thêm học sinh vào lớp mới
                             }
-                            else
+                            else// danh sách lớp mới chưa thay đổi
                             {
-
-                                _ListLopChange.Add(new CLopChange(int.Parse(comboLopnew.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comboLopnew.Tag.ToString()))));
-                                if (_ListLopChange[_ListLopChange.Count - 1]._ListLop.Count == _QuiDinhBus.LaySiSoToiDa())
+                                // thêm một lớp có danh sách bị thay đổi, danh sách ban đầu lấy từ database lên
+                                _ListLopChange.Add(new CLopChange(int.Parse(comBoBoxLopMoi.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comBoBoxLopMoi.Tag.ToString()))));
+                                if (_ListLopChange[_ListLopChange.Count - 1].ListLop.Count == _QuiDinhBus.LaySiSoToiDa())
                                 {
                                     MessageBox.Show("Sĩ số học sinh của một lớp không thể vượt quá " + _QuiDinhBus.LaySiSoToiDa().ToString() + "\nBạn phải sửa qui định nếu muốn thêm vào");
                                     break;
                                 }
-                                _ListLopChange[_ListLopChange.Count - 1]._ListLop.Add(_ListLopChange[i]._ListLop[row.Index]);
+                                _ListLopChange[_ListLopChange.Count - 1].ListLop.Add(_ListLopChange[i].ListLop[row.Index]); // thêm học sinh vào lớp mới
                             }
-                            RemoveIndex = i;
+                            RemoveIndex = i; // vị trí học sinh bên lớp current sẽ bị xóa khỏi datagridviewcurrent
                         }
-                        else
+                        else// danh sách lớp current chưa thay đổi
                         {
-                            if (j != -1)
+                            if (j != -1)// danh sách lớp mới đã bị thay đổi
                             {
-                                List<usp_SelectHocSinhTheoMALOPResult> temp = LoadDanhSachHocSinhTheoMaLop(int.Parse(comboLopCurrent.Tag.ToString()));
-                                _ListLopChange.Add(new CLopChange(int.Parse(comboLopCurrent.Tag.ToString()), temp));
-                                if (_ListLopChange[j]._ListLop.Count == _QuiDinhBus.LaySiSoToiDa())
+                                List<usp_SelectHocSinhTheoMALOPResult> temp = LoadDanhSachHocSinhTheoMaLop(int.Parse(comBoBoxLopCurrent.Tag.ToString()));// lưu danh sách học sinh theo lớp current được lấy lên từ database 
+                                _ListLopChange.Add(new CLopChange(int.Parse(comBoBoxLopCurrent.Tag.ToString()), temp)); // thêm vào lớp có danh sách học sinh bị thay đổi 
+                                if (_ListLopChange[j].ListLop.Count == _QuiDinhBus.LaySiSoToiDa())
                                 {
                                     MessageBox.Show("Sĩ số học sinh của một lớp không thể vượt quá " + _QuiDinhBus.LaySiSoToiDa().ToString() + "\nBạn phải sửa qui định nếu muốn thêm vào");
                                     break;
                                 }
-                                _ListLopChange[j]._ListLop.Add(temp[row.Index]);
-                                RemoveIndex = _ListLopChange.Count - 1;
+                                _ListLopChange[j].ListLop.Add(temp[row.Index]); // thêm học sinh vào bên lớp mới
+                                RemoveIndex = _ListLopChange.Count - 1;// học sinh được chọn sẽ xóa khỏi bên lớp current
                             }
-                            else
+                            else // danh sách lớp mới chưa thay đổi
                             {
-                                _ListLopChange.Add(new CLopChange(int.Parse(comboLopCurrent.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comboLopCurrent.Tag.ToString()))));
-                                _ListLopChange.Add(new CLopChange(int.Parse(comboLopnew.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comboLopnew.Tag.ToString()))));
-                                if (_ListLopChange[_ListLopChange.Count - 1]._ListLop.Count == _QuiDinhBus.LaySiSoToiDa())
+                                // thêm lớp có danh sách học sinh bị thay đổi
+                                _ListLopChange.Add(new CLopChange(int.Parse(comBoBoxLopCurrent.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comBoBoxLopCurrent.Tag.ToString()))));
+                                // thêm lớp có danh sách học sinh bị thay đổi
+                                _ListLopChange.Add(new CLopChange(int.Parse(comBoBoxLopMoi.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comBoBoxLopMoi.Tag.ToString()))));
+                                if (_ListLopChange[_ListLopChange.Count - 1].ListLop.Count == _QuiDinhBus.LaySiSoToiDa())
                                 {
                                     MessageBox.Show("Sĩ số học sinh của một lớp không thể vượt quá " + _QuiDinhBus.LaySiSoToiDa().ToString() + "\nBạn phải sửa qui định nếu muốn thêm vào");
                                     break;
                                 }
-                                _ListLopChange[_ListLopChange.Count - 1]._ListLop.Add(_ListLopChange[_ListLopChange.Count - 2]._ListLop[row.Index]);
+                                _ListLopChange[_ListLopChange.Count - 1].ListLop.Add(_ListLopChange[_ListLopChange.Count - 2].ListLop[row.Index]);
                                 RemoveIndex = _ListLopChange.Count - 2;
                             }
                         }
                     }
-                    ListIndexRemove.Add(row.Index);
+                    ListIndexRemove.Add(row.Index); // thêm vị trí học sinh sẽ bị xóa khỏi datagridviewcurrent
                 }
 
                 if (radioButtonPhanLopHoSo_ChuaPhanLop.Checked)
                 {
+                    // xóa (cập nhật) danh sách học sinh chưa phân lớp
                     foreach (int index in ListIndexRemove.OrderByDescending(v => v))
                     {
-                        _ListChuaPhanLopChange[RemoveIndex]._List.RemoveAt(index);
+                        _ListChuaPhanLopChange[RemoveIndex].DanhSachHocSinh.RemoveAt(index);
                     }
                 }
                 else
                 {
+                    // xóa (cập nhật) danh sách học sinh đã phân lớp
                     foreach (int index in ListIndexRemove.OrderByDescending(v => v))
                     {
-                        _ListLopChange[RemoveIndex]._ListLop.RemoveAt(index);
+                        _ListLopChange[RemoveIndex].ListLop.RemoveAt(index);
                     }
                 }
 
-                LoadDataGridViewCurrent();
-                LoadDataGridViewNew();
+                LoadDataGridViewCurrent(); // hiển thị lai danh sách học sinh
+                LoadDataGridViewNew();// hiển thị lai danh sách học sinh
             }
         }
 
+
+        /// <summary>
+        /// Sự kiện: bắt sự kiện khi button Đỗi Chỗ được click
+        /// Chuyển thông tin học sinh được chọn giữa dataGridViewCurrent và học sinh được chọn từ dataGridViewNew và ngược lại.
+        /// </summary>
         private void btnSwap_Click(object sender, EventArgs e)
         {
-            if (comboNamCurrent.Text == comboNamnew.Text && comboKhoiCurrent.Text == comboKhoinew.Text && comboLopCurrent.Text == comboLopnew.Text)
+            // Nếu là học sinh cùng 1 lớp thì không thực hiện được
+            if (comBoBoxNamCurrent.Text == comBoBoxNamHocMoi.Text && comBoBoxKhoiCurrent.Text == comBoBoxKhoiMoi.Text && comBoBoxLopCurrent.Text == comBoBoxLopMoi.Text)
             {
                 MessageBox.Show("Bạn không thể chuyển học sinh trong cùng một lớp", "Error");
             }
             else
             {
-                ICollection<int> ListIndexRemove1 = new List<int>();
+                ICollection<int> ListIndexRemove1 = new List<int>(); // lưu các vị trí học sinh đã chọn trên datagridviewCurrent sẽ bị xóa
                 int RemoveIndex1 = -1;
-                ICollection<int> ListIndexRemove2 = new List<int>();
+                ICollection<int> ListIndexRemove2 = new List<int>();// lưu các vị trí học sinh đã chọn trên datagridviewMoi sẽ bị xóa
                 int RemoveIndex2 = -1;
-                foreach (DataGridViewRow row in dataGridViewcurrent.SelectedRows)
+
+
+                foreach (DataGridViewRow row in dataGridViewCurrent.SelectedRows)
                 {
-                    if (radioButtonPhanLopHoSo_ChuaPhanLop.Checked)
+                    if (radioButtonPhanLopHoSo_ChuaPhanLop.Checked) // xử lý vơi trường hợp danh sách học sinh chưa phân lớp
                     {
-                        int i = CheckExistedInListChuaPhanLopLopChange(comboNamCurrent.Text);
-                        int j = CheckExistedInListLopChange(int.Parse(comboLopnew.Tag.ToString()));
-                        //Đã tồn tại
+                        int i = CheckExistedInListChuaPhanLopLopChange(comBoBoxNamCurrent.Text);
+                        int j = CheckExistedInListLopChange(int.Parse(comBoBoxLopMoi.Tag.ToString()));
+                        //Danh sách hoc sinh chua phan lop đã bị thay đổi
                         if (i != -1)
                         {
-                            //Đã tồn tại
+                            //Lớp có danh sách đã bị thay đổi
                             if (j != -1)
                             {
-                                if (_ListLopChange[j]._ListLop.Count == _QuiDinhBus.LaySiSoToiDa())
+                                if (_ListLopChange[j].ListLop.Count == _QuiDinhBus.LaySiSoToiDa())
                                 {
                                     MessageBox.Show("Sĩ số học sinh của một lớp không thể vượt quá " + _QuiDinhBus.LaySiSoToiDa().ToString() + "\nBạn phải sửa qui định nếu muốn thêm vào");
                                     break;
                                 }
-                                _ListLopChange[j]._ListLop.Add(new usp_SelectHocSinhTheoMALOPResult());
-                                _ListLopChange[j]._ListLop[_ListLopChange[j]._ListLop.Count - 1].MAHOCSINH = _ListChuaPhanLopChange[i]._List[row.Index].MAHOCSINH;
-                                _ListLopChange[j]._ListLop[_ListLopChange[j]._ListLop.Count - 1].HOTEN = _ListChuaPhanLopChange[i]._List[row.Index].HOTEN;
-                                _ListLopChange[j]._ListLop[_ListLopChange[j]._ListLop.Count - 1].EMAIL = _ListChuaPhanLopChange[i]._List[row.Index].EMAIL;
-                                _ListLopChange[j]._ListLop[_ListLopChange[j]._ListLop.Count - 1].DIACHI = _ListChuaPhanLopChange[i]._List[row.Index].DIACHI;
-                                _ListLopChange[j]._ListLop[_ListLopChange[j]._ListLop.Count - 1].NGAYSINH = _ListChuaPhanLopChange[i]._List[row.Index].NGAYSINH;
-                                _ListLopChange[j]._ListLop[_ListLopChange[j]._ListLop.Count - 1].GIOITINH = _ListChuaPhanLopChange[i]._List[row.Index].GIOITINH;
+                                _ListLopChange[j].ListLop.Add(new usp_SelectHocSinhTheoMALOPResult());
+                                // Coder: Tài
+                                // rút ngắn dòng code
+                                copyInformationClassFromAnotherClass(_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1], _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index]);
+                                
+                                //_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1].MAHOCSINH = _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index].MAHOCSINH;
+                                //_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1].HOTEN = _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index].HOTEN;
+                                //_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1].EMAIL = _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index].EMAIL;
+                                //_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1].DIACHI = _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index].DIACHI;
+                                //_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1].NGAYSINH = _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index].NGAYSINH;
+                                //_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1].GIOITINH = _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index].GIOITINH;
                             }
-                            else
+                            else//Lớp có danh sách chưa thay đổi
                             {
-
-                                _ListLopChange.Add(new CLopChange(int.Parse(comboLopnew.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comboLopnew.Tag.ToString()))));
+                                // thêm lớp đó vào danh sách lớp có danh sách học sinh bị thay đổi
+                                _ListLopChange.Add(new CLopChange(int.Parse(comBoBoxLopMoi.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comBoBoxLopMoi.Tag.ToString()))));
                                 int index = _ListLopChange.Count - 1;
-                                if (_ListLopChange[index]._ListLop.Count == _QuiDinhBus.LaySiSoToiDa())
+                                if (_ListLopChange[index].ListLop.Count == _QuiDinhBus.LaySiSoToiDa())
                                 {
                                     MessageBox.Show("Sĩ số học sinh của một lớp không thể vượt quá " + _QuiDinhBus.LaySiSoToiDa().ToString() + "\nBạn phải sửa qui định nếu muốn thêm vào");
                                     break;
                                 }
-                                _ListLopChange[index]._ListLop.Add(new usp_SelectHocSinhTheoMALOPResult());
-                                _ListLopChange[index]._ListLop[_ListLopChange[index]._ListLop.Count - 1].MAHOCSINH = _ListChuaPhanLopChange[i]._List[row.Index].MAHOCSINH;
-                                _ListLopChange[index]._ListLop[_ListLopChange[index]._ListLop.Count - 1].HOTEN = _ListChuaPhanLopChange[i]._List[row.Index].HOTEN;
-                                _ListLopChange[index]._ListLop[_ListLopChange[index]._ListLop.Count - 1].EMAIL = _ListChuaPhanLopChange[i]._List[row.Index].EMAIL;
-                                _ListLopChange[index]._ListLop[_ListLopChange[index]._ListLop.Count - 1].DIACHI = _ListChuaPhanLopChange[i]._List[row.Index].DIACHI;
-                                _ListLopChange[index]._ListLop[_ListLopChange[index]._ListLop.Count - 1].NGAYSINH = _ListChuaPhanLopChange[i]._List[row.Index].NGAYSINH;
-                                _ListLopChange[index]._ListLop[_ListLopChange[index]._ListLop.Count - 1].GIOITINH = _ListChuaPhanLopChange[i]._List[row.Index].GIOITINH;
-                            }
-                            RemoveIndex1 = i;
 
+
+                                _ListLopChange[index].ListLop.Add(new usp_SelectHocSinhTheoMALOPResult()); // thêm học sinh vào lớp 
+                                // Coder: Tài
+                                // rút ngắn dòng code
+                                // cập thông tin học sinh vừa mới thêm vào lớp 
+                                copyInformationClassFromAnotherClass(_ListLopChange[index].ListLop[_ListLopChange[index].ListLop.Count - 1], _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index]);
+
+                                //_ListLopChange[index].ListLop[_ListLopChange[index].ListLop.Count - 1].MAHOCSINH = _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index].MAHOCSINH;
+                                //_ListLopChange[index].ListLop[_ListLopChange[index].ListLop.Count - 1].HOTEN = _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index].HOTEN;
+                                //_ListLopChange[index].ListLop[_ListLopChange[index].ListLop.Count - 1].EMAIL = _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index].EMAIL;
+                                //_ListLopChange[index].ListLop[_ListLopChange[index].ListLop.Count - 1].DIACHI = _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index].DIACHI;
+                                //_ListLopChange[index].ListLop[_ListLopChange[index].ListLop.Count - 1].NGAYSINH = _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index].NGAYSINH;
+                                //_ListLopChange[index].ListLop[_ListLopChange[index].ListLop.Count - 1].GIOITINH = _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index].GIOITINH;
+                            }
+
+                            RemoveIndex1 = i; // vị trí hoc sinh sẽ bị xóa khỏi datagridviewcurrent
                         }
-                        else
+                        else // danh sách chưa bị thay đổi
                         {
-                            _ListChuaPhanLopChange.Add(new CChuaPhanLopChange(comboNamCurrent.Text, LoadDanhSachHocSinhChuaPhanLop(comboNamCurrent.Text)));
+                            _ListChuaPhanLopChange.Add(new CChuaPhanLopChange(comBoBoxNamCurrent.Text, LoadDanhSachHocSinhChuaPhanLop(comBoBoxNamCurrent.Text)));
                             int index = _ListChuaPhanLopChange.Count - 1;
-                            //Đã tồn tại
+                            //Lớp có danh sách bị thay đổi 
                             if (j != -1)
                             {
-                                if (_ListLopChange[j]._ListLop.Count == _QuiDinhBus.LaySiSoToiDa())
+                                if (_ListLopChange[j].ListLop.Count == _QuiDinhBus.LaySiSoToiDa())
                                 {
                                     MessageBox.Show("Sĩ số học sinh của một lớp không thể vượt quá " + _QuiDinhBus.LaySiSoToiDa().ToString() + "\nBạn phải sửa qui định nếu muốn thêm vào");
                                     break;
                                 }
-                                _ListLopChange[j]._ListLop.Add(new usp_SelectHocSinhTheoMALOPResult());
-                                _ListLopChange[j]._ListLop[_ListLopChange[j]._ListLop.Count - 1].MAHOCSINH = _ListChuaPhanLopChange[index]._List[row.Index].MAHOCSINH;
-                                _ListLopChange[j]._ListLop[_ListLopChange[j]._ListLop.Count - 1].HOTEN = _ListChuaPhanLopChange[index]._List[row.Index].HOTEN;
-                                _ListLopChange[j]._ListLop[_ListLopChange[j]._ListLop.Count - 1].EMAIL = _ListChuaPhanLopChange[index]._List[row.Index].EMAIL;
-                                _ListLopChange[j]._ListLop[_ListLopChange[j]._ListLop.Count - 1].DIACHI = _ListChuaPhanLopChange[index]._List[row.Index].DIACHI;
-                                _ListLopChange[j]._ListLop[_ListLopChange[j]._ListLop.Count - 1].NGAYSINH = _ListChuaPhanLopChange[index]._List[row.Index].NGAYSINH;
-                                _ListLopChange[j]._ListLop[_ListLopChange[j]._ListLop.Count - 1].GIOITINH = _ListChuaPhanLopChange[index]._List[row.Index].GIOITINH;
+                                _ListLopChange[j].ListLop.Add(new usp_SelectHocSinhTheoMALOPResult());
+                                // Coder: Tài
+                                // rút ngắn dòng code
+                                copyInformationClassFromAnotherClass(_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1], _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index]);
+                                
+                                //_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1].MAHOCSINH = _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index].MAHOCSINH;
+                                //_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1].HOTEN = _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index].HOTEN;
+                                //_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1].EMAIL = _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index].EMAIL;
+                                //_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1].DIACHI = _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index].DIACHI;
+                                //_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1].NGAYSINH = _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index].NGAYSINH;
+                                //_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1].GIOITINH = _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index].GIOITINH;
                             }
-                            else
+                            else//Lớp có danh sách chưa thay đổi 
                             {
-                                _ListLopChange.Add(new CLopChange(int.Parse(comboLopnew.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comboLopnew.Tag.ToString()))));
+                                // thêm lớp đó vào danh sách lớp có danh sách học sinh bị thay đổi
+                                _ListLopChange.Add(new CLopChange(int.Parse(comBoBoxLopMoi.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comBoBoxLopMoi.Tag.ToString()))));
                                 int index2 = _ListLopChange.Count - 1;
 
-                                if (_ListLopChange[index2]._ListLop.Count == _QuiDinhBus.LaySiSoToiDa())
+                                if (_ListLopChange[index2].ListLop.Count == _QuiDinhBus.LaySiSoToiDa())
                                 {
                                     MessageBox.Show("Sĩ số học sinh của một lớp không thể vượt quá " + _QuiDinhBus.LaySiSoToiDa().ToString() + "\nBạn phải sửa qui định nếu muốn thêm vào");
                                     break;
                                 }
-                                _ListLopChange[index2]._ListLop.Add(new usp_SelectHocSinhTheoMALOPResult());
-                                _ListLopChange[index2]._ListLop[_ListLopChange[index2]._ListLop.Count - 1].MAHOCSINH = _ListChuaPhanLopChange[index]._List[row.Index].MAHOCSINH;
-                                _ListLopChange[index2]._ListLop[_ListLopChange[index2]._ListLop.Count - 1].HOTEN = _ListChuaPhanLopChange[index]._List[row.Index].HOTEN;
-                                _ListLopChange[index2]._ListLop[_ListLopChange[index2]._ListLop.Count - 1].EMAIL = _ListChuaPhanLopChange[index]._List[row.Index].EMAIL;
-                                _ListLopChange[index2]._ListLop[_ListLopChange[index2]._ListLop.Count - 1].DIACHI = _ListChuaPhanLopChange[index]._List[row.Index].DIACHI;
-                                _ListLopChange[index2]._ListLop[_ListLopChange[index2]._ListLop.Count - 1].NGAYSINH = _ListChuaPhanLopChange[index]._List[row.Index].NGAYSINH;
-                                _ListLopChange[index2]._ListLop[_ListLopChange[index2]._ListLop.Count - 1].GIOITINH = _ListChuaPhanLopChange[index]._List[row.Index].GIOITINH;
+                                _ListLopChange[index2].ListLop.Add(new usp_SelectHocSinhTheoMALOPResult());
+                                // Coder: Tài
+                                // rút ngắn dòng code
+                                copyInformationClassFromAnotherClass(_ListLopChange[index2].ListLop[_ListLopChange[index2].ListLop.Count - 1], _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index]);
+
+                                //_ListLopChange[index2].ListLop[_ListLopChange[index2].ListLop.Count - 1].MAHOCSINH = _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index].MAHOCSINH;
+                                //_ListLopChange[index2].ListLop[_ListLopChange[index2].ListLop.Count - 1].HOTEN = _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index].HOTEN;
+                                //_ListLopChange[index2].ListLop[_ListLopChange[index2].ListLop.Count - 1].EMAIL = _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index].EMAIL;
+                                //_ListLopChange[index2].ListLop[_ListLopChange[index2].ListLop.Count - 1].DIACHI = _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index].DIACHI;
+                                //_ListLopChange[index2].ListLop[_ListLopChange[index2].ListLop.Count - 1].NGAYSINH = _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index].NGAYSINH;
+                                //_ListLopChange[index2].ListLop[_ListLopChange[index2].ListLop.Count - 1].GIOITINH = _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index].GIOITINH;
                             }
                             RemoveIndex1 = index;
                         }
                     }
-                    else
+                    else// xử lý vơi trường hợp danh sách học sinh đã phân lớp
                     {
-                        int i = CheckExistedInListLopChange(int.Parse(comboLopCurrent.Tag.ToString()));
-                        int j = CheckExistedInListLopChange(int.Parse(comboLopnew.Tag.ToString()));
-                        if (i != -1)
+                        int i = CheckExistedInListLopChange(int.Parse(comBoBoxLopCurrent.Tag.ToString()));
+                        int j = CheckExistedInListLopChange(int.Parse(comBoBoxLopMoi.Tag.ToString()));
+                        if (i != -1) // danh sách học sinh bên lớp current đã bị thay đổi
                         {
-                            if (j != -1)
+                            if (j != -1) // danh sách học sinh bên lớp mới đã bị thay đổi
                             {
-                                if (_ListLopChange[j]._ListLop.Count == _QuiDinhBus.LaySiSoToiDa())
+                                if (_ListLopChange[j].ListLop.Count == _QuiDinhBus.LaySiSoToiDa())
                                 {
                                     MessageBox.Show("Sĩ số học sinh của một lớp không thể vượt quá " + _QuiDinhBus.LaySiSoToiDa().ToString() + "\nBạn phải sửa qui định nếu muốn thêm vào");
                                     break;
                                 }
-                                _ListLopChange[j]._ListLop.Add(_ListLopChange[i]._ListLop[row.Index]);
+                                _ListLopChange[j].ListLop.Add(_ListLopChange[i].ListLop[row.Index]);
                             }
-                            else
+                            else // danh sách học sinh bên lớp mởi chưa thay đổi
                             {
 
-                                _ListLopChange.Add(new CLopChange(int.Parse(comboLopnew.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comboLopnew.Tag.ToString()))));
-                                if (_ListLopChange[_ListLopChange.Count - 1]._ListLop.Count == _QuiDinhBus.LaySiSoToiDa())
+                                _ListLopChange.Add(new CLopChange(int.Parse(comBoBoxLopMoi.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comBoBoxLopMoi.Tag.ToString()))));
+                                if (_ListLopChange[_ListLopChange.Count - 1].ListLop.Count == _QuiDinhBus.LaySiSoToiDa())
                                 {
                                     MessageBox.Show("Sĩ số học sinh của một lớp không thể vượt quá " + _QuiDinhBus.LaySiSoToiDa().ToString() + "\nBạn phải sửa qui định nếu muốn thêm vào");
                                     break;
                                 }
-                                _ListLopChange[_ListLopChange.Count - 1]._ListLop.Add(_ListLopChange[i]._ListLop[row.Index]);
+                                _ListLopChange[_ListLopChange.Count - 1].ListLop.Add(_ListLopChange[i].ListLop[row.Index]);
                             }
                             RemoveIndex1 = i;
                         }
-                        else
+                        else // danh sách học sinh bên lớp current chưa thay đổi
                         {
                             if (j != -1)
                             {
-                                List<usp_SelectHocSinhTheoMALOPResult> temp = LoadDanhSachHocSinhTheoMaLop(int.Parse(comboLopCurrent.Tag.ToString()));
-                                _ListLopChange.Add(new CLopChange(int.Parse(comboLopCurrent.Tag.ToString()), temp));
-                                if (_ListLopChange[j]._ListLop.Count == _QuiDinhBus.LaySiSoToiDa())
+                                List<usp_SelectHocSinhTheoMALOPResult> temp = LoadDanhSachHocSinhTheoMaLop(int.Parse(comBoBoxLopCurrent.Tag.ToString()));
+                                _ListLopChange.Add(new CLopChange(int.Parse(comBoBoxLopCurrent.Tag.ToString()), temp));
+                                if (_ListLopChange[j].ListLop.Count == _QuiDinhBus.LaySiSoToiDa())
                                 {
                                     MessageBox.Show("Sĩ số học sinh của một lớp không thể vượt quá " + _QuiDinhBus.LaySiSoToiDa().ToString() + "\nBạn phải sửa qui định nếu muốn thêm vào");
                                     break;
                                 }
-                                _ListLopChange[j]._ListLop.Add(temp[row.Index]);
+                                _ListLopChange[j].ListLop.Add(temp[row.Index]);
                                 RemoveIndex1 = _ListLopChange.Count - 1;
                             }
                             else
                             {
-                                _ListLopChange.Add(new CLopChange(int.Parse(comboLopCurrent.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comboLopCurrent.Tag.ToString()))));
-                                _ListLopChange.Add(new CLopChange(int.Parse(comboLopnew.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comboLopnew.Tag.ToString()))));
-                                if (_ListLopChange[_ListLopChange.Count - 1]._ListLop.Count == _QuiDinhBus.LaySiSoToiDa())
+                                _ListLopChange.Add(new CLopChange(int.Parse(comBoBoxLopCurrent.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comBoBoxLopCurrent.Tag.ToString()))));
+                                _ListLopChange.Add(new CLopChange(int.Parse(comBoBoxLopMoi.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comBoBoxLopMoi.Tag.ToString()))));
+                                if (_ListLopChange[_ListLopChange.Count - 1].ListLop.Count == _QuiDinhBus.LaySiSoToiDa())
                                 {
                                     MessageBox.Show("Sĩ số học sinh của một lớp không thể vượt quá " + _QuiDinhBus.LaySiSoToiDa().ToString() + "\nBạn phải sửa qui định nếu muốn thêm vào");
                                     break;
                                 }
-                                _ListLopChange[_ListLopChange.Count - 1]._ListLop.Add(_ListLopChange[_ListLopChange.Count - 2]._ListLop[row.Index]);
+                                _ListLopChange[_ListLopChange.Count - 1].ListLop.Add(_ListLopChange[_ListLopChange.Count - 2].ListLop[row.Index]);
                                 RemoveIndex1 = _ListLopChange.Count - 2;
                             }
                         }
                     }
-                    ListIndexRemove1.Add(row.Index);
+                    ListIndexRemove1.Add(row.Index); // thêm vị trí học sinh đã chọn trên datagridviewcurrent
                 }
 
-                foreach (DataGridViewRow row in dataGridViewnew.SelectedRows)
+                foreach (DataGridViewRow row in dataGridViewNew.SelectedRows)
                 {
 
                     if (radioButtonPhanLopHoSo_ChuaPhanLop.Checked)
                     {
-                        int i = CheckExistedInListChuaPhanLopLopChange(comboNamCurrent.Text);
-                        int j = CheckExistedInListLopChange(int.Parse(comboLopnew.Tag.ToString()));
+                        int i = CheckExistedInListChuaPhanLopLopChange(comBoBoxNamCurrent.Text);
+                        int j = CheckExistedInListLopChange(int.Parse(comBoBoxLopMoi.Tag.ToString()));
                         //Đã tồn tại
                         if (i != -1)
                         {
                             //Đã tồn tại
                             if (j != -1)
                             {
-                                _ListChuaPhanLopChange[i]._List.Add(new usp_SelectHocSinhChuaPhanLopResult());
-                                _ListChuaPhanLopChange[i]._List[_ListChuaPhanLopChange[i]._List.Count - 1].MAHOCSINH = _ListLopChange[j]._ListLop[row.Index].MAHOCSINH;
-                                _ListChuaPhanLopChange[i]._List[_ListChuaPhanLopChange[i]._List.Count - 1].HOTEN = _ListLopChange[j]._ListLop[row.Index].HOTEN;
-                                _ListChuaPhanLopChange[i]._List[_ListChuaPhanLopChange[i]._List.Count - 1].EMAIL = _ListLopChange[j]._ListLop[row.Index].EMAIL;
-                                _ListChuaPhanLopChange[i]._List[_ListChuaPhanLopChange[i]._List.Count - 1].NGAYSINH = _ListLopChange[j]._ListLop[row.Index].NGAYSINH;
-                                _ListChuaPhanLopChange[i]._List[_ListChuaPhanLopChange[i]._List.Count - 1].DIACHI = _ListLopChange[j]._ListLop[row.Index].DIACHI;
-                                _ListChuaPhanLopChange[i]._List[_ListChuaPhanLopChange[i]._List.Count - 1].GIOITINH = _ListLopChange[j]._ListLop[row.Index].GIOITINH;
+                                _ListChuaPhanLopChange[i].DanhSachHocSinh.Add(new usp_SelectHocSinhChuaPhanLopResult());
+                                // Coder: Tài
+                                // rút ngắn dòng code
+                                copyInformationClassFromAnotherClass(_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1], _ListLopChange[j].ListLop[row.Index]);
+                                
+                                //_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1].MAHOCSINH = _ListLopChange[j].ListLop[row.Index].MAHOCSINH;
+                                //_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1].HOTEN = _ListLopChange[j].ListLop[row.Index].HOTEN;
+                                //_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1].EMAIL = _ListLopChange[j].ListLop[row.Index].EMAIL;
+                                //_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1].NGAYSINH = _ListLopChange[j].ListLop[row.Index].NGAYSINH;
+                                //_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1].DIACHI = _ListLopChange[j].ListLop[row.Index].DIACHI;
+                                //_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1].GIOITINH = _ListLopChange[j].ListLop[row.Index].GIOITINH;
                                 RemoveIndex2 = j;
                             }
                             else
                             {
-                                _ListLopChange.Add(new CLopChange(int.Parse(comboLopnew.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comboLopnew.Tag.ToString()))));
-                                _ListChuaPhanLopChange[i]._List.Add(new usp_SelectHocSinhChuaPhanLopResult());
-                                _ListChuaPhanLopChange[i]._List[_ListChuaPhanLopChange[i]._List.Count - 1].MAHOCSINH = _ListLopChange[_ListLopChange.Count - 1]._ListLop[row.Index].MAHOCSINH;
-                                _ListChuaPhanLopChange[i]._List[_ListChuaPhanLopChange[i]._List.Count - 1].HOTEN = _ListLopChange[_ListLopChange.Count - 1]._ListLop[row.Index].HOTEN;
-                                _ListChuaPhanLopChange[i]._List[_ListChuaPhanLopChange[i]._List.Count - 1].EMAIL = _ListLopChange[_ListLopChange.Count - 1]._ListLop[row.Index].EMAIL;
-                                _ListChuaPhanLopChange[i]._List[_ListChuaPhanLopChange[i]._List.Count - 1].NGAYSINH = _ListLopChange[_ListLopChange.Count - 1]._ListLop[row.Index].NGAYSINH;
-                                _ListChuaPhanLopChange[i]._List[_ListChuaPhanLopChange[i]._List.Count - 1].DIACHI = _ListLopChange[_ListLopChange.Count - 1]._ListLop[row.Index].DIACHI;
-                                _ListChuaPhanLopChange[i]._List[_ListChuaPhanLopChange[i]._List.Count - 1].GIOITINH = _ListLopChange[_ListLopChange.Count - 1]._ListLop[row.Index].GIOITINH;
+                                _ListLopChange.Add(new CLopChange(int.Parse(comBoBoxLopMoi.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comBoBoxLopMoi.Tag.ToString()))));
+                                _ListChuaPhanLopChange[i].DanhSachHocSinh.Add(new usp_SelectHocSinhChuaPhanLopResult());
+                                // Coder: Tài
+                                // rút ngắn dòng code
+                                copyInformationClassFromAnotherClass(_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1], _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index]);
+
+                                //_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1].MAHOCSINH = _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index].MAHOCSINH;
+                                //_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1].HOTEN = _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index].HOTEN;
+                                //_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1].EMAIL = _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index].EMAIL;
+                                //_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1].NGAYSINH = _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index].NGAYSINH;
+                                //_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1].DIACHI = _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index].DIACHI;
+                                //_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1].GIOITINH = _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index].GIOITINH;
                                 RemoveIndex2 = _ListLopChange.Count - 1;
                             }
 
@@ -599,58 +750,66 @@ namespace frMain
                         {
                             if (j != -1)
                             {
-                                _ListChuaPhanLopChange.Add(new CChuaPhanLopChange(comboNamCurrent.Text, LoadDanhSachHocSinhChuaPhanLop(comboNamCurrent.Text)));
-                                _ListChuaPhanLopChange[_ListChuaPhanLopChange.Count - 1]._List.Add(new usp_SelectHocSinhChuaPhanLopResult());
+                                _ListChuaPhanLopChange.Add(new CChuaPhanLopChange(comBoBoxNamCurrent.Text, LoadDanhSachHocSinhChuaPhanLop(comBoBoxNamCurrent.Text)));
+                                _ListChuaPhanLopChange[_ListChuaPhanLopChange.Count - 1].DanhSachHocSinh.Add(new usp_SelectHocSinhChuaPhanLopResult());
                                 int index = _ListChuaPhanLopChange.Count - 1;
-                                _ListChuaPhanLopChange[index]._List[_ListChuaPhanLopChange[index]._List.Count - 1].MAHOCSINH = _ListLopChange[j]._ListLop[row.Index].MAHOCSINH;
-                                _ListChuaPhanLopChange[index]._List[_ListChuaPhanLopChange[index]._List.Count - 1].HOTEN = _ListLopChange[j]._ListLop[row.Index].HOTEN;
-                                _ListChuaPhanLopChange[index]._List[_ListChuaPhanLopChange[index]._List.Count - 1].EMAIL = _ListLopChange[j]._ListLop[row.Index].EMAIL;
-                                _ListChuaPhanLopChange[index]._List[_ListChuaPhanLopChange[index]._List.Count - 1].NGAYSINH = _ListLopChange[j]._ListLop[row.Index].NGAYSINH;
-                                _ListChuaPhanLopChange[index]._List[_ListChuaPhanLopChange[index]._List.Count - 1].DIACHI = _ListLopChange[j]._ListLop[row.Index].DIACHI;
-                                _ListChuaPhanLopChange[index]._List[_ListChuaPhanLopChange[index]._List.Count - 1].GIOITINH = _ListLopChange[j]._ListLop[row.Index].GIOITINH;
+                                // Coder: Tài
+                                // rút ngắn dòng code
+                                copyInformationClassFromAnotherClass(_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1], _ListLopChange[j].ListLop[row.Index]);
+                                
+                                //_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1].MAHOCSINH = _ListLopChange[j].ListLop[row.Index].MAHOCSINH;
+                                //_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1].HOTEN = _ListLopChange[j].ListLop[row.Index].HOTEN;
+                                //_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1].EMAIL = _ListLopChange[j].ListLop[row.Index].EMAIL;
+                                //_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1].NGAYSINH = _ListLopChange[j].ListLop[row.Index].NGAYSINH;
+                                //_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1].DIACHI = _ListLopChange[j].ListLop[row.Index].DIACHI;
+                                //_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1].GIOITINH = _ListLopChange[j].ListLop[row.Index].GIOITINH;
                                 RemoveIndex2 = j;
                             }
                             else
                             {
-                                _ListLopChange.Add(new CLopChange(int.Parse(comboLopnew.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comboLopnew.Tag.ToString()))));
-                                _ListChuaPhanLopChange.Add(new CChuaPhanLopChange(comboNamCurrent.Text, LoadDanhSachHocSinhChuaPhanLop(comboNamCurrent.Text)));
+                                _ListLopChange.Add(new CLopChange(int.Parse(comBoBoxLopMoi.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comBoBoxLopMoi.Tag.ToString()))));
+                                _ListChuaPhanLopChange.Add(new CChuaPhanLopChange(comBoBoxNamCurrent.Text, LoadDanhSachHocSinhChuaPhanLop(comBoBoxNamCurrent.Text)));
                                 int index = _ListChuaPhanLopChange.Count - 1;
-                                _ListChuaPhanLopChange[index]._List.Add(new usp_SelectHocSinhChuaPhanLopResult());
-                                _ListChuaPhanLopChange[index]._List[_ListChuaPhanLopChange[index]._List.Count - 1].MAHOCSINH = _ListLopChange[_ListLopChange.Count - 1]._ListLop[row.Index].MAHOCSINH;
-                                _ListChuaPhanLopChange[index]._List[_ListChuaPhanLopChange[index]._List.Count - 1].HOTEN = _ListLopChange[_ListLopChange.Count - 1]._ListLop[row.Index].HOTEN;
-                                _ListChuaPhanLopChange[index]._List[_ListChuaPhanLopChange[index]._List.Count - 1].EMAIL = _ListLopChange[_ListLopChange.Count - 1]._ListLop[row.Index].EMAIL;
-                                _ListChuaPhanLopChange[index]._List[_ListChuaPhanLopChange[index]._List.Count - 1].NGAYSINH = _ListLopChange[_ListLopChange.Count - 1]._ListLop[row.Index].NGAYSINH;
-                                _ListChuaPhanLopChange[index]._List[_ListChuaPhanLopChange[index]._List.Count - 1].DIACHI = _ListLopChange[_ListLopChange.Count - 1]._ListLop[row.Index].DIACHI;
-                                _ListChuaPhanLopChange[index]._List[_ListChuaPhanLopChange[index]._List.Count - 1].GIOITINH = _ListLopChange[_ListLopChange.Count - 1]._ListLop[row.Index].GIOITINH;
+                                _ListChuaPhanLopChange[index].DanhSachHocSinh.Add(new usp_SelectHocSinhChuaPhanLopResult());
+                                // Coder: Tài
+                                // rút ngắn dòng code
+                                copyInformationClassFromAnotherClass(_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1], _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index]);
+                                
+                                //_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1].MAHOCSINH = _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index].MAHOCSINH;
+                                //_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1].HOTEN = _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index].HOTEN;
+                                //_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1].EMAIL = _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index].EMAIL;
+                                //_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1].NGAYSINH = _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index].NGAYSINH;
+                                //_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1].DIACHI = _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index].DIACHI;
+                                //_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1].GIOITINH = _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index].GIOITINH;
                                 RemoveIndex2 = _ListLopChange.Count - 1;
                             }
                         }
                     }
                     else
                     {
-                        int i = CheckExistedInListLopChange(int.Parse(comboLopCurrent.Tag.ToString()));
-                        int j = CheckExistedInListLopChange(int.Parse(comboLopnew.Tag.ToString()));
+                        int i = CheckExistedInListLopChange(int.Parse(comBoBoxLopCurrent.Tag.ToString()));
+                        int j = CheckExistedInListLopChange(int.Parse(comBoBoxLopMoi.Tag.ToString()));
                         if (i != -1)
                         {
                             if (j != -1)
                             {
-                                if (_ListLopChange[i]._ListLop.Count >= _QuiDinhBus.LaySiSoToiDa())
+                                if (_ListLopChange[i].ListLop.Count >= _QuiDinhBus.LaySiSoToiDa())
                                 {
                                     MessageBox.Show("Sĩ số học sinh của một lớp không thể vượt quá " + _QuiDinhBus.LaySiSoToiDa().ToString() + "\nBạn phải sửa qui định nếu muốn thêm vào");
                                     break;
                                 }
-                                _ListLopChange[i]._ListLop.Add(_ListLopChange[j]._ListLop[row.Index]);
+                                _ListLopChange[i].ListLop.Add(_ListLopChange[j].ListLop[row.Index]);
                                 RemoveIndex2 = j;
                             }
                             else
                             {
-                                _ListLopChange.Add(new CLopChange(int.Parse(comboLopnew.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comboLopnew.Tag.ToString()))));
-                                if (_ListLopChange[i]._ListLop.Count >= _QuiDinhBus.LaySiSoToiDa())
+                                _ListLopChange.Add(new CLopChange(int.Parse(comBoBoxLopMoi.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comBoBoxLopMoi.Tag.ToString()))));
+                                if (_ListLopChange[i].ListLop.Count >= _QuiDinhBus.LaySiSoToiDa())
                                 {
                                     MessageBox.Show("Sĩ số học sinh của một lớp không thể vượt quá " + _QuiDinhBus.LaySiSoToiDa().ToString() + "\nBạn phải sửa qui định nếu muốn thêm vào");
                                     break;
                                 }
-                                _ListLopChange[i]._ListLop.Add(_ListLopChange[_ListLopChange.Count - 1]._ListLop[row.Index]);
+                                _ListLopChange[i].ListLop.Add(_ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index]);
                                 RemoveIndex2 = _ListLopChange.Count - 1;
                             }
                         }
@@ -658,26 +817,26 @@ namespace frMain
                         {
                             if (j != -1)
                             {
-                                List<usp_SelectHocSinhTheoMALOPResult> temp = LoadDanhSachHocSinhTheoMaLop(int.Parse(comboLopCurrent.Tag.ToString()));
-                                _ListLopChange.Add(new CLopChange(int.Parse(comboLopCurrent.Tag.ToString()), temp));
-                                if (_ListLopChange[_ListLopChange.Count - 1]._ListLop.Count >= _QuiDinhBus.LaySiSoToiDa())
+                                List<usp_SelectHocSinhTheoMALOPResult> temp = LoadDanhSachHocSinhTheoMaLop(int.Parse(comBoBoxLopCurrent.Tag.ToString()));
+                                _ListLopChange.Add(new CLopChange(int.Parse(comBoBoxLopCurrent.Tag.ToString()), temp));
+                                if (_ListLopChange[_ListLopChange.Count - 1].ListLop.Count >= _QuiDinhBus.LaySiSoToiDa())
                                 {
                                     MessageBox.Show("Sĩ số học sinh của một lớp không thể vượt quá " + _QuiDinhBus.LaySiSoToiDa().ToString() + "\nBạn phải sửa qui định nếu muốn thêm vào");
                                     break;
                                 }
-                                _ListLopChange[_ListLopChange.Count - 1]._ListLop.Add(_ListLopChange[j]._ListLop[row.Index]);
+                                _ListLopChange[_ListLopChange.Count - 1].ListLop.Add(_ListLopChange[j].ListLop[row.Index]);
                                 RemoveIndex2 = j;
                             }
                             else
                             {
-                                _ListLopChange.Add(new CLopChange(int.Parse(comboLopnew.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comboLopnew.Tag.ToString()))));
-                                _ListLopChange.Add(new CLopChange(int.Parse(comboLopCurrent.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comboLopCurrent.Tag.ToString()))));
-                                if (_ListLopChange[_ListLopChange.Count - 1]._ListLop.Count >= _QuiDinhBus.LaySiSoToiDa())
+                                _ListLopChange.Add(new CLopChange(int.Parse(comBoBoxLopMoi.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comBoBoxLopMoi.Tag.ToString()))));
+                                _ListLopChange.Add(new CLopChange(int.Parse(comBoBoxLopCurrent.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comBoBoxLopCurrent.Tag.ToString()))));
+                                if (_ListLopChange[_ListLopChange.Count - 1].ListLop.Count >= _QuiDinhBus.LaySiSoToiDa())
                                 {
                                     MessageBox.Show("Sĩ số học sinh của một lớp không thể vượt quá " + _QuiDinhBus.LaySiSoToiDa().ToString() + "\nBạn phải sửa qui định nếu muốn thêm vào");
                                     break;
                                 }
-                                _ListLopChange[_ListLopChange.Count - 1]._ListLop.Add(_ListLopChange[_ListLopChange.Count - 2]._ListLop[row.Index]);
+                                _ListLopChange[_ListLopChange.Count - 1].ListLop.Add(_ListLopChange[_ListLopChange.Count - 2].ListLop[row.Index]);
                                 RemoveIndex2 = _ListLopChange.Count - 2;
                             }
                         }
@@ -689,23 +848,23 @@ namespace frMain
                 {
                     foreach (int index in ListIndexRemove1.OrderByDescending(v => v))
                     {
-                        _ListChuaPhanLopChange[RemoveIndex1]._List.RemoveAt(index);
+                        _ListChuaPhanLopChange[RemoveIndex1].DanhSachHocSinh.RemoveAt(index);
                     }
                     foreach (int index in ListIndexRemove2.OrderByDescending(v => v))
                     {
-                        _ListLopChange[RemoveIndex2]._ListLop.RemoveAt(index);
+                        _ListLopChange[RemoveIndex2].ListLop.RemoveAt(index);
                     }
                 }
                 else
                 {
                     foreach (int index in ListIndexRemove1.OrderByDescending(v => v))
                     {
-                        _ListLopChange[RemoveIndex1]._ListLop.RemoveAt(index);
+                        _ListLopChange[RemoveIndex1].ListLop.RemoveAt(index);
                     }
 
                     foreach (int index in ListIndexRemove2.OrderByDescending(v => v))
                     {
-                        _ListLopChange[RemoveIndex2]._ListLop.RemoveAt(index);
+                        _ListLopChange[RemoveIndex2].ListLop.RemoveAt(index);
                     }
                 }
 
@@ -715,108 +874,127 @@ namespace frMain
             }
         }
 
+        /// <summary>
+        /// Sự kiện: bắt sự kiện khi button Bỏ được click
+        /// chuyển học sinh đang được phân lớp sang chưa phân lớp (ứng với radioButtonChuyenLopCungKhoi đã được check) hoặc chuyễn giữa lớp nay sang lớp khác (ứng với radioButtonPhanLopHoSo_ChuaPhanLop đã được chọn) 
+        /// </summary>
         private void btnRemove_Click(object sender, EventArgs e) //Remove HS
         {
-            if (comboNamCurrent.Text == comboNamnew.Text && comboKhoiCurrent.Text == comboKhoinew.Text && comboLopCurrent.Text == comboLopnew.Text)
+            if (comBoBoxNamCurrent.Text == comBoBoxNamHocMoi.Text && comBoBoxKhoiCurrent.Text == comBoBoxKhoiMoi.Text && comBoBoxLopCurrent.Text == comBoBoxLopMoi.Text)
             {
                 MessageBox.Show("Bạn không thể chuyển học sinh trong cùng một lớp", "Error");
             }
             else
             {
-                ICollection<int> ListIndexRemove = new List<int>();
+                ICollection<int> ListIndexRemove = new List<int>(); // lưu vị trí các dòng học sinh được chọn trên datagridviewMoi
                 int RemoveIndex = -1;
-                foreach (DataGridViewRow row in dataGridViewnew.SelectedRows)
+                foreach (DataGridViewRow row in dataGridViewNew.SelectedRows)
                 {
 
-                    if (radioButtonPhanLopHoSo_ChuaPhanLop.Checked)
+                    if (radioButtonPhanLopHoSo_ChuaPhanLop.Checked) // xử lý cho trường hợp DSHS chưa phân lớp
                     {
-                        int i = CheckExistedInListChuaPhanLopLopChange(comboNamCurrent.Text);
-                        int j = CheckExistedInListLopChange(int.Parse(comboLopnew.Tag.ToString()));
-                        //Đã tồn tại
+                        int i = CheckExistedInListChuaPhanLopLopChange(comBoBoxNamCurrent.Text);
+                        int j = CheckExistedInListLopChange(int.Parse(comBoBoxLopMoi.Tag.ToString()));
+                        // DSHS chưa phân lớp đã bị thay đổi
                         if (i != -1)
                         {
-                            //Đã tồn tại
+                            //Lớp có DSHS bị thay đổi
                             if (j != -1)
                             {
-                                _ListChuaPhanLopChange[i]._List.Add(new usp_SelectHocSinhChuaPhanLopResult());
-                                _ListChuaPhanLopChange[i]._List[_ListChuaPhanLopChange[i]._List.Count - 1].MAHOCSINH = _ListLopChange[j]._ListLop[row.Index].MAHOCSINH;
-                                _ListChuaPhanLopChange[i]._List[_ListChuaPhanLopChange[i]._List.Count - 1].HOTEN = _ListLopChange[j]._ListLop[row.Index].HOTEN;
-                                _ListChuaPhanLopChange[i]._List[_ListChuaPhanLopChange[i]._List.Count - 1].EMAIL = _ListLopChange[j]._ListLop[row.Index].EMAIL;
-                                _ListChuaPhanLopChange[i]._List[_ListChuaPhanLopChange[i]._List.Count - 1].NGAYSINH = _ListLopChange[j]._ListLop[row.Index].NGAYSINH;
-                                _ListChuaPhanLopChange[i]._List[_ListChuaPhanLopChange[i]._List.Count - 1].DIACHI = _ListLopChange[j]._ListLop[row.Index].DIACHI;
-                                _ListChuaPhanLopChange[i]._List[_ListChuaPhanLopChange[i]._List.Count - 1].GIOITINH = _ListLopChange[j]._ListLop[row.Index].GIOITINH;
+                                _ListChuaPhanLopChange[i].DanhSachHocSinh.Add(new usp_SelectHocSinhChuaPhanLopResult());
+                                // Coder: Tài
+                                // rút ngắn dòng code
+                                copyInformationClassFromAnotherClass(_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1], _ListLopChange[j].ListLop[row.Index]);
+
+                                //_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1].MAHOCSINH = _ListLopChange[j].ListLop[row.Index].MAHOCSINH;
+                                //_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1].HOTEN = _ListLopChange[j].ListLop[row.Index].HOTEN;
+                                //_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1].EMAIL = _ListLopChange[j].ListLop[row.Index].EMAIL;
+                                //_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1].NGAYSINH = _ListLopChange[j].ListLop[row.Index].NGAYSINH;
+                                //_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1].DIACHI = _ListLopChange[j].ListLop[row.Index].DIACHI;
+                                //_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1].GIOITINH = _ListLopChange[j].ListLop[row.Index].GIOITINH;
                                 RemoveIndex = j;
                             }
-                            else
+                            else//Lớp có DSHS chưa thay đổi
                             {
-                                _ListLopChange.Add(new CLopChange(int.Parse(comboLopnew.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comboLopnew.Tag.ToString()))));
-                                _ListChuaPhanLopChange[i]._List.Add(new usp_SelectHocSinhChuaPhanLopResult());
-                                _ListChuaPhanLopChange[i]._List[_ListChuaPhanLopChange[i]._List.Count - 1].MAHOCSINH = _ListLopChange[_ListLopChange.Count - 1]._ListLop[row.Index].MAHOCSINH;
-                                _ListChuaPhanLopChange[i]._List[_ListChuaPhanLopChange[i]._List.Count - 1].HOTEN = _ListLopChange[_ListLopChange.Count - 1]._ListLop[row.Index].HOTEN;
-                                _ListChuaPhanLopChange[i]._List[_ListChuaPhanLopChange[i]._List.Count - 1].EMAIL = _ListLopChange[_ListLopChange.Count - 1]._ListLop[row.Index].EMAIL;
-                                _ListChuaPhanLopChange[i]._List[_ListChuaPhanLopChange[i]._List.Count - 1].NGAYSINH = _ListLopChange[_ListLopChange.Count - 1]._ListLop[row.Index].NGAYSINH;
-                                _ListChuaPhanLopChange[i]._List[_ListChuaPhanLopChange[i]._List.Count - 1].DIACHI = _ListLopChange[_ListLopChange.Count - 1]._ListLop[row.Index].DIACHI;
-                                _ListChuaPhanLopChange[i]._List[_ListChuaPhanLopChange[i]._List.Count - 1].GIOITINH = _ListLopChange[_ListLopChange.Count - 1]._ListLop[row.Index].GIOITINH;
+                                _ListLopChange.Add(new CLopChange(int.Parse(comBoBoxLopMoi.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comBoBoxLopMoi.Tag.ToString()))));
+                                _ListChuaPhanLopChange[i].DanhSachHocSinh.Add(new usp_SelectHocSinhChuaPhanLopResult());
+                                // Coder: Tài
+                                // rút ngắn dòng code
+                                copyInformationClassFromAnotherClass(_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1], _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index]);
+                                
+                                //_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1].MAHOCSINH = _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index].MAHOCSINH;
+                                //_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1].HOTEN = _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index].HOTEN;
+                                //_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1].EMAIL = _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index].EMAIL;
+                                //_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1].NGAYSINH = _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index].NGAYSINH;
+                                //_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1].DIACHI = _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index].DIACHI;
+                                //_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1].GIOITINH = _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index].GIOITINH;
                                 RemoveIndex = _ListLopChange.Count - 1;
                             }
-
                         }
-                        else
+                        else// DSHS chưa phân lớp chưa thay đổi
                         {
                             if (j != -1)
                             {
-                                _ListChuaPhanLopChange.Add(new CChuaPhanLopChange(comboNamCurrent.Text, LoadDanhSachHocSinhChuaPhanLop(comboNamCurrent.Text)));
-                                _ListChuaPhanLopChange[_ListChuaPhanLopChange.Count - 1]._List.Add(new usp_SelectHocSinhChuaPhanLopResult());
+                                _ListChuaPhanLopChange.Add(new CChuaPhanLopChange(comBoBoxNamCurrent.Text, LoadDanhSachHocSinhChuaPhanLop(comBoBoxNamCurrent.Text)));
+                                _ListChuaPhanLopChange[_ListChuaPhanLopChange.Count - 1].DanhSachHocSinh.Add(new usp_SelectHocSinhChuaPhanLopResult());
                                 int index = _ListChuaPhanLopChange.Count - 1;
-                                _ListChuaPhanLopChange[index]._List[_ListChuaPhanLopChange[index]._List.Count - 1].MAHOCSINH = _ListLopChange[j]._ListLop[row.Index].MAHOCSINH;
-                                _ListChuaPhanLopChange[index]._List[_ListChuaPhanLopChange[index]._List.Count - 1].HOTEN = _ListLopChange[j]._ListLop[row.Index].HOTEN;
-                                _ListChuaPhanLopChange[index]._List[_ListChuaPhanLopChange[index]._List.Count - 1].EMAIL = _ListLopChange[j]._ListLop[row.Index].EMAIL;
-                                _ListChuaPhanLopChange[index]._List[_ListChuaPhanLopChange[index]._List.Count - 1].NGAYSINH = _ListLopChange[j]._ListLop[row.Index].NGAYSINH;
-                                _ListChuaPhanLopChange[index]._List[_ListChuaPhanLopChange[index]._List.Count - 1].DIACHI = _ListLopChange[j]._ListLop[row.Index].DIACHI;
-                                _ListChuaPhanLopChange[index]._List[_ListChuaPhanLopChange[index]._List.Count - 1].GIOITINH = _ListLopChange[j]._ListLop[row.Index].GIOITINH;
+                                // Coder: Tài
+                                // rút ngắn dòng code
+                                copyInformationClassFromAnotherClass(_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1], _ListLopChange[j].ListLop[row.Index]);
+                                
+                                //_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1].MAHOCSINH = _ListLopChange[j].ListLop[row.Index].MAHOCSINH;
+                                //_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1].HOTEN = _ListLopChange[j].ListLop[row.Index].HOTEN;
+                                //_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1].EMAIL = _ListLopChange[j].ListLop[row.Index].EMAIL;
+                                //_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1].NGAYSINH = _ListLopChange[j].ListLop[row.Index].NGAYSINH;
+                                //_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1].DIACHI = _ListLopChange[j].ListLop[row.Index].DIACHI;
+                                //_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1].GIOITINH = _ListLopChange[j].ListLop[row.Index].GIOITINH;
                                 RemoveIndex = j;
                             }
                             else
                             {
-                                _ListLopChange.Add(new CLopChange(int.Parse(comboLopnew.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comboLopnew.Tag.ToString()))));
-                                _ListChuaPhanLopChange.Add(new CChuaPhanLopChange(comboNamCurrent.Text, LoadDanhSachHocSinhChuaPhanLop(comboNamCurrent.Text)));
+                                _ListLopChange.Add(new CLopChange(int.Parse(comBoBoxLopMoi.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comBoBoxLopMoi.Tag.ToString()))));
+                                _ListChuaPhanLopChange.Add(new CChuaPhanLopChange(comBoBoxNamCurrent.Text, LoadDanhSachHocSinhChuaPhanLop(comBoBoxNamCurrent.Text)));
                                 int index = _ListChuaPhanLopChange.Count - 1;
-                                _ListChuaPhanLopChange[index]._List.Add(new usp_SelectHocSinhChuaPhanLopResult());
-                                _ListChuaPhanLopChange[index]._List[_ListChuaPhanLopChange[index]._List.Count - 1].MAHOCSINH = _ListLopChange[_ListLopChange.Count - 1]._ListLop[row.Index].MAHOCSINH;
-                                _ListChuaPhanLopChange[index]._List[_ListChuaPhanLopChange[index]._List.Count - 1].HOTEN = _ListLopChange[_ListLopChange.Count - 1]._ListLop[row.Index].HOTEN;
-                                _ListChuaPhanLopChange[index]._List[_ListChuaPhanLopChange[index]._List.Count - 1].EMAIL = _ListLopChange[_ListLopChange.Count - 1]._ListLop[row.Index].EMAIL;
-                                _ListChuaPhanLopChange[index]._List[_ListChuaPhanLopChange[index]._List.Count - 1].NGAYSINH = _ListLopChange[_ListLopChange.Count - 1]._ListLop[row.Index].NGAYSINH;
-                                _ListChuaPhanLopChange[index]._List[_ListChuaPhanLopChange[index]._List.Count - 1].DIACHI = _ListLopChange[_ListLopChange.Count - 1]._ListLop[row.Index].DIACHI;
-                                _ListChuaPhanLopChange[index]._List[_ListChuaPhanLopChange[index]._List.Count - 1].GIOITINH = _ListLopChange[_ListLopChange.Count - 1]._ListLop[row.Index].GIOITINH;
+                                _ListChuaPhanLopChange[index].DanhSachHocSinh.Add(new usp_SelectHocSinhChuaPhanLopResult());
+                                // Coder: Tài
+                                // rút ngắn dòng code
+                                copyInformationClassFromAnotherClass(_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1], _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index]);
+
+                                //_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1].MAHOCSINH = _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index].MAHOCSINH;
+                                //_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1].HOTEN = _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index].HOTEN;
+                                //_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1].EMAIL = _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index].EMAIL;
+                                //_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1].NGAYSINH = _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index].NGAYSINH;
+                                //_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1].DIACHI = _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index].DIACHI;
+                                //_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1].GIOITINH = _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index].GIOITINH;
                                 RemoveIndex = _ListLopChange.Count - 1;
                             }
                         }
                     }
-                    else
+                    else // xử lý với trường hợp DSHS đã phân lớp
                     {
-                        int i = CheckExistedInListLopChange(int.Parse(comboLopCurrent.Tag.ToString()));
-                        int j = CheckExistedInListLopChange(int.Parse(comboLopnew.Tag.ToString()));
+                        int i = CheckExistedInListLopChange(int.Parse(comBoBoxLopCurrent.Tag.ToString()));
+                        int j = CheckExistedInListLopChange(int.Parse(comBoBoxLopMoi.Tag.ToString()));
                         if (i != -1)
                         {
                             if (j != -1)
                             {
-                                if (_ListLopChange[i]._ListLop.Count >= _QuiDinhBus.LaySiSoToiDa())
+                                if (_ListLopChange[i].ListLop.Count >= _QuiDinhBus.LaySiSoToiDa())
                                 {
                                     MessageBox.Show("Sĩ số học sinh của một lớp không thể vượt quá " + _QuiDinhBus.LaySiSoToiDa().ToString() + "\nBạn phải sửa qui định nếu muốn thêm vào");
                                     break;
                                 }
-                                _ListLopChange[i]._ListLop.Add(_ListLopChange[j]._ListLop[row.Index]);
+                                _ListLopChange[i].ListLop.Add(_ListLopChange[j].ListLop[row.Index]);
                                 RemoveIndex = j;
                             }
                             else
                             {
-                                _ListLopChange.Add(new CLopChange(int.Parse(comboLopnew.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comboLopnew.Tag.ToString()))));
-                                if (_ListLopChange[i]._ListLop.Count >= _QuiDinhBus.LaySiSoToiDa())
+                                _ListLopChange.Add(new CLopChange(int.Parse(comBoBoxLopMoi.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comBoBoxLopMoi.Tag.ToString()))));
+                                if (_ListLopChange[i].ListLop.Count >= _QuiDinhBus.LaySiSoToiDa())
                                 {
                                     MessageBox.Show("Sĩ số học sinh của một lớp không thể vượt quá " + _QuiDinhBus.LaySiSoToiDa().ToString() + "\nBạn phải sửa qui định nếu muốn thêm vào");
                                     break;
                                 }
-                                _ListLopChange[i]._ListLop.Add(_ListLopChange[_ListLopChange.Count - 1]._ListLop[row.Index]);
+                                _ListLopChange[i].ListLop.Add(_ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index]);
                                 RemoveIndex = _ListLopChange.Count - 1;
                             }
                         }
@@ -824,26 +1002,26 @@ namespace frMain
                         {
                             if (j != -1)
                             {
-                                List<usp_SelectHocSinhTheoMALOPResult> temp = LoadDanhSachHocSinhTheoMaLop(int.Parse(comboLopCurrent.Tag.ToString()));
-                                _ListLopChange.Add(new CLopChange(int.Parse(comboLopCurrent.Tag.ToString()), temp));
-                                if (_ListLopChange[_ListLopChange.Count - 1]._ListLop.Count >= _QuiDinhBus.LaySiSoToiDa())
+                                List<usp_SelectHocSinhTheoMALOPResult> temp = LoadDanhSachHocSinhTheoMaLop(int.Parse(comBoBoxLopCurrent.Tag.ToString()));
+                                _ListLopChange.Add(new CLopChange(int.Parse(comBoBoxLopCurrent.Tag.ToString()), temp));
+                                if (_ListLopChange[_ListLopChange.Count - 1].ListLop.Count >= _QuiDinhBus.LaySiSoToiDa())
                                 {
                                     MessageBox.Show("Sĩ số học sinh của một lớp không thể vượt quá " + _QuiDinhBus.LaySiSoToiDa().ToString() + "\nBạn phải sửa qui định nếu muốn thêm vào");
                                     break;
                                 }
-                                _ListLopChange[_ListLopChange.Count - 1]._ListLop.Add(_ListLopChange[j]._ListLop[row.Index]);
+                                _ListLopChange[_ListLopChange.Count - 1].ListLop.Add(_ListLopChange[j].ListLop[row.Index]);
                                 RemoveIndex = j;
                             }
                             else
                             {
-                                _ListLopChange.Add(new CLopChange(int.Parse(comboLopnew.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comboLopnew.Tag.ToString()))));
-                                _ListLopChange.Add(new CLopChange(int.Parse(comboLopCurrent.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comboLopCurrent.Tag.ToString()))));
-                                if (_ListLopChange[_ListLopChange.Count - 1]._ListLop.Count >= _QuiDinhBus.LaySiSoToiDa())
+                                _ListLopChange.Add(new CLopChange(int.Parse(comBoBoxLopMoi.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comBoBoxLopMoi.Tag.ToString()))));
+                                _ListLopChange.Add(new CLopChange(int.Parse(comBoBoxLopCurrent.Tag.ToString()), LoadDanhSachHocSinhTheoMaLop(int.Parse(comBoBoxLopCurrent.Tag.ToString()))));
+                                if (_ListLopChange[_ListLopChange.Count - 1].ListLop.Count >= _QuiDinhBus.LaySiSoToiDa())
                                 {
                                     MessageBox.Show("Sĩ số học sinh của một lớp không thể vượt quá " + _QuiDinhBus.LaySiSoToiDa().ToString() + "\nBạn phải sửa qui định nếu muốn thêm vào");
                                     break;
                                 }
-                                _ListLopChange[_ListLopChange.Count - 1]._ListLop.Add(_ListLopChange[_ListLopChange.Count - 2]._ListLop[row.Index]);
+                                _ListLopChange[_ListLopChange.Count - 1].ListLop.Add(_ListLopChange[_ListLopChange.Count - 2].ListLop[row.Index]);
                                 RemoveIndex = _ListLopChange.Count - 2;
                             }
                         }
@@ -851,53 +1029,68 @@ namespace frMain
                     ListIndexRemove.Add(row.Index);
                 }
 
+                // xóa các dòng học sinh đã được chọn trên datagridviewMoi
                 foreach (int index in ListIndexRemove.OrderByDescending(v => v))
                 {
-                    _ListLopChange[RemoveIndex]._ListLop.RemoveAt(index);
+                    _ListLopChange[RemoveIndex].ListLop.RemoveAt(index);
                 }
-                LoadDataGridViewCurrent();
+
+                // Hiển thị danh sách HS sau khi thay đổi
+                LoadDataGridViewCurrent(); 
                 LoadDataGridViewNew();
             }
         
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Sự kiện: bắt sự kiện khi button Lưu được chọn
+        /// cập nhật dữ liệu vào database
+        /// </summary>
+        private void buttonLuu_Click(object sender, EventArgs e)
         {
+            // duyệt DS lớp có DSHS bị thay đổi
             foreach (CLopChange lop in _ListLopChange)
             {
-                foreach (usp_SelectHocSinhTheoMALOPResult hs in lop._ListLop)
+                // duyệt DSHS của lớp
+                foreach (usp_SelectHocSinhTheoMALOPResult hs in lop.ListLop)
                 {
-                    string temp = _LopBus.LayNamHocTheoMaLop(lop._MaLop);
-                    int _MalopCu = _XepBus.TimMaLopTheoMaHS_NamHoc(hs.MAHOCSINH, _LopBus.LayNamHocTheoMaLop(lop._MaLop));
-                    if (_MalopCu != -1)
+                    //string temp = _DanhSachLopBus.LayNamHocTheoMaLop(lop.MaLop);
+                    // Tìm xem học sinh đó ban đầu có thuộc lớp không
+                    int _MalopCu = _XepLopBus.TimMaLopTheoMaHS_NamHoc(hs.MAHOCSINH, _DanhSachLopBus.LayNamHocTheoMaLop(lop.MaLop));
+                    if (_MalopCu != -1)// là học sinh cũ
                     {
-                        _XepBus.Update(hs.MAHOCSINH, _MalopCu, hs.MAHOCSINH, lop._MaLop);
+                        _XepLopBus.Update(hs.MAHOCSINH, _MalopCu, hs.MAHOCSINH, lop.MaLop);// cập nhật lại thông tin cho học sinh đó
                     }
-                    else
+                    else// là học sinh mới
                     {
-                        _XepBus.Insert(hs.MAHOCSINH, lop._MaLop);
+                        _XepLopBus.Insert(hs.MAHOCSINH, lop.MaLop);// thêm học sinh đó vào lớp
                     }
                 }
             }
 
-
+            // duyệt trong các năm học khác nhau, chứa thông tin học sinh chưa phân lớp
             foreach (CChuaPhanLopChange c in _ListChuaPhanLopChange)
             {
-                foreach (usp_SelectHocSinhChuaPhanLopResult hs in c._List)
+                // duyệt DSHS trong mỗi năm học chưa phân lớp
+                foreach (usp_SelectHocSinhChuaPhanLopResult hs in c.DanhSachHocSinh)
                 {
-                    int _MaLop = _XepBus.TimMaLopTheoMaHS_NamHoc(hs.MAHOCSINH, c._NamHoc);
-                    if (_MaLop != -1)
+                    int _MaLop = _XepLopBus.TimMaLopTheoMaHS_NamHoc(hs.MAHOCSINH, c.NamHoc);// Tìm xem học sinh đó lúc đầu đã được phân lớp chưa
+                    if (_MaLop != -1)// ban đầu được phân lớp
                     {
-                        _XepBus.Delete(hs.MAHOCSINH, _MaLop);
+                        _XepLopBus.Delete(hs.MAHOCSINH, _MaLop);// xóa học sinh đó khỏi lớp tìm được để chuyển học sinh từ đã có lớp -> chưa phân lớp
                     }
                 }
             }
             MessageBox.Show("Lưu thành công", "Success");
-            _ListLopChange.Clear();
-            _ListChuaPhanLopChange.Clear();
+            _ListLopChange.Clear();// làm sạch dữ liệu
+            _ListChuaPhanLopChange.Clear();// làm sạch dữ liệu
         }
 
-        private void btnExit_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Sự kiện: bắt sự kiện khi button Thoát được chọn
+        /// Đóng form đang thao tác
+        /// </summary>
+        private void buttonThoat_Click(object sender, EventArgs e)
         {
             if (_ListChuaPhanLopChange.Count == 0 && _ListLopChange.Count == 0)
             {
@@ -913,7 +1106,7 @@ namespace frMain
                 {
                     if (DialogResult.Yes == dr)
                     {
-                        btnSave_Click(sender, e);
+                        buttonLuu_Click(sender, e);
                     }
                     this.Close();
                 }
@@ -922,106 +1115,132 @@ namespace frMain
         #endregion
 
         #region chọn combobox
-        private void comboNamhocCurrent_SelectedIndexChanged(object sender, EventArgs e)
+
+        /// <summary>
+        /// Hiển thị danh sách học sinh lên dataGridViewCurrent, nếu trường hợp danh sách là chưa phân lớp thì chức năng chọn lớp và khối sẽ không được thực hiện (bên thông tin lớp thường) hoặc ngược lại
+        /// Xứ lý sự kiện khi comBoBoxNamHocCurrent được chọn
+        /// </summary>
+        private void comBoBoxNamHocCurrent_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (radioButtonPhanLopHoSo_ChuaPhanLop.Checked)
             {
-                comboKhoiCurrent.SelectedIndex = -1;
-                comboLopCurrent.SelectedIndex = -1;
-                comboNamnew.SelectedIndex = comboNamCurrent.SelectedIndex;
+                comBoBoxKhoiCurrent.SelectedIndex = -1;
+                comBoBoxLopCurrent.SelectedIndex = -1;
+                comBoBoxNamHocMoi.SelectedIndex = comBoBoxNamCurrent.SelectedIndex;
             }
             else
             {
                 if (radioButtonChuyenLopCungKhoi.Checked)
                 {
-                    comboNamnew.SelectedIndex = comboNamCurrent.SelectedIndex;
+                    comBoBoxNamHocMoi.SelectedIndex = comBoBoxNamCurrent.SelectedIndex;
                 }
-                comboKhoiCurrent.SelectedIndex = -1;
-                comboKhoiCurrent.SelectedIndex = 0;
+                comBoBoxKhoiCurrent.SelectedIndex = -1;
+                comBoBoxKhoiCurrent.SelectedIndex = 0;
             }
             LoadDataGridViewCurrent();
         }
 
-        private void comboNamHocnew_SelectedIndexChanged(object sender, EventArgs e)
+
+        /// <summary>
+        /// Sự kiện: bắt sự kiện khi comBoBoxNamHocMoi được click
+        /// hiển thị danh sách học sinh tương ứng với lớp và khối được chọn lên dataGridViewNew
+        /// </summary>
+        private void comBoBoxNamHocMoi_SelectedIndexChanged(object sender, EventArgs e)
         {
-            comboKhoinew.SelectedIndex = -1;
-            comboKhoinew.SelectedIndex = 0;
+            comBoBoxKhoiMoi.SelectedIndex = -1;
+            comBoBoxKhoiMoi.SelectedIndex = 0;
             LoadDataGridViewNew();
         }
 
-        private void comboKhoiCurrent_SelectedIndexChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Sự kiện: bắt sự kiện khi người dùng click vào comBoBoxKhoiCurrent
+        /// hiển thị danh sách học sinh tương ứng với lớp và khối được chọn lên dataGridViewCurrent
+        /// </summary>
+        private void comBoBoxKhoiCurrent_SelectedIndexChanged(object sender, EventArgs e)
         {
             int index = 0;
 
-            foreach (usp_SelectKhoisAllResult khoi in _KBUS.LayDanhSachKhoi())
+            foreach (usp_SelectKhoisAllResult khoi in _KhoiBUS.LayDanhSachKhoi())
             {
-                if (index == comboKhoiCurrent.SelectedIndex)
+                if (index == comBoBoxKhoiCurrent.SelectedIndex)
                 {
-                    comboKhoiCurrent.Tag = khoi.MAKHOI;
+                    comBoBoxKhoiCurrent.Tag = khoi.MAKHOI;
 
                 }
                 index++;
             }
-            if (comboKhoiCurrent.SelectedIndex != -1)
+            if (comBoBoxKhoiCurrent.SelectedIndex != -1)
             {
                 LoadDanhSachLopCu();
-                if (comboLopCurrent.Items.Count > 0)
+                if (comBoBoxLopCurrent.Items.Count > 0)
                 {
-                    comboLopCurrent.SelectedIndex = -1;
-                    comboLopCurrent.SelectedIndex = 0;
+                    comBoBoxLopCurrent.SelectedIndex = -1;
+                    comBoBoxLopCurrent.SelectedIndex = 0;
                 }
 
             }
             LoadDataGridViewCurrent();
         }
 
-        private void comboKhoinew_SelectedIndexChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Sự kiện: bắt sự kiện khi người dùng click vào comBoBoxKhoiMoi
+        /// hiển thị danh sách học sinh tương ứng với lớp và khối được chọn lên dataGridViewNew
+        /// </summary>
+        private void comBoBoxKhoiMoi_SelectedIndexChanged(object sender, EventArgs e)
         {
             int index = 0;
-            foreach (usp_SelectKhoisAllResult khoi in _KBUS.LayDanhSachKhoi())
+            foreach (usp_SelectKhoisAllResult khoi in _KhoiBUS.LayDanhSachKhoi())
             {
-                if (index == comboKhoinew.SelectedIndex)
+                if (index == comBoBoxKhoiMoi.SelectedIndex)
                 {
-                    comboKhoinew.Tag = khoi.MAKHOI;
+                    comBoBoxKhoiMoi.Tag = khoi.MAKHOI;
 
                 }
                 index++;
             }
 
             LoadDanhSachLopMoi();
-            if (comboLopnew.Items.Count > 0)
+            if (comBoBoxLopMoi.Items.Count > 0)
             {
-                comboLopnew.SelectedIndex = -1;
-                comboLopnew.SelectedIndex = 0;
+                comBoBoxLopMoi.SelectedIndex = -1;
+                comBoBoxLopMoi.SelectedIndex = 0;
             }
             LoadDataGridViewNew();
         }
 
-        private void comboLopCurrent_SelectedIndexChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Sự kiện: bắt sự kiện khi người dùng click vào comBoBoxLopCurrent
+        /// Hiển thị danh sách sinh viên lên dataGridViewCurrent theo mong muốn người dùng 
+        /// </summary>
+        private void comBoBoxLopCurrent_SelectedIndexChanged(object sender, EventArgs e)
         {
             int index = 0;
-            foreach (usp_SelectLopsByMAKHOI_NAMHOCResult lop in _LopBus.LayDanhSachLopTheoKhoiMaNam(comboKhoiCurrent.Tag.ToString(), comboNamCurrent.Text))
+            foreach (usp_SelectLopsByMAKHOI_NAMHOCResult lop in _DanhSachLopBus.LayDanhSachLopTheoKhoiMaNam(comBoBoxKhoiCurrent.Tag.ToString(), comBoBoxNamCurrent.Text))
             {
-                if (index == comboLopCurrent.SelectedIndex)
+                if (index == comBoBoxLopCurrent.SelectedIndex)
                 {
-                    comboLopCurrent.Tag = lop.MALOP;
+                    comBoBoxLopCurrent.Tag = lop.MALOP;
                     break;
                 }
 
                 index++;
             }
-            if (comboLopCurrent.SelectedIndex != -1)
+            if (comBoBoxLopCurrent.SelectedIndex != -1)
                 LoadDataGridViewCurrent();
         }
 
-        private void comboLopnew_SelectedIndexChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Sự kiện: bắt sự kiện khi người dùng click vào comBoBoxLopNew
+        /// Hiển thị danh sách sinh viên lên dataGridViewNew theo mong muốn người dùng 
+        /// </summary>
+        private void comBoBoxLopMoi_SelectedIndexChanged(object sender, EventArgs e)
         {
             int index = 0;
-            foreach (usp_SelectLopsByMAKHOI_NAMHOCResult lop in _LopBus.LayDanhSachLopTheoKhoiMaNam(comboKhoinew.Tag.ToString(), comboNamnew.Text))
+            foreach (usp_SelectLopsByMAKHOI_NAMHOCResult lop in _DanhSachLopBus.LayDanhSachLopTheoKhoiMaNam(comBoBoxKhoiMoi.Tag.ToString(), comBoBoxNamHocMoi.Text))
             {
-                if (index == comboLopnew.SelectedIndex)
+                if (index == comBoBoxLopMoi.SelectedIndex)
                 {
-                    comboLopnew.Tag = lop.MALOP;
+                    comBoBoxLopMoi.Tag = lop.MALOP;
                     break;
                 }
 
@@ -1033,50 +1252,68 @@ namespace frMain
         #endregion
 
         #region radioButton
+        /// <summary>
+        /// Sự kiện: bắt sự kiện khi người dùng tích vào radioButtonPhanLopHoSo_ChuaPhanLop
+        /// thiết lập thuộc tính cho các đối tượng: comBoBoxLopCurrent, comBoBoxKhoiCurrent, ... và hiển thị danh sách sinh viên chưa phân lớp nếu có
+        /// </summary>
         private void radioButtonPhanLopHoSo_ChuaPhanLop_CheckedChanged(object sender, EventArgs e)
         {
-            comboLopCurrent.Enabled = false;
-            comboKhoiCurrent.Enabled = false;
-            comboNamnew.Enabled = false;
-            comboKhoinew.Enabled = true;
-            comboKhoiCurrent.SelectedIndex = -1;
-            comboLopCurrent.SelectedIndex = -1;
-            comboNamnew.SelectedIndex = comboNamCurrent.SelectedIndex;
+            comBoBoxLopCurrent.Enabled = false;
+            comBoBoxKhoiCurrent.Enabled = false;
+            comBoBoxNamHocMoi.Enabled = false;
+            comBoBoxKhoiMoi.Enabled = true;
+            comBoBoxKhoiCurrent.SelectedIndex = -1;
+            comBoBoxLopCurrent.SelectedIndex = -1;
+            comBoBoxNamHocMoi.SelectedIndex = comBoBoxNamCurrent.SelectedIndex;
             LoadDataGridViewCurrent();
         }
 
+        /// <summary>
+        /// Sự kiện: bắt sự kiện khi người dùng tích vào radioButtonChuyenLopCungKhoi
+        /// thiết lập thuộc tính cho các đối tượng: comBoBoxLopCurrent, comBoBoxKhoiCurrent,.. và hiển thị danh sách sinh viên theo mong muốn người dùng
+        /// </summary>
         private void radioButtonChuyenLopCungKhoi_CheckedChanged(object sender, EventArgs e)
         {
-            comboLopCurrent.Enabled = true;
-            comboKhoiCurrent.Enabled = true;
-            comboNamnew.Enabled = false;
-            if (comboKhoiCurrent.SelectedIndex == -1)
-                comboKhoiCurrent.SelectedIndex = 0;
-            comboNamnew.SelectedIndex = comboNamCurrent.SelectedIndex;
+            comBoBoxLopCurrent.Enabled = true;
+            comBoBoxKhoiCurrent.Enabled = true;
+            comBoBoxNamHocMoi.Enabled = false;
+            if (comBoBoxKhoiCurrent.SelectedIndex == -1)
+                comBoBoxKhoiCurrent.SelectedIndex = 0;
+            comBoBoxNamHocMoi.SelectedIndex = comBoBoxNamCurrent.SelectedIndex;
         }
         #endregion
 
-        private void dataGridViewcurrent_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        /// <summary>
+        /// Sự kiện: bắt sự kiện khi dataGridViewCurrent được vẽ lại
+        /// thiết lập số thứ tự khi được vẽ trên mỗi dòng, làm ẩn cột MAHOCSINH
+        /// </summary>
+        private void dataGridViewCurrent_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
         {
             try
             {
-                dataGridViewcurrent.Columns["MAHOCSINH"].Visible = false;
-                for (int i = 0; i < dataGridViewcurrent.Rows.Count; i++)
+                dataGridViewCurrent.Columns["MAHOCSINH"].Visible = false;
+                for (int i = 0; i < dataGridViewCurrent.Rows.Count; i++)
                 {
-                    dataGridViewcurrent.Rows[i].Cells["STT"].Value = i + 1;
+                    dataGridViewCurrent.Rows[i].Cells["STT"].Value = i + 1;
                 }
             }
             catch { }
         }
 
-        private void dataGridViewnew_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+
+        /// <summary>
+        /// Sự kiện: bắt sự kiện khi dataGridViewNew được vẽ lại
+        /// thiết lập số thứ tự khi được vẽ trên mỗi dòng, làm ẩn cột MAHOCSINH
+        /// </summary>
+        private void dataGridViewNew_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
         {
             try
             {
-                dataGridViewnew.Columns["MAHOCSINH"].Visible = false;
-                for (int i = 0; i < dataGridViewnew.Rows.Count; i++)
+                dataGridViewNew.Columns["MAHOCSINH"].Visible = false;
+
+                for (int i = 0; i < dataGridViewNew.Rows.Count; i++)
                 {
-                    dataGridViewnew.Rows[i].Cells["STT1"].Value = i + 1;
+                    dataGridViewNew.Rows[i].Cells["STT1"].Value = i + 1;
                 }
             }
             catch { }

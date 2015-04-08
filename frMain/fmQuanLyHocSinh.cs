@@ -285,7 +285,7 @@ namespace frMain
         //Phân lớp
         private void _phanLop_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
         {
-            frPhanLop PhanLop = new frPhanLop();
+            FormPhanLop PhanLop = new FormPhanLop();
             PhanLop.Show();
         }
 

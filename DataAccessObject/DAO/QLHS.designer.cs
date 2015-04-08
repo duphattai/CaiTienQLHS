@@ -4896,6 +4896,16 @@ namespace DataAccessObject.DAO
 		{
 		}
 		
+        public usp_SelectHocSinhTheoMALOPResult(usp_SelectHocSinhTheoMALOPResult value)
+        {
+            _MAHOCSINH = value._MAHOCSINH;
+            _HOTEN = value._HOTEN;
+            _DIACHI = value._DIACHI;
+            _NGAYSINH = value._NGAYSINH;
+            _EMAIL = value._EMAIL;
+            _GIOITINH = value._GIOITINH;
+        }
+
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MAHOCSINH", DbType="Int NOT NULL")]
 		public int MAHOCSINH
 		{
