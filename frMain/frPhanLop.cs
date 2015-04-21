@@ -187,7 +187,7 @@ namespace frMain
             // xử lý cho trường hợp danh sách học sinh chưa phân lớp
             if (radioButtonPhanLopHoSo_ChuaPhanLop.Checked)
             {
-                btnRemove.Enabled = true; // bật chức năng button Bỏ
+                btnBo.Enabled = true; // bật chức năng button Bỏ
                 buttonDoiCho.Enabled = true; // bật chức năng button Đổi Chỗ
                 
                 int i = CheckExistedInListChuaPhanLopLopChange(comBoBoxNamCurrent.Text); // Kiểm tra xem đã tồn tại danh sách hoc sinh chưa phân lớp đã có sự thay đổi hay chưa
@@ -214,13 +214,13 @@ namespace frMain
                         dataGridViewCurrent.DataSource = LoadDanhSachHocSinhTheoMaLop(int.Parse(comBoBoxLopCurrent.Tag.ToString())).ToArray();
                     }
 
-                    btnRemove.Enabled = true; // bật chức năng của button bỏ
+                    btnBo.Enabled = true; // bật chức năng của button bỏ
                     buttonDoiCho.Enabled = true; // bật chức năng của button đổi chỗ
                 }
                 else
                 {
                     dataGridViewCurrent.DataSource = new List<usp_SelectHocSinhTheoMALOPResult>();
-                    btnRemove.Enabled = false;
+                    btnBo.Enabled = false;
                     buttonDoiCho.Enabled = false;
                 }
             }
@@ -285,7 +285,7 @@ namespace frMain
         #region button
 
         // Coder: Tai
-        void copyInformationClassFromAnotherClass(usp_SelectHocSinhTheoMALOPResult dest, usp_SelectHocSinhChuaPhanLopResult src)
+        void CopyInformationClassFromAnotherClass(usp_SelectHocSinhTheoMALOPResult dest, usp_SelectHocSinhChuaPhanLopResult src)
         {
             dest.DIACHI = src.DIACHI;
             dest.EMAIL = src.EMAIL;
@@ -296,7 +296,7 @@ namespace frMain
         }
 
         // Coder: Tai
-        void copyInformationClassFromAnotherClass(usp_SelectHocSinhChuaPhanLopResult dest, usp_SelectHocSinhTheoMALOPResult src)
+        void CopyInformationClassFromAnotherClass(usp_SelectHocSinhChuaPhanLopResult dest, usp_SelectHocSinhTheoMALOPResult src)
         {
             dest.DIACHI = src.DIACHI;
             dest.EMAIL = src.EMAIL;
@@ -342,7 +342,7 @@ namespace frMain
                                 // Coder: Tài
                                 // rút ngắn dòng code
                                 // sao chép thông tin học sinh vào đối tượng vừa mới thêm vào
-                                copyInformationClassFromAnotherClass(_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1], _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index]);
+                                CopyInformationClassFromAnotherClass(_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1], _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index]);
 
                                 //_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1].MAHOCSINH = _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index].MAHOCSINH;
                                 //_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1].HOTEN = _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index].HOTEN;
@@ -366,7 +366,7 @@ namespace frMain
                                 // Coder: Tài
                                 // rút ngắn dòng code
                                 // sao chép dữ liệu học sinh vào đối tượng (thông tin học sinh) vừa mới thêm vào
-                                copyInformationClassFromAnotherClass(_ListLopChange[index].ListLop[_ListLopChange[index].ListLop.Count - 1], _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index]);
+                                CopyInformationClassFromAnotherClass(_ListLopChange[index].ListLop[_ListLopChange[index].ListLop.Count - 1], _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index]);
                                
                                 //_ListLopChange[index].ListLop[_ListLopChange[index].ListLop.Count - 1].MAHOCSINH = _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index].MAHOCSINH;
                                 //_ListLopChange[index].ListLop[_ListLopChange[index].ListLop.Count - 1].HOTEN = _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index].HOTEN;
@@ -396,7 +396,7 @@ namespace frMain
                                 // Coder: Tài
                                 // rút ngắn dòng code
                                 // sao chép thông tin học sinh vào đối tượng vừa thêm
-                                copyInformationClassFromAnotherClass(_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1], _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index]);
+                                CopyInformationClassFromAnotherClass(_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1], _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index]);
                                 
                                 //_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1].MAHOCSINH = _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index].MAHOCSINH;
                                 //_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1].HOTEN = _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index].HOTEN;
@@ -421,7 +421,7 @@ namespace frMain
                                 // Coder: Tài
                                 // rút ngắn dòng code
                                 // sao chép thông tin học sinh vào đối tượng vừa thêm
-                                copyInformationClassFromAnotherClass(_ListLopChange[index2].ListLop[_ListLopChange[index2].ListLop.Count - 1], _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index]);
+                                CopyInformationClassFromAnotherClass(_ListLopChange[index2].ListLop[_ListLopChange[index2].ListLop.Count - 1], _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index]);
                                 
                                 //_ListLopChange[index2].ListLop[_ListLopChange[index2].ListLop.Count - 1].MAHOCSINH = _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index].MAHOCSINH;
                                 //_ListLopChange[index2].ListLop[_ListLopChange[index2].ListLop.Count - 1].HOTEN = _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index].HOTEN;
@@ -521,7 +521,7 @@ namespace frMain
         /// Sự kiện: bắt sự kiện khi button Đỗi Chỗ được click
         /// Chuyển thông tin học sinh được chọn giữa dataGridViewCurrent và học sinh được chọn từ dataGridViewNew và ngược lại.
         /// </summary>
-        private void btnSwap_Click(object sender, EventArgs e)
+        private void buttonDoiCho_Click(object sender, EventArgs e)
         {
             // Nếu là học sinh cùng 1 lớp thì không thực hiện được
             if (comBoBoxNamCurrent.Text == comBoBoxNamHocMoi.Text && comBoBoxKhoiCurrent.Text == comBoBoxKhoiMoi.Text && comBoBoxLopCurrent.Text == comBoBoxLopMoi.Text)
@@ -556,7 +556,7 @@ namespace frMain
                                 _ListLopChange[j].ListLop.Add(new usp_SelectHocSinhTheoMALOPResult());
                                 // Coder: Tài
                                 // rút ngắn dòng code
-                                copyInformationClassFromAnotherClass(_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1], _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index]);
+                                CopyInformationClassFromAnotherClass(_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1], _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index]);
                                 
                                 //_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1].MAHOCSINH = _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index].MAHOCSINH;
                                 //_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1].HOTEN = _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index].HOTEN;
@@ -581,7 +581,7 @@ namespace frMain
                                 // Coder: Tài
                                 // rút ngắn dòng code
                                 // cập thông tin học sinh vừa mới thêm vào lớp 
-                                copyInformationClassFromAnotherClass(_ListLopChange[index].ListLop[_ListLopChange[index].ListLop.Count - 1], _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index]);
+                                CopyInformationClassFromAnotherClass(_ListLopChange[index].ListLop[_ListLopChange[index].ListLop.Count - 1], _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index]);
 
                                 //_ListLopChange[index].ListLop[_ListLopChange[index].ListLop.Count - 1].MAHOCSINH = _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index].MAHOCSINH;
                                 //_ListLopChange[index].ListLop[_ListLopChange[index].ListLop.Count - 1].HOTEN = _ListChuaPhanLopChange[i].DanhSachHocSinh[row.Index].HOTEN;
@@ -608,7 +608,7 @@ namespace frMain
                                 _ListLopChange[j].ListLop.Add(new usp_SelectHocSinhTheoMALOPResult());
                                 // Coder: Tài
                                 // rút ngắn dòng code
-                                copyInformationClassFromAnotherClass(_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1], _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index]);
+                                CopyInformationClassFromAnotherClass(_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1], _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index]);
                                 
                                 //_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1].MAHOCSINH = _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index].MAHOCSINH;
                                 //_ListLopChange[j].ListLop[_ListLopChange[j].ListLop.Count - 1].HOTEN = _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index].HOTEN;
@@ -631,7 +631,7 @@ namespace frMain
                                 _ListLopChange[index2].ListLop.Add(new usp_SelectHocSinhTheoMALOPResult());
                                 // Coder: Tài
                                 // rút ngắn dòng code
-                                copyInformationClassFromAnotherClass(_ListLopChange[index2].ListLop[_ListLopChange[index2].ListLop.Count - 1], _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index]);
+                                CopyInformationClassFromAnotherClass(_ListLopChange[index2].ListLop[_ListLopChange[index2].ListLop.Count - 1], _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index]);
 
                                 //_ListLopChange[index2].ListLop[_ListLopChange[index2].ListLop.Count - 1].MAHOCSINH = _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index].MAHOCSINH;
                                 //_ListLopChange[index2].ListLop[_ListLopChange[index2].ListLop.Count - 1].HOTEN = _ListChuaPhanLopChange[index].DanhSachHocSinh[row.Index].HOTEN;
@@ -718,7 +718,7 @@ namespace frMain
                                 _ListChuaPhanLopChange[i].DanhSachHocSinh.Add(new usp_SelectHocSinhChuaPhanLopResult());
                                 // Coder: Tài
                                 // rút ngắn dòng code
-                                copyInformationClassFromAnotherClass(_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1], _ListLopChange[j].ListLop[row.Index]);
+                                CopyInformationClassFromAnotherClass(_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1], _ListLopChange[j].ListLop[row.Index]);
                                 
                                 //_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1].MAHOCSINH = _ListLopChange[j].ListLop[row.Index].MAHOCSINH;
                                 //_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1].HOTEN = _ListLopChange[j].ListLop[row.Index].HOTEN;
@@ -734,7 +734,7 @@ namespace frMain
                                 _ListChuaPhanLopChange[i].DanhSachHocSinh.Add(new usp_SelectHocSinhChuaPhanLopResult());
                                 // Coder: Tài
                                 // rút ngắn dòng code
-                                copyInformationClassFromAnotherClass(_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1], _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index]);
+                                CopyInformationClassFromAnotherClass(_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1], _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index]);
 
                                 //_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1].MAHOCSINH = _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index].MAHOCSINH;
                                 //_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1].HOTEN = _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index].HOTEN;
@@ -755,7 +755,7 @@ namespace frMain
                                 int index = _ListChuaPhanLopChange.Count - 1;
                                 // Coder: Tài
                                 // rút ngắn dòng code
-                                copyInformationClassFromAnotherClass(_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1], _ListLopChange[j].ListLop[row.Index]);
+                                CopyInformationClassFromAnotherClass(_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1], _ListLopChange[j].ListLop[row.Index]);
                                 
                                 //_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1].MAHOCSINH = _ListLopChange[j].ListLop[row.Index].MAHOCSINH;
                                 //_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1].HOTEN = _ListLopChange[j].ListLop[row.Index].HOTEN;
@@ -773,7 +773,7 @@ namespace frMain
                                 _ListChuaPhanLopChange[index].DanhSachHocSinh.Add(new usp_SelectHocSinhChuaPhanLopResult());
                                 // Coder: Tài
                                 // rút ngắn dòng code
-                                copyInformationClassFromAnotherClass(_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1], _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index]);
+                                CopyInformationClassFromAnotherClass(_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1], _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index]);
                                 
                                 //_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1].MAHOCSINH = _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index].MAHOCSINH;
                                 //_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1].HOTEN = _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index].HOTEN;
@@ -878,7 +878,7 @@ namespace frMain
         /// Sự kiện: bắt sự kiện khi button Bỏ được click
         /// chuyển học sinh đang được phân lớp sang chưa phân lớp (ứng với radioButtonChuyenLopCungKhoi đã được check) hoặc chuyễn giữa lớp nay sang lớp khác (ứng với radioButtonPhanLopHoSo_ChuaPhanLop đã được chọn) 
         /// </summary>
-        private void btnRemove_Click(object sender, EventArgs e) //Remove HS
+        private void buttonBo_Click(object sender, EventArgs e) //Remove HS
         {
             if (comBoBoxNamCurrent.Text == comBoBoxNamHocMoi.Text && comBoBoxKhoiCurrent.Text == comBoBoxKhoiMoi.Text && comBoBoxLopCurrent.Text == comBoBoxLopMoi.Text)
             {
@@ -904,7 +904,7 @@ namespace frMain
                                 _ListChuaPhanLopChange[i].DanhSachHocSinh.Add(new usp_SelectHocSinhChuaPhanLopResult());
                                 // Coder: Tài
                                 // rút ngắn dòng code
-                                copyInformationClassFromAnotherClass(_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1], _ListLopChange[j].ListLop[row.Index]);
+                                CopyInformationClassFromAnotherClass(_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1], _ListLopChange[j].ListLop[row.Index]);
 
                                 //_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1].MAHOCSINH = _ListLopChange[j].ListLop[row.Index].MAHOCSINH;
                                 //_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1].HOTEN = _ListLopChange[j].ListLop[row.Index].HOTEN;
@@ -920,7 +920,7 @@ namespace frMain
                                 _ListChuaPhanLopChange[i].DanhSachHocSinh.Add(new usp_SelectHocSinhChuaPhanLopResult());
                                 // Coder: Tài
                                 // rút ngắn dòng code
-                                copyInformationClassFromAnotherClass(_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1], _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index]);
+                                CopyInformationClassFromAnotherClass(_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1], _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index]);
                                 
                                 //_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1].MAHOCSINH = _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index].MAHOCSINH;
                                 //_ListChuaPhanLopChange[i].DanhSachHocSinh[_ListChuaPhanLopChange[i].DanhSachHocSinh.Count - 1].HOTEN = _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index].HOTEN;
@@ -940,7 +940,7 @@ namespace frMain
                                 int index = _ListChuaPhanLopChange.Count - 1;
                                 // Coder: Tài
                                 // rút ngắn dòng code
-                                copyInformationClassFromAnotherClass(_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1], _ListLopChange[j].ListLop[row.Index]);
+                                CopyInformationClassFromAnotherClass(_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1], _ListLopChange[j].ListLop[row.Index]);
                                 
                                 //_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1].MAHOCSINH = _ListLopChange[j].ListLop[row.Index].MAHOCSINH;
                                 //_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1].HOTEN = _ListLopChange[j].ListLop[row.Index].HOTEN;
@@ -958,7 +958,7 @@ namespace frMain
                                 _ListChuaPhanLopChange[index].DanhSachHocSinh.Add(new usp_SelectHocSinhChuaPhanLopResult());
                                 // Coder: Tài
                                 // rút ngắn dòng code
-                                copyInformationClassFromAnotherClass(_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1], _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index]);
+                                CopyInformationClassFromAnotherClass(_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1], _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index]);
 
                                 //_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1].MAHOCSINH = _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index].MAHOCSINH;
                                 //_ListChuaPhanLopChange[index].DanhSachHocSinh[_ListChuaPhanLopChange[index].DanhSachHocSinh.Count - 1].HOTEN = _ListLopChange[_ListLopChange.Count - 1].ListLop[row.Index].HOTEN;

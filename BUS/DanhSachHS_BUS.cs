@@ -8,6 +8,9 @@ using Settings = ConnectToDatabase.Properties.Settings;
 
 namespace BUS
 {
+    /// <summary>
+    /// Đối tượng dùng chứa thông tin học sinh cùng điểm học kỳ 1 và học kỳ 2 của một lớp
+    /// </summary>
     public class DanhSachHS_BUS
     {
         public String _HoTen

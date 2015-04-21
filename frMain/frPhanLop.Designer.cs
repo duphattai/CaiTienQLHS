@@ -53,8 +53,8 @@
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.btnExit = new DevExpress.XtraEditors.SimpleButton();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.btnSave = new DevExpress.XtraEditors.SimpleButton();
-            this.btnRemove = new DevExpress.XtraEditors.SimpleButton();
+            this.btnLuu = new DevExpress.XtraEditors.SimpleButton();
+            this.btnBo = new DevExpress.XtraEditors.SimpleButton();
             this.buttonDoiCho = new DevExpress.XtraEditors.SimpleButton();
             this.buttonThem = new DevExpress.XtraEditors.SimpleButton();
             this.dataGridViewCurrent = new System.Windows.Forms.DataGridView();
@@ -323,8 +323,8 @@
             // groupControl1
             // 
             this.groupControl1.Controls.Add(this.btnExit);
-            this.groupControl1.Controls.Add(this.btnSave);
-            this.groupControl1.Controls.Add(this.btnRemove);
+            this.groupControl1.Controls.Add(this.btnLuu);
+            this.groupControl1.Controls.Add(this.btnBo);
             this.groupControl1.Controls.Add(this.buttonDoiCho);
             this.groupControl1.Controls.Add(this.buttonThem);
             this.groupControl1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -362,41 +362,41 @@
             this.imageList1.Images.SetKeyName(3, "1417949388_bullet_deny.png");
             this.imageList1.Images.SetKeyName(4, "1420299204_photo.png");
             // 
-            // btnSave
+            // btnLuu
             // 
-            this.btnSave.Appearance.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.Appearance.ForeColor = System.Drawing.Color.Green;
-            this.btnSave.Appearance.Options.UseFont = true;
-            this.btnSave.Appearance.Options.UseForeColor = true;
-            this.btnSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSave.ImageIndex = 4;
-            this.btnSave.ImageList = this.imageList1;
-            this.btnSave.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(81, 229);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(176, 35);
-            this.btnSave.TabIndex = 39;
-            this.btnSave.Text = "LƯU";
-            this.btnSave.Click += new System.EventHandler(this.buttonLuu_Click);
+            this.btnLuu.Appearance.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLuu.Appearance.ForeColor = System.Drawing.Color.Green;
+            this.btnLuu.Appearance.Options.UseFont = true;
+            this.btnLuu.Appearance.Options.UseForeColor = true;
+            this.btnLuu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnLuu.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLuu.ImageIndex = 4;
+            this.btnLuu.ImageList = this.imageList1;
+            this.btnLuu.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
+            this.btnLuu.Location = new System.Drawing.Point(81, 229);
+            this.btnLuu.Name = "btnLuu";
+            this.btnLuu.Size = new System.Drawing.Size(176, 35);
+            this.btnLuu.TabIndex = 39;
+            this.btnLuu.Text = "LƯU";
+            this.btnLuu.Click += new System.EventHandler(this.buttonLuu_Click);
             // 
-            // btnRemove
+            // btnBo
             // 
-            this.btnRemove.Appearance.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemove.Appearance.ForeColor = System.Drawing.Color.Green;
-            this.btnRemove.Appearance.Options.UseFont = true;
-            this.btnRemove.Appearance.Options.UseForeColor = true;
-            this.btnRemove.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnRemove.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRemove.ImageIndex = 1;
-            this.btnRemove.ImageList = this.imageList1;
-            this.btnRemove.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
-            this.btnRemove.Location = new System.Drawing.Point(81, 174);
-            this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(176, 35);
-            this.btnRemove.TabIndex = 38;
-            this.btnRemove.Text = "BỎ";
-            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+            this.btnBo.Appearance.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBo.Appearance.ForeColor = System.Drawing.Color.Green;
+            this.btnBo.Appearance.Options.UseFont = true;
+            this.btnBo.Appearance.Options.UseForeColor = true;
+            this.btnBo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnBo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBo.ImageIndex = 1;
+            this.btnBo.ImageList = this.imageList1;
+            this.btnBo.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
+            this.btnBo.Location = new System.Drawing.Point(81, 174);
+            this.btnBo.Name = "btnBo";
+            this.btnBo.Size = new System.Drawing.Size(176, 35);
+            this.btnBo.TabIndex = 38;
+            this.btnBo.Text = "BỎ";
+            this.btnBo.Click += new System.EventHandler(this.buttonBo_Click);
             // 
             // buttonDoiCho
             // 
@@ -414,7 +414,7 @@
             this.buttonDoiCho.Size = new System.Drawing.Size(176, 35);
             this.buttonDoiCho.TabIndex = 37;
             this.buttonDoiCho.Text = "ĐỔI CHỖ";
-            this.buttonDoiCho.Click += new System.EventHandler(this.btnSwap_Click);
+            this.buttonDoiCho.Click += new System.EventHandler(this.buttonDoiCho_Click);
             // 
             // buttonThem
             // 
@@ -628,10 +628,10 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ImageList imageList1;
         private DevExpress.XtraEditors.GroupControl groupControl1;
-        private DevExpress.XtraEditors.SimpleButton btnRemove;
+        private DevExpress.XtraEditors.SimpleButton btnBo;
         private DevExpress.XtraEditors.SimpleButton buttonDoiCho;
         private DevExpress.XtraEditors.SimpleButton buttonThem;
-        private DevExpress.XtraEditors.SimpleButton btnSave;
+        private DevExpress.XtraEditors.SimpleButton btnLuu;
         private System.Windows.Forms.DataGridViewTextBoxColumn STT;
         private System.Windows.Forms.DataGridViewTextBoxColumn HoTen;
         private System.Windows.Forms.DataGridViewTextBoxColumn NgaySinh;

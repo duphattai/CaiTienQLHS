@@ -468,12 +468,12 @@ namespace frMain
         {
             try
             {
-                frBangDiem BangDiem = new frBangDiem(_AllowUpdateDiem, cbNamHoc.SelectedIndex, treeView.SelectedNode.Parent.Index, treeView.SelectedNode.Index, int.Parse(listView1.SelectedItems[0].Tag.ToString()));
+                FormBangDiem BangDiem = new FormBangDiem(_AllowUpdateDiem, cbNamHoc.SelectedIndex, treeView.SelectedNode.Parent.Index, treeView.SelectedNode.Index, int.Parse(listView1.SelectedItems[0].Tag.ToString()));
                 BangDiem.Show();
             }
             catch
             {
-                frBangDiem BangDiem = new frBangDiem(_AllowUpdateDiem);
+                FormBangDiem BangDiem = new FormBangDiem(_AllowUpdateDiem);
                 BangDiem.Show();
             }
         }

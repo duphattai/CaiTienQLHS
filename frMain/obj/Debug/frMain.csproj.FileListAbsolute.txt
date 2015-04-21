@@ -21,10 +21,6 @@ C:\Users\Tai\Desktop\PTVHBTPM\frMain\obj\Debug\frMain.exe.licenses
 C:\Users\Tai\Desktop\PTVHBTPM\frMain\bin\Debug\frMain.exe.config
 C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\frMain\bin\Debug\APPDATA.mdf
 C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\frMain\bin\Debug\APPDATA_log.ldf
-C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\frMain\bin\Debug\Resources\HuongDanSuDungPhanMem.chm
-C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\frMain\bin\Debug\frMain.exe.config
-C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\frMain\bin\Debug\frMain.exe
-C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\frMain\bin\Debug\frMain.pdb
 C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\frMain\bin\Debug\BUS.dll
 C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\frMain\bin\Debug\ConnectToDatabase.dll
 C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\frMain\bin\Debug\DataAccessObject.dll
@@ -37,7 +33,7 @@ C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\frMain\bin\Debug\Excel.4.5.pdb
 C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\frMain\obj\Debug\frMain.csprojResolveAssemblyReference.cache
 C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\frMain\obj\Debug\frMain.fmPhanQuyen.resources
 C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\frMain\obj\Debug\frMain.fmQuanLyHocSinh.resources
-C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\frMain\obj\Debug\frMain.frBangDiem.resources
+C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\frMain\obj\Debug\frMain.FormBangDiem.resources
 C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\frMain\obj\Debug\frMain.frBaoCaoMon.resources
 C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\frMain\obj\Debug\frMain.frBaoCaoTKHK.resources
 C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\frMain\obj\Debug\frMain.frDangNhap.resources
@@ -56,3 +52,7 @@ C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\frMain\obj\Debug\frMain.csproj.GenerateRes
 C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\frMain\obj\Debug\frMain.exe.licenses
 C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\frMain\obj\Debug\frMain.exe
 C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\frMain\obj\Debug\frMain.pdb
+C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\frMain\bin\Debug\frMain.exe.config
+C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\frMain\bin\Debug\Resources\HuongDanSuDungPhanMem.chm
+C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\frMain\bin\Debug\frMain.exe
+C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\frMain\bin\Debug\frMain.pdb

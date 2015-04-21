@@ -229,17 +229,17 @@ namespace frMain
         //Nhập điểm
         private void _nhapdiem_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
         {
-            frBangDiem formBD;
+            FormBangDiem formBD;
             if (_quyen == 2)
-                formBD = new frBangDiem(true);
+                formBD = new FormBangDiem(true);
             else
-                formBD = new frBangDiem(false);
+                formBD = new FormBangDiem(false);
             formBD.Show();
         }
         #region Bang diem
         private void _dMonHoc_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
         {
-            frBangDiem formBD = new frBangDiem(false);
+            FormBangDiem formBD = new FormBangDiem(false);
             formBD.Show();
         }
         #endregion

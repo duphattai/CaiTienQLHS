@@ -14,17 +14,29 @@ using DataAccessObject.DAO;
 
 namespace frMain
 {
-    public partial class frBangDiem : DevExpress.XtraEditors.XtraForm
+    public partial class FormBangDiem : DevExpress.XtraEditors.XtraForm
     {
+        /// <summary>
+        /// Đối tượng dùng để lưu danh sách bảng điểm bị thay đổi nhưng chưa lưu xuống database theo năm học
+        /// </summary>
         public class CBangDiemChanged
         {
-            public string NamHoc;
-            public int MaHocKy;
-            public string MaKhoi;
-            public int MaLop;
-            public string MaMon;
-            public List<BangDiem_BUS> ListDiem = new List<BangDiem_BUS>();
+            public string NamHoc; // lưu năm học
+            public int MaHocKy; // lưu học kỳ 
+            public string MaKhoi; // lưu khối lớp
+            public int MaLop; // lưu mã lớp trong khối
+            public string MaMon; // lưu mã môn học
+            public List<BangDiem_BUS> ListDiem = new List<BangDiem_BUS>(); // danh sách bảng điểm bị thay đổi trong năm học đó
 
+            /// <summary>
+            /// Construtor để khởi tạo giá trị các thuộc tính
+            /// </summary>
+            /// <param name="_NamHoc"></param>
+            /// <param name="_MaHocKy"></param>
+            /// <param name="_MaKhoi"></param>
+            /// <param name="_MaLop"></param>
+            /// <param name="_MaMon"></param>
+            /// <param name="_ListDiem"></param>
             public CBangDiemChanged(string _NamHoc, int _MaHocKy, string _MaKhoi, int _MaLop, string _MaMon, List<BangDiem_BUS> _ListDiem)
             {
                 NamHoc = _NamHoc;
@@ -36,28 +48,32 @@ namespace frMain
             }
         }
 
-        NamHoc_BUS _NHBUS = new NamHoc_BUS();
-        Khoi_BUS _KBUS = new Khoi_BUS();
-        HocKy_BUS _HKBUS = new HocKy_BUS();
-        MonHoc_BUS _MHBUS = new MonHoc_BUS();
-        Diem_BUS _DBUS = new Diem_BUS();
-        XepLop_BUS _XepBus = new XepLop_BUS();
-        HoSoHocSinh_Bus _HSBUS = new HoSoHocSinh_Bus();
-        QuiDinh_BUS _QuiDinh = new QuiDinh_BUS();
+        private NamHoc_BUS _NamHocBUS = new NamHoc_BUS(); // dùng để truy xuất dữ liệu từ bảng NAMHOC từ database
+        private Khoi_BUS _KhoiBUS = new Khoi_BUS(); // truy xuất bảng KHOI
+        private HocKy_BUS _HocKyBUS = new HocKy_BUS(); // truy xuất đến bảng HOCKY
+        private MonHoc_BUS _MonHocBUS = new MonHoc_BUS(); // truy xuất đến bảng MONHOC
+        private Diem_BUS _DiemBUS = new Diem_BUS(); // truy xuất đến bảng DIEM
+        private XepLop_BUS _XepLopBUS = new XepLop_BUS(); // truy xuất bảng XEPLOP
+        private HoSoHocSinh_Bus _HoSoHocSinhBUS = new HoSoHocSinh_Bus(); // truy xuất bảng HOSOHOCSINH
+        private QuiDinh_BUS _QuiDinhBUS = new QuiDinh_BUS(); // truy xuất bảng QUIDINH
+        private DanhSachLop_BUS _DanhSachLopBUS = new DanhSachLop_BUS(); // truy xuất đến bảng DANHSACHLOP
 
-        Bitmap bitmap;
-        bool _IsSelectedBefore = false;
-        int _NamHocIndex, _KhoiIndex, _LopIndex, _MaHocSinh;
+        private Bitmap _Bitmap;
+        private bool _IsSelectedBefore = false;
+        private int _NamHocIndex, _KhoiIndex, _LopIndex, _MaHocSinh;
 
-        DanhSachLop_BUS _LopBus = new DanhSachLop_BUS();
 
-        List<BangDiem_BUS> _ListBangDiem = new List<BangDiem_BUS>();
-        List<CBangDiemChanged> _ListBangDiemChanged = new List<CBangDiemChanged>();
+        private List<BangDiem_BUS> _ListBangDiem = new List<BangDiem_BUS>(); // chưa danh sách bảng điểm lấy từ database
+        private List<CBangDiemChanged> _ListBangDiemChanged = new List<CBangDiemChanged>(); // danh sách bảng điểm bị thay đổi nhưng chua cập nhật torng database
 
-        double? PreviousValue = 0;   //Để gắn lại nếu người dùng nhập sai quy định
+        private double? PreviousValue = 0;   // lưu điểm cũ trước khi thay đổi, để gắn lại nếu người dùng nhập sai quy định
 
-        //List<usp_SelectBangdiemsPagedResult> _ListNam = new List<usp_SelectBangdiemsPagedResult>();
-        public frBangDiem(bool _IsAllowToUpdate)
+        
+
+        /// <summary>
+        /// Constructor dùng để khởi tạo hiển thị của Form và thiết lập chức năng cột DIEM15, DIEM1Tiet, DIEMHK chỉ đọc
+        /// </summary>
+        public FormBangDiem(bool _IsAllowToUpdate)
         {
             InitializeComponent();
             if (!_IsAllowToUpdate)
@@ -68,7 +84,7 @@ namespace frMain
             }
         }
 
-        public frBangDiem(bool _IsAllowToUpdate, int NamHocIndex, int KhoiIndex, int LopIndex, int MaHocSinh)
+        public FormBangDiem(bool _IsAllowToUpdate, int NamHocIndex, int KhoiIndex, int LopIndex, int MaHocSinh)
         {
             InitializeComponent();
             if (!_IsAllowToUpdate)
@@ -84,26 +100,29 @@ namespace frMain
             _MaHocSinh = MaHocSinh;
         }
 
-        private void frBangDiem_Load(object sender, EventArgs e)
+        /// <summary>
+        /// Sự kiện: xảy ra khi form bảng điểm được load lên
+        /// </summary>
+        private void FormBangDiem_Load(object sender, EventArgs e)
         {
             LoadDanhSachNam();
-            if (comboNam.Items.Count > 0)
+            if (comboboxNam.Items.Count > 0)
             {
                 if (!_IsSelectedBefore)
                 {
                     LoadDanhSachHocKy();
-                    comboHocKy.SelectedIndex = 0;
-                    comboNam.SelectedIndex = 0;
+                    comboboxHocKy.SelectedIndex = 0;
+                    comboboxNam.SelectedIndex = 0;
                 }
                 else
                 {
                     LoadDanhSachHocKy();
                     LoadDanhSachMonHoc();
-                    comboNam.SelectedIndex = _NamHocIndex;
-                    comboKhoi.SelectedIndex = _KhoiIndex;
-                    comboLop.SelectedIndex = _LopIndex;
-                    comboHocKy.SelectedIndex = 0;
-                    comboMon.SelectedIndex = 0;
+                    comboboxNam.SelectedIndex = _NamHocIndex;
+                    comboboxKhoi.SelectedIndex = _KhoiIndex;
+                    comboboxLop.SelectedIndex = _LopIndex;
+                    comboboxHocKy.SelectedIndex = 0;
+                    comboboxMon.SelectedIndex = 0;
                     foreach (DataGridViewRow row in dataGridView.Rows)
                     {
                         if (row.Cells["MaHocSinh"].Value.ToString() == _MaHocSinh.ToString())
@@ -118,62 +137,89 @@ namespace frMain
             }
         }
 
-        void LoadDanhSachNam()
+        /// <summary>
+        /// load năm học từ database vào comboboxNam
+        /// </summary>
+        private void LoadDanhSachNam()
         {
-            comboNam.Items.Clear();
-            foreach (NAMHOC nam in _NHBUS.LayNamHoc())
+            comboboxNam.Items.Clear();// xóa các danh sách năm học hiện có
+            foreach (NAMHOC nam in _NamHocBUS.LayNamHoc())
             {
-                comboNam.Items.Add(nam.NAMHOC1);
+                comboboxNam.Items.Add(nam.NAMHOC1);// thêm năm học vào combobox
             }
         }
 
+        /// <summary>
+        /// lấy dữ liệu học kỳ từ database thêm vào comboboxHocky
+        /// </summary>
         void LoadDanhSachHocKy()
         {
-            comboHocKy.Items.Clear();
-            foreach (HOCKY hk in _HKBUS.LayDanhSachHocKy())
+            comboboxHocKy.Items.Clear();// xóa các danh sách học kỳ hiện có
+            foreach (HOCKY hk in _HocKyBUS.LayDanhSachHocKy()) // duyệt danh sách học kỳ lấy từ database
             {
-                comboHocKy.Items.Add(hk.TENHOCKY);
+                comboboxHocKy.Items.Add(hk.TENHOCKY); // thêm học kỳ năm học
             }
         }
 
+        /// <summary>
+        /// lấy dữ liệu tất cả môn học từ database thêm vào comboboxMon
+        /// </summary>
         void LoadDanhSachMonHoc()
         {
-            comboMon.Items.Clear();
-            foreach (MONHOC mh in _MHBUS.LayDanhSachMonHoc())
+            comboboxMon.Items.Clear();
+            foreach (MONHOC mh in _MonHocBUS.LayDanhSachMonHoc())
             {
-                comboMon.Items.Add(mh.TENMONHOC);
+                comboboxMon.Items.Add(mh.TENMONHOC);
             }
         }
 
+        /// <summary>
+        /// lấy dữ liệu khối lớp từ database thêm vào comboboxKhoi
+        /// </summary>
         void LoadDanhSachKhoi()
         {
-            comboKhoi.Items.Clear();
-            foreach (usp_SelectKhoisAllResult khoi in _KBUS.LayDanhSachKhoi())
+            comboboxKhoi.Items.Clear();
+            foreach (usp_SelectKhoisAllResult khoi in _KhoiBUS.LayDanhSachKhoi())
             {
-                comboKhoi.Items.Add(khoi.KHOI.ToString());
+                comboboxKhoi.Items.Add(khoi.KHOI.ToString());
             }
         }
 
+        /// <summary>
+        /// lấy dữ liệu lớp học từ database thêm vào comboboxLop theo năm học và khối lớp
+        /// </summary>
         void LoadDanhSachLop()
         {
-            comboLop.Items.Clear();
-            foreach (usp_SelectLopsByMAKHOI_NAMHOCResult lop in _LopBus.LayDanhSachLopTheoKhoiMaNam(comboKhoi.Tag.ToString(), comboNam.Text))
+            comboboxLop.Items.Clear();
+            foreach (usp_SelectLopsByMAKHOI_NAMHOCResult lop in _DanhSachLopBUS.LayDanhSachLopTheoKhoiMaNam(comboboxKhoi.Tag.ToString(), comboboxNam.Text))
             {
-                comboLop.Items.Add(lop.TENLOP.ToString());
+                comboboxLop.Items.Add(lop.TENLOP.ToString());
             }
         }
 
-        //-1 là ko có
+
+        /// <summary>
+        /// Kiểm tra xem trong năm học, trong một học kỳ, trong một lớp, trong một môn có điểm học sinh bị thay đổi ma chưa lưu lại hay chưa
+        /// nếu có trả về vị trí trong danh sách đó, không trả về -1
+        /// </summary> 
         int CheckExistedInListBangDiemChanged(string _NamHoc, int _MaHocKy, string _MaKhoi, int _MaLop, string _MaMon)
         {
             for (int i = 0; i < _ListBangDiemChanged.Count; i++)
             {
-                if (_ListBangDiemChanged[i].NamHoc == _NamHoc && _ListBangDiemChanged[i].MaHocKy == _MaHocKy && _ListBangDiemChanged[i].MaKhoi == _MaKhoi && _ListBangDiemChanged[i].MaLop == _MaLop && _ListBangDiemChanged[i].MaMon == _MaMon)
+                if (_ListBangDiemChanged[i].NamHoc == _NamHoc && _ListBangDiemChanged[i].MaHocKy == _MaHocKy 
+                    && _ListBangDiemChanged[i].MaKhoi == _MaKhoi && _ListBangDiemChanged[i].MaLop == _MaLop 
+                    && _ListBangDiemChanged[i].MaMon == _MaMon)
                     return i;
             }
             return -1;
         }
 
+        /// <summary>
+        /// Tìm vị trí của học sinh trong danh sách bảng điểm
+        /// </summary>
+        /// <returns>
+        /// không tìm thấy trả về -1, ngược lại là vị trí của học sinh
+        /// </returns>
         int FindIndexInListBangDiem(int _MaHocSinh, List<BangDiem_BUS> _BangDiem)
         {
             for (int i = 0; i < _BangDiem.Count; i++)
@@ -189,38 +235,31 @@ namespace frMain
 
         }
 
-        private void comboNam_SelectedIndexChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Sự kiện: khi comboxboxNam được click vào
+        /// load dữ liệu năm học vào combobox và thiết lập thuộc tính
+        /// </summary>
+        private void ComboboxNam_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoadDanhSachKhoi();
-            if (comboKhoi.Items.Count > 0)
-                comboKhoi.SelectedIndex = 0;
+            if (comboboxKhoi.Items.Count > 0)
+                comboboxKhoi.SelectedIndex = 0; // mặc định chọn item đầu tiên
         }
 
-        private void comboHocKy_SelectedIndexChanged(object sender, EventArgs e)
+
+        /// <summary>
+        /// Sự kiện: khi comboboxHocKy được click vào
+        /// thiết lập thuộc tính Tag của combobox = mã học kỳ tương ứng được selected, hiển thị lại dữ liệu trên datagridview
+        /// </summary>
+        private void ComboboxHocKy_SelectedIndexChanged(object sender, EventArgs e)
         {
             int index = 0;
 
-            foreach (HOCKY hk in _HKBUS.LayDanhSachHocKy())
+            foreach (HOCKY hk in _HocKyBUS.LayDanhSachHocKy())
             {
-                if (index == comboHocKy.SelectedIndex)
+                if (index == comboboxHocKy.SelectedIndex)
                 {
-                    comboHocKy.Tag = hk.MAHOCKY;
-                    break;
-                }
-                index++;
-            }
-            LoadDatagridview();
-        }
-
-        private void comboMon_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int index = 0;
-
-            foreach (MONHOC mh in _MHBUS.LayDanhSachMonHoc())
-            {
-                if (index == comboMon.SelectedIndex)
-                {
-                    comboMon.Tag = mh.MAMONHOC;
+                    comboboxHocKy.Tag = hk.MAHOCKY;
                     break;
                 }
                 index++;
@@ -229,77 +268,113 @@ namespace frMain
         }
 
 
-        private void comboKhoi_SelectedIndexChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Sự kiện: xảy ra khi comboboxMon được chọn
+        /// thiết lập thuộc tính Tag = mã môn học tương ứng với tên môn học được chọn
+        /// </summary>
+        private void ComboboxMon_SelectedIndexChanged(object sender, EventArgs e)
         {
             int index = 0;
 
-            foreach (usp_SelectKhoisAllResult khoi in _KBUS.LayDanhSachKhoi())
+            foreach (MONHOC mh in _MonHocBUS.LayDanhSachMonHoc())
             {
-                if (index == comboKhoi.SelectedIndex)
+                if (index == comboboxMon.SelectedIndex)
                 {
-                    comboKhoi.Tag = khoi.MAKHOI;
+                    comboboxMon.Tag = mh.MAMONHOC;
+                    break;
+                }
+                index++;
+            }
+            LoadDatagridview();
+        }
+
+        /// <summary>
+        /// Sự kiện: xảy ra khi comboboxKhoi được chọn
+        /// thiết lập Tag = mã khối tương ứng với tên khối được chọn và load lại danh sách lớp 
+        /// </summary>
+        private void ComboboxKhoi_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int index = 0;
+
+            foreach (usp_SelectKhoisAllResult khoi in _KhoiBUS.LayDanhSachKhoi())
+            {
+                if (index == comboboxKhoi.SelectedIndex)
+                {
+                    comboboxKhoi.Tag = khoi.MAKHOI;
 
                 }
                 index++;
             }
 
             LoadDanhSachLop();
-            if (comboLop.Items.Count > 0)
-                comboLop.SelectedIndex = 0;
+            if (comboboxLop.Items.Count > 0)
+                comboboxLop.SelectedIndex = 0;
         }
 
-        private void comboLop_SelectedIndexChanged(object sender, EventArgs e)
+
+        /// <summary>
+        /// Sự kiện: xảy ra khi comboboxLop đựơc chọn
+        /// hiển thị lại danh sách môn học theo lớp và thiết lập Tag = mã lớp tương ứng với tên lớp được chọn
+        /// </summary>
+        private void ComboboxLop_SelectedIndexChanged(object sender, EventArgs e)
         {
             int index = 0;
 
             LoadDanhSachMonHoc();
 
-            foreach (usp_SelectLopsByMAKHOI_NAMHOCResult lop in _LopBus.LayDanhSachLopTheoKhoiMaNam(comboKhoi.Tag.ToString(), comboNam.Text))
+            foreach (usp_SelectLopsByMAKHOI_NAMHOCResult lop in _DanhSachLopBUS.LayDanhSachLopTheoKhoiMaNam(comboboxKhoi.Tag.ToString(), comboboxNam.Text))
             {
-                if (index == comboLop.SelectedIndex)
+                if (index == comboboxLop.SelectedIndex)
                 {
-                    comboLop.Tag = lop.MALOP;
+                    comboboxLop.Tag = lop.MALOP;
                     break;
                 }
                 index++;
             }
-            if (comboMon.Items.Count > 0)
-                comboMon.SelectedIndex = 0;
+            if (comboboxMon.Items.Count > 0)
+                comboboxMon.SelectedIndex = 0;
         }
 
+
+        /// <summary>
+        /// lấy danh sách học sinh và bảng điểm với các điều kiện tương ứng hiển thị lên datagridview
+        /// </summary>
         void LoadDatagridview()
         {
-
-            if (comboLop.SelectedIndex != -1 && comboMon.SelectedIndex != -1 && comboNam.SelectedIndex != -1 && comboHocKy.SelectedIndex != -1 && comboKhoi.SelectedIndex != -1)
+            // Đảm bảo các combobox đều có dữ liệu được chọn
+            if (comboboxLop.SelectedIndex != -1 && comboboxMon.SelectedIndex != -1 && comboboxNam.SelectedIndex != -1 && comboboxHocKy.SelectedIndex != -1 && comboboxKhoi.SelectedIndex != -1)
             {
-                lbhocky.Text = comboHocKy.Text;
-                lbmon.Text = comboMon.Text;
-                lblop.Text = comboLop.Text;
+                labelHocKy.Text = comboboxHocKy.Text;
+                labelMon.Text = comboboxMon.Text;
+                labelLop.Text = comboboxLop.Text;
+
 
                 _ListBangDiem.Clear();
-                int i = CheckExistedInListBangDiemChanged(comboNam.Text, int.Parse(comboHocKy.Tag.ToString()), comboKhoi.Tag.ToString(), int.Parse(comboLop.Tag.ToString()), comboMon.Tag.ToString());
-
-                if (i == -1)
+                int i = CheckExistedInListBangDiemChanged(comboboxNam.Text, int.Parse(comboboxHocKy.Tag.ToString()), comboboxKhoi.Tag.ToString(), int.Parse(comboboxLop.Tag.ToString()), comboboxMon.Tag.ToString());
+                if (i == -1)// không tìm thấy
                 {
-                    foreach (usp_SelectXeplopsByMALOPResult hs in _XepBus.TruyVanTheoMaLop(int.Parse(comboLop.Tag.ToString())))
+                    // duyệt danh sách học sinh trong một lớp
+                    foreach (usp_SelectXeplopsByMALOPResult hs in _XepLopBUS.TruyVanTheoMaLop(int.Parse(comboboxLop.Tag.ToString())))
                     {
-                        BangDiem_BUS diem = _DBUS.LayBangDiem((int)hs.MAHOCSINH, comboNam.Text, int.Parse(comboHocKy.Tag.ToString()), comboMon.Tag.ToString());
-                        _ListBangDiem.Add(diem);
+                        // Lấy bảng điểm học sinh đang duyệt từ database
+                        BangDiem_BUS diem = _DiemBUS.LayBangDiem((int)hs.MAHOCSINH, comboboxNam.Text, int.Parse(comboboxHocKy.Tag.ToString()), comboboxMon.Tag.ToString());
+                        _ListBangDiem.Add(diem); // thêm học sinh cùng bảng điểm vào danh sách
                     }
-                    dataGridView.DataSource = _ListBangDiem.ToArray();
+                    dataGridView.DataSource = _ListBangDiem.ToArray(); // thiết lập dữ liệu cho datagridview
                 }
-                else
+                else // tìm thấy
                 {
-                    dataGridView.DataSource = _ListBangDiemChanged[i].ListDiem.ToArray();
+                    dataGridView.DataSource = _ListBangDiemChanged[i].ListDiem.ToArray();// thiết lập dữ liệu cho datagridview
                 }
-                //dataGridView.Columns["MaHocSinh"].Visible = false;
             }
             else
             {
-                lbhocky.Text = null;
-                lbmon.Text = null;
-                lblop.Text = null;
+                labelHocKy.Text = null;
+                labelMon.Text = null;
+                labelLop.Text = null;
             }
+
+            // thiết lập số thứ tự trên datagridview
             for (int j = 0; j < dataGridView.Rows.Count; j++)
             {
                 dataGridView.Rows[j].Cells["STT"].Value = j + 1;
@@ -307,99 +382,112 @@ namespace frMain
 
         }
 
-        private void dataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        /// <summary>
+        /// Sự kiện: xảy ra sau khi thay đổi dữ liệu trên datagridview
+        /// kiểm tra điểm vừa thay đổi có hợp lệ không, nếu hợp lệ và điểm nhập đầy đủ sẽ tính điểm trung bình
+        /// </summary>
+        private void DataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            double _Diem = -1;
-            double? _DiemTB = null;
+            double Diem = -1;
+            double? DiemTB = null;
 
             try
             {
-                double.TryParse(dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString(), out _Diem);
+                double.TryParse(dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString(), out Diem); // convert string to double tại giá trị vừa thay đổi
             }
             catch
             {
-                _Diem = -1;
+                Diem = -1;
             }
             finally
             {
-                int _DiemToiDa = _QuiDinh.LayDiemToiDa();
-                int _DiemToiThieu = _QuiDinh.LayDiemToiThieu();
-                if (_Diem > _DiemToiDa || _Diem < _DiemToiThieu)
+                int DiemToiDa = _QuiDinhBUS.LayDiemToiDa();
+                int DiemToiThieu = _QuiDinhBUS.LayDiemToiThieu();
+                if (Diem > DiemToiDa || Diem < DiemToiThieu) // điểm thay đổi không hợp lệ
                 {
-                    MessageBox.Show("Điểm không được vượt quá " + _DiemToiDa.ToString() + " hay nhỏ hơn " + _DiemToiThieu.ToString(), "Error");
-                    dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = PreviousValue;
+                    MessageBox.Show("Điểm không được vượt quá " + DiemToiDa.ToString() + " hay nhỏ hơn " + DiemToiThieu.ToString(), "Error");
+                    dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = PreviousValue; // nếu không hợp lệ sẽ lấy lại điểm cũ
                     dataGridView.CancelEdit();
                 }
-                else
+                else // hợp lệ
                 {
+                    // đảm bảo các điểm được nhập đầy đủ
                     if (dataGridView.Rows[e.RowIndex].Cells["Diem15"].Value != null && dataGridView.Rows[e.RowIndex].Cells["Diem1Tiet"].Value != null && dataGridView.Rows[e.RowIndex].Cells["DiemHK"].Value != null)
                     {
                         double _Diem15 = double.Parse(dataGridView.Rows[e.RowIndex].Cells["Diem15"].Value.ToString());
                         double _Diem1Tiet = double.Parse(dataGridView.Rows[e.RowIndex].Cells["Diem1Tiet"].Value.ToString());
                         double _DiemHK = double.Parse(dataGridView.Rows[e.RowIndex].Cells["DiemHK"].Value.ToString());
-                        _DiemTB = Math.Round((_Diem15 + _Diem1Tiet * 2 + _DiemHK * 3) / 6, 1);
+                        DiemTB = Math.Round((_Diem15 + _Diem1Tiet * 2 + _DiemHK * 3) / 6, 1); // tính điểm trung bình
 
-                        dataGridView.Rows[e.RowIndex].Cells["DiemTB"].Value = _DiemTB;
+                        dataGridView.Rows[e.RowIndex].Cells["DiemTB"].Value = DiemTB;
                     }
 
-                    int i = CheckExistedInListBangDiemChanged(comboNam.Text, int.Parse(comboHocKy.Tag.ToString()), comboKhoi.Tag.ToString(), int.Parse(comboLop.Tag.ToString()), comboMon.Tag.ToString());
-                    if (i == -1)
+                    int i = CheckExistedInListBangDiemChanged(comboboxNam.Text, int.Parse(comboboxHocKy.Tag.ToString()), comboboxKhoi.Tag.ToString(), int.Parse(comboboxLop.Tag.ToString()), comboboxMon.Tag.ToString());
+                    if (i == -1)// không tìm thấy
                     {
-
-                        _ListBangDiemChanged.Add(new CBangDiemChanged(comboNam.Text, int.Parse(comboHocKy.Tag.ToString()), comboKhoi.Tag.ToString(), int.Parse(comboLop.Tag.ToString()), comboMon.Tag.ToString(), new List<BangDiem_BUS>(_ListBangDiem)));
+                        // thêm bảng điểm vừa thay đổi vào ListBangDiemChanged
+                        _ListBangDiemChanged.Add(new CBangDiemChanged(comboboxNam.Text, int.Parse(comboboxHocKy.Tag.ToString()), comboboxKhoi.Tag.ToString(), int.Parse(comboboxLop.Tag.ToString()), comboboxMon.Tag.ToString(), new List<BangDiem_BUS>(_ListBangDiem)));
+                        
                         int index = _ListBangDiemChanged.Count - 1;
                         int j = FindIndexInListBangDiem(int.Parse(dataGridView.Rows[e.RowIndex].Cells["MaHocSinh"].Value.ToString()), _ListBangDiemChanged[index].ListDiem);
-                        switch (e.ColumnIndex)
+                        switch (e.ColumnIndex)// vị trí cột có điểm vừa thay đổi
                         {
                             case 3:
-                                _ListBangDiemChanged[index].ListDiem[j]._Diem15 = _Diem;
+                                _ListBangDiemChanged[index].ListDiem[j]._Diem15 = Diem;
                                 break;
                             case 4:
-                                _ListBangDiemChanged[index].ListDiem[j]._Diem1Tiet = _Diem;
+                                _ListBangDiemChanged[index].ListDiem[j]._Diem1Tiet = Diem;
                                 break;
                             case 5:
-                                _ListBangDiemChanged[index].ListDiem[j]._DiemHK = _Diem;
+                                _ListBangDiemChanged[index].ListDiem[j]._DiemHK = Diem;
                                 break;
                             default:
                                 break;
                         }
-                        _ListBangDiemChanged[index].ListDiem[j]._DiemTB = _DiemTB;
+                        _ListBangDiemChanged[index].ListDiem[j]._DiemTB = DiemTB;
                     }
-                    else
+                    else // tìm thấy
                     {
                         int j = FindIndexInListBangDiem(int.Parse(dataGridView.Rows[e.RowIndex].Cells["MaHocSinh"].Value.ToString()), _ListBangDiemChanged[i].ListDiem);
-                        switch (e.ColumnIndex)
+                        switch (e.ColumnIndex)// vị trí cột có điểm vừa thay đổi
                         {
                             case 3:
-                                _ListBangDiemChanged[i].ListDiem[j]._Diem15 = _Diem;
+                                _ListBangDiemChanged[i].ListDiem[j]._Diem15 = Diem;
                                 break;
                             case 4:
-                                _ListBangDiemChanged[i].ListDiem[j]._Diem1Tiet = _Diem;
+                                _ListBangDiemChanged[i].ListDiem[j]._Diem1Tiet = Diem;
                                 break;
                             case 5:
-                                _ListBangDiemChanged[i].ListDiem[j]._DiemHK = _Diem;
+                                _ListBangDiemChanged[i].ListDiem[j]._DiemHK = Diem;
                                 break;
                             default:
                                 break;
                         }
-                        _ListBangDiemChanged[i].ListDiem[j]._DiemTB = _DiemTB;
+                        _ListBangDiemChanged[i].ListDiem[j]._DiemTB = DiemTB;
                     }
                 }
             }
 
         }
 
-        private void dataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        /// <summary>
+        /// Sự kiện: xảy ra khi nhập sai dữ liệu vào cột điểm
+        /// </summary>
+        private void DataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             MessageBox.Show("Vui lòng chỉ nhập số", "Error");
             dataGridView.CancelEdit();
         }
 
-        private void dataGridView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        /// <summary>
+        /// Sự kiện: khi thay đổi dữ liệu trên ô trong datagridview
+        /// convert dữ liệu từ ô đã thay đổi thành double
+        /// </summary>
+        private void DataGridView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
             try
             {
-                PreviousValue = double.Parse(dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                PreviousValue = double.Parse(dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()); // convert string to double
             }
             catch
             {
@@ -407,32 +495,40 @@ namespace frMain
             }
         }
 
-        private void toolStripBtnSave_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Sự kiện: khi buttonLuu được click
+        /// lưu dữ liệu điểm của học sinh đã bị thay đổi vào databse
+        /// </summary>
+        private void ButtonLuu_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < _ListBangDiemChanged.Count; i++)
             {
                 for (int j = 0; j < _ListBangDiemChanged[i].ListDiem.Count; j++)
-                    _DBUS.UpdateDiem(_ListBangDiemChanged[i].ListDiem[j], _ListBangDiemChanged[i].NamHoc, _ListBangDiemChanged[i].MaHocKy, _ListBangDiemChanged[i].MaMon);
+                    _DiemBUS.UpdateDiem(_ListBangDiemChanged[i].ListDiem[j], _ListBangDiemChanged[i].NamHoc, _ListBangDiemChanged[i].MaHocKy, _ListBangDiemChanged[i].MaMon);
             }
             MessageBox.Show("Lưu thành công", "Success");
             _ListBangDiemChanged.Clear();
         }
 
-        private void toolStripBtnExit_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Sự kiện: khi buttonThoat được click
+        /// nếu dữ liệu bị thay đổi nhưng chưa lưu sẽ nhắc người dùng lưu lại, đóng form đang thao tác
+        /// </summary>
+        private void ButtonThoat_Click(object sender, EventArgs e)
         {
-            if (_ListBangDiemChanged.Count > 0)
+            if (_ListBangDiemChanged.Count > 0) // dữ liệu thay đổi nhưng chưa lưu
             {
                 DialogResult dr = MessageBox.Show("Dữ liệu có thay đổi, bạn có muốn lưu lại ko?", "THOÁT ỨNG DỤNG", MessageBoxButtons.YesNoCancel);
-                if (dr != DialogResult.Cancel)
+                if (dr != DialogResult.Cancel) // button trên Yes trên DialogResult được chọn
                 {
                     if (DialogResult.Yes == dr)
                     {
-                        toolStripBtnSave_Click(sender, e);
+                        ButtonLuu_Click(sender, e); // lưu dữ liệu vào database
                     }
                     this.Close();
                 }
             }
-            else
+            else // không có dữ liệu bị thay đổi
             {
                 if (DialogResult.OK == MessageBox.Show("Bạn có muốn thoát!", "THOÁT ỨNG DỤNG", MessageBoxButtons.OKCancel, MessageBoxIcon.Question))
                 {
@@ -441,33 +537,40 @@ namespace frMain
             }
         }
 
-        private void BtIn_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Sự kiện: khi buttonIn được click
+        /// in bảng điểm 
+        /// </summary>
+        private void ButtonIn_Click(object sender, EventArgs e)
         {
-            printPreviewBangDiem.Document = printBangDiem;
+            printPreviewBangDiem.Document = printBangDiem; // thiết lập dữ liệu sẽ in lên
 
-            ((Form)printPreviewBangDiem).WindowState = FormWindowState.Maximized;
+            ((Form)printPreviewBangDiem).WindowState = FormWindowState.Maximized; // thiết lập cửa số mới full màn hình
             printPreviewBangDiem.PrintPreviewControl.AutoZoom = false;
-            printPreviewBangDiem.PrintPreviewControl.Zoom = 1.0;
+            printPreviewBangDiem.PrintPreviewControl.Zoom = 1.0; 
 
             printPreviewBangDiem.ShowDialog();
         }
-        void PrintDataGridview()
+
+        /// <summary>
+        /// vẽ table của datagridview 
+        /// </summary>
+        private void PrintDataGridview()
         {
-            bitmap = new Bitmap(this.dataGridView.Width, (this.dataGridView.Rows.Count + 1) * dataGridView.Rows[0].Height);
-            dataGridView.DrawToBitmap(bitmap, this.dataGridView.ClientRectangle);
+            _Bitmap = new Bitmap(this.dataGridView.Width, (this.dataGridView.Rows.Count + 1) * dataGridView.Rows[0].Height);
+            dataGridView.DrawToBitmap(_Bitmap, this.dataGridView.ClientRectangle);
         }
-        private void printBangDiem_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+
+
+        private void PrintBangDiem_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
             PrintDataGridview();
             Font font = new Font("Microsoft Sans Serif", 18f, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
-            e.Graphics.DrawString("BẢNG ĐIỂM MÔN " + comboMon.Text.ToString().ToUpper() +" LỚP "+comboLop.Text.ToString().ToUpper(), font, System.Drawing.Brushes.Black, 180, 50);
-            e.Graphics.DrawString(comboHocKy.Text.ToString().ToUpper()+ ", NĂM HỌC " + comboNam.Text.ToString().ToUpper(), font, System.Drawing.Brushes.Black, 200, 100);
+            e.Graphics.DrawString("BẢNG ĐIỂM MÔN " + comboboxMon.Text.ToString().ToUpper() +" LỚP "+comboboxLop.Text.ToString().ToUpper(), font, System.Drawing.Brushes.Black, 180, 50);
+            e.Graphics.DrawString(comboboxHocKy.Text.ToString().ToUpper()+ ", NĂM HỌC " + comboboxNam.Text.ToString().ToUpper(), font, System.Drawing.Brushes.Black, 200, 100);
 
-            e.Graphics.DrawImage(bitmap, new Point(40, 170));
+            e.Graphics.DrawImage(_Bitmap, new Point(40, 170));
         }
-
-       
-
     }
 }
