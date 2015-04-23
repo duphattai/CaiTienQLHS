@@ -185,7 +185,14 @@ namespace BUS
         /// </summary>
         int LayMaDiemCuoi()
         {
-            return (int)DB.usp_SelectLastMaDiem().First().MADIEM;
+            try
+            {
+                return (int)DB.usp_SelectLastMaDiem().First().MADIEM;
+            }
+            catch // bắt ngoại lệ khi thực thi câu lệnh select trong store procedure trả về NULL
+            {
+                return 0;
+            }  
         }
 
         /// <summary>
