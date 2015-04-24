@@ -79,9 +79,9 @@ namespace BUS
         /// <summary>
         /// trả về danh sách điểm của tất cả học sinh trong một khối trong một năm học
         /// </summary>
-        public List<DanhSachHS_BUS> LayBangDiemHocSinhTheoNamHoc(string _MaKhoi, string _NamHoc)
+        public List<ThongTinHocSinh> LayBangDiemHocSinhTheoNamHoc(string _MaKhoi, string _NamHoc)
         {
-            List<DanhSachHS_BUS> temp = new List<DanhSachHS_BUS>(); // chứa danh sách bảng điểm học sinh theo khối
+            List<ThongTinHocSinh> temp = new List<ThongTinHocSinh>(); // chứa danh sách bảng điểm học sinh theo khối
             double TongHK1; // tổng điểm của tất cả các môn học kỳ 1
             double TongHK2; // tổng điểm của tất cả các môn học kỳ 2
             int TongMonHk1; // số môn học kỳ 1
@@ -117,7 +117,7 @@ namespace BUS
                     }
 
                     // thêm học sinh với điểm hk1 và hk2 vào danh sách
-                    temp.Add(new DanhSachHS_BUS(HSLop.HOTEN, lop.TENLOP, Math.Round((TongHK1 / TongMonHk1), 1), Math.Round((TongHK2 / TongMonHk2), 1)));
+                    temp.Add(new ThongTinHocSinh(HSLop.HOTEN, lop.TENLOP, Math.Round((TongHK1 / TongMonHk1), 1), Math.Round((TongHK2 / TongMonHk2), 1)));
                 }
             }
 
@@ -128,7 +128,7 @@ namespace BUS
         /// <summary>
         /// Trả về bảng điểm của một học sinh theo một môn trong một học kỳ năm học
         /// </summary>
-        public BangDiem_BUS LayBangDiem(int _MaHS, String _NamHoc, int _MaHocKy, String _MaMon)
+        public BangDiemHocSinh LayBangDiem(int _MaHS, String _NamHoc, int _MaHocKy, String _MaMon)
         {
             double? _Diem15, _Diem1Tiet, _DiemHK; // lưu điểm của một HS
             usp_SelectBangdiemResult _BangDiem; // truy xuất bảng điểm từ database 
@@ -155,7 +155,7 @@ namespace BUS
                     _DiemHK = null;
 
 
-                return new BangDiem_BUS(_TenHocSinh, _MaHS, _BangDiem.MADIEM15, _Diem15, _BangDiem.MADIEM1T, _Diem1Tiet, _BangDiem.MADIEMHK, _DiemHK, _BangDiem.DIEMTRUNGBINH);
+                return new BangDiemHocSinh(_TenHocSinh, _MaHS, _BangDiem.MADIEM15, _Diem15, _BangDiem.MADIEM1T, _Diem1Tiet, _BangDiem.MADIEMHK, _DiemHK, _BangDiem.DIEMTRUNGBINH);
             }
             catch
             {
@@ -176,7 +176,7 @@ namespace BUS
                     _DiemHK = DB.usp_SelectDiem(_BangDiem.MADIEMHK).First().GIATRI;
                 else
                     _DiemHK = null;
-                return new BangDiem_BUS(_TenHocSinh, _MaHS, _BangDiem.MADIEM15, _Diem15, _BangDiem.MADIEM1T, _Diem1Tiet, _BangDiem.MADIEMHK, _DiemHK, _BangDiem.DIEMTRUNGBINH);
+                return new BangDiemHocSinh(_TenHocSinh, _MaHS, _BangDiem.MADIEM15, _Diem15, _BangDiem.MADIEM1T, _Diem1Tiet, _BangDiem.MADIEMHK, _DiemHK, _BangDiem.DIEMTRUNGBINH);
             }
         }
 
@@ -198,7 +198,7 @@ namespace BUS
         /// <summary>
         /// Cập nhật lại table DIEM và BANGDIEM trong database
         /// </summary>
-        public void UpdateDiem(BangDiem_BUS _BangDiem, String _NamHoc, int _MaHocKy, String _MaMon)
+        public void UpdateDiem(BangDiemHocSinh _BangDiem, String _NamHoc, int _MaHocKy, String _MaMon)
         {
             int? _MaDiem15 = _BangDiem._MaDiem15;
             int? _MaDiem1T = _BangDiem._MaDiem1T;

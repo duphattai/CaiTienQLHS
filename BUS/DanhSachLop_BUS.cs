@@ -16,9 +16,9 @@ namespace BUS
     public class DanhSachLop_BUS
     {
         QLHSDataContext DB = new QLHSDataContext(Settings.Default.ConnectString);
-        HoSoHocSinh_Bus _HSBUS = new HoSoHocSinh_Bus();
+        HoSoHocSinh_BUS _HSBUS = new HoSoHocSinh_BUS();
         XepLop_BUS _XLBUS = new XepLop_BUS();
-        List<Lop_BUS> _ListLop = new List<Lop_BUS>();
+        List<ThongTinLop> _ListLop = new List<ThongTinLop>();
 
         /// <summary>
         /// Trả về danh sách lớp trong table LOP
@@ -101,7 +101,7 @@ namespace BUS
         /// <summary>
         /// Tính sỉ số từng lớp, trả về danh sách lớp cùng với sỉ số tương ứng
         /// </summary>
-        public List<Lop_BUS> TinhSiSoLop()
+        public List<ThongTinLop> TinhSiSoLop()
         {
             int _countSiSo = 0;
             foreach (XEPLOP xl in _XLBUS.LayTatCa()) // duyệt danh sách lớp được xếp lớp
@@ -116,7 +116,7 @@ namespace BUS
                         }
                     }
 
-                    Lop_BUS _newlop = new Lop_BUS(lop.TENLOP, _countSiSo); // tạo một đối tượng chứa lớp và sỉ số
+                    ThongTinLop _newlop = new ThongTinLop(lop.TENLOP, _countSiSo); // tạo một đối tượng chứa lớp và sỉ số
                     _ListLop.Add(_newlop); // thêm vào danh sách lớp
                     _countSiSo = 0;
                 }

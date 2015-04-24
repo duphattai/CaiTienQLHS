@@ -21,7 +21,7 @@ namespace frMain
         private Khoi_BUS _KhoiBUS = new Khoi_BUS(); // truy xuất bảng KHOI
         private DanhSachLop_BUS _DanhSachLopBus = new DanhSachLop_BUS(); 
         private XepLop_BUS _XepLopBus = new XepLop_BUS(); // truy xuất bảng XEPLOP
-        private HoSoHocSinh_Bus _HoSoHocSinhBUS = new HoSoHocSinh_Bus(); // truy xuất bảng HOSOHOCSINH
+        private HoSoHocSinh_BUS _HoSoHocSinhBUS = new HoSoHocSinh_BUS(); // truy xuất bảng HOSOHOCSINH
         private QuiDinh_BUS _QuiDinhBus = new QuiDinh_BUS();// truy xuất bảng QUIDINH
 
         List<CLopChange> _ListLopChange = new List<CLopChange>(); // lưu danh sách lớp có danh sách học sinh bi thay đổi (sự thay đổi chưa được lưu xuống database)

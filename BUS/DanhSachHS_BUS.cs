@@ -11,7 +11,7 @@ namespace BUS
     /// <summary>
     /// Đối tượng dùng chứa thông tin học sinh cùng điểm học kỳ 1 và học kỳ 2 của một lớp
     /// </summary>
-    public class DanhSachHS_BUS
+    public class ThongTinHocSinh
     {
         public String _HoTen
         {
@@ -34,13 +34,12 @@ namespace BUS
             set;
         }
 
-        public DanhSachHS_BUS(String _newHoTen, String _newLop, double _newTBHK1, double _newTBHK2)
+        public ThongTinHocSinh(String _newHoTen, String _newLop, double _newTBHK1, double _newTBHK2)
         {
             _HoTen = _newHoTen;
             _Lop = _newLop;
             _TBHK1 = _newTBHK1;
             _TBHK2 = _newTBHK2;
         }
-
     }
 }

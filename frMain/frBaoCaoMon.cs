@@ -23,7 +23,7 @@ namespace frMain
         Diem_BUS _DBUS = new Diem_BUS();
         XepLop_BUS _XepBus = new XepLop_BUS();
         BaoCaoMonHoc_BUS _BaoCaoBUS = new BaoCaoMonHoc_BUS();
-        HoSoHocSinh_Bus _HSBUS = new HoSoHocSinh_Bus();
+        HoSoHocSinh_BUS _HSBUS = new HoSoHocSinh_BUS();
 
         List<BaoCaoMonHoc> _ListBaoCaoMon = new List<BaoCaoMonHoc>();
 

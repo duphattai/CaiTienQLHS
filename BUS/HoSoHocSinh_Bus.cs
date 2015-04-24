@@ -12,7 +12,7 @@ namespace BUS
     /// <summary>
     /// Lớp trung gian, quản lý truy xuất dữ liệu trên bảng HOSOHOCSINH từ ứng dụng
     /// </summary>
-   public class HoSoHocSinh_Bus
+   public class HoSoHocSinh_BUS
     {
         QLHSDataContext DB = new QLHSDataContext(Settings.Default.ConnectString);
        

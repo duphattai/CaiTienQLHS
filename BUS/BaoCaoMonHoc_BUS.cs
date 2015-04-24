@@ -13,13 +13,13 @@ namespace BUS
     {
         QLHSDataContext DB = new QLHSDataContext(Settings.Default.ConnectString);
 
-        HoSoHocSinh_Bus _HSBUS = new HoSoHocSinh_Bus();
+        HoSoHocSinh_BUS _HSBUS = new HoSoHocSinh_BUS();
         XepLop_BUS _XLBUS = new XepLop_BUS();
         DanhSachLop_BUS _DSLOPBUS = new DanhSachLop_BUS();
         Diem_BUS _DiemBUS = new Diem_BUS();
         QuiDinh_BUS _ThamSoBUS = new QuiDinh_BUS();
 
-        List<Lop_BUS> _ListLop = new List<Lop_BUS>();
+        List<ThongTinLop> _ListLop = new List<ThongTinLop>();
         
 
         public List<BaoCaoMonHoc> LayDuLieu(String _MaMon,int _MaHocKy,String _NamHoc)

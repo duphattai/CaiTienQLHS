@@ -1,6 +1,6 @@
 ﻿namespace frMain
 {
-    partial class frDanhSachHS
+    partial class FormDanhSachHocSinh
     {
         /// <summary>
         /// Required designer variable.
@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frDanhSachHS));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormDanhSachHocSinh));
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.comboKhoi = new System.Windows.Forms.ComboBox();
+            this.comboboxKhoi = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.comboNam = new System.Windows.Forms.ComboBox();
+            this.comboboxNam = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
+            this.buttonIn = new DevExpress.XtraEditors.SimpleButton();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.btThoat = new DevExpress.XtraEditors.SimpleButton();
+            this.buttonThoat = new DevExpress.XtraEditors.SimpleButton();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.STT = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -66,9 +66,9 @@
             // 
             // panel6
             // 
-            this.panel6.Controls.Add(this.comboKhoi);
+            this.panel6.Controls.Add(this.comboboxKhoi);
             this.panel6.Controls.Add(this.label4);
-            this.panel6.Controls.Add(this.comboNam);
+            this.panel6.Controls.Add(this.comboboxNam);
             this.panel6.Controls.Add(this.label5);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel6.Location = new System.Drawing.Point(0, 0);
@@ -76,16 +76,16 @@
             this.panel6.Size = new System.Drawing.Size(275, 83);
             this.panel6.TabIndex = 3;
             // 
-            // comboKhoi
+            // comboboxKhoi
             // 
-            this.comboKhoi.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboKhoi.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboKhoi.FormattingEnabled = true;
-            this.comboKhoi.Location = new System.Drawing.Point(89, 45);
-            this.comboKhoi.Name = "comboKhoi";
-            this.comboKhoi.Size = new System.Drawing.Size(172, 27);
-            this.comboKhoi.TabIndex = 3;
-            this.comboKhoi.SelectedIndexChanged += new System.EventHandler(this.comboKhoi_SelectedIndexChanged);
+            this.comboboxKhoi.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboboxKhoi.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboboxKhoi.FormattingEnabled = true;
+            this.comboboxKhoi.Location = new System.Drawing.Point(89, 45);
+            this.comboboxKhoi.Name = "comboboxKhoi";
+            this.comboboxKhoi.Size = new System.Drawing.Size(172, 27);
+            this.comboboxKhoi.TabIndex = 3;
+            this.comboboxKhoi.SelectedIndexChanged += new System.EventHandler(this.ComboboxKhoi_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -98,16 +98,16 @@
             this.label4.TabIndex = 2;
             this.label4.Text = "Khối:";
             // 
-            // comboNam
+            // comboboxNam
             // 
-            this.comboNam.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboNam.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboNam.FormattingEnabled = true;
-            this.comboNam.Location = new System.Drawing.Point(89, 12);
-            this.comboNam.Name = "comboNam";
-            this.comboNam.Size = new System.Drawing.Size(172, 27);
-            this.comboNam.TabIndex = 1;
-            this.comboNam.SelectedIndexChanged += new System.EventHandler(this.comboNam_SelectedIndexChanged);
+            this.comboboxNam.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboboxNam.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboboxNam.FormattingEnabled = true;
+            this.comboboxNam.Location = new System.Drawing.Point(89, 12);
+            this.comboboxNam.Name = "comboboxNam";
+            this.comboboxNam.Size = new System.Drawing.Size(172, 27);
+            this.comboboxNam.TabIndex = 1;
+            this.comboboxNam.SelectedIndexChanged += new System.EventHandler(this.ComboboxNam_SelectedIndexChanged);
             // 
             // label5
             // 
@@ -122,8 +122,8 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.simpleButton1);
-            this.panel1.Controls.Add(this.btThoat);
+            this.panel1.Controls.Add(this.buttonIn);
+            this.panel1.Controls.Add(this.buttonThoat);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -131,21 +131,21 @@
             this.panel1.Size = new System.Drawing.Size(785, 101);
             this.panel1.TabIndex = 5;
             // 
-            // simpleButton1
+            // buttonIn
             // 
-            this.simpleButton1.Appearance.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simpleButton1.Appearance.ForeColor = System.Drawing.Color.Green;
-            this.simpleButton1.Appearance.Options.UseFont = true;
-            this.simpleButton1.Appearance.Options.UseForeColor = true;
-            this.simpleButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.simpleButton1.ImageIndex = 1;
-            this.simpleButton1.ImageList = this.imageList1;
-            this.simpleButton1.Location = new System.Drawing.Point(486, 59);
-            this.simpleButton1.Name = "simpleButton1";
-            this.simpleButton1.Size = new System.Drawing.Size(116, 36);
-            this.simpleButton1.TabIndex = 3;
-            this.simpleButton1.Text = "IN";
-            this.simpleButton1.Click += new System.EventHandler(this.simpleButton1_Click);
+            this.buttonIn.Appearance.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonIn.Appearance.ForeColor = System.Drawing.Color.Green;
+            this.buttonIn.Appearance.Options.UseFont = true;
+            this.buttonIn.Appearance.Options.UseForeColor = true;
+            this.buttonIn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonIn.ImageIndex = 1;
+            this.buttonIn.ImageList = this.imageList1;
+            this.buttonIn.Location = new System.Drawing.Point(486, 59);
+            this.buttonIn.Name = "buttonIn";
+            this.buttonIn.Size = new System.Drawing.Size(116, 36);
+            this.buttonIn.TabIndex = 3;
+            this.buttonIn.Text = "IN";
+            this.buttonIn.Click += new System.EventHandler(this.ButtonIn_Click);
             // 
             // imageList1
             // 
@@ -154,21 +154,21 @@
             this.imageList1.Images.SetKeyName(0, "1417949388_bullet_deny.png");
             this.imageList1.Images.SetKeyName(1, "1420271317_printer.png");
             // 
-            // btThoat
+            // buttonThoat
             // 
-            this.btThoat.Appearance.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btThoat.Appearance.ForeColor = System.Drawing.Color.Green;
-            this.btThoat.Appearance.Options.UseFont = true;
-            this.btThoat.Appearance.Options.UseForeColor = true;
-            this.btThoat.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btThoat.ImageIndex = 0;
-            this.btThoat.ImageList = this.imageList1;
-            this.btThoat.Location = new System.Drawing.Point(620, 59);
-            this.btThoat.Name = "btThoat";
-            this.btThoat.Size = new System.Drawing.Size(153, 36);
-            this.btThoat.TabIndex = 2;
-            this.btThoat.Text = "THOÁT";
-            this.btThoat.Click += new System.EventHandler(this.btThoat_Click);
+            this.buttonThoat.Appearance.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonThoat.Appearance.ForeColor = System.Drawing.Color.Green;
+            this.buttonThoat.Appearance.Options.UseFont = true;
+            this.buttonThoat.Appearance.Options.UseForeColor = true;
+            this.buttonThoat.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonThoat.ImageIndex = 0;
+            this.buttonThoat.ImageList = this.imageList1;
+            this.buttonThoat.Location = new System.Drawing.Point(620, 59);
+            this.buttonThoat.Name = "buttonThoat";
+            this.buttonThoat.Size = new System.Drawing.Size(153, 36);
+            this.buttonThoat.TabIndex = 2;
+            this.buttonThoat.Text = "THOÁT";
+            this.buttonThoat.Click += new System.EventHandler(this.ButtonThoat_Click);
             // 
             // label1
             // 
@@ -239,7 +239,7 @@
             // 
             // printDanhSachHocSinh
             // 
-            this.printDanhSachHocSinh.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDanhSachHocSinh_PrintPage);
+            this.printDanhSachHocSinh.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.PrintDanhSachHocSinh_PrintPage);
             // 
             // printPreviewDanhSachHocSinh
             // 
@@ -251,7 +251,7 @@
             this.printPreviewDanhSachHocSinh.Name = "printPreviewDanhSachHocSinh";
             this.printPreviewDanhSachHocSinh.Visible = false;
             // 
-            // frDanhSachHS
+            // FormDanhSachHocSinh
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -261,10 +261,10 @@
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "frDanhSachHS";
+            this.Name = "FormDanhSachHocSinh";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DANH SÁCH HỌC SINH";
-            this.Load += new System.EventHandler(this.frDanhSachHS_Load);
+            this.Load += new System.EventHandler(this.FormDanhSachHocSinh_Load);
             this.panel2.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
@@ -279,9 +279,9 @@
 
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.ComboBox comboKhoi;
+        private System.Windows.Forms.ComboBox comboboxKhoi;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox comboNam;
+        private System.Windows.Forms.ComboBox comboboxNam;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.DataGridView dataGridView;
@@ -290,10 +290,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Lop;
         private System.Windows.Forms.DataGridViewTextBoxColumn TBHK1;
         private System.Windows.Forms.DataGridViewTextBoxColumn TBHK2;
-        private DevExpress.XtraEditors.SimpleButton btThoat;
+        private DevExpress.XtraEditors.SimpleButton buttonThoat;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ImageList imageList1;
-        private DevExpress.XtraEditors.SimpleButton simpleButton1;
+        private DevExpress.XtraEditors.SimpleButton buttonIn;
         private System.Drawing.Printing.PrintDocument printDanhSachHocSinh;
         private System.Windows.Forms.PrintPreviewDialog printPreviewDanhSachHocSinh;
     }

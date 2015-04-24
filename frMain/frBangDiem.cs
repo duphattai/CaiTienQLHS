@@ -26,7 +26,7 @@ namespace frMain
             public string MaKhoi; // lưu khối lớp
             public int MaLop; // lưu mã lớp trong khối
             public string MaMon; // lưu mã môn học
-            public List<BangDiem_BUS> ListDiem = new List<BangDiem_BUS>(); // danh sách bảng điểm bị thay đổi trong năm học đó
+            public List<BangDiemHocSinh> ListDiem = new List<BangDiemHocSinh>(); // danh sách bảng điểm bị thay đổi trong năm học đó
 
             /// <summary>
             /// Construtor để khởi tạo giá trị các thuộc tính
@@ -37,7 +37,7 @@ namespace frMain
             /// <param name="_MaLop"></param>
             /// <param name="_MaMon"></param>
             /// <param name="_ListDiem"></param>
-            public CBangDiemChanged(string _NamHoc, int _MaHocKy, string _MaKhoi, int _MaLop, string _MaMon, List<BangDiem_BUS> _ListDiem)
+            public CBangDiemChanged(string _NamHoc, int _MaHocKy, string _MaKhoi, int _MaLop, string _MaMon, List<BangDiemHocSinh> _ListDiem)
             {
                 NamHoc = _NamHoc;
                 MaHocKy = _MaHocKy;
@@ -54,7 +54,7 @@ namespace frMain
         private MonHoc_BUS _MonHocBUS = new MonHoc_BUS(); // truy xuất đến bảng MONHOC
         private Diem_BUS _DiemBUS = new Diem_BUS(); // truy xuất đến bảng DIEM
         private XepLop_BUS _XepLopBUS = new XepLop_BUS(); // truy xuất bảng XEPLOP
-        private HoSoHocSinh_Bus _HoSoHocSinhBUS = new HoSoHocSinh_Bus(); // truy xuất bảng HOSOHOCSINH
+        private HoSoHocSinh_BUS _HoSoHocSinhBUS = new HoSoHocSinh_BUS(); // truy xuất bảng HOSOHOCSINH
         private QuiDinh_BUS _QuiDinhBUS = new QuiDinh_BUS(); // truy xuất bảng QUIDINH
         private DanhSachLop_BUS _DanhSachLopBUS = new DanhSachLop_BUS(); // truy xuất đến bảng DANHSACHLOP
 
@@ -63,7 +63,7 @@ namespace frMain
         private int _NamHocIndex, _KhoiIndex, _LopIndex, _MaHocSinh;
 
 
-        private List<BangDiem_BUS> _ListBangDiem = new List<BangDiem_BUS>(); // chưa danh sách bảng điểm lấy từ database
+        private List<BangDiemHocSinh> _ListBangDiem = new List<BangDiemHocSinh>(); // chưa danh sách bảng điểm lấy từ database
         private List<CBangDiemChanged> _ListBangDiemChanged = new List<CBangDiemChanged>(); // danh sách bảng điểm bị thay đổi nhưng chua cập nhật torng database
 
         private double? PreviousValue = 0;   // lưu điểm cũ trước khi thay đổi, để gắn lại nếu người dùng nhập sai quy định
@@ -220,7 +220,7 @@ namespace frMain
         /// <returns>
         /// không tìm thấy trả về -1, ngược lại là vị trí của học sinh
         /// </returns>
-        int FindIndexInListBangDiem(int _MaHocSinh, List<BangDiem_BUS> _BangDiem)
+        int FindIndexInListBangDiem(int _MaHocSinh, List<BangDiemHocSinh> _BangDiem)
         {
             for (int i = 0; i < _BangDiem.Count; i++)
             {
@@ -357,7 +357,7 @@ namespace frMain
                     foreach (usp_SelectXeplopsByMALOPResult hs in _XepLopBUS.TruyVanTheoMaLop(int.Parse(comboboxLop.Tag.ToString())))
                     {
                         // Lấy bảng điểm học sinh đang duyệt từ database
-                        BangDiem_BUS diem = _DiemBUS.LayBangDiem((int)hs.MAHOCSINH, comboboxNam.Text, int.Parse(comboboxHocKy.Tag.ToString()), comboboxMon.Tag.ToString());
+                        BangDiemHocSinh diem = _DiemBUS.LayBangDiem((int)hs.MAHOCSINH, comboboxNam.Text, int.Parse(comboboxHocKy.Tag.ToString()), comboboxMon.Tag.ToString());
                         _ListBangDiem.Add(diem); // thêm học sinh cùng bảng điểm vào danh sách
                     }
                     dataGridView.DataSource = _ListBangDiem.ToArray(); // thiết lập dữ liệu cho datagridview
@@ -426,7 +426,7 @@ namespace frMain
                     if (i == -1)// không tìm thấy
                     {
                         // thêm bảng điểm vừa thay đổi vào ListBangDiemChanged
-                        _ListBangDiemChanged.Add(new CBangDiemChanged(comboboxNam.Text, int.Parse(comboboxHocKy.Tag.ToString()), comboboxKhoi.Tag.ToString(), int.Parse(comboboxLop.Tag.ToString()), comboboxMon.Tag.ToString(), new List<BangDiem_BUS>(_ListBangDiem)));
+                        _ListBangDiemChanged.Add(new CBangDiemChanged(comboboxNam.Text, int.Parse(comboboxHocKy.Tag.ToString()), comboboxKhoi.Tag.ToString(), int.Parse(comboboxLop.Tag.ToString()), comboboxMon.Tag.ToString(), new List<BangDiemHocSinh>(_ListBangDiem)));
                         
                         int index = _ListBangDiemChanged.Count - 1;
                         int j = FindIndexInListBangDiem(int.Parse(dataGridView.Rows[e.RowIndex].Cells["MaHocSinh"].Value.ToString()), _ListBangDiemChanged[index].ListDiem);

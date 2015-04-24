@@ -17,7 +17,7 @@ namespace frMain
 {
     public partial class frHoSoHocSinh : DevExpress.XtraEditors.XtraForm
     {
-        HoSoHocSinh_Bus _HoSoHocSinhBUS = new HoSoHocSinh_Bus();
+        HoSoHocSinh_BUS _HoSoHocSinhBUS = new HoSoHocSinh_BUS();
         DataTable table = new DataTable();
         List<HOSOHOCSINH> ListHS;
         List<HOSOHOCSINH> ListHSADD = new List<HOSOHOCSINH>();

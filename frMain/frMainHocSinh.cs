@@ -20,7 +20,7 @@ namespace frMain
         DanhSachLop_BUS _LopBUS = new DanhSachLop_BUS();
         Khoi_BUS _KhoiBUS = new Khoi_BUS();
         NamHoc_BUS _NamHocBUS = new NamHoc_BUS();
-        HoSoHocSinh_Bus _HocSinhBUS = new HoSoHocSinh_Bus();
+        HoSoHocSinh_BUS _HocSinhBUS = new HoSoHocSinh_BUS();
         List<HOSOHOCSINH> _ListHocSinh = new List<HOSOHOCSINH>();
         bool _IsAllowRightClick = false;
         bool _AllowUpdateDiem;

@@ -20,7 +20,5 @@ namespace BUS
             _SoLuongDat = _newSoLuongDat;
             _Tile = _newTile;
         }
-
-
     }
 }

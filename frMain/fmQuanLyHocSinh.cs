@@ -246,7 +246,7 @@ namespace frMain
         #region Danh sach hoc sinh
         private void tileItem19_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
         {
-            frDanhSachHS formDS = new frDanhSachHS();
+            FormDanhSachHocSinh formDS = new FormDanhSachHocSinh();
             formDS.Show();
         }
         #endregion

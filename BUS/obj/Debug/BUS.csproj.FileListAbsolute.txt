@@ -9,3 +9,14 @@ C:\Users\Tai\Desktop\PTVHBTPM\BUS\bin\Debug\DataAccessObject.pdb
 C:\Users\Tai\Desktop\PTVHBTPM\BUS\obj\Debug\BUS.csprojResolveAssemblyReference.cache
 C:\Users\Tai\Desktop\PTVHBTPM\BUS\obj\Debug\BUS.dll
 C:\Users\Tai\Desktop\PTVHBTPM\BUS\obj\Debug\BUS.pdb
+C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\BUS\bin\Debug\APPDATA.mdf
+C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\BUS\bin\Debug\APPDATA_log.ldf
+C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\BUS\bin\Debug\BUS.dll
+C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\BUS\bin\Debug\BUS.pdb
+C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\BUS\bin\Debug\ConnectToDatabase.dll
+C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\BUS\bin\Debug\DataAccessObject.dll
+C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\BUS\bin\Debug\ConnectToDatabase.pdb
+C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\BUS\bin\Debug\DataAccessObject.pdb
+C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\BUS\obj\Debug\BUS.csprojResolveAssemblyReference.cache
+C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\BUS\obj\Debug\BUS.dll
+C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\BUS\obj\Debug\BUS.pdb

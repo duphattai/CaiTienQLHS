@@ -19,7 +19,7 @@ namespace frMain
         Khoi_BUS _KBUS = new Khoi_BUS();
         DanhSachLop_BUS _LopBus = new DanhSachLop_BUS();
         XepLop_BUS _XepBus = new XepLop_BUS();
-        HoSoHocSinh_Bus _HSBUS = new HoSoHocSinh_Bus();
+        HoSoHocSinh_BUS _HSBUS = new HoSoHocSinh_BUS();
         HocKy_BUS _HKBUS = new HocKy_BUS();
         BaoCaoTKHK_BUS _TKHKBUS = new BaoCaoTKHK_BUS();
 
