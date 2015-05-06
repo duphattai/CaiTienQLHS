@@ -16,3 +16,12 @@ C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\ConnectToDatabase\obj\Debug\ConnectToDatab
 C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\ConnectToDatabase\obj\Debug\ConnectToDatabase.csproj.GenerateResource.Cache
 C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\ConnectToDatabase\obj\Debug\ConnectToDatabase.dll
 C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\ConnectToDatabase\obj\Debug\ConnectToDatabase.pdb
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\ConnectToDatabase\bin\Debug\ConnectToDatabase.dll.config
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\ConnectToDatabase\bin\Debug\ConnectToDatabase.dll
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\ConnectToDatabase\bin\Debug\ConnectToDatabase.pdb
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\ConnectToDatabase\obj\Debug\ConnectToDatabase.csprojResolveAssemblyReference.cache
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\ConnectToDatabase\obj\Debug\ConnectToDatabase.frConnectToDatabase.resources
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\ConnectToDatabase\obj\Debug\ConnectToDatabase.Properties.Resources.resources
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\ConnectToDatabase\obj\Debug\ConnectToDatabase.csproj.GenerateResource.Cache
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\ConnectToDatabase\obj\Debug\ConnectToDatabase.dll
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\ConnectToDatabase\obj\Debug\ConnectToDatabase.pdb

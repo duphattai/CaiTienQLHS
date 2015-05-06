@@ -56,3 +56,40 @@ C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\frMain\obj\Debug\frMain.csproj.GenerateRes
 C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\frMain\obj\Debug\frMain.exe.licenses
 C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\frMain\obj\Debug\frMain.exe
 C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\frMain\obj\Debug\frMain.pdb
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\bin\Debug\APPDATA.mdf
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\bin\Debug\APPDATA_log.ldf
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\bin\Debug\Resources\HuongDanSuDungPhanMem.chm
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\bin\Debug\frMain.exe.config
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\bin\Debug\frMain.exe
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\bin\Debug\frMain.pdb
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\bin\Debug\BUS.dll
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\bin\Debug\ConnectToDatabase.dll
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\bin\Debug\DataAccessObject.dll
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\bin\Debug\Excel.4.5.dll
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\bin\Debug\ICSharpCode.SharpZipLib.dll
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\bin\Debug\BUS.pdb
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\bin\Debug\ConnectToDatabase.pdb
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\bin\Debug\DataAccessObject.pdb
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\bin\Debug\Excel.4.5.pdb
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\obj\Debug\frMain.csprojResolveAssemblyReference.cache
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\obj\Debug\frMain.fmPhanQuyen.resources
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\obj\Debug\frMain.fmQuanLyHocSinh.resources
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\obj\Debug\frMain.FormBangDiem.resources
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\obj\Debug\frMain.frBaoCaoMon.resources
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\obj\Debug\frMain.frBaoCaoTKHK.resources
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\obj\Debug\frMain.frDangNhap.resources
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\obj\Debug\frMain.FormDanhSachHocSinh.resources
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\obj\Debug\frMain.frDanhSachLop.resources
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\obj\Debug\frMain.frHoSoHocSinh.resources
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\obj\Debug\frMain.frMainHocSinh.resources
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\obj\Debug\frMain.frMonHoc.resources
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\obj\Debug\frMain.FormPhanLop.resources
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\obj\Debug\frMain.frQuanLyLop.resources
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\obj\Debug\frMain.frQuanLyNamHoc.resources
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\obj\Debug\frMain.frQuyDinh.resources
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\obj\Debug\frMain.frThongTin.resources
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\obj\Debug\frMain.Properties.Resources.resources
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\obj\Debug\frMain.csproj.GenerateResource.Cache
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\obj\Debug\frMain.exe.licenses
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\obj\Debug\frMain.exe
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\frMain\obj\Debug\frMain.pdb

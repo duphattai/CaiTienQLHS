@@ -20,3 +20,14 @@ C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\BUS\bin\Debug\DataAccessObject.pdb
 C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\BUS\obj\Debug\BUS.csprojResolveAssemblyReference.cache
 C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\BUS\obj\Debug\BUS.dll
 C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\BUS\obj\Debug\BUS.pdb
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\BUS\bin\Debug\APPDATA.mdf
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\BUS\bin\Debug\APPDATA_log.ldf
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\BUS\bin\Debug\BUS.dll
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\BUS\bin\Debug\BUS.pdb
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\BUS\bin\Debug\ConnectToDatabase.dll
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\BUS\bin\Debug\DataAccessObject.dll
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\BUS\bin\Debug\ConnectToDatabase.pdb
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\BUS\bin\Debug\DataAccessObject.pdb
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\BUS\obj\Debug\BUS.csprojResolveAssemblyReference.cache
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\BUS\obj\Debug\BUS.dll
+E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\BUS\obj\Debug\BUS.pdb
