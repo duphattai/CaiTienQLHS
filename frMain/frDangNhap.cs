@@ -63,7 +63,7 @@ namespace frMain
         }
          #endregion
         #region Đăng nhập
-        private void simpleButton1_Click(object sender, EventArgs e)
+        private void ButtonDangNhap_Click(object sender, EventArgs e)
         {
             try
             {
@@ -71,10 +71,16 @@ namespace frMain
                 {
                     foreach (TAIKHOAN newtk in ListTK)
                     {
-                        if (newtk.TENTK ==textTen.Text && newtk.MATKHAU == MaHoaMD5(MaHoaMD5(textMatKhau.Text)))
+                        if (newtk.TENTK == textTen.Text && newtk.MATKHAU == MaHoaMD5(MaHoaMD5(textMatKhau.Text)))
                         {
                             MessageBox.Show("Chào " + textTen.Text + " đến với phần mềm QUẢN LÝ HỌC SINH", "Đăng nhập thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             _quyen = newtk.LOAITK;
+                            this.Hide();
+
+                            fmQuanLyHocSinh form = new fmQuanLyHocSinh();
+                            form.Quyen = _quyen;
+                            form.ShowDialog();
+
                             this.Close();
                             return;
                         }
@@ -95,7 +101,7 @@ namespace frMain
         }
         #endregion
         #region Thoát
-        private void simpleButton2_Click(object sender, EventArgs e)
+        private void ButtonThoat_Click(object sender, EventArgs e)
         {    
             if(DialogResult.OK == MessageBox.Show("Bạn có muốn thoát!", "THOÁT ỨNG DỤNG", MessageBoxButtons.OKCancel,MessageBoxIcon.Question))
             {
@@ -132,12 +138,12 @@ namespace frMain
                 //Đăng nhập
                 if (e.KeyChar == 13)
                 {
-                    simpleButton1_Click(sender, e);
+                    ButtonDangNhap_Click(sender, e);
                 }
                 //thoát
                 if (e.KeyChar == 27)
                 {
-                    simpleButton2_Click(sender, e);
+                    ButtonThoat_Click(sender, e);
                 }
             }
             catch { }

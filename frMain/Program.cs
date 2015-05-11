@@ -48,8 +48,10 @@ namespace frMain
             }
            
             if (!String.IsNullOrEmpty(Settings.Default.ConnectString))
-                Application.Run(new fmQuanLyHocSinh());
-
+            {
+                //Application.Run(new fmQuanLyHocSinh());
+                Application.Run(new frDangNhap());
+            }
         }
     }
 }

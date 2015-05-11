@@ -37,8 +37,6 @@ namespace frMain
             dataGridView.DataSource = _ListMonHoc.ToArray();
 
             dataGridView.Columns["MAMONHOC"].Visible = false;
-
-
         }
 
         private void btthoat_Click(object sender, EventArgs e)

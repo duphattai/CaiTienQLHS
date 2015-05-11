@@ -11,30 +11,34 @@ using DevExpress.XtraEditors;
 using DataAccessObject.DAO;
 using BUS;
 using System.Security.Cryptography;
+using System.Data.Linq;
 
 namespace frMain
 {
     public partial class fmPhanQuyen : DevExpress.XtraEditors.XtraForm
     {
         #region Biến khởi tạo
-        TaiKhoan_BUS _taikhoan = new TaiKhoan_BUS();
-        List<TAIKHOAN> ListTK;
-        List<TAIKHOAN> ListHSADD = new List<TAIKHOAN>();
-        List<TAIKHOAN> ListHSDelete = new List<TAIKHOAN>();
-        List<TAIKHOAN> ListHSUpdate = new List<TAIKHOAN>();
+        private TaiKhoan_BUS _TaiKhoan = new TaiKhoan_BUS();
+        private List<TAIKHOAN> ListTaiKhoan;// chứa danh sách tài khoản ban đầu lấy từ database
+        private List<TAIKHOAN> ListTaiKhoanInsert = new List<TAIKHOAN>(); // chứa danh sách tài khoản sẽ được thêm vào
+        private List<TAIKHOAN> ListTaiKhoanDelete = new List<TAIKHOAN>(); // chứa danh sách tài khoản sẽ được xóa
+        private List<TAIKHOAN> ListTaiKhoanUpdate = new List<TAIKHOAN>();// chứa danh sách tài khoản sẽ được cập nhật
+
         string _tk, _mk;
         int _loai;
         bool _luu = false;
         public fmPhanQuyen()
         {
             InitializeComponent();
-            ListTK = _taikhoan.LayTatCaTaiKhoan();
-            dataPhanQuyen.DataSource = ListTK;
+            ListTaiKhoan = _TaiKhoan.LayTatCaTaiKhoan();// lấy tất cả tài khoản có trong cơ sở dữ liệu
+            dataPhanQuyen.DataSource = ListTaiKhoan; // thiết lập dữ liệu hiển thị lên datagridview
             dataPhanQuyen.Columns[2].Visible = false;
         }
         #endregion
         #region Hiện ẩn mật khẩu
-        private void checkMK_CheckedChanged(object sender, EventArgs e)
+
+        // dùng để thiết lập hiển thị hay ẩn mật khẩu 
+        private void Hien_An_MatKhau_CheckedChanged(object sender, EventArgs e)
         {
             if (checkMK.Checked == true)
             {
@@ -49,6 +53,8 @@ namespace frMain
         }
         #endregion
         #region Mã hóa MD5
+
+        // mã hóa dữ liệu trước khi đưa vào cơ sở dữ liệu 
         private string MaHoaMD5(string str)
         {
             Byte[] dauvao = ASCIIEncoding.Default.GetBytes(str);
@@ -60,15 +66,16 @@ namespace frMain
         }
         #endregion
         #region button
-        //Clear textbox
-        private void Clear()
+        //làm sạch dữ liệu đã nhập
+        private void ClearText()
         {
             textTK.Clear();
             textMK1.Clear();
             textMK2.Clear();
         }
-        //Thêm
-        private void btThem_Click(object sender, EventArgs e)
+        //Sự kiện: xảy ra khi button Thêm được click
+        // thêm tài khoản vào cơ sở dữ liệu
+        private void ButtonThem_Click(object sender, EventArgs e)
         {
             try
             {
@@ -78,11 +85,12 @@ namespace frMain
                 }
                 else
                 {
-                    if (textMK1.Text == textMK2.Text)
+                    if (textMK1.Text == textMK2.Text)// nếu mật khẩu nhập 2 lần như nhau
                     {
                         bool trung = false;
 
-                        foreach (TAIKHOAN newtk in ListTK)
+                        // Kiểm tra tài khoản mới nhập đã tồn tại chưa
+                        foreach (TAIKHOAN newtk in ListTaiKhoan)
                         {
                             if (newtk.TENTK == textTK.Text)
                             {
@@ -90,22 +98,32 @@ namespace frMain
                                 break;
                             }
                         }
-                        if (!trung)
+
+
+                        if (!trung)// nếu chưa tồn tại thì thêm vào
                         {
                             TAIKHOAN newTK = new TAIKHOAN();
-
-                            newTK.MATK = dataPhanQuyen.RowCount + 1;
+                            ISingleResult<usp_SelectLastMaTKResult> results = _TaiKhoan.LayMaTKCuoiCung();// lấy mã tài khoản cuối cùng
+                            
+                            foreach(usp_SelectLastMaTKResult result in results)
+                            {
+                                newTK.MATK = result.MATK + 1;
+                            }
+                            
                             newTK.TENTK = textTK.Text;
                             newTK.MATKHAU = MaHoaMD5(MaHoaMD5(textMK1.Text));
                             newTK.LOAITK = radioGroup1.SelectedIndex;
 
                             //Add List HocSinh Insert To Save DB
-                            ListHSADD.Add(newTK);
-                            ListTK.Add(newTK);
-                            dataPhanQuyen.DataSource = ListTK.ToArray();
+                            ListTaiKhoanInsert.Add(newTK);
+                            ListTaiKhoan.Add(newTK);
+                            dataPhanQuyen.DataSource = ListTaiKhoan.ToArray();
                             MessageBox.Show("Tài khoản bạn tạo thành công!", "Thêm tài khoản", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             _luu = true;
-                            Clear();
+                            ClearText();
+
+                            // Coder: Tài
+                            Luu();
                         }
                         else
                         {
@@ -121,8 +139,9 @@ namespace frMain
             catch { }
         }
 
-        //Sửa
-         private void btSua_Click(object sender, EventArgs e)
+        // Sự kiện: xảy ra khi button Sửa được click
+        // Sửa thông tin tài khoản
+         private void ButtonSua_Click(object sender, EventArgs e)
         {
             try
             {
@@ -139,7 +158,7 @@ namespace frMain
 
                         String id = dataPhanQuyen.CurrentRow.Cells["MATK"].Value.ToString();
 
-                        foreach (TAIKHOAN newTK in ListTK)
+                        foreach (TAIKHOAN newTK in ListTaiKhoan)
                         {
                             if (newTK.MATK.ToString() == id)
                             {
@@ -151,7 +170,7 @@ namespace frMain
                                 {
                                     if (textTK.Text != _tk)//tên tk thay đổi
                                     {
-                                        foreach (TAIKHOAN newTK1 in ListTK)
+                                        foreach (TAIKHOAN newTK1 in ListTaiKhoan)
                                         {
                                             if (newTK1.TENTK == textTK.Text && newTK1.MATK != newTK.MATK)//trùng tk
                                             {
@@ -181,10 +200,10 @@ namespace frMain
                                     }
                                     if (!trung && ok)
                                     {
-                                        ListHSUpdate.Add(newTK);
-                                        dataPhanQuyen.DataSource = ListTK.ToArray();
+                                        ListTaiKhoanUpdate.Add(newTK);
+                                        dataPhanQuyen.DataSource = ListTaiKhoan.ToArray();
                                         _luu = true;
-                                        Clear();
+                                        ClearText();
                                     }
                                         break;
                                 }
@@ -200,25 +219,26 @@ namespace frMain
             catch { }
         }
 
-        //Xóa
-         private void BtXoa_Click(object sender, EventArgs e)
+        // Sự kiện: xảy ra khi button Xóa được click
+        // Xóa tài khoản
+         private void ButtonXoa_Click(object sender, EventArgs e)
         {
             try
             {
                 String id = dataPhanQuyen.CurrentRow.Cells["MATK"].Value.ToString();
 
-                foreach (TAIKHOAN newtk in ListTK)
+                foreach (TAIKHOAN newtk in ListTaiKhoan)
                 {
                     if (newtk.MATK.ToString() == id)
                     {
-                        ListHSDelete.Add(newtk);
+                        ListTaiKhoanDelete.Add(newtk);
 
-                        ListTK.Remove(newtk);
+                        ListTaiKhoan.Remove(newtk);
                         _luu = true;
                         break;
                     }
                 }
-                dataPhanQuyen.DataSource = ListTK.ToArray();
+                dataPhanQuyen.DataSource = ListTaiKhoan.ToArray();
             }catch(Exception ex)
             {
                 MessageBox.Show(ex.ToString());
@@ -230,26 +250,26 @@ namespace frMain
             try
             {
                 //Delete
-                foreach (TAIKHOAN newHs in ListHSDelete)
+                foreach (TAIKHOAN newHs in ListTaiKhoanDelete)
                 {
-                    _taikhoan.Xoa(newHs.MATK);
+                    _TaiKhoan.Xoa(newHs.MATK);
                 }
                 //ADD
-                foreach (TAIKHOAN newHs in ListHSADD)
+                foreach (TAIKHOAN newHs in ListTaiKhoanInsert)
                 {
-                    _taikhoan.Them(newHs.MATK, newHs.TENTK, newHs.MATKHAU, newHs.LOAITK);
+                    _TaiKhoan.Them(newHs.MATK, newHs.TENTK, newHs.MATKHAU, newHs.LOAITK);
                 }
                 //Update
-                foreach (TAIKHOAN newHs in ListHSUpdate)
+                foreach (TAIKHOAN newHs in ListTaiKhoanUpdate)
                 {
-                    _taikhoan.Sua(newHs.MATK, newHs.TENTK, newHs.MATKHAU, newHs.LOAITK);
+                    _TaiKhoan.Sua(newHs.MATK, newHs.TENTK, newHs.MATKHAU, newHs.LOAITK);
                 }
                 _luu = false;
             }
             catch { }
         }
         //Thoát
-        private void btThoat_Click(object sender, EventArgs e)
+        private void ButtonThoat_Click(object sender, EventArgs e)
         {
             if (_luu)
             {
@@ -279,7 +299,7 @@ namespace frMain
            
         }
         //Lưu
-        private void btLuu_Click(object sender, EventArgs e)
+        private void ButtonLuu_Click(object sender, EventArgs e)
         {
             Luu();
         }

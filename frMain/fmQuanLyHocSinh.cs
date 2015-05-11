@@ -17,28 +17,26 @@ namespace frMain
     public partial class fmQuanLyHocSinh : DevExpress.XtraBars.Ribbon.RibbonForm
     {
         #region Khởi tạo
-        private int _quyen = -1;
+        public int Quyen = -1; // khởi tạo phân quyền chức năng cho tài khoảng 
         public fmQuanLyHocSinh()
         {
             InitializeComponent();
-            DangNhap();
-            //_quyen = 0;
-            KhoiTaoChucNang();
         }
         #region SKIN, Phân quyền người dùng
-        private void Form1_Load(object sender, EventArgs e)
+        private void fmQuanLyHocSinh_Load(object sender, EventArgs e)
         {
             SkinHelper.InitSkinGallery(ribbonGallery, true);
+            KhoiTaoChucNang();
         }
         #endregion
         #endregion
         #region QUAN LY, PHÂN QUYỀN
         #region Đăng nhập
-        private void barButtonItem12_ItemClick_2(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        private void BarButtonDangNhap_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             DangNhap();
         }
-        private void DangNhap()
+        public void DangNhap()
         {
             try
             {
@@ -47,112 +45,80 @@ namespace frMain
                 int iquyen = idangnhap.Quyen();
                 if (iquyen != -1)
                 {
-                    _quyen = iquyen;
+                    Quyen = iquyen;
+                    //KhoiTaoChucNang();
                 }
                 else
-                    if (_quyen == -1)
+                    if (Quyen == -1)
                         this.Close();
-                KhoiTaoChucNang();
             }
             catch { }
         }
         #endregion
         #region Khởi tạo chức năng cho từng loại tài khoản
+        
+        private void ThietLapMacDinhDieuKhien(Boolean temp)
+        {
+            _phanquyen.Enabled = temp;
+            _namhoc.Enabled = temp;
+            _monhoc.Enabled = temp;
+            _lopmoi.Enabled = temp;
+            _hocsinhmoi.Enabled = temp;
+            _phanLop.Enabled = temp;
+            _nhapdiem.Enabled = temp;
+            _dshocsinh.Enabled = temp;
+            _dslop.Enabled = temp;
+            _thongtinhs.Enabled = temp;
+            _doiquidinh.Enabled = temp;
+            _tongketmon.Enabled = temp;
+            _tonghk.Enabled = temp;
+            btnConnectDatabase.Enabled = temp;
+        }
+
         private void KhoiTaoChucNang()
         {
             try
             {
-                switch (_quyen)
+                switch (Quyen)
                 {
                     case -1:
-                        _phanquyen.Enabled = false;
-                        _namhoc.Enabled = false;
-                        _monhoc.Enabled = false;
-                        _lopmoi.Enabled = false;
-                        _hocsinhmoi.Enabled = false;
-                        _phanLop.Enabled = false;
-                        _nhapdiem.Enabled = false;
-                        _dshocsinh.Enabled = false;
-                        _dslop.Enabled = false;
-                        _thongtinhs.Enabled = false;
-                        _doiquidinh.Enabled = false;
-                        _tongketmon.Enabled = false;
-                        _tonghk.Enabled = false;
-                        btnConnectDatabase.Enabled = false;
-
+                        ThietLapMacDinhDieuKhien(false);
                         break;
                     case 0:
-                        //_phanquyen.Enabled = true;
-                        //_namhoc.Enabled = true;
-                        //_monhoc.Enabled = true;
-                        //_lopmoi.Enabled = true;
-                        //_hocsinhmoi.Enabled = true;
-                        //_phanLop.Enabled = true;
-                        //_nhapdiem.Enabled = true;
-                        //_dshocsinh.Enabled = true;
-                        //_dslop.Enabled = true;
-                        //_thongtinhs.Enabled = true;
-                        //_doiquidinh.Enabled = true;
-                        //_tongketmon.Enabled = true;
-                        //_tonghk.Enabled = true;
+                        ThietLapMacDinhDieuKhien(false);
 
                          _phanquyen.Enabled = true;
-                        _namhoc.Enabled = false;
-                        _monhoc.Enabled = false;
-                        _lopmoi.Enabled = false;
-                        _hocsinhmoi.Enabled = false;
-                        _phanLop.Enabled = false;
                         _nhapdiem.Enabled = true;
-                        _dshocsinh.Enabled = false;
-                        _dslop.Enabled = false;
                         _thongtinhs.Enabled = true;
-                        _doiquidinh.Enabled = false;
-                        _tongketmon.Enabled = false;
-                        _tonghk.Enabled = false;
                         btnConnectDatabase.Enabled = true;
                         break;
                     case 1://BGH
-                        _phanquyen.Enabled = false;
+                        ThietLapMacDinhDieuKhien(false);
+
                         _namhoc.Enabled = true;
                         _monhoc.Enabled = true;
                         _lopmoi.Enabled = true;
-                        _hocsinhmoi.Enabled = false;
-                        _phanLop.Enabled = false;
                         _nhapdiem.Enabled = true;
-                        _dshocsinh.Enabled = false;
-                        _dslop.Enabled = false;
                         _thongtinhs.Enabled = true;
                         _doiquidinh.Enabled = true;
-                        _tongketmon.Enabled = false;
-                        _tonghk.Enabled = false;
-                        btnConnectDatabase.Enabled = false;
                         break;
                     case 2://GV
-                        _phanquyen.Enabled = false;
-                        _namhoc.Enabled = false;
-                        _monhoc.Enabled = false;
-                        _lopmoi.Enabled = false;
+                        ThietLapMacDinhDieuKhien(false);
+
                         _hocsinhmoi.Enabled = true;
                         _phanLop.Enabled = true;
                         _nhapdiem.Enabled = true;
                         _dshocsinh.Enabled = true;
                         _dslop.Enabled = true;
                         _thongtinhs.Enabled = true;
-                        _doiquidinh.Enabled = false;
                         _tongketmon.Enabled = true;
                         _tonghk.Enabled = true;
-                        btnConnectDatabase.Enabled = false;
                         break;
                     case 3://Khác
-                        _phanquyen.Enabled = false;
-                        _namhoc.Enabled = false;
-                        _monhoc.Enabled = false;
-                        _lopmoi.Enabled = false;
-                        _hocsinhmoi.Enabled = false;
-                        _phanLop.Enabled = false;
+                        ThietLapMacDinhDieuKhien(false);
+
                         _nhapdiem.Enabled = true;
-                        _dshocsinh.Enabled = false;
-                        _dslop.Enabled = false;
+
                         _thongtinhs.Enabled = true;
                         _doiquidinh.Enabled = false;
                         _tongketmon.Enabled = false;
@@ -160,7 +126,7 @@ namespace frMain
                         btnConnectDatabase.Enabled = false;
                         break;
                 }
-                if (_quyen == 2)
+                if (Quyen == 2)
                     _nhapdiem.Text = "QUẢN LÝ ĐIỂM";
                 else
                     _nhapdiem.Text = "XEM ĐIỂM";
@@ -169,7 +135,7 @@ namespace frMain
         }
         #endregion
         #region ADMIN phân quyền người dùng
-        private void barButtonItem12_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        private void BarButtonPhanQuyen_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             try
             {
@@ -181,13 +147,13 @@ namespace frMain
         #endregion
 
         //Cua so moi
-        private void barButtonItem18_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        private void BarButtonCuaSoMoi_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             fmQuanLyHocSinh fm = new fmQuanLyHocSinh();
             fm.Show();
         }
         //thoat
-        private void barButtonItem19_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        private void BarButtonThoat_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             if (MessageBox.Show("Bạn có muốn thoát khỏi chương trình?", "ĐÓNG ỨNG DỤNG", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
             {
@@ -230,7 +196,7 @@ namespace frMain
         private void _nhapdiem_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
         {
             FormBangDiem formBD;
-            if (_quyen == 2)
+            if (Quyen == 2)
                 formBD = new FormBangDiem(true);
             else
                 formBD = new FormBangDiem(false);
@@ -336,6 +302,5 @@ namespace frMain
             catch { }
          
         }
-
     }
 }

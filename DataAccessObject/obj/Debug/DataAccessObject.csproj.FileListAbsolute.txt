@@ -6,18 +6,3 @@ C:\Users\Tai\Desktop\PTVHBTPM\DataAccessObject\bin\Debug\DataAccessObject.pdb
 C:\Users\Tai\Desktop\PTVHBTPM\DataAccessObject\obj\Debug\DataAccessObject.csprojResolveAssemblyReference.cache
 C:\Users\Tai\Desktop\PTVHBTPM\DataAccessObject\obj\Debug\DataAccessObject.dll
 C:\Users\Tai\Desktop\PTVHBTPM\DataAccessObject\obj\Debug\DataAccessObject.pdb
-C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\DataAccessObject\bin\Debug\APPDATA.mdf
-C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\DataAccessObject\bin\Debug\APPDATA_log.ldf
-C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\DataAccessObject\bin\Debug\DataAccessObject.dll.config
-C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\DataAccessObject\bin\Debug\DataAccessObject.dll
-C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\DataAccessObject\bin\Debug\DataAccessObject.pdb
-C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\DataAccessObject\obj\Debug\DataAccessObject.csprojResolveAssemblyReference.cache
-C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\DataAccessObject\obj\Debug\DataAccessObject.dll
-C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\DataAccessObject\obj\Debug\DataAccessObject.pdb
-E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\DataAccessObject\bin\Debug\APPDATA_log.ldf
-E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\DataAccessObject\bin\Debug\APPDATA.mdf
-E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\DataAccessObject\bin\Debug\DataAccessObject.dll.config
-E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\DataAccessObject\bin\Debug\DataAccessObject.dll
-E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\DataAccessObject\bin\Debug\DataAccessObject.pdb
-E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\DataAccessObject\obj\Debug\DataAccessObject.dll
-E:\THU MUC\TAI LIEU\TAILIEU_HOCTAP\NAM_BA_HKII\Phat Trien, Van Hanh, Bao Tri Phan Mem\Do An\QLHS_V1\CaiTienQLHS\DataAccessObject\obj\Debug\DataAccessObject.pdb

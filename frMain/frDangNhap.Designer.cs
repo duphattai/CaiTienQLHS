@@ -125,7 +125,7 @@
             this.dangnhap.Size = new System.Drawing.Size(199, 36);
             this.dangnhap.TabIndex = 5;
             this.dangnhap.Text = "ĐĂNG NHẬP(ENTER)";
-            this.dangnhap.Click += new System.EventHandler(this.simpleButton1_Click);
+            this.dangnhap.Click += new System.EventHandler(this.ButtonDangNhap_Click);
             // 
             // thoat
             // 
@@ -141,7 +141,7 @@
             this.thoat.Size = new System.Drawing.Size(170, 36);
             this.thoat.TabIndex = 7;
             this.thoat.Text = "THOÁT(ESC)";
-            this.thoat.Click += new System.EventHandler(this.simpleButton2_Click);
+            this.thoat.Click += new System.EventHandler(this.ButtonThoat_Click);
             // 
             // checkMK
             // 

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fmPhanQuyen));
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
@@ -36,6 +37,9 @@
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
             this.radioGroup1 = new DevExpress.XtraEditors.RadioGroup();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.btLuu = new DevExpress.XtraEditors.SimpleButton();
             this.textMK2 = new System.Windows.Forms.TextBox();
@@ -54,9 +58,6 @@
             this.TenTK = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LoaiTK = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MatKhau = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).BeginInit();
@@ -87,7 +88,7 @@
             this.label1.ForeColor = System.Drawing.Color.Red;
             this.label1.Location = new System.Drawing.Point(344, 25);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(298, 31);
+            this.label1.Size = new System.Drawing.Size(302, 31);
             this.label1.TabIndex = 0;
             this.label1.Text = "QUẢN LÝ TÀI KHOẢN";
             // 
@@ -172,6 +173,36 @@
             this.groupControl1.TabIndex = 0;
             this.groupControl1.Text = "TÀI KHOẢN";
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.ForeColor = System.Drawing.Color.Red;
+            this.label7.Location = new System.Drawing.Point(303, 95);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(13, 13);
+            this.label7.TabIndex = 18;
+            this.label7.Text = "*";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.Color.Red;
+            this.label6.Location = new System.Drawing.Point(303, 148);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(13, 13);
+            this.label6.TabIndex = 17;
+            this.label6.Text = "*";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.Color.Red;
+            this.label5.Location = new System.Drawing.Point(303, 45);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(13, 13);
+            this.label5.TabIndex = 16;
+            this.label5.Text = "*";
+            // 
             // simpleButton1
             // 
             this.simpleButton1.Appearance.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -198,7 +229,7 @@
             this.btLuu.Size = new System.Drawing.Size(75, 26);
             this.btLuu.TabIndex = 14;
             this.btLuu.Text = "LƯU";
-            this.btLuu.Click += new System.EventHandler(this.btLuu_Click);
+            this.btLuu.Click += new System.EventHandler(this.ButtonLuu_Click);
             // 
             // textMK2
             // 
@@ -236,7 +267,7 @@
             this.checkMK.TabIndex = 10;
             this.checkMK.Text = "  Hiện mật khẩu";
             this.checkMK.UseVisualStyleBackColor = true;
-            this.checkMK.CheckedChanged += new System.EventHandler(this.checkMK_CheckedChanged);
+            this.checkMK.CheckedChanged += new System.EventHandler(this.Hien_An_MatKhau_CheckedChanged);
             // 
             // label4
             // 
@@ -261,7 +292,7 @@
             this.btThoat.Size = new System.Drawing.Size(75, 26);
             this.btThoat.TabIndex = 7;
             this.btThoat.Text = "THOÁT";
-            this.btThoat.Click += new System.EventHandler(this.btThoat_Click);
+            this.btThoat.Click += new System.EventHandler(this.ButtonThoat_Click);
             // 
             // BtXoa
             // 
@@ -275,7 +306,7 @@
             this.BtXoa.Size = new System.Drawing.Size(75, 26);
             this.BtXoa.TabIndex = 6;
             this.BtXoa.Text = "XÓA";
-            this.BtXoa.Click += new System.EventHandler(this.BtXoa_Click);
+            this.BtXoa.Click += new System.EventHandler(this.ButtonXoa_Click);
             // 
             // btSua
             // 
@@ -289,7 +320,7 @@
             this.btSua.Size = new System.Drawing.Size(75, 26);
             this.btSua.TabIndex = 5;
             this.btSua.Text = "SỬA";
-            this.btSua.Click += new System.EventHandler(this.btSua_Click);
+            this.btSua.Click += new System.EventHandler(this.ButtonSua_Click);
             // 
             // btThem
             // 
@@ -303,7 +334,7 @@
             this.btThem.Size = new System.Drawing.Size(75, 26);
             this.btThem.TabIndex = 4;
             this.btThem.Text = "THÊM";
-            this.btThem.Click += new System.EventHandler(this.btThem_Click);
+            this.btThem.Click += new System.EventHandler(this.ButtonThem_Click);
             // 
             // label3
             // 
@@ -336,6 +367,14 @@
             this.TenTK,
             this.LoaiTK,
             this.MatKhau});
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 8.25F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(31)))), ((int)(((byte)(53)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataPhanQuyen.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataPhanQuyen.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataPhanQuyen.Location = new System.Drawing.Point(0, 0);
             this.dataPhanQuyen.Name = "dataPhanQuyen";
@@ -376,36 +415,6 @@
             this.MatKhau.Name = "MatKhau";
             this.MatKhau.ReadOnly = true;
             this.MatKhau.Visible = false;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.Color.Red;
-            this.label5.Location = new System.Drawing.Point(303, 45);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(13, 13);
-            this.label5.TabIndex = 16;
-            this.label5.Text = "*";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.ForeColor = System.Drawing.Color.Red;
-            this.label6.Location = new System.Drawing.Point(303, 148);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(13, 13);
-            this.label6.TabIndex = 17;
-            this.label6.Text = "*";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.ForeColor = System.Drawing.Color.Red;
-            this.label7.Location = new System.Drawing.Point(303, 95);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(13, 13);
-            this.label7.TabIndex = 18;
-            this.label7.Text = "*";
             // 
             // fmPhanQuyen
             // 
