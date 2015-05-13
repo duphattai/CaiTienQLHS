@@ -11,6 +11,7 @@ using System.Threading;
 using frMain;
 using ConnectToDatabase;
 using Settings = ConnectToDatabase.Properties.Settings;
+using System.Data.SqlClient;
 
 namespace frMain
 {
@@ -273,7 +274,7 @@ namespace frMain
         private void btnConnectDatabase_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             string OldConnectionString = Settings.Default.ConnectString;
-            frConnectToDatabase _frConnect = new frConnectToDatabase();
+            FormConnectToDatabase _frConnect = new FormConnectToDatabase();
             _frConnect.ShowDialog();
         }
 
@@ -301,6 +302,83 @@ namespace frMain
             }
             catch { }
          
+        }
+
+
+        // Coder: Tài
+        private SqlConnection Connect; // lưu trữ kết nối với database
+        /// <summary>
+        /// Sự kiện: xảy ra khi người dùng click vào button Sao lưu
+        /// Sao lưu database
+        /// </summary>
+        private void BarButtonItemBackUp_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            Connect = new SqlConnection(ConnectToDatabase.Properties.Settings.Default.ConnectString); //  tạo lập kết nối
+            string nameDatabase = ConnectToDatabase.Properties.Settings.Default.DatabaseName; // lấy tên database
+
+            string date = DateTime.Now.Hour.ToString() + "-" + DateTime.Now.Minute.ToString() + " " + DateTime.Now.Day.ToString() + "-" + DateTime.Now.Month.ToString() + "-" + DateTime.Now.Year.ToString();
+
+            SaveFileDialog saveFile = new SaveFileDialog(); // mở hộp thoại save file
+            saveFile.FileName = "QLHS " + date; // thiết lập tên file mặc định
+            saveFile.Filter = "File(*.bak)|*.bak";  // kiểu file
+
+            string currentPath;
+            if (saveFile.ShowDialog() == DialogResult.OK)
+            {
+                currentPath = (saveFile.FileName); // lấy đường dẫn
+
+                string QueryBackup = "BACKUP DATABASE " + nameDatabase +" TO DISK ='"+ currentPath +"' WITH INIT";
+                
+                try
+                {
+                    SqlCommand cm = new SqlCommand(QueryBackup, Connect);
+                    cm.Connection.Open();
+                    cm.ExecuteNonQuery();
+
+                    Connect.Close();
+                    MessageBox.Show("Sao lưu thành công", "Thông báo");
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("Không thể sao lưu dữ liệu", "Lỗi");
+                } 
+            }
+        }
+
+        /// <summary>
+        /// Sự kiện: xảy ra khi người dùng click vào button Phục Hồi
+        /// Phục hồi database
+        /// </summary>
+        private void BarButtonItemRestore_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            Connect = new SqlConnection(ConnectToDatabase.Properties.Settings.Default.ConnectString); //  tạo lập kết nối
+            string nameDatabase = ConnectToDatabase.Properties.Settings.Default.DatabaseName; // lấy tên database
+
+            OpenFileDialog openFile = new OpenFileDialog(); // mở hộp thoại open file
+            openFile.Filter = "File(*.bak)|*.bak";  // kiểu file
+
+            string currentPath;
+            if (openFile.ShowDialog() == DialogResult.OK)
+            {
+                currentPath = (openFile.FileName); // lấy đường dẫn
+
+                string QueryRestore = "USE master\nALTER DATABASE " + nameDatabase + " SET SINGLE_USER WITH ROLLBACK IMMEDIATE \n\n RESTORE DATABASE " + nameDatabase + " FROM DISK ='" + currentPath + "' \n\nALTER DATABASE " + nameDatabase +" SET MULTI_USER";
+
+                try
+                {
+                    SqlCommand cm = new SqlCommand(QueryRestore, Connect);
+                    cm.Connection.Open();
+                    cm.ExecuteNonQuery();
+
+                    Connect.Close();
+                    MessageBox.Show("Phục hồi thành công", "Thông báo");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Không thể phục hồi dữ liệu", "Lỗi");
+                    //MessageBox.Show(ex.Message);
+                }
+            }
         }
     }
 }

@@ -28,7 +28,7 @@ namespace frMain
 
             if (String.IsNullOrEmpty(Settings.Default.ConnectString))
             {
-                Application.Run(new ConnectToDatabase.frConnectToDatabase());
+                Application.Run(new ConnectToDatabase.FormConnectToDatabase());
             }
             else
             {
@@ -43,7 +43,7 @@ namespace frMain
                 {
                     Settings.Default.ConnectString = null;
                     MessageBox.Show("Cơ sở dữ liệu của bạn đã bị lỗi, vui lòng tạo cơ sở dữ liệu mới", "Error");
-                    Application.Run(new ConnectToDatabase.frConnectToDatabase());
+                    Application.Run(new ConnectToDatabase.FormConnectToDatabase());
                 }
             }
            

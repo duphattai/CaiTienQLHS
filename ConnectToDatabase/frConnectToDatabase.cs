@@ -13,12 +13,13 @@ using Microsoft.SqlServer.Management.Common;
 using System.Data.SqlClient;
 using Settings = ConnectToDatabase.Properties.Settings;
 
+
 namespace ConnectToDatabase
 {
-    public partial class frConnectToDatabase : Form
+    public partial class FormConnectToDatabase : Form
     {
-        private Server _mServer;
-        private ServerConnection _mServerConnection;
+        private Server _mServer; // dùng để truy cập server trong database
+        private ServerConnection _mServerConnection; // cổng kết nối database
         public bool _IsOKClicked = false;
 
         #region Hàm chức năng
@@ -40,10 +41,12 @@ namespace ConnectToDatabase
             this.Cursor = Cursors.Default;
         }
 
-        //Connect to selected database
+        /// <summary>
+        /// Kết nối tới server được chọn, kết nối thành công trả về chuỗi rỗng và ngược lại
+        /// </summary>
         private string ConnectDatabase()
         {
-            if (!string.IsNullOrEmpty(cbServerName.Text))
+            if (!string.IsNullOrEmpty(cbServerName.Text)) // cbServerName phải được input
             {
                 try
                 {
@@ -63,7 +66,8 @@ namespace ConnectToDatabase
                         // Create a new SQL Server object using the connection we created
                         _mServer = new Server(_mServerConnection);
                     }
-                    ListDataBases();
+
+                    ListDataBases();// Kết nối thành công, hiển thị danh sách database có trên server
                     return String.Empty;
                 }
                 catch (Exception ex)
@@ -75,7 +79,9 @@ namespace ConnectToDatabase
             return "Không có server nào được chọn";
         }
 
-        //List all database in server
+        /// <summary>
+        /// Hiển thị danh sách các database có trong server
+        /// </summary>
         private void ListDataBases()
         {
             cbDbName.Items.Clear();
@@ -94,7 +100,9 @@ namespace ConnectToDatabase
             }
         }
 
-        //Check if enought table in database
+        /// <summary>
+        /// Kiểm tra các bảng trong database có đúng theo quy định, đúng trả về true và ngược lại
+        /// </summary>
         private bool CheckDatabase(string dbname)
         {
             string data = Properties.Resources.CheckTable;
@@ -102,7 +110,10 @@ namespace ConnectToDatabase
             return dsTables.Tables[0].Rows.Count > 0;
         }
 
-        //Create a connection string
+        
+        /// <summary>
+        /// Tạo một chuỗi kết nối, trả về chuỗi đã tạo
+        /// </summary>
         private string CreateConnectionString()
         {
             string connectStr;
@@ -121,17 +132,20 @@ namespace ConnectToDatabase
         }
         #endregion
 
-        public frConnectToDatabase()
+        public FormConnectToDatabase()
         {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        /// <summary>
+        /// Sự kiện: xảy ra khi FormConnectToDatabase được show lên
+        /// </summary>
+        private void FormConnectToDatabase_Load(object sender, EventArgs e)
         {
             RegistryKey rk = null;
             try
             {
-                rk = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Microsoft SQL Server\");
+                rk = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Microsoft SQL Server\"); // tìm kiếm key "SOFTWARE\Microsoft\Microsoft SQL Server\" có hiện hữu trên HKEY_LOCAL_MACHINE trong register không
             }
             catch (Exception)
             {
@@ -154,7 +168,11 @@ namespace ConnectToDatabase
                 cbServerName.SelectedIndex = 0;
         }
 
-        private void btnFind_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Sự kiện: xảy ra khi button tìm trong mạng được click
+        /// Tìm server có trong sql server
+        /// </summary>
+        private void ButtonTimServer_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Tìm kiếm các máy chủ có thể mất nhiều thời gian."
                                 + "\nBạn có thể gõ Tên máy chủ hoặc IP của máy chủ."
@@ -167,25 +185,37 @@ namespace ConnectToDatabase
             }
         }
 
+        /// <summary>
+        /// Sự kiện: khi người dùng chọn quyền thực thi trên windows
+        /// Thiết lập các txtUserName, txtPassWord không thao tác được
+        /// </summary>
         private void rbWindowsAuthentication_Click(object sender, EventArgs e)
         {
             txtUserName.Enabled = false;
             txtPassword.Enabled = false;
         }
 
+        /// <summary>
+        /// Sự kiện: khi người dùng chọn quyền thực thi trên Server
+        /// cho phép người dùng thao tác trên txtUserName, txtPassWord
+        /// </summary>
         private void rbServerAuthentication_Click(object sender, EventArgs e)
         {
             txtUserName.Enabled = true;
             txtPassword.Enabled = true;
         }
 
-        private void btnConnect_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Sự kiện: khi người dùng click vào button kết nối
+        /// Kết nối đến server của sql
+        /// </summary>
+        private void ButtonKetNoi_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(cbServerName.Text))
             {
-                this.Cursor = Cursors.WaitCursor;
-                string message = ConnectDatabase();
-                this.Cursor = Cursors.Default;
+                this.Cursor = Cursors.WaitCursor; // chuyển con chuột thành đồng hồ cát
+                string message = ConnectDatabase(); // thực thi kết nối tới server
+                this.Cursor = Cursors.Default; 
 
                 if (string.IsNullOrEmpty(message))
                 {
@@ -208,7 +238,12 @@ namespace ConnectToDatabase
             }
         }
 
-        private void btnCreateNewDatabase_Click(object sender, EventArgs e)
+
+        /// <summary>
+        /// Sự kiện: xảy ra khi button Tạo mới cơ sở dữ liệu được click
+        /// Tạo database cùng với các trigger, store procedure
+        /// </summary>
+        private void ButtonCreateNewDatabase_Click(object sender, EventArgs e)
         {
             try
             {
@@ -221,23 +256,23 @@ namespace ConnectToDatabase
                     }
                     else
                     {
-                        this.Cursor = Cursors.WaitCursor;
-                        string data = Properties.Resources.CreateDatabase;
-                        string data2 = Properties.Resources.StroredProcedures;
+                        this.Cursor = Cursors.WaitCursor;// chuyển con chuột thành đồng hồ cát
+                        string dataCreateDatabase = Properties.Resources.CreateDatabase; // lưu trữ dữ liệu để tạo database cùng với các table, trigger
+                        string dataCreateStroredProcedures = Properties.Resources.StroredProcedures; // dữ liệu dùng để tạo storedProcedures
                         string dbName = txtNewDB.Text;
                         var newDB = new Database(_mServer, dbName);
                         newDB.Create();
                         ListDataBases();
 
-                        data = data.Replace("[PlaceHolder]", dbName);
-                        data2 = data2.Replace("[PlaceHolder]", dbName);
-                        _mServer.ConnectionContext.ExecuteNonQuery(data);
-                        _mServer.ConnectionContext.ExecuteNonQuery(data2);
+                        dataCreateDatabase = dataCreateDatabase.Replace("[PlaceHolder]", dbName);
+                        dataCreateStroredProcedures = dataCreateStroredProcedures.Replace("[PlaceHolder]", dbName);
+                        _mServer.ConnectionContext.ExecuteNonQuery(dataCreateDatabase); // thực thi tạo database trên sql server
+                        _mServer.ConnectionContext.ExecuteNonQuery(dataCreateStroredProcedures); // thực thi tạo storedProcedures
                         cbDbName.SelectedItem = cbDbName.Items[cbDbName.Items.IndexOf(dbName)];
                         btnCreateSample.Enabled = true;
 
                         MessageBox.Show("Đã tạo database thành công", "Success");
-                        this.Cursor = Cursors.Default;
+                        this.Cursor = Cursors.Default;// chuyển con chuột trở về dạng ban đầu
                     }
                 }
                 else
@@ -256,17 +291,20 @@ namespace ConnectToDatabase
             }
         }
 
-        private void btnCreateSample_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Sự kiện: khi button Tạo dữ liệu mẫu được click
+        /// Tạo records mẫu trên database
+        /// </summary>
+        private void ButtonCreateSample_Click(object sender, EventArgs e)
         {
             try
             {
-                this.Cursor = Cursors.WaitCursor;
-                string data = Properties.Resources.InitData;
-                
+                this.Cursor = Cursors.WaitCursor; // chuyển con chuột thành đồng hồ cát
+                string data = Properties.Resources.InitData; // dữ liệu để tạo các records trên các table
 
                 data = data.Replace("[PlaceHolder]", txtNewDB.Text);
 
-                _mServer.Databases[txtNewDB.Text].ExecuteNonQuery(data);
+                _mServer.Databases[txtNewDB.Text].ExecuteNonQuery(data); // thêm các records vào các table
                 MessageBox.Show("Đã tạo dữ liệu mẫu thành công", "Success");
                 btnCreateSample.Enabled = false;
             }
@@ -276,16 +314,20 @@ namespace ConnectToDatabase
             }
             finally
             {
-                this.Cursor = Cursors.Default;
+                this.Cursor = Cursors.Default;// chuyển con chuột trở về dạng mặc định
             }
         }
+
 
         private void cbDbName_SelectedIndexChanged(object sender, EventArgs e)
         {
             btnCreateSample.Enabled = false;
         }
 
-        private void btnOK_Click(object sender, EventArgs e)
+        /// <summary>
+        /// 
+        /// </summary>
+        private void ButtonOK_Click(object sender, EventArgs e)
         {
             if (CheckDatabase(cbDbName.Text))
             {
@@ -318,7 +360,7 @@ namespace ConnectToDatabase
             }
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void ButtonCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }

@@ -1,6 +1,6 @@
 ﻿namespace ConnectToDatabase
 {
-    partial class frConnectToDatabase
+    partial class FormConnectToDatabase
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frConnectToDatabase));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormConnectToDatabase));
             this.cbServerName = new System.Windows.Forms.ComboBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.lblServerName = new System.Windows.Forms.Label();
@@ -74,7 +74,7 @@
             this.btnCancel.TabIndex = 8;
             this.btnCancel.Text = "Thoát";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
             // 
             // lblServerName
             // 
@@ -93,7 +93,7 @@
             this.btnOK.TabIndex = 7;
             this.btnOK.Text = "Lưu cấu hình";
             this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            this.btnOK.Click += new System.EventHandler(this.ButtonOK_Click);
             // 
             // btnFind
             // 
@@ -103,7 +103,7 @@
             this.btnFind.TabIndex = 3;
             this.btnFind.Text = "Tìm trong mạng";
             this.btnFind.UseVisualStyleBackColor = true;
-            this.btnFind.Click += new System.EventHandler(this.btnFind_Click);
+            this.btnFind.Click += new System.EventHandler(this.ButtonTimServer_Click);
             // 
             // grbLogOn
             // 
@@ -138,7 +138,7 @@
             this.btnConnect.TabIndex = 6;
             this.btnConnect.Text = "Kết nối";
             this.btnConnect.UseVisualStyleBackColor = true;
-            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
+            this.btnConnect.Click += new System.EventHandler(this.ButtonKetNoi_Click);
             // 
             // txtUserName
             // 
@@ -199,7 +199,7 @@
             this.btnCreateNewDatabase.TabIndex = 8;
             this.btnCreateNewDatabase.Text = "Tạo mới";
             this.btnCreateNewDatabase.UseVisualStyleBackColor = true;
-            this.btnCreateNewDatabase.Click += new System.EventHandler(this.btnCreateNewDatabase_Click);
+            this.btnCreateNewDatabase.Click += new System.EventHandler(this.ButtonCreateNewDatabase_Click);
             // 
             // label1
             // 
@@ -274,7 +274,7 @@
             this.btnCreateSample.TabIndex = 10;
             this.btnCreateSample.Text = "Tạo dữ liệu mẫu cho ứng dụng";
             this.btnCreateSample.UseVisualStyleBackColor = true;
-            this.btnCreateSample.Click += new System.EventHandler(this.btnCreateSample_Click);
+            this.btnCreateSample.Click += new System.EventHandler(this.ButtonCreateSample_Click);
             // 
             // grbDatabaseConnection
             // 
@@ -308,7 +308,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frConnectToDatabase";
             this.Text = "Kết nối cơ sở dữ liệu";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.FormConnectToDatabase_Load);
             this.grbLogOn.ResumeLayout(false);
             this.grbLogOn.PerformLayout();
             this.pnlConnectionInfo.ResumeLayout(false);
