@@ -47,11 +47,8 @@ namespace frMain
                 if (iquyen != -1)
                 {
                     Quyen = iquyen;
-                    //KhoiTaoChucNang();
+                    this.Close();
                 }
-                else
-                    if (Quyen == -1)
-                        this.Close();
             }
             catch { }
         }

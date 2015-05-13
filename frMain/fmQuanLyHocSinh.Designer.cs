@@ -349,16 +349,16 @@
             // 
             // backstageViewClientControl3
             // 
-            this.backstageViewClientControl3.Location = new System.Drawing.Point(133, 63);
+            this.backstageViewClientControl3.Location = new System.Drawing.Point(135, 63);
             this.backstageViewClientControl3.Name = "backstageViewClientControl3";
-            this.backstageViewClientControl3.Size = new System.Drawing.Size(611, 270);
+            this.backstageViewClientControl3.Size = new System.Drawing.Size(607, 268);
             this.backstageViewClientControl3.TabIndex = 1;
             // 
             // backstageViewClientControl4
             // 
-            this.backstageViewClientControl4.Location = new System.Drawing.Point(133, 63);
+            this.backstageViewClientControl4.Location = new System.Drawing.Point(135, 63);
             this.backstageViewClientControl4.Name = "backstageViewClientControl4";
-            this.backstageViewClientControl4.Size = new System.Drawing.Size(611, 270);
+            this.backstageViewClientControl4.Size = new System.Drawing.Size(607, 268);
             this.backstageViewClientControl4.TabIndex = 2;
             // 
             // backstageViewTabItem2
@@ -682,9 +682,9 @@
             // 
             // backstageViewClientControl1
             // 
-            this.backstageViewClientControl1.Location = new System.Drawing.Point(188, 0);
+            this.backstageViewClientControl1.Location = new System.Drawing.Point(190, 0);
             this.backstageViewClientControl1.Name = "backstageViewClientControl1";
-            this.backstageViewClientControl1.Size = new System.Drawing.Size(292, 150);
+            this.backstageViewClientControl1.Size = new System.Drawing.Size(290, 150);
             this.backstageViewClientControl1.TabIndex = 0;
             // 
             // backstageViewTabItem1

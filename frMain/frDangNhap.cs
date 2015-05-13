@@ -63,6 +63,14 @@ namespace frMain
         }
          #endregion
         #region Đăng nhập
+
+        private void CreateFormOnAnotherThread()
+        {
+            fmQuanLyHocSinh form = new fmQuanLyHocSinh();
+            form.Quyen = _quyen;
+            form.ShowDialog();
+        }
+
         private void ButtonDangNhap_Click(object sender, EventArgs e)
         {
             try
@@ -75,11 +83,9 @@ namespace frMain
                         {
                             MessageBox.Show("Chào " + textTen.Text + " đến với phần mềm QUẢN LÝ HỌC SINH", "Đăng nhập thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             _quyen = newtk.LOAITK;
-                            this.Hide();
 
-                            fmQuanLyHocSinh form = new fmQuanLyHocSinh();
-                            form.Quyen = _quyen;
-                            form.ShowDialog();
+                            System.Threading.Thread thread = new System.Threading.Thread(new System.Threading.ThreadStart(CreateFormOnAnotherThread));
+                            thread.Start();
 
                             this.Close();
                             return;
