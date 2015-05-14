@@ -16,7 +16,8 @@ namespace frMain
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        [STAThread]
+        //[STAThread]
+        [STAThreadAttribute]
         static void Main()
         {
             Application.EnableVisualStyles();

@@ -20,4 +20,4 @@ C:\Users\Tai\Desktop\PTVHBTPM\frMain\obj\Debug\frMain.csproj.GenerateResource.Ca
 C:\Users\Tai\Desktop\PTVHBTPM\frMain\obj\Debug\frMain.exe.licenses
 C:\Users\Tai\Desktop\PTVHBTPM\frMain\bin\Debug\frMain.exe.config
 C:\Users\Tai\Desktop\CaiTienQLHS\QLHS\frMain\obj\Debug\frMain.csprojResolveAssemblyReference.cache
-C:\Users\Tai\Desktop\CaiTienQLHS\frMain\bin\Debug\frMain.exe.config
+C:\Users\Tai\Desktop\CaiTienQLHS\frMain\bin\Debug\DataAccessObject.pdb

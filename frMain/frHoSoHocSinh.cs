@@ -234,25 +234,34 @@ namespace frMain
         #region Đọc tập tin Excel
         private void btTapTin_Click(object sender, EventArgs e)
         {
+            System.Threading.Thread thread = new System.Threading.Thread(new System.Threading.ThreadStart(DocTapTin));
+            thread.ApartmentState = System.Threading.ApartmentState.STA;
+            thread.Start();    
+        }
+
+        private void DocTapTin()
+        {
             try
             {
                 OpenFileDialog iopen = new OpenFileDialog();
                 iopen.Filter = "Excel Files|*.xls;*.xlsx";
                 iopen.Title = "Chọn tập tin excel";
+                iopen.InitialDirectory = @"C:\\";
+
                 if (iopen.ShowDialog() == DialogResult.OK)
                 {
                     string ipath = iopen.FileName;
                     lbpath.Text = ipath;
                     DocFileExcel(ipath);
-                    if(DialogResult.OK == MessageBox.Show("Bạn có muốn tiếp tục thêm dữ liệu từ tập tin Excel?","Tiếp tục",MessageBoxButtons.OKCancel,MessageBoxIcon.Question))
+                    if (DialogResult.OK == MessageBox.Show("Bạn có muốn tiếp tục thêm dữ liệu từ tập tin Excel?", "Tiếp tục", MessageBoxButtons.OKCancel, MessageBoxIcon.Question))
                         DuaduLieuData(listtemp);
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
         }
-
 
         private void DocFileExcel(string ipath)
         {
