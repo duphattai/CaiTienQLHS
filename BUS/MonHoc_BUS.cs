@@ -42,17 +42,17 @@ namespace BUS
         /// <summary>
         /// thêm môn học vào database
         /// </summary>
-        public void Them(String _MaMon, String _TenMon)
+        public void Them(String _MaMon, String _TenMon, int? _SoTietKhoi10, int? _SoTietKhoi11, int? _SoTietKhoi12)
         {
-            DB.usp_InsertMonhoc(_MaMon, _TenMon);
+            DB.usp_InsertMonhoc(_MaMon, _TenMon, _SoTietKhoi10, _SoTietKhoi11, _SoTietKhoi12);
         }
 
         /// <summary>
         /// Cập nhật lại môn học theo mã môn
         /// </summary>
-        public void Update(String _MaMon, String _TenMon)
+        public void Update(String _MaMon, String _TenMon, int? _SoTietKhoi10, int? _SoTietKhoi11, int? _SoTietKhoi12)
         {
-            DB.usp_UpdateMonhoc(_MaMon, _TenMon);
+            DB.usp_UpdateMonhoc(_MaMon, _TenMon, _SoTietKhoi10, _SoTietKhoi11, _SoTietKhoi12);
         }
 
         /// <summary>

@@ -58,7 +58,7 @@ namespace frMain
         private void ThietLapMacDinhDieuKhien(Boolean temp)
         {
             _phanquyen.Enabled = temp;
-            _namhoc.Enabled = temp;
+            _namHoc.Enabled = temp;
             _monhoc.Enabled = temp;
             _lopmoi.Enabled = temp;
             _hocsinhmoi.Enabled = temp;
@@ -93,7 +93,7 @@ namespace frMain
                     case 1://BGH
                         ThietLapMacDinhDieuKhien(false);
 
-                        _namhoc.Enabled = true;
+                        _namHoc.Enabled = true;
                         _monhoc.Enabled = true;
                         _lopmoi.Enabled = true;
                         _nhapdiem.Enabled = true;
@@ -212,6 +212,12 @@ namespace frMain
         {
             FormDanhSachHocSinh formDS = new FormDanhSachHocSinh();
             formDS.Show();
+        }
+
+        private void _dsgiaovien_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
+        {
+            frHoSoGiaoVien form = new frHoSoGiaoVien();
+            form.Show();
         }
         #endregion
 

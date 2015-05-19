@@ -161,6 +161,12 @@
     <Compile Include="frDanhSachLop.Designer.cs">
       <DependentUpon>frDanhSachLop.cs</DependentUpon>
     </Compile>
+    <Compile Include="frHoSoGiaoVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frHoSoGiaoVien.Designer.cs">
+      <DependentUpon>frHoSoGiaoVien.cs</DependentUpon>
+    </Compile>
     <Compile Include="frHoSoHocSinh.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -237,6 +243,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frDanhSachLop.resx">
       <DependentUpon>frDanhSachLop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frHoSoGiaoVien.resx">
+      <DependentUpon>frHoSoGiaoVien.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frHoSoHocSinh.resx">
       <DependentUpon>frHoSoHocSinh.cs</DependentUpon>

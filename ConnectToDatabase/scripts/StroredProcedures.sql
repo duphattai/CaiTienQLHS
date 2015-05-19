@@ -1264,29 +1264,44 @@ GO
 
 CREATE PROCEDURE [dbo].[usp_InsertMonhoc]
 	@MAMONHOC varchar(5),
-	@TENMONHOC nvarchar(30)
+	@TENMONHOC nvarchar(30),
+	@SOTIETKHOI10 INT,
+	@SOTIETKHOI11 INT,
+	@SOTIETKHOI12 INT
 AS
 
 SET NOCOUNT ON
 
 INSERT INTO [dbo].[MONHOC] (
 	[MAMONHOC],
-	[TENMONHOC]
+	[TENMONHOC],
+	[SOTIETKHOI10],
+	[SOTIETKHOI11],
+	[SOTIETKHOI12]
 ) VALUES (
 	@MAMONHOC,
-	@TENMONHOC
+	@TENMONHOC,
+	@SOTIETKHOI10,
+	@SOTIETKHOI11,
+	@SOTIETKHOI12
 )
 GO
 
 CREATE PROCEDURE [dbo].[usp_UpdateMonhoc]
 	@MAMONHOC varchar(5),
-	@TENMONHOC nvarchar(30)
+	@TENMONHOC nvarchar(30),
+	@SOTIETKHOI10 INT,
+	@SOTIETKHOI11 INT,
+	@SOTIETKHOI12 INT
 AS
 
 SET NOCOUNT ON
 
 UPDATE [dbo].[MONHOC] SET
-	[TENMONHOC] = @TENMONHOC
+	[TENMONHOC] = @TENMONHOC,
+	[SOTIETKHOI10] = @SOTIETKHOI10,
+	[SOTIETKHOI11] = @SOTIETKHOI11,
+	[SOTIETKHOI12] = @SOTIETKHOI12 
 WHERE
 	[MAMONHOC] = @MAMONHOC
 GO
@@ -1328,7 +1343,10 @@ SET TRANSACTION ISOLATION LEVEL READ COMMITTED
 
 SELECT
 	[MAMONHOC],
-	[TENMONHOC]
+	[TENMONHOC],
+	[SOTIETKHOI10],
+	[SOTIETKHOI11],
+	[SOTIETKHOI12]
 FROM
 	[dbo].[MONHOC]
 WHERE
@@ -1348,7 +1366,10 @@ DECLARE @SQL nvarchar(3250)
 SET @SQL = '
 SELECT
 	[MAMONHOC],
-	[TENMONHOC]
+	[TENMONHOC],
+	[SOTIETKHOI10],
+	[SOTIETKHOI11],
+	[SOTIETKHOI12]
 FROM
 	[dbo].[MONHOC]
 WHERE
@@ -1372,7 +1393,10 @@ SET TRANSACTION ISOLATION LEVEL READ COMMITTED
 
 SELECT
 	[MAMONHOC],
-	[TENMONHOC]
+	[TENMONHOC],
+	[SOTIETKHOI10],
+	[SOTIETKHOI11],
+	[SOTIETKHOI12]
 FROM
 	[dbo].[MONHOC]
 GO
@@ -1838,3 +1862,219 @@ FROM
 WHERE
 	MABAOCAOMON = @MABAOCAOMON AND
 	CHITIETBAOCAOMON.MALOP = LOP.MALOP
+GO
+
+
+------------------------------------------------------------------------------------------------Coder: Tài
+------GiaoVien
+IF OBJECT_ID(N'[dbo].[usp_InsertGiaoVien]') IS NOT NULL
+	DROP PROCEDURE [dbo].[usp_InsertGiaoVien]
+
+IF OBJECT_ID(N'[dbo].[usp_UpdateGiaoVien]') IS NOT NULL
+	DROP PROCEDURE [dbo].[usp_UpdateGiaoVien]
+
+IF OBJECT_ID(N'[dbo].[usp_DeleteGiaoVien]') IS NOT NULL
+	DROP PROCEDURE [dbo].[usp_DeleteGiaoVien]
+
+IF OBJECT_ID(N'[dbo].[usp_SelectGiaoVien_MaGiaoVien]') IS NOT NULL
+	DROP PROCEDURE [dbo].[usp_SelectGiaoVien_MaGiaoVien]
+	
+IF OBJECT_ID(N'[dbo].[usp_SelectAllGiaoVien]') IS NOT NULL
+	DROP PROCEDURE [dbo].[usp_SelectAllGiaoVien]
+	
+IF OBJECT_ID(N'[dbo].[usp_SelectLastSTTMaGiaoVien]') IS NOT NULL
+	DROP PROCEDURE [dbo].[usp_SelectLastSTTMaGiaoVien]
+GO
+CREATE PROCEDURE [dbo].[usp_InsertGiaoVien]
+@MaGiaoVien varchar(10),
+@HoTen nvarchar(50),
+@DiaChi nvarchar (100),
+@NgaySinh smalldatetime,
+@Email varchar(50),
+@GioiTinh nvarchar(3),
+@MaMonHoc varchar(5)
+AS
+
+SET NOCOUNT ON
+IF(NOT EXISTS(SELECT * FROM MONHOC WHERE MONHOC.MAMONHOC = @MaMonHoc))
+	BEGIN
+		RETURN 0
+	END
+ELSE
+	BEGIN
+		INSERT INTO [dbo].[GIAOVIEN] (
+			[MaGiaoVien],
+			[HoTen],
+			[DiaChi],
+			[NgaySinh],
+			[Email],
+			[GioiTinh],
+			[MaMonHoc]
+		) VALUES (
+			@MaGiaoVien,
+			@HoTen,
+			@DiaChi,
+			@NgaySinh,
+			@Email,
+			@GioiTinh,
+			@MaMonHoc
+		)
+
+		RETURN 1
+	END
+GO
+
+
+CREATE PROCEDURE [dbo].[usp_UpdateGiaoVien]
+@MaGiaoVien varchar(10),
+@HoTen nvarchar(50),
+@DiaChi nvarchar (100),
+@NgaySinh smalldatetime,
+@Email varchar(50),
+@GioiTinh nvarchar(3),
+@MaMonHoc varchar(5)
+AS
+SET NOCOUNT ON
+IF(NOT EXISTS(SELECT * FROM MONHOC WHERE MONHOC.MAMONHOC = @MaMonHoc))
+	BEGIN
+		RETURN 0
+	END
+ELSE
+	BEGIN
+		UPDATE [dbo].[GIAOVIEN] SET
+			[HoTen] = @HoTen,
+			[DiaChi] = @DiaChi,
+			[NgaySinh] = @NgaySinh,
+			[Email] = @Email,
+			[GioiTinh] = @GioiTinh,
+			[MaMonHoc] = @MaMonHoc
+		WHERE
+			[MaGiaoVien] = @MaGiaoVien
+	
+		RETURN 1
+	END
+GO
+------------------
+CREATE PROCEDURE [dbo].[usp_DeleteGiaoVien]
+	@MaGiaoVien varchar(10)
+AS
+
+SET NOCOUNT ON
+
+DELETE FROM [dbo].[GIAOVIEN]
+WHERE
+	[MaGiaoVien] = @MaGiaoVien
+GO
+------------
+CREATE PROCEDURE [dbo].[usp_SelectGiaoVien_MaGiaoVien]
+	@MaGiaoVien varchar(10)
+AS
+
+SET NOCOUNT ON
+
+SELECT 
+MaGiaoVien,
+HoTen,
+DiaChi,
+NgaySinh,
+Email,
+GioiTinh,
+MaMonHoc
+FROM GIAOVIEN
+WHERE GIAOVIEN.MaGiaoVien = @MaGiaoVien
+GO
+
+CREATE PROCEDURE [dbo].[usp_SelectAllGiaoVien]
+AS
+
+SET NOCOUNT ON
+
+SELECT 
+MaGiaoVien,
+HoTen,
+DiaChi,
+NgaySinh,
+Email,
+GioiTinh,
+MaMonHoc
+FROM GIAOVIEN
+GO
+
+---------
+CREATE PROCEDURE usp_SelectLastSTTMaGiaoVien
+AS
+
+SET NOCOUNT ON
+
+IF( NOT EXISTS (SELECT TOP 1 MaGiaoVien
+					FROM
+					[dbo].[GIAOVIEN]
+					ORDER BY 
+					MaGiaoVien DESC))
+BEGIN
+	return 0
+END
+ELSE
+BEGIN
+DECLARE @TEMP INT
+SET @TEMP = (SELECT TOP 1 B.NUMBER
+FROM
+(SELECT CAST(A.VALUE AS INT) AS NUMBER
+FROM(
+SELECT SUBSTRING(MaGiaoVien, 3, len(MaGiaoVien) - 2) AS VALUE
+FROM GIAOVIEN) A) B
+ORDER BY B.NUMBER DESC)
+RETURN @TEMP
+END
+GO
+
+
+----------------GIANGDAY
+IF OBJECT_ID(N'[dbo].[usp_InsertGiangDay]') IS NOT NULL
+	DROP PROCEDURE [dbo].[usp_InsertGiangDay]
+
+
+IF OBJECT_ID(N'[dbo].[usp_DeleteGiangDay]') IS NOT NULL
+	DROP PROCEDURE [dbo].[usp_DeleteGiangDay]
+	IF OBJECT_ID(N'[dbo].[usp_SelectGiangDay]') IS NOT NULL
+	DROP PROCEDURE [dbo].[usp_SelectGiangDay]
+GO
+
+CREATE PROCEDURE usp_InsertGiangDay
+@MaGiaoVien varchar(10),
+@MaKhoi varchar(3)
+AS
+
+SET NOCOUNT ON
+INSERT INTO [dbo].[GIANGDAY] (
+	[MaGiaoVien],
+	[MaKhoi]
+) VALUES (
+	@MaGiaoVien,
+	@MaKhoi
+)
+GO
+
+---------
+CREATE PROCEDURE [dbo].[usp_DeleteGiangDay]
+	@MaGiaoVien varchar(10)
+AS
+
+SET NOCOUNT ON
+
+DELETE FROM [dbo].[GIANGDAY]
+WHERE
+	[MaGiaoVien] = @MaGiaoVien
+GO
+
+CREATE PROCEDURE usp_SelectGiangDay
+@MaGiaoVien varchar(10)
+AS
+
+SET NOCOUNT ON
+
+SELECT
+GIANGDAY.MaGiaoVien,
+GIANGDAY.MaKhoi
+FROM GIANGDAY
+WHERE [MaGiaoVien] = @MaGiaoVien

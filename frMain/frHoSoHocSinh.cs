@@ -285,7 +285,6 @@ namespace frMain
             {
                 for (int i = 2; i < table.Rows.Count; i++)
                 {
-
                     for (int j = 0; j < 5; j++)
                     {
                         listtemp.Add(table.Rows[i].ItemArray[j].ToString());

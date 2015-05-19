@@ -52,6 +52,7 @@ namespace frMain
             }
         }
         #endregion
+
         #region Mã hóa MD5
 
         // mã hóa dữ liệu trước khi đưa vào cơ sở dữ liệu 
@@ -178,6 +179,7 @@ namespace frMain
                                                 break;
                                             }
                                         }
+
                                         if (!trung)//khác trùng thì đổi
                                         {
                                             newTK.TENTK = textTK.Text;
@@ -265,6 +267,10 @@ namespace frMain
                     _TaiKhoan.Sua(newHs.MATK, newHs.TENTK, newHs.MATKHAU, newHs.LOAITK);
                 }
                 _luu = false;
+
+                ListTaiKhoanInsert.Clear();
+                ListTaiKhoanDelete.Clear();
+                ListTaiKhoanUpdate.Clear();
             }
             catch { }
         }

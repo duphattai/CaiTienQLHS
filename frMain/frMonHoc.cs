@@ -62,6 +62,9 @@ namespace frMain
                         {
                             //Add List HocSinh Update To Save DB
                             mh.TENMONHOC = txtmonhoc.Text.ToString();
+                            mh.SOTIETKHOI10 = Convert.ToInt32(textSoTietKhoi10.Text);
+                            mh.SOTIETKHOI11 = Convert.ToInt32(textSoTietKhoi11.Text);
+                            mh.SOTIETKHOI12 = Convert.ToInt32(textSoTietKhoi12.Text);
 
                             _ListUpdate.Add(mh);
                             break;
@@ -93,12 +96,17 @@ namespace frMain
             int index = rand.Next(0, 1000);
             try
             {
-                if (txtmonhoc.Text != "" && _MHBUS.KiemTraMonHoc(txtmonhoc.Text, _ListMonHoc))
+                if ((txtmonhoc.Text != "" && _MHBUS.KiemTraMonHoc(txtmonhoc.Text, _ListMonHoc)) || String.IsNullOrEmpty(textSoTietKhoi10.Text)
+                    || String.IsNullOrEmpty(textSoTietKhoi11.Text) || String.IsNullOrEmpty(textSoTietKhoi12.Text))
                 {
-
                     MONHOC newMonHoc = new MONHOC();
                     newMonHoc.TENMONHOC = txtmonhoc.Text.ToString();
                     newMonHoc.MAMONHOC = txtmonhoc.Text.ToString()[0].ToString() + txtmonhoc.Text.ToString()[txtmonhoc.Text.Length - 1].ToString() + index.ToString();
+                    newMonHoc.SOTIETKHOI10 = Convert.ToInt32(textSoTietKhoi10.Text);
+                    newMonHoc.SOTIETKHOI11 = Convert.ToInt32(textSoTietKhoi11.Text);
+                    newMonHoc.SOTIETKHOI12 = Convert.ToInt32(textSoTietKhoi12.Text);
+                    
+                    
                     _ListMonHoc.Add(newMonHoc);
                     _ListAdd.Add(newMonHoc);
 
@@ -107,7 +115,7 @@ namespace frMain
                     MessageBox.Show("Thêm thành công !");
                 }
                 else
-                    MessageBox.Show("Thêm thất bại, môn học đã tồn tại hoặc bạn không nhập tên môn học !");
+                    MessageBox.Show("Thêm thất bại, môn học đã tồn tại hoặc bạn không nhập tên môn học, không nhập số tiết trong các khối!");
 
             }
             catch
@@ -152,12 +160,12 @@ namespace frMain
             {
                 foreach (MONHOC mh in _ListAdd)
                 {
-                    _MHBUS.Them(mh.MAMONHOC, mh.TENMONHOC);
+                    _MHBUS.Them(mh.MAMONHOC, mh.TENMONHOC, mh.SOTIETKHOI10, mh.SOTIETKHOI11, mh.SOTIETKHOI12);
                 }
 
                 foreach (MONHOC mh in _ListUpdate)
                 {
-                    _MHBUS.Update(mh.MAMONHOC, mh.TENMONHOC);
+                    _MHBUS.Update(mh.MAMONHOC, mh.TENMONHOC, mh.SOTIETKHOI10, mh.SOTIETKHOI11, mh.SOTIETKHOI12);
                 }
                 foreach (MONHOC mh in _ListDelete)
                 {

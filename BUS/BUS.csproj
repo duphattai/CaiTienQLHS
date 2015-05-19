@@ -45,6 +45,8 @@
     <Compile Include="BaoCaoMonHoc_BUS.cs" />
     <Compile Include="BaoCaoTKHK.cs" />
     <Compile Include="BaoCaoTKHK_BUS.cs" />
+    <Compile Include="GiangDay_BUS.cs" />
+    <Compile Include="GiaoVien_BUS.cs" />
     <Compile Include="DanhSachHS_BUS.cs" />
     <Compile Include="DanhSachLop_BUS.cs" />
     <Compile Include="Diem_BUS.cs" />
