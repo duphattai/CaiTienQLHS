@@ -2032,26 +2032,30 @@ GO
 ----------------GIANGDAY
 IF OBJECT_ID(N'[dbo].[usp_InsertGiangDay]') IS NOT NULL
 	DROP PROCEDURE [dbo].[usp_InsertGiangDay]
-
+IF OBJECT_ID(N'[dbo].[usp_SelectDanhSachLopNotInGiangDay]') IS NOT NULL
+	DROP PROCEDURE [dbo].usp_SelectDanhSachLopNotInGiangDay
 
 IF OBJECT_ID(N'[dbo].[usp_DeleteGiangDay]') IS NOT NULL
 	DROP PROCEDURE [dbo].[usp_DeleteGiangDay]
 	IF OBJECT_ID(N'[dbo].[usp_SelectGiangDay]') IS NOT NULL
 	DROP PROCEDURE [dbo].[usp_SelectGiangDay]
+	
+IF OBJECT_ID(N'[dbo].[usp_DeleteGiangDayBy_MaGiaoVien_MaLop]') IS NOT NULL
+	DROP PROCEDURE [dbo].[usp_DeleteGiangDayBy_MaGiaoVien_MaLop]
 GO
 
 CREATE PROCEDURE usp_InsertGiangDay
 @MaGiaoVien varchar(10),
-@MaKhoi varchar(3)
+@MaLop int
 AS
 
 SET NOCOUNT ON
 INSERT INTO [dbo].[GIANGDAY] (
 	[MaGiaoVien],
-	[MaKhoi]
+	[MaLop]
 ) VALUES (
 	@MaGiaoVien,
-	@MaKhoi
+	@MaLop
 )
 GO
 
@@ -2067,6 +2071,20 @@ WHERE
 	[MaGiaoVien] = @MaGiaoVien
 GO
 
+
+CREATE PROCEDURE [dbo].[usp_DeleteGiangDayBy_MaGiaoVien_MaLop]
+	@MaGiaoVien varchar(10),
+	@MaLop int
+AS
+
+SET NOCOUNT ON
+
+DELETE FROM [dbo].[GIANGDAY]
+WHERE
+	[MaGiaoVien] = @MaGiaoVien AND [MaLop] = @MaLop
+GO
+
+------------------------
 CREATE PROCEDURE usp_SelectGiangDay
 @MaGiaoVien varchar(10)
 AS
@@ -2075,6 +2093,24 @@ SET NOCOUNT ON
 
 SELECT
 GIANGDAY.MaGiaoVien,
-GIANGDAY.MaKhoi
+GIANGDAY.MaLop
 FROM GIANGDAY
 WHERE [MaGiaoVien] = @MaGiaoVien
+GO
+-------------------
+CREATE PROCEDURE usp_SelectDanhSachLopNotInGiangDay
+@MaMonHoc varchar(10),
+@NamHoc varchar(10)
+AS
+
+SET NOCOUNT ON
+
+IF( NOT EXISTS (SELECT * FROM GIAOVIEN, GIANGDAY, LOP WHERE GIAOVIEN.MaMonHoc = @MaMonHoc AND GIANGDAY.MaGiaoVien = GIAOVIEN.MaGiaoVien AND LOP.NAMHOC = @NamHoc))
+BEGIN
+	SELECT MALOP, MAKHOI, TENLOP, NAMHOC FROM LOP WHERE LOP.NAMHOC = @NamHoc
+END
+ELSE
+BEGIN
+	SELECT LOP.MALOP, MAKHOI, TENLOP, NAMHOC FROM LOP WHERE LOP.NAMHOC = @NamHoc AND MALOP NOT IN (SELECT LOP.MALOP FROM GIANGDAY, GIAOVIEN, LOP WHERE GIAOVIEN.MaMonHoc = @MaMonHoc AND GIANGDAY.MaGiaoVien = GIAOVIEN.MaGiaoVien AND LOP.MALOP = GIANGDAY.MaLop AND LOP.NAMHOC = @NamHoc)
+END
+GO

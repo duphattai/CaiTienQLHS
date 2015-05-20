@@ -6,3 +6,4 @@ C:\Users\Tai\Desktop\PTVHBTPM\DataAccessObject\bin\Debug\DataAccessObject.pdb
 C:\Users\Tai\Desktop\PTVHBTPM\DataAccessObject\obj\Debug\DataAccessObject.csprojResolveAssemblyReference.cache
 C:\Users\Tai\Desktop\PTVHBTPM\DataAccessObject\obj\Debug\DataAccessObject.dll
 C:\Users\Tai\Desktop\PTVHBTPM\DataAccessObject\obj\Debug\DataAccessObject.pdb
+C:\Users\Tai\Desktop\CaiTienQLHS\DataAccessObject\bin\Debug\APPDATA.mdf

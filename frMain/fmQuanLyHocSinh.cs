@@ -259,6 +259,13 @@ namespace frMain
             PhanLop.Show();
         }
 
+        // Phân công giảng dạy
+        private void _phanCongGiangDay_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
+        {
+            frPhanCongGiangDay form = new frPhanCongGiangDay();
+            form.Show();
+        }
+
         //Thay đổi qui định
         private void _doiquidinh_ItemClick_1(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
         {

@@ -148,5 +148,10 @@ namespace BUS
         {
             DB.usp_DeleteLop(_MaLop);
         }
+
+       public ISingleResult<usp_SelectDanhSachLopNotInGiangDayResult> LayDanhSachLopGiangVienChuaPhanCong(String MaMonHoc, String NamHoc)
+       {
+           return DB.usp_SelectDanhSachLopNotInGiangDay(MaMonHoc, NamHoc);
+       }
     }
 }

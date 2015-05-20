@@ -185,6 +185,12 @@
     <Compile Include="frMonHoc.Designer.cs">
       <DependentUpon>frMonHoc.cs</DependentUpon>
     </Compile>
+    <Compile Include="frPhanCongGiangDay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frPhanCongGiangDay.Designer.cs">
+      <DependentUpon>frPhanCongGiangDay.cs</DependentUpon>
+    </Compile>
     <Compile Include="frPhanLop.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -255,6 +261,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frMonHoc.resx">
       <DependentUpon>frMonHoc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frPhanCongGiangDay.resx">
+      <DependentUpon>frPhanCongGiangDay.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frPhanLop.resx">
       <DependentUpon>frPhanLop.cs</DependentUpon>

@@ -281,6 +281,13 @@ namespace DataAccessObject.DAO
 			return ((int)(result.ReturnValue));
 		}
 		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.usp_DeleteGiangDayBy_MaGiaoVien_MaLop")]
+		public int usp_DeleteGiangDayBy_MaGiaoVien_MaLop([global::System.Data.Linq.Mapping.ParameterAttribute(Name="MaGiaoVien", DbType="VarChar(10)")] string maGiaoVien, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="MaLop", DbType="Int")] System.Nullable<int> maLop)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), maGiaoVien, maLop);
+			return ((int)(result.ReturnValue));
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.usp_DeleteGiaoVien")]
 		public int usp_DeleteGiaoVien([global::System.Data.Linq.Mapping.ParameterAttribute(Name="MaGiaoVien", DbType="VarChar(10)")] string maGiaoVien)
 		{
@@ -429,9 +436,9 @@ namespace DataAccessObject.DAO
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.usp_InsertGiangDay")]
-		public int usp_InsertGiangDay([global::System.Data.Linq.Mapping.ParameterAttribute(Name="MaGiaoVien", DbType="VarChar(10)")] string maGiaoVien, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="MaKhoi", DbType="VarChar(3)")] string maKhoi)
+		public int usp_InsertGiangDay([global::System.Data.Linq.Mapping.ParameterAttribute(Name="MaGiaoVien", DbType="VarChar(10)")] string maGiaoVien, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="MaLop", DbType="Int")] System.Nullable<int> maLop)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), maGiaoVien, maKhoi);
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), maGiaoVien, maLop);
 			return ((int)(result.ReturnValue));
 		}
 		
@@ -538,6 +545,13 @@ namespace DataAccessObject.DAO
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), mAMONHOC, mAHOCKY, nAMHOC);
 			return ((ISingleResult<usp_SelectBaoCaoMonHocByNAMHOC_MONHOC_HOCKYResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.usp_SelectDanhSachLopNotInGiangDay")]
+		public ISingleResult<usp_SelectDanhSachLopNotInGiangDayResult> usp_SelectDanhSachLopNotInGiangDay([global::System.Data.Linq.Mapping.ParameterAttribute(Name="MaMonHoc", DbType="VarChar(10)")] string maMonHoc, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NamHoc", DbType="VarChar(10)")] string namHoc)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), maMonHoc, namHoc);
+			return ((ISingleResult<usp_SelectDanhSachLopNotInGiangDayResult>)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.usp_SelectDiem")]
@@ -2513,11 +2527,11 @@ namespace DataAccessObject.DAO
 		
 		private string _MaGiaoVien;
 		
-		private string _MaKhoi;
+		private int _MaLop;
 		
 		private EntityRef<GIAOVIEN> _GIAOVIEN;
 		
-		private EntityRef<KHOI> _KHOI;
+		private EntityRef<LOP> _LOP;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -2525,14 +2539,14 @@ namespace DataAccessObject.DAO
     partial void OnCreated();
     partial void OnMaGiaoVienChanging(string value);
     partial void OnMaGiaoVienChanged();
-    partial void OnMaKhoiChanging(string value);
-    partial void OnMaKhoiChanged();
+    partial void OnMaLopChanging(int value);
+    partial void OnMaLopChanged();
     #endregion
 		
 		public GIANGDAY()
 		{
 			this._GIAOVIEN = default(EntityRef<GIAOVIEN>);
-			this._KHOI = default(EntityRef<KHOI>);
+			this._LOP = default(EntityRef<LOP>);
 			OnCreated();
 		}
 		
@@ -2560,26 +2574,26 @@ namespace DataAccessObject.DAO
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaKhoi", DbType="VarChar(3) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string MaKhoi
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaLop", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int MaLop
 		{
 			get
 			{
-				return this._MaKhoi;
+				return this._MaLop;
 			}
 			set
 			{
-				if ((this._MaKhoi != value))
+				if ((this._MaLop != value))
 				{
-					if (this._KHOI.HasLoadedOrAssignedValue)
+					if (this._LOP.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.OnMaKhoiChanging(value);
+					this.OnMaLopChanging(value);
 					this.SendPropertyChanging();
-					this._MaKhoi = value;
-					this.SendPropertyChanged("MaKhoi");
-					this.OnMaKhoiChanged();
+					this._MaLop = value;
+					this.SendPropertyChanged("MaLop");
+					this.OnMaLopChanged();
 				}
 			}
 		}
@@ -2618,36 +2632,36 @@ namespace DataAccessObject.DAO
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="KHOI_GIANGDAY", Storage="_KHOI", ThisKey="MaKhoi", OtherKey="MAKHOI", IsForeignKey=true)]
-		public KHOI KHOI
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LOP_GIANGDAY", Storage="_LOP", ThisKey="MaLop", OtherKey="MALOP", IsForeignKey=true)]
+		public LOP LOP
 		{
 			get
 			{
-				return this._KHOI.Entity;
+				return this._LOP.Entity;
 			}
 			set
 			{
-				KHOI previousValue = this._KHOI.Entity;
+				LOP previousValue = this._LOP.Entity;
 				if (((previousValue != value) 
-							|| (this._KHOI.HasLoadedOrAssignedValue == false)))
+							|| (this._LOP.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._KHOI.Entity = null;
+						this._LOP.Entity = null;
 						previousValue.GIANGDAYs.Remove(this);
 					}
-					this._KHOI.Entity = value;
+					this._LOP.Entity = value;
 					if ((value != null))
 					{
 						value.GIANGDAYs.Add(this);
-						this._MaKhoi = value.MAKHOI;
+						this._MaLop = value.MALOP;
 					}
 					else
 					{
-						this._MaKhoi = default(string);
+						this._MaLop = default(int);
 					}
-					this.SendPropertyChanged("KHOI");
+					this.SendPropertyChanged("LOP");
 				}
 			}
 		}
@@ -3297,8 +3311,6 @@ namespace DataAccessObject.DAO
 		
 		private string _KHOI1;
 		
-		private EntitySet<GIANGDAY> _GIANGDAYs;
-		
 		private EntitySet<LOP> _LOPs;
 		
     #region Extensibility Method Definitions
@@ -3313,7 +3325,6 @@ namespace DataAccessObject.DAO
 		
 		public KHOI()
 		{
-			this._GIANGDAYs = new EntitySet<GIANGDAY>(new Action<GIANGDAY>(this.attach_GIANGDAYs), new Action<GIANGDAY>(this.detach_GIANGDAYs));
 			this._LOPs = new EntitySet<LOP>(new Action<LOP>(this.attach_LOPs), new Action<LOP>(this.detach_LOPs));
 			OnCreated();
 		}
@@ -3358,19 +3369,6 @@ namespace DataAccessObject.DAO
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="KHOI_GIANGDAY", Storage="_GIANGDAYs", ThisKey="MAKHOI", OtherKey="MaKhoi")]
-		public EntitySet<GIANGDAY> GIANGDAYs
-		{
-			get
-			{
-				return this._GIANGDAYs;
-			}
-			set
-			{
-				this._GIANGDAYs.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="KHOI_LOP", Storage="_LOPs", ThisKey="MAKHOI", OtherKey="MAKHOI")]
 		public EntitySet<LOP> LOPs
 		{
@@ -3402,18 +3400,6 @@ namespace DataAccessObject.DAO
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_GIANGDAYs(GIANGDAY entity)
-		{
-			this.SendPropertyChanging();
-			entity.KHOI = this;
-		}
-		
-		private void detach_GIANGDAYs(GIANGDAY entity)
-		{
-			this.SendPropertyChanging();
-			entity.KHOI = null;
 		}
 		
 		private void attach_LOPs(LOP entity)
@@ -3587,6 +3573,8 @@ namespace DataAccessObject.DAO
 		
 		private EntitySet<CHITIETBAOCAOMON> _CHITIETBAOCAOMONs;
 		
+		private EntitySet<GIANGDAY> _GIANGDAYs;
+		
 		private EntitySet<XEPLOP> _XEPLOPs;
 		
 		private EntityRef<KHOI> _KHOI;
@@ -3613,6 +3601,7 @@ namespace DataAccessObject.DAO
 		{
 			this._CHITIETBAOCAOHOCKies = new EntitySet<CHITIETBAOCAOHOCKY>(new Action<CHITIETBAOCAOHOCKY>(this.attach_CHITIETBAOCAOHOCKies), new Action<CHITIETBAOCAOHOCKY>(this.detach_CHITIETBAOCAOHOCKies));
 			this._CHITIETBAOCAOMONs = new EntitySet<CHITIETBAOCAOMON>(new Action<CHITIETBAOCAOMON>(this.attach_CHITIETBAOCAOMONs), new Action<CHITIETBAOCAOMON>(this.detach_CHITIETBAOCAOMONs));
+			this._GIANGDAYs = new EntitySet<GIANGDAY>(new Action<GIANGDAY>(this.attach_GIANGDAYs), new Action<GIANGDAY>(this.detach_GIANGDAYs));
 			this._XEPLOPs = new EntitySet<XEPLOP>(new Action<XEPLOP>(this.attach_XEPLOPs), new Action<XEPLOP>(this.detach_XEPLOPs));
 			this._KHOI = default(EntityRef<KHOI>);
 			this._NAMHOC1 = default(EntityRef<NAMHOC>);
@@ -3753,6 +3742,19 @@ namespace DataAccessObject.DAO
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LOP_GIANGDAY", Storage="_GIANGDAYs", ThisKey="MALOP", OtherKey="MaLop")]
+		public EntitySet<GIANGDAY> GIANGDAYs
+		{
+			get
+			{
+				return this._GIANGDAYs;
+			}
+			set
+			{
+				this._GIANGDAYs.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="LOP_XEPLOP", Storage="_XEPLOPs", ThisKey="MALOP", OtherKey="MALOP")]
 		public EntitySet<XEPLOP> XEPLOPs
 		{
@@ -3873,6 +3875,18 @@ namespace DataAccessObject.DAO
 		}
 		
 		private void detach_CHITIETBAOCAOMONs(CHITIETBAOCAOMON entity)
+		{
+			this.SendPropertyChanging();
+			entity.LOP = null;
+		}
+		
+		private void attach_GIANGDAYs(GIANGDAY entity)
+		{
+			this.SendPropertyChanging();
+			entity.LOP = this;
+		}
+		
+		private void detach_GIANGDAYs(GIANGDAY entity)
 		{
 			this.SendPropertyChanging();
 			entity.LOP = null;
@@ -5270,6 +5284,86 @@ namespace DataAccessObject.DAO
 		}
 	}
 	
+	public partial class usp_SelectDanhSachLopNotInGiangDayResult
+	{
+		
+		private int _MALOP;
+		
+		private string _MAKHOI;
+		
+		private string _TENLOP;
+		
+		private string _NAMHOC;
+		
+		public usp_SelectDanhSachLopNotInGiangDayResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MALOP", DbType="Int NOT NULL")]
+		public int MALOP
+		{
+			get
+			{
+				return this._MALOP;
+			}
+			set
+			{
+				if ((this._MALOP != value))
+				{
+					this._MALOP = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MAKHOI", DbType="VarChar(3)")]
+		public string MAKHOI
+		{
+			get
+			{
+				return this._MAKHOI;
+			}
+			set
+			{
+				if ((this._MAKHOI != value))
+				{
+					this._MAKHOI = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TENLOP", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string TENLOP
+		{
+			get
+			{
+				return this._TENLOP;
+			}
+			set
+			{
+				if ((this._TENLOP != value))
+				{
+					this._TENLOP = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NAMHOC", DbType="VarChar(10)")]
+		public string NAMHOC
+		{
+			get
+			{
+				return this._NAMHOC;
+			}
+			set
+			{
+				if ((this._NAMHOC != value))
+				{
+					this._NAMHOC = value;
+				}
+			}
+		}
+	}
+	
 	public partial class usp_SelectDiemResult
 	{
 		
@@ -5399,7 +5493,7 @@ namespace DataAccessObject.DAO
 		
 		private string _MaGiaoVien;
 		
-		private string _MaKhoi;
+		private int _MaLop;
 		
 		public usp_SelectGiangDayResult()
 		{
@@ -5421,18 +5515,18 @@ namespace DataAccessObject.DAO
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaKhoi", DbType="VarChar(3) NOT NULL", CanBeNull=false)]
-		public string MaKhoi
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaLop", DbType="Int NOT NULL")]
+		public int MaLop
 		{
 			get
 			{
-				return this._MaKhoi;
+				return this._MaLop;
 			}
 			set
 			{
-				if ((this._MaKhoi != value))
+				if ((this._MaLop != value))
 				{
-					this._MaKhoi = value;
+					this._MaLop = value;
 				}
 			}
 		}
