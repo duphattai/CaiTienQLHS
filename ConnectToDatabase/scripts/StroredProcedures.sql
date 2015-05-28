@@ -2042,6 +2042,14 @@ IF OBJECT_ID(N'[dbo].[usp_DeleteGiangDay]') IS NOT NULL
 	
 IF OBJECT_ID(N'[dbo].[usp_DeleteGiangDayBy_MaGiaoVien_MaLop]') IS NOT NULL
 	DROP PROCEDURE [dbo].[usp_DeleteGiangDayBy_MaGiaoVien_MaLop]
+
+IF OBJECT_ID(N'[dbo].[usp_SelectMonHocBy_MaLop]') IS NOT NULL
+	DROP PROCEDURE [dbo].[usp_SelectMonHocBy_MaLop]
+	
+	
+IF OBJECT_ID(N'[dbo].[usp_SelectGiangDayBy_MaLop]') IS NOT NULL
+	DROP PROCEDURE [dbo].[usp_SelectGiangDayBy_MaLop]
+	
 GO
 
 CREATE PROCEDURE usp_InsertGiangDay
@@ -2086,16 +2094,20 @@ GO
 
 ------------------------
 CREATE PROCEDURE usp_SelectGiangDay
-@MaGiaoVien varchar(10)
+@MaGiaoVien varchar(10),
+@NamHoc varchar(10)
 AS
 
 SET NOCOUNT ON
 
 SELECT
 GIANGDAY.MaGiaoVien,
-GIANGDAY.MaLop
-FROM GIANGDAY
-WHERE [MaGiaoVien] = @MaGiaoVien
+GIANGDAY.MaLop,
+LOP.MAKHOI,
+LOP.TENLOP,
+LOP.NAMHOC
+FROM GIANGDAY, LOP
+WHERE [MaGiaoVien] = @MaGiaoVien AND GIANGDAY.MaLop = LOP.MALOP AND LOP.NAMHOC = @NamHoc
 GO
 -------------------
 CREATE PROCEDURE usp_SelectDanhSachLopNotInGiangDay
@@ -2113,4 +2125,31 @@ ELSE
 BEGIN
 	SELECT LOP.MALOP, MAKHOI, TENLOP, NAMHOC FROM LOP WHERE LOP.NAMHOC = @NamHoc AND MALOP NOT IN (SELECT LOP.MALOP FROM GIANGDAY, GIAOVIEN, LOP WHERE GIAOVIEN.MaMonHoc = @MaMonHoc AND GIANGDAY.MaGiaoVien = GIAOVIEN.MaGiaoVien AND LOP.MALOP = GIANGDAY.MaLop AND LOP.NAMHOC = @NamHoc)
 END
+GO
+
+---------------------
+CREATE PROCEDURE usp_SelectMonHocBy_MaLop
+@MaLop int
+AS
+
+SET NOCOUNT ON
+
+SELECT MONHOC.MAMONHOC, MONHOC.TENMONHOC
+FROM [dbo].[GIANGDAY], MONHOC, GIAOVIEN
+WHERE
+	[MaLop] = @MaLop AND GIANGDAY.MaGiaoVien = GIAOVIEN.MaGiaoVien AND MONHOC.MAMONHOC = GIAOVIEN.MaMonHoc
+GO
+
+------------------------
+CREATE PROCEDURE usp_SelectGiangDayBy_MaLop
+@MaLop int
+AS
+
+SET NOCOUNT ON
+
+SELECT
+GIANGDAY.MaGiaoVien,
+GIANGDAY.MaLop
+FROM GIANGDAY
+WHERE [MaLop] = @MaLop
 GO

@@ -62,5 +62,10 @@ namespace BUS
         {
             DB.usp_DeleteMonhoc(_MaMon);
         }
+
+        public List<usp_SelectMonhocResult> LayMonHocTheoMaMonHoc(string maMonHoc)
+        {
+            return DB.usp_SelectMonhoc(maMonHoc).ToList();
+        } 
     }
 }

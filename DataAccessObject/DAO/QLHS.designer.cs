@@ -576,10 +576,17 @@ namespace DataAccessObject.DAO
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.usp_SelectGiangDay")]
-		public ISingleResult<usp_SelectGiangDayResult> usp_SelectGiangDay([global::System.Data.Linq.Mapping.ParameterAttribute(Name="MaGiaoVien", DbType="VarChar(10)")] string maGiaoVien)
+		public ISingleResult<usp_SelectGiangDayResult> usp_SelectGiangDay([global::System.Data.Linq.Mapping.ParameterAttribute(Name="MaGiaoVien", DbType="VarChar(10)")] string maGiaoVien, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NamHoc", DbType="VarChar(10)")] string namHoc)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), maGiaoVien);
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), maGiaoVien, namHoc);
 			return ((ISingleResult<usp_SelectGiangDayResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.usp_SelectGiangDayBy_MaLop")]
+		public ISingleResult<usp_SelectGiangDayBy_MaLopResult> usp_SelectGiangDayBy_MaLop([global::System.Data.Linq.Mapping.ParameterAttribute(Name="MaLop", DbType="Int")] System.Nullable<int> maLop)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), maLop);
+			return ((ISingleResult<usp_SelectGiangDayBy_MaLopResult>)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.usp_SelectGiaoVien_MaGiaoVien")]
@@ -755,6 +762,13 @@ namespace DataAccessObject.DAO
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), mAHOCSINH, nAMHOC);
 			return ((ISingleResult<usp_SelectMALOPByMAHOCSINH_NAMHOCResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.usp_SelectMonHocBy_MaLop")]
+		public ISingleResult<usp_SelectMonHocBy_MaLopResult> usp_SelectMonHocBy_MaLop([global::System.Data.Linq.Mapping.ParameterAttribute(Name="MaLop", DbType="Int")] System.Nullable<int> maLop)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), maLop);
+			return ((ISingleResult<usp_SelectMonHocBy_MaLopResult>)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.usp_SelectMonhoc")]
@@ -5495,7 +5509,105 @@ namespace DataAccessObject.DAO
 		
 		private int _MaLop;
 		
+		private string _MAKHOI;
+		
+		private string _TENLOP;
+		
+		private string _NAMHOC;
+		
 		public usp_SelectGiangDayResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaGiaoVien", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
+		public string MaGiaoVien
+		{
+			get
+			{
+				return this._MaGiaoVien;
+			}
+			set
+			{
+				if ((this._MaGiaoVien != value))
+				{
+					this._MaGiaoVien = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaLop", DbType="Int NOT NULL")]
+		public int MaLop
+		{
+			get
+			{
+				return this._MaLop;
+			}
+			set
+			{
+				if ((this._MaLop != value))
+				{
+					this._MaLop = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MAKHOI", DbType="VarChar(3)")]
+		public string MAKHOI
+		{
+			get
+			{
+				return this._MAKHOI;
+			}
+			set
+			{
+				if ((this._MAKHOI != value))
+				{
+					this._MAKHOI = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TENLOP", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string TENLOP
+		{
+			get
+			{
+				return this._TENLOP;
+			}
+			set
+			{
+				if ((this._TENLOP != value))
+				{
+					this._TENLOP = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NAMHOC", DbType="VarChar(10)")]
+		public string NAMHOC
+		{
+			get
+			{
+				return this._NAMHOC;
+			}
+			set
+			{
+				if ((this._NAMHOC != value))
+				{
+					this._NAMHOC = value;
+				}
+			}
+		}
+	}
+	
+	public partial class usp_SelectGiangDayBy_MaLopResult
+	{
+		
+		private string _MaGiaoVien;
+		
+		private int _MaLop;
+		
+		public usp_SelectGiangDayBy_MaLopResult()
 		{
 		}
 		
@@ -6921,6 +7033,50 @@ namespace DataAccessObject.DAO
 				if ((this._MALOP != value))
 				{
 					this._MALOP = value;
+				}
+			}
+		}
+	}
+	
+	public partial class usp_SelectMonHocBy_MaLopResult
+	{
+		
+		private string _MAMONHOC;
+		
+		private string _TENMONHOC;
+		
+		public usp_SelectMonHocBy_MaLopResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MAMONHOC", DbType="VarChar(5) NOT NULL", CanBeNull=false)]
+		public string MAMONHOC
+		{
+			get
+			{
+				return this._MAMONHOC;
+			}
+			set
+			{
+				if ((this._MAMONHOC != value))
+				{
+					this._MAMONHOC = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TENMONHOC", DbType="NVarChar(30) NOT NULL", CanBeNull=false)]
+		public string TENMONHOC
+		{
+			get
+			{
+				return this._TENMONHOC;
+			}
+			set
+			{
+				if ((this._TENMONHOC != value))
+				{
+					this._TENMONHOC = value;
 				}
 			}
 		}

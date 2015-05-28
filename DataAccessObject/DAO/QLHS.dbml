@@ -469,7 +469,18 @@
   </Function>
   <Function Name="dbo.usp_SelectGiangDay" Method="usp_SelectGiangDay">
     <Parameter Name="MaGiaoVien" Parameter="maGiaoVien" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="NamHoc" Parameter="namHoc" Type="System.String" DbType="VarChar(10)" />
     <ElementType Name="usp_SelectGiangDayResult">
+      <Column Name="MaGiaoVien" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="MaLop" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MAKHOI" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
+      <Column Name="TENLOP" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="NAMHOC" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.usp_SelectGiangDayBy_MaLop" Method="usp_SelectGiangDayBy_MaLop">
+    <Parameter Name="MaLop" Parameter="maLop" Type="System.Int32" DbType="Int" />
+    <ElementType Name="usp_SelectGiangDayBy_MaLopResult">
       <Column Name="MaGiaoVien" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
       <Column Name="MaLop" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </ElementType>
@@ -658,6 +669,13 @@
     <Parameter Name="NAMHOC" Parameter="nAMHOC" Type="System.String" DbType="VarChar(10)" />
     <ElementType Name="usp_SelectMALOPByMAHOCSINH_NAMHOCResult">
       <Column Name="MALOP" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.usp_SelectMonHocBy_MaLop" Method="usp_SelectMonHocBy_MaLop">
+    <Parameter Name="MaLop" Parameter="maLop" Type="System.Int32" DbType="Int" />
+    <ElementType Name="usp_SelectMonHocBy_MaLopResult">
+      <Column Name="MAMONHOC" Type="System.String" DbType="VarChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="TENMONHOC" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
   <Function Name="dbo.usp_SelectMonhoc" Method="usp_SelectMonhoc">

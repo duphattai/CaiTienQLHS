@@ -22,9 +22,9 @@ namespace BUS
 
         // Coder: Tài
         // Trả về danh sách các kết quả khi thực thi câu truy vấn
-        public ISingleResult<usp_SelectLastMaTKResult> LayMaTKCuoiCung()
+        public List<usp_SelectLastMaTKResult> LayMaTKCuoiCung()
         {
-            return HS.usp_SelectLastMaTK();
+            return HS.usp_SelectLastMaTK().ToList();
         }
 
         // Thêm tài khoản vào bảng TAIKHOAN
@@ -50,9 +50,9 @@ namespace BUS
 
 
         // trả về danh sách tài khoản theo mã tài khoản
-        public ISingleResult<usp_SelectTaikhoanResult> TruyVanTaiKhoanTheoMaTK(int _MATK)
+        public List<usp_SelectTaikhoanResult> TruyVanTaiKhoanTheoMaTK(int _MATK)
         {
-            return HS.usp_SelectTaikhoan(_MATK);
+            return HS.usp_SelectTaikhoan(_MATK).ToList();
         }
     }
 }

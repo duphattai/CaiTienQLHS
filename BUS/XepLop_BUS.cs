@@ -30,9 +30,9 @@ namespace BUS
         /// </summary>
         /// <param name="_MAHS"></param>
         /// <returns></returns>
-        public ISingleResult<usp_SelectXeplopsByMAHOCSINHResult> TruyVanTheoMaHocSinh(int _MAHS)
+        public List<usp_SelectXeplopsByMAHOCSINHResult> TruyVanTheoMaHocSinh(int _MAHS)
         {
-            return DB.usp_SelectXeplopsByMAHOCSINH(_MAHS);
+            return DB.usp_SelectXeplopsByMAHOCSINH(_MAHS).ToList();
         }
 
         /// <summary>
@@ -40,9 +40,9 @@ namespace BUS
         /// </summary>
         /// <param name="_MALOP"></param>
         /// <returns></returns>
-        public ISingleResult<usp_SelectXeplopsByMALOPResult> TruyVanTheoMaLop(int _MALOP)
+        public List<usp_SelectXeplopsByMALOPResult> TruyVanTheoMaLop(int _MALOP)
         {
-            return DB.usp_SelectXeplopsByMALOP(_MALOP);
+            return DB.usp_SelectXeplopsByMALOP(_MALOP).ToList();
 
         }
 

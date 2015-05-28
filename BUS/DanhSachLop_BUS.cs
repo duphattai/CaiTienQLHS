@@ -31,41 +31,41 @@ namespace BUS
         /// <summary>
         /// Trả về một lớp được lọc theo mã lớp cụ thể trong danh sách lớp
         /// </summary>
-        public ISingleResult<usp_SelectLopResult> LayDanhSachLop(int _Malop)
+        public List<usp_SelectLopResult> LayDanhSachLop(int _Malop)
         {
-            return DB.usp_SelectLop(_Malop);
+            return DB.usp_SelectLop(_Malop).ToList();
         }
 
         /// <summary>
         /// Trả về danh sách học sinh trong một lớp
         /// </summary>
-        public ISingleResult<usp_SelectHocSinhTheoMALOPResult> LayDanhSachHocSinhTheoMaLop(int _Malop)
+        public List<usp_SelectHocSinhTheoMALOPResult> LayDanhSachHocSinhTheoMaLop(int _Malop)
         {
-            return DB.usp_SelectHocSinhTheoMALOP(_Malop);
+            return DB.usp_SelectHocSinhTheoMALOP(_Malop).ToList();
         }
 
         /// <summary>
         /// Trả về danh sách học sinh chưa phân lớp theo năm học
         /// </summary>
-        public ISingleResult<usp_SelectHocSinhChuaPhanLopResult> LayDanhSachHocSinhChuaPhanLop(string _Namhoc)
+        public List<usp_SelectHocSinhChuaPhanLopResult> LayDanhSachHocSinhChuaPhanLop(string _Namhoc)
         {
-            return DB.usp_SelectHocSinhChuaPhanLop(_Namhoc);
+            return DB.usp_SelectHocSinhChuaPhanLop(_Namhoc).ToList();
         }
 
         /// <summary>
         /// Trả về danh sách lớp theo khối trong một năm học
         /// </summary>
-        public ISingleResult<usp_SelectLopsByMAKHOI_NAMHOCResult> LayDanhSachLopTheoKhoiMaNam(String _Makhoi, String _NamHoc)
+        public List<usp_SelectLopsByMAKHOI_NAMHOCResult> LayDanhSachLopTheoKhoiMaNam(String _Makhoi, String _NamHoc)
         {
-            return DB.usp_SelectLopsByMAKHOI_NAMHOC(_Makhoi, _NamHoc);
+            return DB.usp_SelectLopsByMAKHOI_NAMHOC(_Makhoi, _NamHoc).ToList();
         }
 
         /// <summary>
         /// Trả về danh sách các lớp trong một năm học
         /// </summary>
-        public ISingleResult<usp_SelectLopByNamHocResult> LayDanhSachLopNamHoc(String _NamHoc)
+        public List<usp_SelectLopByNamHocResult> LayDanhSachLopNamHoc(String _NamHoc)
         {
-            return DB.usp_SelectLopByNamHoc(_NamHoc);
+            return DB.usp_SelectLopByNamHoc(_NamHoc).ToList();
         }
 
         /// <summary>
@@ -149,9 +149,9 @@ namespace BUS
             DB.usp_DeleteLop(_MaLop);
         }
 
-       public ISingleResult<usp_SelectDanhSachLopNotInGiangDayResult> LayDanhSachLopGiangVienChuaPhanCong(String MaMonHoc, String NamHoc)
+        public List<usp_SelectDanhSachLopNotInGiangDayResult> LayDanhSachLopGiangVienChuaPhanCong(String MaMonHoc, String NamHoc)
        {
-           return DB.usp_SelectDanhSachLopNotInGiangDay(MaMonHoc, NamHoc);
+           return DB.usp_SelectDanhSachLopNotInGiangDay(MaMonHoc, NamHoc).ToList();
        }
     }
 }

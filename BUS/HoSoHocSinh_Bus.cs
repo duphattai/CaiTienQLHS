@@ -72,9 +72,9 @@ namespace BUS
        /// <returns>
        /// trả về danh sách các đối tượng (chứa thông tin học sinh)
        /// </returns>
-           public ISingleResult<usp_SelectHosohocsinhResult>  TruyVanHocSinhTheoMaHocSinh(int? _MAHS)
+        public List<usp_SelectHosohocsinhResult> TruyVanHocSinhTheoMaHocSinh(int? _MAHS)
          {
-             return DB.usp_SelectHosohocsinh(_MAHS);
+             return DB.usp_SelectHosohocsinh(_MAHS).ToList();
          }
 
        /// <summary>
@@ -84,9 +84,9 @@ namespace BUS
        /// <returns>
        /// trả về danh sách các đối tượng (chứa thông tin học sinh)
        /// </returns>
-        public ISingleResult<usp_SelectHocSinhTheoMALOPResult> TruyVanHocSinhTheoMaLop(int _MaLop)
+        public List<usp_SelectHocSinhTheoMALOPResult> TruyVanHocSinhTheoMaLop(int _MaLop)
         {
-            return DB.usp_SelectHocSinhTheoMALOP(_MaLop);
+            return DB.usp_SelectHocSinhTheoMALOP(_MaLop).ToList();
         }
 
        public int LayMaHocSinhCuoi()

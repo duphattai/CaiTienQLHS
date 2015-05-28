@@ -33,8 +33,6 @@ namespace frMain
         public frQuanLyLop()
         {
             InitializeComponent();
-
-         
         }
 
         void LoadDanhSachNam()

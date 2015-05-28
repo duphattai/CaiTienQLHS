@@ -104,7 +104,7 @@ namespace frMain
                         if (!trung)// nếu chưa tồn tại thì thêm vào
                         {
                             TAIKHOAN newTK = new TAIKHOAN();
-                            ISingleResult<usp_SelectLastMaTKResult> results = _TaiKhoan.LayMaTKCuoiCung();// lấy mã tài khoản cuối cùng
+                            List<usp_SelectLastMaTKResult> results = _TaiKhoan.LayMaTKCuoiCung();// lấy mã tài khoản cuối cùng
                             
                             foreach(usp_SelectLastMaTKResult result in results)
                             {

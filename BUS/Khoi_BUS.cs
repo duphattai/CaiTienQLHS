@@ -19,9 +19,9 @@ namespace BUS
         /// <summary>
         /// lấy danh sách khối lớp từ bảng KHOI
         /// </summary>
-        public ISingleResult<usp_SelectKhoisAllResult> LayDanhSachKhoi()
+        public List<usp_SelectKhoisAllResult> LayDanhSachKhoi()
         {
-            return DB.usp_SelectKhoisAll();
+            return DB.usp_SelectKhoisAll().ToList();
         }        
     }
 }

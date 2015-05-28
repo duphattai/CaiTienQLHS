@@ -85,7 +85,7 @@
             this.comboboxKhoi.Name = "comboboxKhoi";
             this.comboboxKhoi.Size = new System.Drawing.Size(172, 27);
             this.comboboxKhoi.TabIndex = 3;
-            this.comboboxKhoi.SelectedIndexChanged += new System.EventHandler(this.ComboboxKhoi_SelectedIndexChanged);
+            this.comboboxKhoi.SelectedIndexChanged += new System.EventHandler(this.comBoBoxKhoi_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -107,7 +107,7 @@
             this.comboboxNam.Name = "comboboxNam";
             this.comboboxNam.Size = new System.Drawing.Size(172, 27);
             this.comboboxNam.TabIndex = 1;
-            this.comboboxNam.SelectedIndexChanged += new System.EventHandler(this.ComboboxNam_SelectedIndexChanged);
+            this.comboboxNam.SelectedIndexChanged += new System.EventHandler(this.comBoBoxNam_SelectedIndexChanged);
             // 
             // label5
             // 
@@ -145,7 +145,7 @@
             this.buttonIn.Size = new System.Drawing.Size(116, 36);
             this.buttonIn.TabIndex = 3;
             this.buttonIn.Text = "IN";
-            this.buttonIn.Click += new System.EventHandler(this.ButtonIn_Click);
+            this.buttonIn.Click += new System.EventHandler(this.buttonIn_Click);
             // 
             // imageList1
             // 
@@ -168,7 +168,7 @@
             this.buttonThoat.Size = new System.Drawing.Size(153, 36);
             this.buttonThoat.TabIndex = 2;
             this.buttonThoat.Text = "THOÁT";
-            this.buttonThoat.Click += new System.EventHandler(this.ButtonThoat_Click);
+            this.buttonThoat.Click += new System.EventHandler(this.buttonThoat_Click);
             // 
             // label1
             // 
@@ -239,7 +239,7 @@
             // 
             // printDanhSachHocSinh
             // 
-            this.printDanhSachHocSinh.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.PrintDanhSachHocSinh_PrintPage);
+            this.printDanhSachHocSinh.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDanhSachHocSinh_PrintPage);
             // 
             // printPreviewDanhSachHocSinh
             // 
@@ -264,7 +264,7 @@
             this.Name = "FormDanhSachHocSinh";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DANH SÁCH HỌC SINH";
-            this.Load += new System.EventHandler(this.FormDanhSachHocSinh_Load);
+            this.Load += new System.EventHandler(this.formDanhSachHocSinh_Load);
             this.panel2.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();

@@ -60,7 +60,7 @@ namespace frMain
             _phanquyen.Enabled = temp;
             _namHoc.Enabled = temp;
             _monhoc.Enabled = temp;
-            _lopmoi.Enabled = temp;
+            _quanLyLop.Enabled = temp;
             _hocsinhmoi.Enabled = temp;
             _phanLop.Enabled = temp;
             _nhapdiem.Enabled = temp;
@@ -70,6 +70,10 @@ namespace frMain
             _doiquidinh.Enabled = temp;
             _tongketmon.Enabled = temp;
             _tonghk.Enabled = temp;
+            _phanCongGiangDay.Enabled = temp;
+            _lapThoiKhoaBieu.Enabled = temp;
+            _phanCongGiangDay.Enabled = temp;
+            _dsgiaovien.Enabled = temp;
             btnConnectDatabase.Enabled = temp;
         }
 
@@ -95,10 +99,13 @@ namespace frMain
 
                         _namHoc.Enabled = true;
                         _monhoc.Enabled = true;
-                        _lopmoi.Enabled = true;
+                        _quanLyLop.Enabled = true;
                         _nhapdiem.Enabled = true;
                         _thongtinhs.Enabled = true;
                         _doiquidinh.Enabled = true;
+                        _dsgiaovien.Enabled = true;
+                        _lapThoiKhoaBieu.Enabled = true;
+                        _phanCongGiangDay.Enabled = true;
                         break;
                     case 2://GV
                         ThietLapMacDinhDieuKhien(false);
@@ -185,36 +192,39 @@ namespace frMain
         }
         //-------------------------------------------------------------------------
         //thêm lớp
-        private void _lopmoi_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
+        private void quanLyLop_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
         {
             frQuanLyLop iquanly = new frQuanLyLop();
             iquanly.ShowDialog();
         }
         //Nhập điểm
-        private void _nhapdiem_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
+        private void bangDiem_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
         {
-            FormBangDiem formBD;
+            formBangDiem formBD;
             if (Quyen == 2)
-                formBD = new FormBangDiem(true);
+                formBD = new formBangDiem(true);
             else
-                formBD = new FormBangDiem(false);
+                formBD = new formBangDiem(false);
             formBD.Show();
         }
+
         #region Bang diem
         private void _dMonHoc_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
         {
-            FormBangDiem formBD = new FormBangDiem(false);
+            formBangDiem formBD = new formBangDiem(false);
             formBD.Show();
         }
         #endregion
+
+
         #region Danh sach hoc sinh
-        private void tileItem19_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
+        private void danhSachHocSinh_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
         {
             FormDanhSachHocSinh formDS = new FormDanhSachHocSinh();
             formDS.Show();
         }
 
-        private void _dsgiaovien_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
+        private void danhSachGiaoVien_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
         {
             frHoSoGiaoVien form = new frHoSoGiaoVien();
             form.Show();
@@ -223,7 +233,7 @@ namespace frMain
 
         //-------------------------------------------------------------------------
         // Danh Sách lớp
-        private void tileItem18_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
+        private void danhSachLop_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
         {
             frDanhSachLop formDS = new frDanhSachLop();
             formDS.Show();
@@ -231,7 +241,7 @@ namespace frMain
 
         //-------------------------------------------------------------------------
         // Tổng kết môn
-        private void _dHocKy_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
+        private void baoCaoTongKetMon_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
         {
             frBaoCaoMon formTKM = new frBaoCaoMon();
             formTKM.Show();
@@ -239,41 +249,48 @@ namespace frMain
 
         //-------------------------------------------------------------------------
         // Tổng kết học kỳ
-        private void tileItem2_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
+        private void baoCaoTongKetHocKy_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
         {
             frBaoCaoTKHK formTKHK = new frBaoCaoTKHK();
             formTKHK.Show();
         }
 
-        //Hồ sơ học sinh
-        private void _hocsinhmoi_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
+        // Hồ sơ học sinh
+        private void hoSoHocSinh_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
         {
             frHoSoHocSinh frHoSoHS = new frHoSoHocSinh();
             frHoSoHS.Show();
         }
 
         //Phân lớp
-        private void _phanLop_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
+        private void phanLop_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
         {
             FormPhanLop PhanLop = new FormPhanLop();
             PhanLop.Show();
         }
 
         // Phân công giảng dạy
-        private void _phanCongGiangDay_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
+        private void phanCongGiangDay_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
         {
             frPhanCongGiangDay form = new frPhanCongGiangDay();
             form.Show();
         }
 
-        //Thay đổi qui định
-        private void _doiquidinh_ItemClick_1(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
+        // Lập thời khóa biểu
+        private void lapThoiKhoaBieu_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
+        {
+            frLapKhoiKhoaBieu form = new frLapKhoiKhoaBieu();
+            form.Show();
+        }
+
+        // Thay đổi qui định
+        private void thayDoiQuiDinh_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
         {
             frQuyDinh iQuydinh = new frQuyDinh();
             iQuydinh.ShowDialog();
         }
 
-        //Thêm năm học
+        // Thêm năm học
         private void _namhoc_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
         {
             frQuanLyNamHoc _NamHoc = new frQuanLyNamHoc();
@@ -323,6 +340,13 @@ namespace frMain
         /// </summary>
         private void BarButtonItemBackUp_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
+            System.Threading.Thread thread = new System.Threading.Thread(new System.Threading.ThreadStart(saoLuuDuLieu));
+            thread.ApartmentState = System.Threading.ApartmentState.STA;
+            thread.Start();
+        }
+
+        private void saoLuuDuLieu()
+        {
             Connect = new SqlConnection(ConnectToDatabase.Properties.Settings.Default.ConnectString); //  tạo lập kết nối
             string nameDatabase = ConnectToDatabase.Properties.Settings.Default.DatabaseName; // lấy tên database
 
@@ -337,8 +361,8 @@ namespace frMain
             {
                 currentPath = (saveFile.FileName); // lấy đường dẫn
 
-                string QueryBackup = "BACKUP DATABASE " + nameDatabase +" TO DISK ='"+ currentPath +"' WITH INIT";
-                
+                string QueryBackup = "BACKUP DATABASE " + nameDatabase + " TO DISK ='" + currentPath + "' WITH INIT";
+
                 try
                 {
                     SqlCommand cm = new SqlCommand(QueryBackup, Connect);
@@ -348,18 +372,26 @@ namespace frMain
                     Connect.Close();
                     MessageBox.Show("Sao lưu thành công", "Thông báo");
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show("Không thể sao lưu dữ liệu", "Lỗi");
-                } 
+                }
             }
         }
+
 
         /// <summary>
         /// Sự kiện: xảy ra khi người dùng click vào button Phục Hồi
         /// Phục hồi database
         /// </summary>
         private void BarButtonItemRestore_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            System.Threading.Thread thread = new System.Threading.Thread(new System.Threading.ThreadStart(phucHoiDuLieu));
+            thread.ApartmentState = System.Threading.ApartmentState.STA;
+            thread.Start();
+        }
+
+        private void phucHoiDuLieu()
         {
             Connect = new SqlConnection(ConnectToDatabase.Properties.Settings.Default.ConnectString); //  tạo lập kết nối
             string nameDatabase = ConnectToDatabase.Properties.Settings.Default.DatabaseName; // lấy tên database
@@ -372,7 +404,7 @@ namespace frMain
             {
                 currentPath = (openFile.FileName); // lấy đường dẫn
 
-                string QueryRestore = "USE master\nALTER DATABASE " + nameDatabase + " SET SINGLE_USER WITH ROLLBACK IMMEDIATE \n\n RESTORE DATABASE " + nameDatabase + " FROM DISK ='" + currentPath + "' \n\nALTER DATABASE " + nameDatabase +" SET MULTI_USER";
+                string QueryRestore = "USE master\nALTER DATABASE " + nameDatabase + " SET SINGLE_USER WITH ROLLBACK IMMEDIATE \n\n RESTORE DATABASE " + nameDatabase + " FROM DISK ='" + currentPath + "' \n\nALTER DATABASE " + nameDatabase + " SET MULTI_USER";
 
                 try
                 {

@@ -1,6 +1,6 @@
 ﻿namespace frMain
 {
-    partial class FormBangDiem
+    partial class formBangDiem
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormBangDiem));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formBangDiem));
             this.panel2 = new System.Windows.Forms.Panel();
             this.label9 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -69,6 +69,7 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.printBangDiem = new System.Drawing.Printing.PrintDocument();
             this.printPreviewBangDiem = new System.Windows.Forms.PrintPreviewDialog();
+            this.ButtonExcel = new DevExpress.XtraEditors.SimpleButton();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -128,9 +129,9 @@
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.Size = new System.Drawing.Size(740, 244);
             this.dataGridView.TabIndex = 3;
-            this.dataGridView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.DataGridView_CellBeginEdit);
-            this.dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellEndEdit);
-            this.dataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.DataGridView_DataError);
+            this.dataGridView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dataGridView_CellBeginEdit);
+            this.dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellEndEdit);
+            this.dataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridView_DataError);
             // 
             // STT
             // 
@@ -216,6 +217,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.ButtonExcel);
             this.panel1.Controls.Add(this.labelHocKy);
             this.panel1.Controls.Add(this.labelMon);
             this.panel1.Controls.Add(this.labelLop);
@@ -270,12 +272,12 @@
             this.BtIn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtIn.ImageIndex = 5;
             this.BtIn.ImageList = this.imageList1;
-            this.BtIn.Location = new System.Drawing.Point(495, 55);
+            this.BtIn.Location = new System.Drawing.Point(481, 55);
             this.BtIn.Name = "BtIn";
-            this.BtIn.Size = new System.Drawing.Size(99, 33);
+            this.BtIn.Size = new System.Drawing.Size(113, 33);
             this.BtIn.TabIndex = 6;
             this.BtIn.Text = "IN";
-            this.BtIn.Click += new System.EventHandler(this.ButtonIn_Click);
+            this.BtIn.Click += new System.EventHandler(this.buttonIn_Click);
             // 
             // imageList1
             // 
@@ -302,7 +304,7 @@
             this.buttonLuu.Size = new System.Drawing.Size(128, 33);
             this.buttonLuu.TabIndex = 5;
             this.buttonLuu.Text = "LƯU";
-            this.buttonLuu.Click += new System.EventHandler(this.ButtonLuu_Click);
+            this.buttonLuu.Click += new System.EventHandler(this.buttonLuu_Click);
             // 
             // buttonThoat
             // 
@@ -318,7 +320,7 @@
             this.buttonThoat.Size = new System.Drawing.Size(128, 33);
             this.buttonThoat.TabIndex = 4;
             this.buttonThoat.Text = "THOÁT";
-            this.buttonThoat.Click += new System.EventHandler(this.ButtonThoat_Click);
+            this.buttonThoat.Click += new System.EventHandler(this.buttonThoat_Click);
             // 
             // label3
             // 
@@ -391,7 +393,7 @@
             this.comboboxHocKy.Name = "comboboxHocKy";
             this.comboboxHocKy.Size = new System.Drawing.Size(167, 27);
             this.comboboxHocKy.TabIndex = 3;
-            this.comboboxHocKy.SelectedIndexChanged += new System.EventHandler(this.ComboboxHocKy_SelectedIndexChanged);
+            this.comboboxHocKy.SelectedIndexChanged += new System.EventHandler(this.comboboxHocKy_SelectedIndexChanged);
             // 
             // comboboxMon
             // 
@@ -402,7 +404,7 @@
             this.comboboxMon.Name = "comboboxMon";
             this.comboboxMon.Size = new System.Drawing.Size(167, 27);
             this.comboboxMon.TabIndex = 5;
-            this.comboboxMon.SelectedIndexChanged += new System.EventHandler(this.ComboboxMon_SelectedIndexChanged);
+            this.comboboxMon.SelectedIndexChanged += new System.EventHandler(this.comboboxMon_SelectedIndexChanged);
             // 
             // label5
             // 
@@ -424,7 +426,7 @@
             this.comboboxLop.Name = "comboboxLop";
             this.comboboxLop.Size = new System.Drawing.Size(167, 27);
             this.comboboxLop.TabIndex = 7;
-            this.comboboxLop.SelectedIndexChanged += new System.EventHandler(this.ComboboxLop_SelectedIndexChanged);
+            this.comboboxLop.SelectedIndexChanged += new System.EventHandler(this.comboBoxLop_SelectedIndexChanged);
             // 
             // label8
             // 
@@ -446,7 +448,7 @@
             this.comboboxNam.Name = "comboboxNam";
             this.comboboxNam.Size = new System.Drawing.Size(167, 27);
             this.comboboxNam.TabIndex = 1;
-            this.comboboxNam.SelectedIndexChanged += new System.EventHandler(this.ComboboxNam_SelectedIndexChanged);
+            this.comboboxNam.SelectedIndexChanged += new System.EventHandler(this.comboboxNam_SelectedIndexChanged);
             // 
             // label7
             // 
@@ -468,7 +470,7 @@
             this.comboboxKhoi.Name = "comboboxKhoi";
             this.comboboxKhoi.Size = new System.Drawing.Size(167, 27);
             this.comboboxKhoi.TabIndex = 6;
-            this.comboboxKhoi.SelectedIndexChanged += new System.EventHandler(this.ComboboxKhoi_SelectedIndexChanged);
+            this.comboboxKhoi.SelectedIndexChanged += new System.EventHandler(this.comboboxKhoi_SelectedIndexChanged);
             // 
             // label6
             // 
@@ -492,7 +494,7 @@
             // 
             // printBangDiem
             // 
-            this.printBangDiem.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.PrintBangDiem_PrintPage);
+            this.printBangDiem.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printBangDiem_PrintPage);
             // 
             // printPreviewBangDiem
             // 
@@ -503,6 +505,22 @@
             this.printPreviewBangDiem.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewBangDiem.Icon")));
             this.printPreviewBangDiem.Name = "printPreviewBangDiem";
             this.printPreviewBangDiem.Visible = false;
+            // 
+            // ButtonExcel
+            // 
+            this.ButtonExcel.Appearance.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ButtonExcel.Appearance.ForeColor = System.Drawing.Color.Green;
+            this.ButtonExcel.Appearance.Options.UseFont = true;
+            this.ButtonExcel.Appearance.Options.UseForeColor = true;
+            this.ButtonExcel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ButtonExcel.ImageIndex = 5;
+            this.ButtonExcel.ImageList = this.imageList1;
+            this.ButtonExcel.Location = new System.Drawing.Point(481, 11);
+            this.ButtonExcel.Name = "ButtonExcel";
+            this.ButtonExcel.Size = new System.Drawing.Size(113, 33);
+            this.ButtonExcel.TabIndex = 10;
+            this.ButtonExcel.Text = "EXCEL";
+            this.ButtonExcel.Click += new System.EventHandler(this.buttonExcel_Click);
             // 
             // FormBangDiem
             // 
@@ -517,7 +535,7 @@
             this.Name = "FormBangDiem";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "BẢNG ĐIỂM";
-            this.Load += new System.EventHandler(this.FormBangDiem_Load);
+            this.Load += new System.EventHandler(this.formBangDiem_Load);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel4.ResumeLayout(false);
@@ -572,5 +590,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn MaDiem15;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaDiem1Tiet;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaDiemHK;
+        private DevExpress.XtraEditors.SimpleButton ButtonExcel;
     }
 }
