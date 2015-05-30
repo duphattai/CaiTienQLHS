@@ -11,6 +11,8 @@ using DevExpress.XtraEditors;
 using BUS;
 using System.Data.Linq;
 using DataAccessObject.DAO;
+using Excel;
+using System.IO;
 
 namespace frMain
 {
@@ -62,7 +64,7 @@ namespace frMain
 
         private double? _previousValue = 0;   // lưu điểm cũ trước khi thay đổi, để gắn lại nếu người dùng nhập sai quy định
 
-        
+        private const int START_POSITION_READ_FROM_EXCEL = 2;
 
         /// <summary>
         /// Constructor dùng để khởi tạo hiển thị của Form và thiết lập chức năng cột DIEM15, DIEM1Tiet, DIEMHK chỉ đọc
@@ -224,11 +226,6 @@ namespace frMain
             return -1;
         }
 
-        void LoadBangDiem()
-        {
-
-        }
-
         /// <summary>
         /// Sự kiện: khi comboxboxNam được click vào
         /// load dữ liệu năm học vào combobox và thiết lập thuộc tính
@@ -305,7 +302,6 @@ namespace frMain
                 comboboxLop.SelectedIndex = 0;
         }
 
-
         /// <summary>
         /// Sự kiện: xảy ra khi comboboxLop đựơc chọn
         /// hiển thị lại danh sách môn học theo lớp và thiết lập Tag = mã lớp tương ứng với tên lớp được chọn
@@ -328,7 +324,6 @@ namespace frMain
             if (comboboxMon.Items.Count > 0)
                 comboboxMon.SelectedIndex = 0;
         }
-
 
         /// <summary>
         /// lấy danh sách học sinh và bảng điểm với các điều kiện tương ứng hiển thị lên datagridview
@@ -569,7 +564,96 @@ namespace frMain
 
         private void buttonExcel_Click(object sender, EventArgs e)
         {
+            DocTapTin();
+        }
 
+        private void DocTapTin()
+        {
+            try
+            {
+                OpenFileDialog iopen = new OpenFileDialog();
+                iopen.Filter = "Excel Files|*.xls;*.xlsx";
+                iopen.Title = "Chọn tập tin excel";
+
+                if (iopen.ShowDialog() == DialogResult.OK)
+                {
+                    string ipath = iopen.FileName;
+                    DocFileExcel(ipath);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+
+        private void DocFileExcel(string ipath)
+        {
+            IExcelDataReader FileExcel;
+            FileStream stream = File.Open(ipath, FileMode.Open, FileAccess.Read);   //Đọc file vào
+            try
+            {
+                //1. Câu lệnh sau dùng cho Excel 2007 trở lên
+                FileExcel = ExcelReaderFactory.CreateOpenXmlReader(stream);      //1.
+            }
+            catch
+            {
+                //2. Nếu bạn dùng Excel 2003 trở xuống vui lòng dùng câu lệnh 2. thay cho 1.
+                FileExcel = ExcelReaderFactory.CreateBinaryReader(stream);    //2.
+            }
+
+
+            List<BangDiemHocSinh> listDiem = new List<BangDiemHocSinh>();
+            DataSet result = FileExcel.AsDataSet();
+            FileExcel.IsFirstRowAsColumnNames = true;
+            foreach (System.Data.DataTable table in result.Tables)
+            {
+                for (int i = START_POSITION_READ_FROM_EXCEL; i < table.Rows.Count; i++)
+                {
+                    BangDiemHocSinh temp = new BangDiemHocSinh();
+                    temp._MaHocSinh = Convert.ToInt32(table.Rows[i].ItemArray[0].ToString());
+                    temp._Hoten = table.Rows[i].ItemArray[1].ToString();
+                    temp._Diem15 = Convert.ToInt32(table.Rows[i].ItemArray[2].ToString());
+                    temp._Diem1Tiet = Convert.ToInt32(table.Rows[i].ItemArray[3].ToString());
+                    temp._DiemHK = Convert.ToInt32(table.Rows[i].ItemArray[4].ToString());
+
+                    listDiem.Add(temp);
+                }
+            }
+            FileExcel.Close();
+
+
+            // update data to gridview
+            for(int i = 0; i < dataGridView.RowCount; i++)
+            {
+                for(int j = 0; j < listDiem.Count; j++)
+                {
+                    if (dataGridView.Rows[i].Cells["MaHocSinh"].Value.Equals(listDiem[j]._MaHocSinh))
+                    {
+                        DataGridViewCell cell = dataGridView.Rows[i].Cells["Diem15"];
+                        dataGridView.CurrentCell = cell;
+                        dataGridView.BeginEdit(true);
+                        dataGridView.Rows[i].Cells["Diem15"].Value = listDiem[j]._Diem15;
+                        dataGridView.EndEdit();
+
+                        DataGridViewCell cell1 = dataGridView.Rows[i].Cells["Diem1Tiet"];
+                        dataGridView.CurrentCell = cell1;
+                        dataGridView.BeginEdit(true);
+                        dataGridView.Rows[i].Cells["Diem1Tiet"].Value = listDiem[j]._Diem1Tiet;
+                        dataGridView.EndEdit();
+
+                        DataGridViewCell cell2 = dataGridView.Rows[i].Cells["DiemHK"];
+                        dataGridView.CurrentCell = cell2;
+                        dataGridView.BeginEdit(true);
+                        dataGridView.Rows[i].Cells["DiemHK"].Value = listDiem[j]._DiemHK;
+                        dataGridView.EndEdit();
+
+                        listDiem.RemoveAt(j);
+                        break;
+                    }
+                }
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace frMain
 {
-    partial class frDanhSachLop
+    partial class formDanhSachLop
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frDanhSachLop));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formDanhSachLop));
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.STT = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HoTen = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -361,7 +361,7 @@
             this.Name = "frDanhSachLop";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "BẢNG DANH SÁCH LỚP HỌC";
-            this.Load += new System.EventHandler(this.frDanhSachLop_Load);
+            this.Load += new System.EventHandler(this.formDanhSachLop_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();

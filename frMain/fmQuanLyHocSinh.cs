@@ -27,6 +27,10 @@ namespace frMain
         private void fmQuanLyHocSinh_Load(object sender, EventArgs e)
         {
             SkinHelper.InitSkinGallery(ribbonGallery, true);
+
+            frDangNhap dangNhap = new frDangNhap();
+            dangNhap.ShowDialog();
+            Quyen = dangNhap._quyen;
             KhoiTaoChucNang();
         }
         #endregion
@@ -35,23 +39,12 @@ namespace frMain
         #region Đăng nhập
         private void BarButtonDangNhap_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            DangNhap();
+            frDangNhap dangNhap = new frDangNhap();
+            dangNhap.ShowDialog();
+            Quyen = dangNhap._quyen;
+            KhoiTaoChucNang();
         }
-        public void DangNhap()
-        {
-            try
-            {
-                frDangNhap idangnhap = new frDangNhap();
-                idangnhap.ShowDialog();
-                int iquyen = idangnhap.Quyen();
-                if (iquyen != -1)
-                {
-                    Quyen = iquyen;
-                    this.Close();
-                }
-            }
-            catch { }
-        }
+       
         #endregion
         #region Khởi tạo chức năng cho từng loại tài khoản
         
@@ -138,6 +131,7 @@ namespace frMain
             }
             catch { }
         }
+
         #endregion
         #region ADMIN phân quyền người dùng
         private void BarButtonPhanQuyen_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -235,7 +229,7 @@ namespace frMain
         // Danh Sách lớp
         private void danhSachLop_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
         {
-            frDanhSachLop formDS = new frDanhSachLop();
+            formDanhSachLop formDS = new formDanhSachLop();
             formDS.Show();
         }
 
@@ -291,7 +285,7 @@ namespace frMain
         }
 
         // Thêm năm học
-        private void _namhoc_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
+        private void quanLyNamHoc_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
         {
             frQuanLyNamHoc _NamHoc = new frQuanLyNamHoc();
             _NamHoc.ShowDialog();
@@ -340,9 +334,7 @@ namespace frMain
         /// </summary>
         private void BarButtonItemBackUp_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            System.Threading.Thread thread = new System.Threading.Thread(new System.Threading.ThreadStart(saoLuuDuLieu));
-            thread.ApartmentState = System.Threading.ApartmentState.STA;
-            thread.Start();
+            saoLuuDuLieu();
         }
 
         private void saoLuuDuLieu()
@@ -386,9 +378,7 @@ namespace frMain
         /// </summary>
         private void BarButtonItemRestore_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            System.Threading.Thread thread = new System.Threading.Thread(new System.Threading.ThreadStart(phucHoiDuLieu));
-            thread.ApartmentState = System.Threading.ApartmentState.STA;
-            thread.Start();
+            phucHoiDuLieu();
         }
 
         private void phucHoiDuLieu()
@@ -404,7 +394,7 @@ namespace frMain
             {
                 currentPath = (openFile.FileName); // lấy đường dẫn
 
-                string QueryRestore = "USE master\nALTER DATABASE " + nameDatabase + " SET SINGLE_USER WITH ROLLBACK IMMEDIATE \n\n RESTORE DATABASE " + nameDatabase + " FROM DISK ='" + currentPath + "' \n\nALTER DATABASE " + nameDatabase + " SET MULTI_USER";
+                string QueryRestore = "USE master\nALTER DATABASE " + nameDatabase + " SET SINGLE_USER WITH ROLLBACK IMMEDIATE \n\n RESTORE DATABASE " + nameDatabase + " FROM DISK ='" + currentPath + "' \n\nWITH REPLACE\n\nALTER DATABASE " + nameDatabase + " SET MULTI_USER";
 
                 try
                 {
@@ -418,7 +408,7 @@ namespace frMain
                 catch (Exception ex)
                 {
                     MessageBox.Show("Không thể phục hồi dữ liệu", "Lỗi");
-                    //MessageBox.Show(ex.Message);
+                    //MessageBox.Show(ex.Message, "Lỗi");
                 }
             }
         }

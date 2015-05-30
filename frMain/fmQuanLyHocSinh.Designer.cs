@@ -736,7 +736,7 @@
             this._namHoc.Id = 9;
             this._namHoc.ItemSize = DevExpress.XtraEditors.TileItemSize.Wide;
             this._namHoc.Name = "_namHoc";
-            this._namHoc.ItemClick += new DevExpress.XtraEditors.TileItemClickEventHandler(this._namhoc_ItemClick);
+            this._namHoc.ItemClick += new DevExpress.XtraEditors.TileItemClickEventHandler(this.quanLyNamHoc_ItemClick);
             // 
             // _monhoc
             // 

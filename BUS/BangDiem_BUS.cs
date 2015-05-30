@@ -24,6 +24,9 @@ namespace BUS
         public int? _MaDiem1T { get; set; }
         public int? _MaDiemHK { get; set; }
 
+        public BangDiemHocSinh()
+        { }
+
         public BangDiemHocSinh(String _newHoTen,int _newMaHocSinh, int? _newMaDiem15, double? _newDiem15, int? _newMaDiem1Tiet,double? _newDiem1Tiet, int? _newMaDiemHK, double? _newDiemHK,double? _newDiemTB)
         {
             _Hoten = _newHoTen;

@@ -34,22 +34,13 @@
             this.label9 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.STT = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.HoTen = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Diem15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Diem1Tiet = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DiemHK = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DiemTB = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MaHocSinh = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MaDiem15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MaDiem1Tiet = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MaDiemHK = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.ButtonExcel = new DevExpress.XtraEditors.SimpleButton();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.labelHocKy = new System.Windows.Forms.Label();
             this.labelMon = new System.Windows.Forms.Label();
             this.labelLop = new System.Windows.Forms.Label();
             this.BtIn = new DevExpress.XtraEditors.SimpleButton();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.buttonLuu = new DevExpress.XtraEditors.SimpleButton();
             this.buttonThoat = new DevExpress.XtraEditors.SimpleButton();
             this.label3 = new System.Windows.Forms.Label();
@@ -69,7 +60,16 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.printBangDiem = new System.Drawing.Printing.PrintDocument();
             this.printPreviewBangDiem = new System.Windows.Forms.PrintPreviewDialog();
-            this.ButtonExcel = new DevExpress.XtraEditors.SimpleButton();
+            this.STT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HoTen = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Diem15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Diem1Tiet = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DiemHK = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DiemTB = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MaHocSinh = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MaDiem15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MaDiem1Tiet = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MaDiemHK = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -133,88 +133,6 @@
             this.dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellEndEdit);
             this.dataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridView_DataError);
             // 
-            // STT
-            // 
-            this.STT.FillWeight = 50F;
-            this.STT.HeaderText = "STT";
-            this.STT.Name = "STT";
-            this.STT.ReadOnly = true;
-            this.STT.Width = 50;
-            // 
-            // HoTen
-            // 
-            this.HoTen.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.HoTen.DataPropertyName = "_HoTen";
-            this.HoTen.FillWeight = 37.23404F;
-            this.HoTen.HeaderText = "Họ Tên";
-            this.HoTen.Name = "HoTen";
-            this.HoTen.ReadOnly = true;
-            // 
-            // Diem15
-            // 
-            this.Diem15.DataPropertyName = "_Diem15";
-            this.Diem15.FillWeight = 110F;
-            this.Diem15.HeaderText = "Điểm 15\'";
-            this.Diem15.Name = "Diem15";
-            this.Diem15.Width = 110;
-            // 
-            // Diem1Tiet
-            // 
-            this.Diem1Tiet.DataPropertyName = "_Diem1Tiet";
-            this.Diem1Tiet.FillWeight = 110F;
-            this.Diem1Tiet.HeaderText = "Điểm 1 Tiết";
-            this.Diem1Tiet.Name = "Diem1Tiet";
-            this.Diem1Tiet.Width = 110;
-            // 
-            // DiemHK
-            // 
-            this.DiemHK.DataPropertyName = "_DiemHK";
-            this.DiemHK.FillWeight = 110F;
-            this.DiemHK.HeaderText = "Điểm Học Kỳ";
-            this.DiemHK.Name = "DiemHK";
-            this.DiemHK.Width = 110;
-            // 
-            // DiemTB
-            // 
-            this.DiemTB.DataPropertyName = "_DiemTB";
-            this.DiemTB.FillWeight = 110F;
-            this.DiemTB.HeaderText = "Điểm Trung Bình";
-            this.DiemTB.Name = "DiemTB";
-            this.DiemTB.ReadOnly = true;
-            this.DiemTB.Width = 110;
-            // 
-            // MaHocSinh
-            // 
-            this.MaHocSinh.DataPropertyName = "_MaHocSinh";
-            this.MaHocSinh.HeaderText = "Mã Học Sinh";
-            this.MaHocSinh.Name = "MaHocSinh";
-            this.MaHocSinh.ReadOnly = true;
-            this.MaHocSinh.Visible = false;
-            // 
-            // MaDiem15
-            // 
-            this.MaDiem15.DataPropertyName = "_MaDiem15";
-            this.MaDiem15.HeaderText = "Mã Điểm 15";
-            this.MaDiem15.Name = "MaDiem15";
-            this.MaDiem15.ReadOnly = true;
-            this.MaDiem15.Visible = false;
-            // 
-            // MaDiem1Tiet
-            // 
-            this.MaDiem1Tiet.DataPropertyName = "_MaDiem1T";
-            this.MaDiem1Tiet.HeaderText = "Mã Điểm 1 Tiết";
-            this.MaDiem1Tiet.Name = "MaDiem1Tiet";
-            this.MaDiem1Tiet.ReadOnly = true;
-            this.MaDiem1Tiet.Visible = false;
-            // 
-            // MaDiemHK
-            // 
-            this.MaDiemHK.DataPropertyName = "_MaDiemHK";
-            this.MaDiemHK.HeaderText = "Mã Điểm Học Kỳ";
-            this.MaDiemHK.Name = "MaDiemHK";
-            this.MaDiemHK.ReadOnly = true;
-            this.MaDiemHK.Visible = false;
-            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.ButtonExcel);
@@ -232,6 +150,33 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(740, 94);
             this.panel1.TabIndex = 0;
+            // 
+            // ButtonExcel
+            // 
+            this.ButtonExcel.Appearance.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ButtonExcel.Appearance.ForeColor = System.Drawing.Color.Green;
+            this.ButtonExcel.Appearance.Options.UseFont = true;
+            this.ButtonExcel.Appearance.Options.UseForeColor = true;
+            this.ButtonExcel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ButtonExcel.ImageIndex = 5;
+            this.ButtonExcel.ImageList = this.imageList1;
+            this.ButtonExcel.Location = new System.Drawing.Point(481, 11);
+            this.ButtonExcel.Name = "ButtonExcel";
+            this.ButtonExcel.Size = new System.Drawing.Size(113, 33);
+            this.ButtonExcel.TabIndex = 10;
+            this.ButtonExcel.Text = "EXCEL";
+            this.ButtonExcel.Click += new System.EventHandler(this.buttonExcel_Click);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "1417949391_bullet_add.png");
+            this.imageList1.Images.SetKeyName(1, "1420364165_66728.ico");
+            this.imageList1.Images.SetKeyName(2, "1417949402_bullet_delete.png");
+            this.imageList1.Images.SetKeyName(3, "1420299204_photo.png");
+            this.imageList1.Images.SetKeyName(4, "1417949388_bullet_deny.png");
+            this.imageList1.Images.SetKeyName(5, "1420271317_printer.png");
             // 
             // labelHocKy
             // 
@@ -278,17 +223,6 @@
             this.BtIn.TabIndex = 6;
             this.BtIn.Text = "IN";
             this.BtIn.Click += new System.EventHandler(this.buttonIn_Click);
-            // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "1417949391_bullet_add.png");
-            this.imageList1.Images.SetKeyName(1, "1420364165_66728.ico");
-            this.imageList1.Images.SetKeyName(2, "1417949402_bullet_delete.png");
-            this.imageList1.Images.SetKeyName(3, "1420299204_photo.png");
-            this.imageList1.Images.SetKeyName(4, "1417949388_bullet_deny.png");
-            this.imageList1.Images.SetKeyName(5, "1420271317_printer.png");
             // 
             // buttonLuu
             // 
@@ -506,23 +440,89 @@
             this.printPreviewBangDiem.Name = "printPreviewBangDiem";
             this.printPreviewBangDiem.Visible = false;
             // 
-            // ButtonExcel
+            // STT
             // 
-            this.ButtonExcel.Appearance.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ButtonExcel.Appearance.ForeColor = System.Drawing.Color.Green;
-            this.ButtonExcel.Appearance.Options.UseFont = true;
-            this.ButtonExcel.Appearance.Options.UseForeColor = true;
-            this.ButtonExcel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.ButtonExcel.ImageIndex = 5;
-            this.ButtonExcel.ImageList = this.imageList1;
-            this.ButtonExcel.Location = new System.Drawing.Point(481, 11);
-            this.ButtonExcel.Name = "ButtonExcel";
-            this.ButtonExcel.Size = new System.Drawing.Size(113, 33);
-            this.ButtonExcel.TabIndex = 10;
-            this.ButtonExcel.Text = "EXCEL";
-            this.ButtonExcel.Click += new System.EventHandler(this.buttonExcel_Click);
+            this.STT.FillWeight = 50F;
+            this.STT.HeaderText = "STT";
+            this.STT.Name = "STT";
+            this.STT.ReadOnly = true;
+            this.STT.Width = 50;
             // 
-            // FormBangDiem
+            // HoTen
+            // 
+            this.HoTen.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.HoTen.DataPropertyName = "_HoTen";
+            this.HoTen.FillWeight = 37.23404F;
+            this.HoTen.HeaderText = "Họ Tên";
+            this.HoTen.Name = "HoTen";
+            this.HoTen.ReadOnly = true;
+            // 
+            // Diem15
+            // 
+            this.Diem15.DataPropertyName = "_Diem15";
+            this.Diem15.FillWeight = 110F;
+            this.Diem15.HeaderText = "Điểm 15\'";
+            this.Diem15.Name = "Diem15";
+            this.Diem15.Width = 110;
+            // 
+            // Diem1Tiet
+            // 
+            this.Diem1Tiet.DataPropertyName = "_Diem1Tiet";
+            this.Diem1Tiet.FillWeight = 110F;
+            this.Diem1Tiet.HeaderText = "Điểm 1 Tiết";
+            this.Diem1Tiet.Name = "Diem1Tiet";
+            this.Diem1Tiet.Width = 110;
+            // 
+            // DiemHK
+            // 
+            this.DiemHK.DataPropertyName = "_DiemHK";
+            this.DiemHK.FillWeight = 110F;
+            this.DiemHK.HeaderText = "Điểm Học Kỳ";
+            this.DiemHK.Name = "DiemHK";
+            this.DiemHK.Width = 110;
+            // 
+            // DiemTB
+            // 
+            this.DiemTB.DataPropertyName = "_DiemTB";
+            this.DiemTB.FillWeight = 110F;
+            this.DiemTB.HeaderText = "Điểm Trung Bình";
+            this.DiemTB.Name = "DiemTB";
+            this.DiemTB.ReadOnly = true;
+            this.DiemTB.Width = 110;
+            // 
+            // MaHocSinh
+            // 
+            this.MaHocSinh.DataPropertyName = "_MaHocSinh";
+            this.MaHocSinh.HeaderText = "Mã Học Sinh";
+            this.MaHocSinh.Name = "MaHocSinh";
+            this.MaHocSinh.ReadOnly = true;
+            this.MaHocSinh.Visible = false;
+            // 
+            // MaDiem15
+            // 
+            this.MaDiem15.DataPropertyName = "_MaDiem15";
+            this.MaDiem15.HeaderText = "Mã Điểm 15";
+            this.MaDiem15.Name = "MaDiem15";
+            this.MaDiem15.ReadOnly = true;
+            this.MaDiem15.Visible = false;
+            // 
+            // MaDiem1Tiet
+            // 
+            this.MaDiem1Tiet.DataPropertyName = "_MaDiem1T";
+            this.MaDiem1Tiet.HeaderText = "Mã Điểm 1 Tiết";
+            this.MaDiem1Tiet.Name = "MaDiem1Tiet";
+            this.MaDiem1Tiet.ReadOnly = true;
+            this.MaDiem1Tiet.Visible = false;
+            // 
+            // MaDiemHK
+            // 
+            this.MaDiemHK.DataPropertyName = "_MaDiemHK";
+            this.MaDiemHK.HeaderText = "Mã Điểm Học Kỳ";
+            this.MaDiemHK.Name = "MaDiemHK";
+            this.MaDiemHK.ReadOnly = true;
+            this.MaDiemHK.Visible = false;
+            // 
+            // formBangDiem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -532,7 +532,7 @@
             this.Controls.Add(this.panel3);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "FormBangDiem";
+            this.Name = "formBangDiem";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "BẢNG ĐIỂM";
             this.Load += new System.EventHandler(this.formBangDiem_Load);
@@ -580,6 +580,7 @@
         private System.Windows.Forms.Label labelHocKy;
         private System.Windows.Forms.Label labelMon;
         private System.Windows.Forms.Label labelLop;
+        private DevExpress.XtraEditors.SimpleButton ButtonExcel;
         private System.Windows.Forms.DataGridViewTextBoxColumn STT;
         private System.Windows.Forms.DataGridViewTextBoxColumn HoTen;
         private System.Windows.Forms.DataGridViewTextBoxColumn Diem15;
@@ -590,6 +591,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn MaDiem15;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaDiem1Tiet;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaDiemHK;
-        private DevExpress.XtraEditors.SimpleButton ButtonExcel;
     }
 }

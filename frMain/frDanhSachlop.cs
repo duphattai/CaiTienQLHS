@@ -15,7 +15,7 @@ using System.IO;
 
 namespace frMain
 {
-    public partial class frDanhSachLop : DevExpress.XtraEditors.XtraForm
+    public partial class formDanhSachLop : DevExpress.XtraEditors.XtraForm
     {
         private NamHoc_BUS _namHocBus = new NamHoc_BUS();
         private Khoi_BUS _khoiBus = new Khoi_BUS();
@@ -25,29 +25,27 @@ namespace frMain
 
         private List<usp_SelectHosohocsinhResult> _listHoSoHocSinh = new List<usp_SelectHosohocsinhResult>();
 
-        Bitmap bitmap;
-
-        private const int START_POSITION_AT_ROW_READ = 2;
-        public frDanhSachLop()
+        private Bitmap bitmap;
+        public formDanhSachLop()
         {
             InitializeComponent();
         }
 
-        void loadDanhSachNam()
+        private void loadDanhSachNam()
         {
             foreach (NAMHOC NH in _namHocBus.LayNamHoc())
             {
                 comboBoxNam.Items.Add(NH.NAMHOC1.ToString());
             }
         }
-        void loadDanhSachKhoi()
+        private void loadDanhSachKhoi()
         {
             foreach (usp_SelectKhoisAllResult khoi in _khoiBus.LayDanhSachKhoi())
             {
                 comboBoxKhoi.Items.Add(khoi.KHOI.ToString()); 
             }
         }
-        void loadDanhSachLop()
+        private void loadDanhSachLop()
         {
             foreach (usp_SelectLopsByMAKHOI_NAMHOCResult lop in _danhSachLopBus.LayDanhSachLopTheoKhoiMaNam(comboBoxKhoi.Tag.ToString(), comboBoxNam.Tag.ToString()))
             {
@@ -55,7 +53,7 @@ namespace frMain
             }
         }
 
-        void loadDanhSachHocSinh()
+        private void loadDanhSachHocSinh()
         {
             if (comboBoxKhoi.SelectedIndex != -1 && comboBoxNam.SelectedIndex != -1 && comboBoxLop.SelectedIndex != -1)
             {
@@ -87,7 +85,8 @@ namespace frMain
                 labelSiSo.Text = null;
             }
         }
-        private void frDanhSachLop_Load(object sender, EventArgs e)
+
+        private void formDanhSachLop_Load(object sender, EventArgs e)
         {
 
             comboBoxNam.Items.Clear();
@@ -201,17 +200,16 @@ namespace frMain
             }
         }
 
+
         private void buttonXuatExcel_Click(object sender, EventArgs e)
         {
-            System.Threading.Thread thread = new System.Threading.Thread(new System.Threading.ThreadStart(xuatFileExcel));
-            thread.ApartmentState = System.Threading.ApartmentState.STA;
-            thread.Start(); 
+            xuatFileExcel(); 
         }
     
         private void xuatFileExcel()
         {
             SaveFileDialog saveFile = new SaveFileDialog();
-            saveFile.Filter = "xlsx files (*.xlsx)|*.xlsx";
+            saveFile.Filter = "xls files (*.xls)|*.xls";
             saveFile.FileName = "Danh sách học sinh lớp " + comboBoxLop.SelectedItem;
 
             if (saveFile.ShowDialog() == DialogResult.OK)
@@ -219,32 +217,28 @@ namespace frMain
                 StreamWriter wr = new StreamWriter(saveFile.FileName, false, Encoding.Unicode);
 
                 DataTable table = new DataTable();
-                table.Columns.Add("Id", typeof(string));
-                table.Columns.Add("Họ và tên", typeof(string));
-                table.Columns.Add("Giới tính", typeof(string));
-                table.Columns.Add("Ngày sinh", typeof(string));
-                table.Columns.Add("Địa chỉ", typeof(string));
-                table.Columns.Add("Email", typeof(string));
+
+                string header1 = "Id";
+                string header2 = "Họ và tên";
+                string header3 = "Điểm 15p";
+                string header4 = "Điểm 1T";
+                string header5 = "Điểm thi";
+                table.Columns.Add(header1, typeof(string));
+                table.Columns.Add(header2, typeof(string));
+                table.Columns.Add(header3, typeof(string));
+                table.Columns.Add(header4, typeof(string));
+                table.Columns.Add(header5, typeof(string));
 
 
                 for (int i = 0; i < dataGridView.RowCount; i++)
                 {
                     DataRow row = table.NewRow();
 
-                    row["Id"] = dataGridView.Rows[i].Cells["MAHOCSINH"].Value.ToString();
-                    row["Họ và tên"] = dataGridView.Rows[i].Cells["HoTen"].Value.ToString();
-                    row["Giới tính"] = dataGridView.Rows[i].Cells["GioiTinh"].Value.ToString();
-                    row["Ngày sinh"] = dataGridView.Rows[i].Cells["NamSinh"].Value.ToString();
-
-                    if (dataGridView.Rows[i].Cells["DiaChi"].Value == null)
-                        row["Địa chỉ"] = "";
-                    else
-                        row["Địa chỉ"] = dataGridView.Rows[i].Cells["DiaChi"].Value.ToString();
-
-                    if (dataGridView.Rows[i].Cells["EMAIL"].Value == null)
-                        row["Email"] = "";
-                    else
-                        row["Email"] = dataGridView.Rows[i].Cells["EMAIL"].Value.ToString();
+                    row[header1] = dataGridView.Rows[i].Cells["MAHOCSINH"].Value.ToString();
+                    row[header2] = dataGridView.Rows[i].Cells["HoTen"].Value.ToString();
+                    row[header3] = "";
+                    row[header4] = "";
+                    row[header5] = "";
 
                     table.Rows.Add(row);
                 }
@@ -252,6 +246,8 @@ namespace frMain
 
                 try
                 {
+                    wr.Write("Lớp: " + comboBoxLop.SelectedItem.ToString());
+                    wr.WriteLine();
                     for (int i = 0; i < table.Columns.Count; i++)
                     {
                         wr.Write(table.Columns[i].ToString() + "\t");
@@ -279,7 +275,8 @@ namespace frMain
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    //MessageBox.Show(ex.Message);
+                    MessageBox.Show("Không thể xuất tập tin file excel", "Lỗi");
                 }
             }
         }

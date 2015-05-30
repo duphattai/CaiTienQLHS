@@ -17,12 +17,12 @@ namespace frMain
 {
     public partial class frHoSoHocSinh : DevExpress.XtraEditors.XtraForm
     {
-        HoSoHocSinh_BUS _HoSoHocSinhBUS = new HoSoHocSinh_BUS();
-        DataTable table = new DataTable();
-        List<HOSOHOCSINH> ListHS;
-        List<HOSOHOCSINH> ListHSADD = new List<HOSOHOCSINH>();
-        List<HOSOHOCSINH> ListHSDelete = new List<HOSOHOCSINH>();
-        List<HOSOHOCSINH> ListHSUpdate = new List<HOSOHOCSINH>();
+        private HoSoHocSinh_BUS hoSoHocSinhBus = new HoSoHocSinh_BUS();
+        private DataTable table = new DataTable();
+        private List<HOSOHOCSINH> listHoSoHocSinh;
+        private List<HOSOHOCSINH> ListHoSoHocSinhADD = new List<HOSOHOCSINH>();
+        private List<HOSOHOCSINH> ListHoSoHocSinhDelete = new List<HOSOHOCSINH>();
+        private List<HOSOHOCSINH> ListHoSoHocSinhUpdate = new List<HOSOHOCSINH>();
         private List<string> listtemp;
         int NewHSCounter = 0;
         bool _IsSelectedBefore = false;
@@ -60,7 +60,7 @@ namespace frMain
                 HOSOHOCSINH newHS = new HOSOHOCSINH();
 
                 newHS.HOTEN = TxtHoTen.Text;
-                newHS.MAHOCSINH = _HoSoHocSinhBUS.LayMaHocSinhCuoi() + NewHSCounter;
+                newHS.MAHOCSINH = hoSoHocSinhBus.LayMaHocSinhCuoi() + NewHSCounter;
                 newHS.GIOITINH = CmBoxGioitinh.Text;
                 newHS.EMAIL = TxtEmail.Text;
                 newHS.DIACHI = TxtDiachi.Text;
@@ -68,9 +68,9 @@ namespace frMain
 
                 //Add List HocSinh Insert To Save DB
             
-                ListHSADD.Add(newHS);
+                ListHoSoHocSinhADD.Add(newHS);
 
-                ListHS.Add(newHS);
+                listHoSoHocSinh.Add(newHS);
                 LoadDataGridView();
                 dataGridView.CurrentCell = dataGridView.Rows[dataGridView.RowCount - 1].Cells[0];
                 TxtHoTen.Clear();
@@ -86,7 +86,7 @@ namespace frMain
 
         private void frHoSoHocSinh_Load(object sender, EventArgs e)
         {
-            ListHS = _HoSoHocSinhBUS.LayTatCaHocSinh();
+            listHoSoHocSinh = hoSoHocSinhBus.LayTatCaHocSinh();
             LoadDataGridView();
             if (_IsSelectedBefore)
             {
@@ -120,7 +120,7 @@ namespace frMain
 
         private void LoadDataGridView()
         {
-            dataGridView.DataSource = ListHS.ToArray();
+            dataGridView.DataSource = listHoSoHocSinh.ToArray();
             for (int i = 0; i < dataGridView.Rows.Count; i++)
             {
                 dataGridView.Rows[i].Cells["STT"].Value = i + 1;
@@ -135,7 +135,7 @@ namespace frMain
                 int CurrentIndex = dataGridView.CurrentRow.Index;
                 String id = dataGridView.CurrentRow.Cells["MaHocSinh"].Value.ToString();
 
-                foreach (HOSOHOCSINH h in ListHS)
+                foreach (HOSOHOCSINH h in listHoSoHocSinh)
                 {
                     if (h.MAHOCSINH.ToString() == id)
                     {
@@ -148,7 +148,7 @@ namespace frMain
                         h.EMAIL = TxtEmail.Text;
                         h.DIACHI = TxtDiachi.Text;
 
-                        ListHSUpdate.Add(h);
+                        ListHoSoHocSinhUpdate.Add(h);
 
                         break;
                     }
@@ -169,13 +169,13 @@ namespace frMain
             {
                 id = row.Cells["MaHocSinh"].Value.ToString();
 
-                foreach (HOSOHOCSINH h in ListHS)
+                foreach (HOSOHOCSINH h in listHoSoHocSinh)
                 {
                     if (h.MAHOCSINH.ToString() == id)
                     {
-                        ListHSDelete.Add(h);
+                        ListHoSoHocSinhDelete.Add(h);
 
-                        ListHS.Remove(h);
+                        listHoSoHocSinh.Remove(h);
                         break;
                     }
                 }
@@ -185,7 +185,7 @@ namespace frMain
 
         private void simpleButton1_Click(object sender, EventArgs e)
         {
-            if (ListHSADD.Count == 0 && ListHSDelete.Count == 0 && ListHSUpdate.Count == 0)
+            if (ListHoSoHocSinhADD.Count == 0 && ListHoSoHocSinhDelete.Count == 0 && ListHoSoHocSinhUpdate.Count == 0)
             {
                 if (DialogResult.OK == MessageBox.Show("Bạn có muốn thoát!", "THOÁT ỨNG DỤNG", MessageBoxButtons.OKCancel, MessageBoxIcon.Question))
                 {
@@ -209,34 +209,32 @@ namespace frMain
         private void simpleButton5_Click(object sender, EventArgs e)
         {
             //Delete
-            foreach (HOSOHOCSINH newHs in ListHSDelete)
+            foreach (HOSOHOCSINH newHs in ListHoSoHocSinhDelete)
             {
-                _HoSoHocSinhBUS.Delete(newHs.MAHOCSINH);
+                hoSoHocSinhBus.Delete(newHs.MAHOCSINH);
             }
             //ADD
-            foreach(HOSOHOCSINH newHs in ListHSADD)
+            foreach(HOSOHOCSINH newHs in ListHoSoHocSinhADD)
             {
-                _HoSoHocSinhBUS.Them(newHs.HOTEN, newHs.DIACHI, newHs.NGAYSINH, newHs.EMAIL, newHs.GIOITINH);
+                hoSoHocSinhBus.Them(newHs.HOTEN, newHs.DIACHI, newHs.NGAYSINH, newHs.EMAIL, newHs.GIOITINH);
             }
             //Update
-            foreach (HOSOHOCSINH newHs in ListHSUpdate)
+            foreach (HOSOHOCSINH newHs in ListHoSoHocSinhUpdate)
             {
-                _HoSoHocSinhBUS.Update(newHs.MAHOCSINH, newHs.HOTEN, newHs.DIACHI, newHs.NGAYSINH, newHs.EMAIL, newHs.GIOITINH);
+                hoSoHocSinhBus.Update(newHs.MAHOCSINH, newHs.HOTEN, newHs.DIACHI, newHs.NGAYSINH, newHs.EMAIL, newHs.GIOITINH);
             }
 
-            ListHSDelete.Clear();
-            ListHSADD.Clear();
-            ListHS.Clear();
+            ListHoSoHocSinhDelete.Clear();
+            ListHoSoHocSinhADD.Clear();
+            listHoSoHocSinh.Clear();
             MessageBox.Show("Lưu thành công", "Success");
-            ListHS = _HoSoHocSinhBUS.LayTatCaHocSinh();
+            listHoSoHocSinh = hoSoHocSinhBus.LayTatCaHocSinh();
             LoadDataGridView();
         }
         #region Đọc tập tin Excel
         private void btTapTin_Click(object sender, EventArgs e)
         {
-            System.Threading.Thread thread = new System.Threading.Thread(new System.Threading.ThreadStart(DocTapTin));
-            thread.ApartmentState = System.Threading.ApartmentState.STA;
-            thread.Start();    
+            DocTapTin();  
         }
 
         private void DocTapTin()
@@ -302,13 +300,13 @@ namespace frMain
                 HOSOHOCSINH newHS = new HOSOHOCSINH();
 
                 newHS.HOTEN = ilist[i];
-                newHS.MAHOCSINH = _HoSoHocSinhBUS.LayMaHocSinhCuoi() + NewHSCounter;
+                newHS.MAHOCSINH = hoSoHocSinhBus.LayMaHocSinhCuoi() + NewHSCounter;
                 newHS.GIOITINH = ilist[i+3];
                 newHS.EMAIL = ilist[i+2];
                 newHS.DIACHI = ilist[i+4];
                 newHS.NGAYSINH = DateTime.Parse(ilist[i+1]);
-                ListHSADD.Add(newHS);
-                ListHS.Add(newHS);
+                ListHoSoHocSinhADD.Add(newHS);
+                listHoSoHocSinh.Add(newHS);
             }
             LoadDataGridView();
         }

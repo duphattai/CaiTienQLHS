@@ -19,9 +19,9 @@ namespace frMain
     public partial class frDangNhap : DevExpress.XtraEditors.XtraForm
     {
         #region Biến khởi tạo
-        TaiKhoan_BUS _taikhoan = new TaiKhoan_BUS();
-        List<TAIKHOAN> ListTK;
-        private int _quyen;
+        private TaiKhoan_BUS _taikhoan = new TaiKhoan_BUS();
+        private List<TAIKHOAN> ListTK;
+        public int _quyen;
         
 
         public frDangNhap()
@@ -64,13 +64,6 @@ namespace frMain
          #endregion
         #region Đăng nhập
 
-        private void CreateFormOnAnotherThread()
-        {
-            fmQuanLyHocSinh form = new fmQuanLyHocSinh();
-            form.Quyen = _quyen;
-            form.ShowDialog();
-        }
-
         private void ButtonDangNhap_Click(object sender, EventArgs e)
         {
             try
@@ -83,10 +76,6 @@ namespace frMain
                         {
                             MessageBox.Show("Chào " + textTen.Text + " đến với phần mềm QUẢN LÝ HỌC SINH", "Đăng nhập thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             _quyen = newtk.LOAITK;
-
-                            System.Threading.Thread thread = new System.Threading.Thread(new System.Threading.ThreadStart(CreateFormOnAnotherThread));
-                            thread.Start();
-
                             this.Close();
                             return;
                         }
