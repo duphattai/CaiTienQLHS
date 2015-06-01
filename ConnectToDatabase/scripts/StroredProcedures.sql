@@ -2153,3 +2153,100 @@ GIANGDAY.MaLop
 FROM GIANGDAY
 WHERE [MaLop] = @MaLop
 GO
+
+
+------------------THOIKHOABIEU
+IF OBJECT_ID(N'[dbo].[usp_InsertThoiKhoaBieu]') IS NOT NULL
+	DROP PROCEDURE [dbo].[usp_InsertThoiKhoaBieu]
+
+IF OBJECT_ID(N'[dbo].[usp_UpdateThoiKhoaBieu]') IS NOT NULL
+	DROP PROCEDURE [dbo].[usp_UpdateThoiKhoaBieu]
+	
+IF OBJECT_ID(N'[dbo].[usp_SelectThoiKhoaBieu]') IS NOT NULL
+	DROP PROCEDURE [dbo].[usp_SelectThoiKhoaBieu]
+
+IF OBJECT_ID(N'[dbo].[usp_SelectThoiKhoaBieuBy_MaLop]') IS NOT NULL
+	DROP PROCEDURE [dbo].[usp_SelectThoiKhoaBieuBy_MaLop]
+	
+IF OBJECT_ID(N'[dbo].[usp_SelectThoiKhoaBieuBy_MaGiaoVien]') IS NOT NULL
+	DROP PROCEDURE [dbo].[usp_SelectThoiKhoaBieuBy_MaGiaoVien]
+	
+GO
+
+CREATE PROCEDURE usp_InsertThoiKhoaBieu
+@MaLop int,
+@MaGiaoVien varchar(10),
+@Tiet int
+AS
+
+SET NOCOUNT ON
+INSERT INTO [dbo].[THOIKHOABIEU] (
+	[MALOP],
+	[MAGIAOVIEN],
+	[TIET]
+) VALUES (
+	@MaLop,
+	@MaGiaoVien,
+	@Tiet
+)
+GO
+
+
+-------------------------
+CREATE PROCEDURE usp_UpdateThoiKhoaBieu
+@MaLop int,
+@MaGiaoVien varchar(10),
+@Tiet int
+AS
+
+SET NOCOUNT ON
+
+UPDATE THOIKHOABIEU
+SET 	
+	[MALOP] = @MaLop,
+	[MAGIAOVIEN] = @MaGiaoVien,
+	[TIET] = @TIET
+where 
+	[MALOP] = @MaLop AND
+	[MAGIAOVIEN] = @MaGiaoVien
+GO
+-----------------------------
+CREATE PROCEDURE usp_SelectThoiKhoaBieu
+@MaLop int
+AS
+
+SET NOCOUNT ON
+
+IF(NOT EXISTS(SELECT * FROM THOIKHOABIEU WHERE MALOP = @MaLop))
+	BEGIN
+		RETURN 0
+	END
+ELSE 
+	BEGIN
+	SELECT LOP.TENLOP, GIAOVIEN.HoTen, MONHOC.TENMONHOC, TIET 
+	FROM THOIKHOABIEU, LOP, GIAOVIEN, MONHOC
+	WHERE 
+		THOIKHOABIEU.MALOP = LOP.MALOP AND THOIKHOABIEU.MALOP = @MaLop 
+		AND THOIKHOABIEU.MAGIAOVIEN = GIAOVIEN.MaGiaoVien AND GIAOVIEN.MaMonHoc = MONHOC.MAMONHOC
+	END
+GO
+-------------------------------
+CREATE PROCEDURE usp_SelectThoiKhoaBieuBy_MaGiaoVien
+@MaGiaoVien varchar(10)
+AS
+
+SET NOCOUNT ON
+
+IF(NOT EXISTS(SELECT * FROM THOIKHOABIEU WHERE MAGIAOVIEN = @MaGiaoVien))
+	BEGIN
+		RETURN 0
+	END
+ELSE 
+	BEGIN
+	SELECT LOP.TENLOP, GIAOVIEN.HoTen, MONHOC.TENMONHOC, TIET 
+	FROM THOIKHOABIEU, LOP, GIAOVIEN, MONHOC
+	WHERE 
+		THOIKHOABIEU.MALOP = LOP.MALOP AND THOIKHOABIEU.MAGIAOVIEN = @MaGiaoVien 
+		AND THOIKHOABIEU.MAGIAOVIEN = GIAOVIEN.MaGiaoVien AND GIAOVIEN.MaMonHoc = MONHOC.MAMONHOC
+	END
+GO

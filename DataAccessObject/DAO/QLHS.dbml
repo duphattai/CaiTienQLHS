@@ -1,5 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QLHS" Class="QLHSDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="AppSettings" ConnectionString="Data Source=TAI-PC;Initial Catalog=QLHS;Integrated Security=True" SettingsObjectName="DataAccessObject.Properties.Settings" SettingsPropertyName="QLHSConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.GIAOVIEN" Member="GIAOVIENs">
+    <Type Name="GIAOVIEN">
+      <Column Name="MaGiaoVien" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="HoTen" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="DiaChi" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="NgaySinh" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="GioiTinh" Type="System.String" DbType="NVarChar(3) NOT NULL" CanBeNull="false" />
+      <Column Name="MaMonHoc" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Association Name="GIAOVIEN_GIANGDAY" Member="GIANGDAYs" ThisKey="MaGiaoVien" OtherKey="MaGiaoVien" Type="GIANGDAY" />
+      <Association Name="GIAOVIEN_THOIKHOABIEU" Member="THOIKHOABIEUs" ThisKey="MaGiaoVien" OtherKey="MAGIAOVIEN" Type="THOIKHOABIEU" />
+    </Type>
+  </Table>
   <Table Name="dbo.BANGDIEM" Member="BANGDIEMs">
     <Type Name="BANGDIEM">
       <Column Name="MAHOCSINH" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -74,11 +87,12 @@
       <Column Name="MaGiaoVien" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="MaLop" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Association Name="GIAOVIEN_GIANGDAY" Member="GIAOVIEN" ThisKey="MaGiaoVien" OtherKey="MaGiaoVien" Type="GIAOVIEN" IsForeignKey="true" />
+      <Association Name="GIAOVIEN1_GIANGDAY" Member="GIAOVIEN1" ThisKey="MaGiaoVien" OtherKey="MaGiaoVien" Type="GIAOVIEN1" IsForeignKey="true" />
       <Association Name="LOP_GIANGDAY" Member="LOP" ThisKey="MaLop" OtherKey="MALOP" Type="LOP" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.GIAOVIEN" Member="GIAOVIENs">
-    <Type Name="GIAOVIEN">
+  <Table Name="dbo.GIAOVIEN" Member="GIAOVIEN1s">
+    <Type Name="GIAOVIEN1">
       <Column Name="MaGiaoVien" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="HoTen" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="DiaChi" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
@@ -86,7 +100,8 @@
       <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="GioiTinh" Type="System.String" DbType="NVarChar(3) NOT NULL" CanBeNull="false" />
       <Column Name="MaMonHoc" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-      <Association Name="GIAOVIEN_GIANGDAY" Member="GIANGDAYs" ThisKey="MaGiaoVien" OtherKey="MaGiaoVien" Type="GIANGDAY" />
+      <Association Name="GIAOVIEN1_GIANGDAY" Member="GIANGDAYs" ThisKey="MaGiaoVien" OtherKey="MaGiaoVien" Type="GIANGDAY" />
+      <Association Name="GIAOVIEN1_THOIKHOABIEU" Member="THOIKHOABIEUs" ThisKey="MaGiaoVien" OtherKey="MAGIAOVIEN" Type="THOIKHOABIEU" />
     </Type>
   </Table>
   <Table Name="dbo.HOCKY" Member="HOCKies">
@@ -134,6 +149,7 @@
       <Association Name="LOP_CHITIETBAOCAOHOCKY" Member="CHITIETBAOCAOHOCKies" ThisKey="MALOP" OtherKey="MALOP" Type="CHITIETBAOCAOHOCKY" />
       <Association Name="LOP_CHITIETBAOCAOMON" Member="CHITIETBAOCAOMONs" ThisKey="MALOP" OtherKey="MALOP" Type="CHITIETBAOCAOMON" />
       <Association Name="LOP_GIANGDAY" Member="GIANGDAYs" ThisKey="MALOP" OtherKey="MaLop" Type="GIANGDAY" />
+      <Association Name="LOP_THOIKHOABIEU" Member="THOIKHOABIEUs" ThisKey="MALOP" OtherKey="MALOP" Type="THOIKHOABIEU" />
       <Association Name="LOP_XEPLOP" Member="XEPLOPs" ThisKey="MALOP" OtherKey="MALOP" Type="XEPLOP" />
       <Association Name="KHOI_LOP" Member="KHOI" ThisKey="MAKHOI" OtherKey="MAKHOI" Type="KHOI" IsForeignKey="true" DeleteRule="CASCADE" />
       <Association Name="NAMHOC_LOP" Member="NAMHOC1" ThisKey="NAMHOC" OtherKey="NAMHOC1" Type="NAMHOC" IsForeignKey="true" DeleteRule="CASCADE" />
@@ -170,6 +186,16 @@
       <Column Name="SOLOPTOIDAKHOI10" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="SOLOPTOIDAKHOI11" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="SOLOPTOIDAKHOI12" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.THOIKHOABIEU" Member="THOIKHOABIEUs">
+    <Type Name="THOIKHOABIEU">
+      <Column Name="MALOP" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MAGIAOVIEN" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TIET" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="GIAOVIEN_THOIKHOABIEU" Member="GIAOVIEN" ThisKey="MAGIAOVIEN" OtherKey="MaGiaoVien" Type="GIAOVIEN" IsForeignKey="true" />
+      <Association Name="GIAOVIEN1_THOIKHOABIEU" Member="GIAOVIEN1" ThisKey="MAGIAOVIEN" OtherKey="MaGiaoVien" Type="GIAOVIEN1" IsForeignKey="true" />
+      <Association Name="LOP_THOIKHOABIEU" Member="LOP" ThisKey="MALOP" OtherKey="MALOP" Type="LOP" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.XEPLOP" Member="XEPLOPs">
@@ -362,6 +388,12 @@
   </Function>
   <Function Name="dbo.usp_InsertNamhoc" Method="usp_InsertNamhoc">
     <Parameter Name="NAMHOC" Parameter="nAMHOC" Type="System.String" DbType="VarChar(10)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.usp_InsertThoiKhoaBieu" Method="usp_InsertThoiKhoaBieu">
+    <Parameter Name="MaLop" Parameter="maLop" Type="System.Int32" DbType="Int" />
+    <Parameter Name="MaGiaoVien" Parameter="maGiaoVien" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="Tiet" Parameter="tiet" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
   <Function Name="dbo.usp_InsertXeplop" Method="usp_InsertXeplop">
@@ -731,6 +763,24 @@
       <Column Name="SOLOPTOIDAKHOI12" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.usp_SelectThoiKhoaBieu" Method="usp_SelectThoiKhoaBieu">
+    <Parameter Name="MaLop" Parameter="maLop" Type="System.Int32" DbType="Int" />
+    <ElementType Name="usp_SelectThoiKhoaBieuResult">
+      <Column Name="TENLOP" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="HoTen" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="TENMONHOC" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="TIET" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.usp_SelectThoiKhoaBieuBy_MaGiaoVien" Method="usp_SelectThoiKhoaBieuBy_MaGiaoVien">
+    <Parameter Name="MaGiaoVien" Parameter="maGiaoVien" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="usp_SelectThoiKhoaBieuBy_MaGiaoVienResult">
+      <Column Name="TENLOP" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="HoTen" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="TENMONHOC" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="TIET" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
   <Function Name="dbo.usp_SelectXeplop" Method="usp_SelectXeplop">
     <Parameter Name="MAHOCSINH" Parameter="mAHOCSINH" Type="System.Int32" DbType="Int" />
     <Parameter Name="MALOP" Parameter="mALOP" Type="System.Int32" DbType="Int" />
@@ -841,6 +891,12 @@
     <Parameter Name="SOLOPTOIDAKHOI10" Parameter="sOLOPTOIDAKHOI10" Type="System.Int32" DbType="Int" />
     <Parameter Name="SOLOPTOIDAKHOI11" Parameter="sOLOPTOIDAKHOI11" Type="System.Int32" DbType="Int" />
     <Parameter Name="SOLOPTOIDAKHOI12" Parameter="sOLOPTOIDAKHOI12" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.usp_UpdateThoiKhoaBieu" Method="usp_UpdateThoiKhoaBieu">
+    <Parameter Name="MaLop" Parameter="maLop" Type="System.Int32" DbType="Int" />
+    <Parameter Name="MaGiaoVien" Parameter="maGiaoVien" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="Tiet" Parameter="tiet" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
   <Function Name="dbo.usp_UpdateXeplop" Method="usp_UpdateXeplop">

@@ -38,7 +38,6 @@
             DevExpress.XtraEditors.TileItemElement tileItemElement6 = new DevExpress.XtraEditors.TileItemElement();
             DevExpress.XtraEditors.TileItemElement tileItemElement7 = new DevExpress.XtraEditors.TileItemElement();
             DevExpress.XtraEditors.TileItemElement tileItemElement8 = new DevExpress.XtraEditors.TileItemElement();
-            DevExpress.XtraEditors.TileItemElement tileItemElement9 = new DevExpress.XtraEditors.TileItemElement();
             DevExpress.XtraEditors.TileItemElement tileItemElement10 = new DevExpress.XtraEditors.TileItemElement();
             DevExpress.XtraEditors.TileItemElement tileItemElement11 = new DevExpress.XtraEditors.TileItemElement();
             DevExpress.XtraEditors.TileItemElement tileItemElement12 = new DevExpress.XtraEditors.TileItemElement();
@@ -48,6 +47,8 @@
             DevExpress.XtraEditors.TileItemElement tileItemElement16 = new DevExpress.XtraEditors.TileItemElement();
             DevExpress.XtraEditors.TileItemElement tileItemElement17 = new DevExpress.XtraEditors.TileItemElement();
             DevExpress.XtraEditors.TileItemElement tileItemElement18 = new DevExpress.XtraEditors.TileItemElement();
+            DevExpress.XtraEditors.TileItemElement tileItemElement19 = new DevExpress.XtraEditors.TileItemElement();
+            DevExpress.XtraEditors.TileItemElement tileItemElement9 = new DevExpress.XtraEditors.TileItemElement();
             this.rpBackupRestore = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.AboutDefault = new DevExpress.XtraBars.Ribbon.BackstageViewControl();
             this.backstageViewClientControl2 = new DevExpress.XtraBars.Ribbon.BackstageViewClientControl();
@@ -142,6 +143,7 @@
             this.barButtonItem16 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem17 = new DevExpress.XtraBars.BarButtonItem();
             this.tileItem1 = new DevExpress.XtraEditors.TileItem();
+            this._traCuuThoiKhoaBieu = new DevExpress.XtraEditors.TileItem();
             ((System.ComponentModel.ISupportInitialize)(this.rpBackupRestore)).BeginInit();
             this.AboutDefault.SuspendLayout();
             this.backstageViewClientControl2.SuspendLayout();
@@ -710,7 +712,7 @@
             this.tileControl2.Groups.Add(this.tileGroup11);
             this.tileControl2.Images = this.imageList1;
             this.tileControl2.Location = new System.Drawing.Point(0, 147);
-            this.tileControl2.MaxId = 42;
+            this.tileControl2.MaxId = 43;
             this.tileControl2.Name = "tileControl2";
             this.tileControl2.Size = new System.Drawing.Size(997, 335);
             this.tileControl2.TabIndex = 5;
@@ -783,6 +785,7 @@
             this.tileGroup2.Items.Add(this._nhapdiem);
             this.tileGroup2.Items.Add(this._phanCongGiangDay);
             this.tileGroup2.Items.Add(this._lapThoiKhoaBieu);
+            this.tileGroup2.Items.Add(this._traCuuThoiKhoaBieu);
             this.tileGroup2.Name = "tileGroup2";
             this.tileGroup2.Text = null;
             // 
@@ -840,11 +843,11 @@
             // 
             // _dshocsinh
             // 
-            tileItemElement9.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomCenter;
-            tileItemElement9.ImageIndex = 11;
-            tileItemElement9.Text = "DANH SÁCH HỌC SINH";
-            tileItemElement9.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopCenter;
-            this._dshocsinh.Elements.Add(tileItemElement9);
+            tileItemElement10.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomCenter;
+            tileItemElement10.ImageIndex = 11;
+            tileItemElement10.Text = "DANH SÁCH HỌC SINH";
+            tileItemElement10.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopCenter;
+            this._dshocsinh.Elements.Add(tileItemElement10);
             this._dshocsinh.Id = 27;
             this._dshocsinh.ItemSize = DevExpress.XtraEditors.TileItemSize.Wide;
             this._dshocsinh.Name = "_dshocsinh";
@@ -852,11 +855,11 @@
             // 
             // _dslop
             // 
-            tileItemElement10.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomCenter;
-            tileItemElement10.ImageIndex = 12;
-            tileItemElement10.Text = "DANH SÁCH LỚP";
-            tileItemElement10.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopCenter;
-            this._dslop.Elements.Add(tileItemElement10);
+            tileItemElement11.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomCenter;
+            tileItemElement11.ImageIndex = 12;
+            tileItemElement11.Text = "DANH SÁCH LỚP";
+            tileItemElement11.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopCenter;
+            this._dslop.Elements.Add(tileItemElement11);
             this._dslop.Id = 26;
             this._dslop.ItemSize = DevExpress.XtraEditors.TileItemSize.Wide;
             this._dslop.Name = "_dslop";
@@ -864,9 +867,9 @@
             // 
             // _dsgiaovien
             // 
-            tileItemElement11.Text = "QUẢN LÝ HỒ SƠ GIÁO VIÊN";
-            tileItemElement11.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopCenter;
-            this._dsgiaovien.Elements.Add(tileItemElement11);
+            tileItemElement12.Text = "QUẢN LÝ HỒ SƠ GIÁO VIÊN";
+            tileItemElement12.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopCenter;
+            this._dsgiaovien.Elements.Add(tileItemElement12);
             this._dsgiaovien.Id = 39;
             this._dsgiaovien.ItemSize = DevExpress.XtraEditors.TileItemSize.Small;
             this._dsgiaovien.Name = "_dsgiaovien";
@@ -881,12 +884,12 @@
             // 
             // _thongtinhs
             // 
-            tileItemElement12.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomCenter;
-            tileItemElement12.ImageIndex = 7;
-            tileItemElement12.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.Squeeze;
-            tileItemElement12.Text = "THÔNG TIN HỌC SINH TOÀN TRƯỜNG";
-            tileItemElement12.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopCenter;
-            this._thongtinhs.Elements.Add(tileItemElement12);
+            tileItemElement13.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomCenter;
+            tileItemElement13.ImageIndex = 7;
+            tileItemElement13.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.Squeeze;
+            tileItemElement13.Text = "THÔNG TIN HỌC SINH TOÀN TRƯỜNG";
+            tileItemElement13.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopCenter;
+            this._thongtinhs.Elements.Add(tileItemElement13);
             this._thongtinhs.Id = 31;
             this._thongtinhs.ItemSize = DevExpress.XtraEditors.TileItemSize.Wide;
             this._thongtinhs.Name = "_thongtinhs";
@@ -894,12 +897,12 @@
             // 
             // _doiquidinh
             // 
-            tileItemElement13.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomCenter;
-            tileItemElement13.ImageIndex = 0;
-            tileItemElement13.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.Squeeze;
-            tileItemElement13.Text = "THAY ĐỔI QUI ĐỊNH";
-            tileItemElement13.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopCenter;
-            this._doiquidinh.Elements.Add(tileItemElement13);
+            tileItemElement14.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomCenter;
+            tileItemElement14.ImageIndex = 0;
+            tileItemElement14.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.Squeeze;
+            tileItemElement14.Text = "THAY ĐỔI QUI ĐỊNH";
+            tileItemElement14.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopCenter;
+            this._doiquidinh.Elements.Add(tileItemElement14);
             this._doiquidinh.Id = 37;
             this._doiquidinh.ItemSize = DevExpress.XtraEditors.TileItemSize.Wide;
             this._doiquidinh.Name = "_doiquidinh";
@@ -914,12 +917,12 @@
             // 
             // _tongketmon
             // 
-            tileItemElement14.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomCenter;
-            tileItemElement14.ImageIndex = 10;
-            tileItemElement14.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.Squeeze;
-            tileItemElement14.Text = "BÁO CÁO MÔN";
-            tileItemElement14.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopCenter;
-            this._tongketmon.Elements.Add(tileItemElement14);
+            tileItemElement15.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomCenter;
+            tileItemElement15.ImageIndex = 10;
+            tileItemElement15.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.Squeeze;
+            tileItemElement15.Text = "BÁO CÁO MÔN";
+            tileItemElement15.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopCenter;
+            this._tongketmon.Elements.Add(tileItemElement15);
             this._tongketmon.Id = 21;
             this._tongketmon.ItemSize = DevExpress.XtraEditors.TileItemSize.Wide;
             this._tongketmon.Name = "_tongketmon";
@@ -927,12 +930,12 @@
             // 
             // _tonghk
             // 
-            tileItemElement15.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomCenter;
-            tileItemElement15.ImageIndex = 9;
-            tileItemElement15.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.Squeeze;
-            tileItemElement15.Text = "TỔNG KẾT HỌC KỲ";
-            tileItemElement15.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopCenter;
-            this._tonghk.Elements.Add(tileItemElement15);
+            tileItemElement16.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.BottomCenter;
+            tileItemElement16.ImageIndex = 9;
+            tileItemElement16.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.Squeeze;
+            tileItemElement16.Text = "TỔNG KẾT HỌC KỲ";
+            tileItemElement16.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopCenter;
+            this._tonghk.Elements.Add(tileItemElement16);
             this._tonghk.Id = 30;
             this._tonghk.ItemSize = DevExpress.XtraEditors.TileItemSize.Wide;
             this._tonghk.Name = "_tonghk";
@@ -1025,19 +1028,19 @@
             // 
             // _hosohs
             // 
-            tileItemElement16.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopCenter;
-            tileItemElement16.Text = "HỒ SƠ HỌC SINH";
-            tileItemElement16.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopCenter;
-            this._hosohs.Elements.Add(tileItemElement16);
+            tileItemElement17.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopCenter;
+            tileItemElement17.Text = "HỒ SƠ HỌC SINH";
+            tileItemElement17.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopCenter;
+            this._hosohs.Elements.Add(tileItemElement17);
             this._hosohs.Id = 23;
             this._hosohs.ItemSize = DevExpress.XtraEditors.TileItemSize.Wide;
             this._hosohs.Name = "_hosohs";
             // 
             // _bangdiem
             // 
-            tileItemElement17.Text = "BẢNG ĐIỂM HỌC SINH";
-            tileItemElement17.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopCenter;
-            this._bangdiem.Elements.Add(tileItemElement17);
+            tileItemElement18.Text = "BẢNG ĐIỂM HỌC SINH";
+            tileItemElement18.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopCenter;
+            this._bangdiem.Elements.Add(tileItemElement18);
             this._bangdiem.Id = 19;
             this._bangdiem.ItemSize = DevExpress.XtraEditors.TileItemSize.Wide;
             this._bangdiem.Name = "_bangdiem";
@@ -1073,13 +1076,22 @@
             // 
             // tileItem1
             // 
-            tileItemElement18.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.Squeeze;
-            tileItemElement18.Text = "BẢNG ĐIỂM MÔN HỌC";
-            tileItemElement18.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopCenter;
-            this.tileItem1.Elements.Add(tileItemElement18);
+            tileItemElement19.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.Squeeze;
+            tileItemElement19.Text = "BẢNG ĐIỂM MÔN HỌC";
+            tileItemElement19.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.TopCenter;
+            this.tileItem1.Elements.Add(tileItemElement19);
             this.tileItem1.Id = 20;
             this.tileItem1.ItemSize = DevExpress.XtraEditors.TileItemSize.Wide;
             this.tileItem1.Name = "tileItem1";
+            // 
+            // _traCuuThoiKhoaBieu
+            // 
+            tileItemElement9.Text = "TRA CỨU THỜI KHÓA BIỂU";
+            this._traCuuThoiKhoaBieu.Elements.Add(tileItemElement9);
+            this._traCuuThoiKhoaBieu.Id = 42;
+            this._traCuuThoiKhoaBieu.ItemSize = DevExpress.XtraEditors.TileItemSize.Medium;
+            this._traCuuThoiKhoaBieu.Name = "_traCuuThoiKhoaBieu";
+            this._traCuuThoiKhoaBieu.ItemClick += new DevExpress.XtraEditors.TileItemClickEventHandler(this.traCuuThoiKhoaBieu_ItemClick);
             // 
             // fmQuanLyHocSinh
             // 
@@ -1211,6 +1223,7 @@
         private DevExpress.XtraEditors.TileItem _dsgiaovien;
         private DevExpress.XtraEditors.TileItem _phanCongGiangDay;
         private DevExpress.XtraEditors.TileItem _lapThoiKhoaBieu;
+        private DevExpress.XtraEditors.TileItem _traCuuThoiKhoaBieu;
     }
 }
 

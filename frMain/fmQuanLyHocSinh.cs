@@ -223,6 +223,12 @@ namespace frMain
             frHoSoGiaoVien form = new frHoSoGiaoVien();
             form.Show();
         }
+
+        private void traCuuThoiKhoaBieu_ItemClick(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
+        {
+            formTraCuuThoiKhoaBieu form = new formTraCuuThoiKhoaBieu();
+            form.ShowDialog();
+        }
         #endregion
 
         //-------------------------------------------------------------------------

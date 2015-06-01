@@ -125,6 +125,12 @@
     <Compile Include="fmQuanLyHocSinh.Designer.cs">
       <DependentUpon>fmQuanLyHocSinh.cs</DependentUpon>
     </Compile>
+    <Compile Include="formTraCuuThoiKhoaBieu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formTraCuuThoiKhoaBieu.Designer.cs">
+      <DependentUpon>formTraCuuThoiKhoaBieu.cs</DependentUpon>
+    </Compile>
     <Compile Include="frBangDiem.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -235,6 +241,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fmQuanLyHocSinh.resx">
       <DependentUpon>fmQuanLyHocSinh.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formTraCuuThoiKhoaBieu.resx">
+      <DependentUpon>formTraCuuThoiKhoaBieu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frBangDiem.resx">
       <DependentUpon>frBangDiem.cs</DependentUpon>
