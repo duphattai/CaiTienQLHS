@@ -206,6 +206,10 @@
       <Association Name="LOP_XEPLOP" Member="LOP" ThisKey="MALOP" OtherKey="MALOP" Type="LOP" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
+  <Function Name="dbo.usp_CheckExistsThoiKhoaBieuBy_MaLop" Method="usp_CheckExistsThoiKhoaBieuBy_MaLop">
+    <Parameter Name="MaLop" Parameter="maLop" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
   <Function Name="dbo.usp_DeleteBangdiem" Method="usp_DeleteBangdiem">
     <Parameter Name="MAHOCSINH" Parameter="mAHOCSINH" Type="System.Int32" DbType="Int" />
     <Parameter Name="MAHOCKY" Parameter="mAHOCKY" Type="System.Int32" DbType="Int" />
@@ -292,6 +296,10 @@
   </Function>
   <Function Name="dbo.usp_DeleteNamhocsDynamic" Method="usp_DeleteNamhocsDynamic">
     <Parameter Name="WhereCondition" Parameter="whereCondition" Type="System.String" DbType="NVarChar(500)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.usp_DeleteThoiKhoaBieuBy_MaLop" Method="usp_DeleteThoiKhoaBieuBy_MaLop">
+    <Parameter Name="MaLop" Parameter="maLop" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
   <Function Name="dbo.usp_DeleteXeplop" Method="usp_DeleteXeplop">
@@ -775,6 +783,15 @@
   <Function Name="dbo.usp_SelectThoiKhoaBieuBy_MaGiaoVien" Method="usp_SelectThoiKhoaBieuBy_MaGiaoVien">
     <Parameter Name="MaGiaoVien" Parameter="maGiaoVien" Type="System.String" DbType="VarChar(10)" />
     <ElementType Name="usp_SelectThoiKhoaBieuBy_MaGiaoVienResult">
+      <Column Name="TENLOP" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="HoTen" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="TENMONHOC" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="TIET" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.usp_SelectThoiKhoaBieuBy_MaLop" Method="usp_SelectThoiKhoaBieuBy_MaLop">
+    <Parameter Name="MaLop" Parameter="maLop" Type="System.Int32" DbType="Int" />
+    <ElementType Name="usp_SelectThoiKhoaBieuBy_MaLopResult">
       <Column Name="TENLOP" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="HoTen" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="TENMONHOC" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />

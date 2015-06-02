@@ -38,6 +38,7 @@
             DevExpress.XtraEditors.TileItemElement tileItemElement6 = new DevExpress.XtraEditors.TileItemElement();
             DevExpress.XtraEditors.TileItemElement tileItemElement7 = new DevExpress.XtraEditors.TileItemElement();
             DevExpress.XtraEditors.TileItemElement tileItemElement8 = new DevExpress.XtraEditors.TileItemElement();
+            DevExpress.XtraEditors.TileItemElement tileItemElement9 = new DevExpress.XtraEditors.TileItemElement();
             DevExpress.XtraEditors.TileItemElement tileItemElement10 = new DevExpress.XtraEditors.TileItemElement();
             DevExpress.XtraEditors.TileItemElement tileItemElement11 = new DevExpress.XtraEditors.TileItemElement();
             DevExpress.XtraEditors.TileItemElement tileItemElement12 = new DevExpress.XtraEditors.TileItemElement();
@@ -48,7 +49,6 @@
             DevExpress.XtraEditors.TileItemElement tileItemElement17 = new DevExpress.XtraEditors.TileItemElement();
             DevExpress.XtraEditors.TileItemElement tileItemElement18 = new DevExpress.XtraEditors.TileItemElement();
             DevExpress.XtraEditors.TileItemElement tileItemElement19 = new DevExpress.XtraEditors.TileItemElement();
-            DevExpress.XtraEditors.TileItemElement tileItemElement9 = new DevExpress.XtraEditors.TileItemElement();
             this.rpBackupRestore = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.AboutDefault = new DevExpress.XtraBars.Ribbon.BackstageViewControl();
             this.backstageViewClientControl2 = new DevExpress.XtraBars.Ribbon.BackstageViewClientControl();
@@ -116,6 +116,7 @@
             this._nhapdiem = new DevExpress.XtraEditors.TileItem();
             this._phanCongGiangDay = new DevExpress.XtraEditors.TileItem();
             this._lapThoiKhoaBieu = new DevExpress.XtraEditors.TileItem();
+            this._traCuuThoiKhoaBieu = new DevExpress.XtraEditors.TileItem();
             this.tileGroup8 = new DevExpress.XtraEditors.TileGroup();
             this._dshocsinh = new DevExpress.XtraEditors.TileItem();
             this._dslop = new DevExpress.XtraEditors.TileItem();
@@ -143,7 +144,6 @@
             this.barButtonItem16 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem17 = new DevExpress.XtraBars.BarButtonItem();
             this.tileItem1 = new DevExpress.XtraEditors.TileItem();
-            this._traCuuThoiKhoaBieu = new DevExpress.XtraEditors.TileItem();
             ((System.ComponentModel.ISupportInitialize)(this.rpBackupRestore)).BeginInit();
             this.AboutDefault.SuspendLayout();
             this.backstageViewClientControl2.SuspendLayout();
@@ -833,6 +833,15 @@
             this._lapThoiKhoaBieu.Name = "_lapThoiKhoaBieu";
             this._lapThoiKhoaBieu.ItemClick += new DevExpress.XtraEditors.TileItemClickEventHandler(this.lapThoiKhoaBieu_ItemClick);
             // 
+            // _traCuuThoiKhoaBieu
+            // 
+            tileItemElement9.Text = "TRA CỨU THỜI KHÓA BIỂU";
+            this._traCuuThoiKhoaBieu.Elements.Add(tileItemElement9);
+            this._traCuuThoiKhoaBieu.Id = 42;
+            this._traCuuThoiKhoaBieu.ItemSize = DevExpress.XtraEditors.TileItemSize.Medium;
+            this._traCuuThoiKhoaBieu.Name = "_traCuuThoiKhoaBieu";
+            this._traCuuThoiKhoaBieu.ItemClick += new DevExpress.XtraEditors.TileItemClickEventHandler(this.traCuuThoiKhoaBieu_ItemClick);
+            // 
             // tileGroup8
             // 
             this.tileGroup8.Items.Add(this._dshocsinh);
@@ -1083,15 +1092,6 @@
             this.tileItem1.Id = 20;
             this.tileItem1.ItemSize = DevExpress.XtraEditors.TileItemSize.Wide;
             this.tileItem1.Name = "tileItem1";
-            // 
-            // _traCuuThoiKhoaBieu
-            // 
-            tileItemElement9.Text = "TRA CỨU THỜI KHÓA BIỂU";
-            this._traCuuThoiKhoaBieu.Elements.Add(tileItemElement9);
-            this._traCuuThoiKhoaBieu.Id = 42;
-            this._traCuuThoiKhoaBieu.ItemSize = DevExpress.XtraEditors.TileItemSize.Medium;
-            this._traCuuThoiKhoaBieu.Name = "_traCuuThoiKhoaBieu";
-            this._traCuuThoiKhoaBieu.ItemClick += new DevExpress.XtraEditors.TileItemClickEventHandler(this.traCuuThoiKhoaBieu_ItemClick);
             // 
             // fmQuanLyHocSinh
             // 

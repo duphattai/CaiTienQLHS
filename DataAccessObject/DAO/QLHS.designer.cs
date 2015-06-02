@@ -268,6 +268,13 @@ namespace DataAccessObject.DAO
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.usp_CheckExistsThoiKhoaBieuBy_MaLop")]
+		public int usp_CheckExistsThoiKhoaBieuBy_MaLop([global::System.Data.Linq.Mapping.ParameterAttribute(Name="MaLop", DbType="Int")] System.Nullable<int> maLop)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), maLop);
+			return ((int)(result.ReturnValue));
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.usp_DeleteBangdiem")]
 		public int usp_DeleteBangdiem([global::System.Data.Linq.Mapping.ParameterAttribute(Name="MAHOCSINH", DbType="Int")] System.Nullable<int> mAHOCSINH, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="MAHOCKY", DbType="Int")] System.Nullable<int> mAHOCKY, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="MAMONHOC", DbType="VarChar(5)")] string mAMONHOC, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NAMHOC", DbType="VarChar(10)")] string nAMHOC)
 		{
@@ -412,6 +419,13 @@ namespace DataAccessObject.DAO
 		public int usp_DeleteNamhocsDynamic([global::System.Data.Linq.Mapping.ParameterAttribute(Name="WhereCondition", DbType="NVarChar(500)")] string whereCondition)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), whereCondition);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.usp_DeleteThoiKhoaBieuBy_MaLop")]
+		public int usp_DeleteThoiKhoaBieuBy_MaLop([global::System.Data.Linq.Mapping.ParameterAttribute(Name="MaLop", DbType="Int")] System.Nullable<int> maLop)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), maLop);
 			return ((int)(result.ReturnValue));
 		}
 		
@@ -861,6 +875,13 @@ namespace DataAccessObject.DAO
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), maGiaoVien);
 			return ((ISingleResult<usp_SelectThoiKhoaBieuBy_MaGiaoVienResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.usp_SelectThoiKhoaBieuBy_MaLop")]
+		public ISingleResult<usp_SelectThoiKhoaBieuBy_MaLopResult> usp_SelectThoiKhoaBieuBy_MaLop([global::System.Data.Linq.Mapping.ParameterAttribute(Name="MaLop", DbType="Int")] System.Nullable<int> maLop)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), maLop);
+			return ((ISingleResult<usp_SelectThoiKhoaBieuBy_MaLopResult>)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.usp_SelectXeplop")]
@@ -8226,6 +8247,86 @@ namespace DataAccessObject.DAO
 		private int _TIET;
 		
 		public usp_SelectThoiKhoaBieuBy_MaGiaoVienResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TENLOP", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string TENLOP
+		{
+			get
+			{
+				return this._TENLOP;
+			}
+			set
+			{
+				if ((this._TENLOP != value))
+				{
+					this._TENLOP = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HoTen", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string HoTen
+		{
+			get
+			{
+				return this._HoTen;
+			}
+			set
+			{
+				if ((this._HoTen != value))
+				{
+					this._HoTen = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TENMONHOC", DbType="NVarChar(30) NOT NULL", CanBeNull=false)]
+		public string TENMONHOC
+		{
+			get
+			{
+				return this._TENMONHOC;
+			}
+			set
+			{
+				if ((this._TENMONHOC != value))
+				{
+					this._TENMONHOC = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TIET", DbType="Int NOT NULL")]
+		public int TIET
+		{
+			get
+			{
+				return this._TIET;
+			}
+			set
+			{
+				if ((this._TIET != value))
+				{
+					this._TIET = value;
+				}
+			}
+		}
+	}
+	
+	public partial class usp_SelectThoiKhoaBieuBy_MaLopResult
+	{
+		
+		private string _TENLOP;
+		
+		private string _HoTen;
+		
+		private string _TENMONHOC;
+		
+		private int _TIET;
+		
+		public usp_SelectThoiKhoaBieuBy_MaLopResult()
 		{
 		}
 		

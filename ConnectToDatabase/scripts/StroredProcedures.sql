@@ -2162,8 +2162,8 @@ IF OBJECT_ID(N'[dbo].[usp_InsertThoiKhoaBieu]') IS NOT NULL
 IF OBJECT_ID(N'[dbo].[usp_UpdateThoiKhoaBieu]') IS NOT NULL
 	DROP PROCEDURE [dbo].[usp_UpdateThoiKhoaBieu]
 	
-IF OBJECT_ID(N'[dbo].[usp_SelectThoiKhoaBieu]') IS NOT NULL
-	DROP PROCEDURE [dbo].[usp_SelectThoiKhoaBieu]
+IF OBJECT_ID(N'[dbo].[usp_DeleteThoiKhoaBieuBy_MaLop]') IS NOT NULL
+	DROP PROCEDURE [dbo].[usp_DeleteThoiKhoaBieuBy_MaLop]
 
 IF OBJECT_ID(N'[dbo].[usp_SelectThoiKhoaBieuBy_MaLop]') IS NOT NULL
 	DROP PROCEDURE [dbo].[usp_SelectThoiKhoaBieuBy_MaLop]
@@ -2171,6 +2171,8 @@ IF OBJECT_ID(N'[dbo].[usp_SelectThoiKhoaBieuBy_MaLop]') IS NOT NULL
 IF OBJECT_ID(N'[dbo].[usp_SelectThoiKhoaBieuBy_MaGiaoVien]') IS NOT NULL
 	DROP PROCEDURE [dbo].[usp_SelectThoiKhoaBieuBy_MaGiaoVien]
 	
+IF OBJECT_ID(N'[dbo].[usp_CheckExistsThoiKhoaBieuBy_MaLop]') IS NOT NULL
+	DROP PROCEDURE [dbo].[usp_CheckExistsThoiKhoaBieuBy_MaLop]
 GO
 
 CREATE PROCEDURE usp_InsertThoiKhoaBieu
@@ -2211,7 +2213,7 @@ where
 	[MAGIAOVIEN] = @MaGiaoVien
 GO
 -----------------------------
-CREATE PROCEDURE usp_SelectThoiKhoaBieu
+CREATE PROCEDURE usp_SelectThoiKhoaBieuBy_MaLop
 @MaLop int
 AS
 
@@ -2249,4 +2251,30 @@ ELSE
 		THOIKHOABIEU.MALOP = LOP.MALOP AND THOIKHOABIEU.MAGIAOVIEN = @MaGiaoVien 
 		AND THOIKHOABIEU.MAGIAOVIEN = GIAOVIEN.MaGiaoVien AND GIAOVIEN.MaMonHoc = MONHOC.MAMONHOC
 	END
+GO
+---------------------------------------
+CREATE PROCEDURE usp_DeleteThoiKhoaBieuBy_MaLop
+@MaLop int
+AS
+
+SET NOCOUNT ON
+
+DELETE 
+FROM THOIKHOABIEU
+WHERE [MALOP] = @MaLop
+GO
+
+
+--------------------------------------------
+CREATE PROCEDURE usp_CheckExistsThoiKhoaBieuBy_MaLop
+@MaLop int
+AS
+
+SET NOCOUNT ON
+IF(NOT EXISTS(SELECT * FROM THOIKHOABIEU WHERE MALOP = @MaLop))
+	BEGIN
+		RETURN 0
+	END
+ELSE 
+	return 1
 GO

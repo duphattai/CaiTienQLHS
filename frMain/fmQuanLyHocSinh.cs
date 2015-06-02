@@ -67,6 +67,7 @@ namespace frMain
             _lapThoiKhoaBieu.Enabled = temp;
             _phanCongGiangDay.Enabled = temp;
             _dsgiaovien.Enabled = temp;
+            _traCuuThoiKhoaBieu.Enabled = temp;
             btnConnectDatabase.Enabled = temp;
         }
 
@@ -99,6 +100,7 @@ namespace frMain
                         _dsgiaovien.Enabled = true;
                         _lapThoiKhoaBieu.Enabled = true;
                         _phanCongGiangDay.Enabled = true;
+                        _traCuuThoiKhoaBieu.Enabled = true;
                         break;
                     case 2://GV
                         ThietLapMacDinhDieuKhien(false);
