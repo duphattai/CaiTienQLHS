@@ -68,6 +68,9 @@ namespace frMain
             _phanCongGiangDay.Enabled = temp;
             _dsgiaovien.Enabled = temp;
             _traCuuThoiKhoaBieu.Enabled = temp;
+
+            barButtonItemBackUp.Enabled = temp;
+            barButtonItemRestore.Enabled = temp;
             btnConnectDatabase.Enabled = temp;
         }
 
@@ -86,7 +89,10 @@ namespace frMain
                          _phanquyen.Enabled = true;
                         _nhapdiem.Enabled = true;
                         _thongtinhs.Enabled = true;
+                        barButtonItemBackUp.Enabled = true;
+                        barButtonItemRestore.Enabled = true;
                         btnConnectDatabase.Enabled = true;
+
                         break;
                     case 1://BGH
                         ThietLapMacDinhDieuKhien(false);
