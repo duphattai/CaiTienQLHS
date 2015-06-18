@@ -1,0 +1,808 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BANGDIEM">
+    <Key>
+      <PropertyRef Name="MAHOCSINH" />
+      <PropertyRef Name="MAMONHOC" />
+      <PropertyRef Name="MAHOCKY" />
+      <PropertyRef Name="NAMHOC" />
+    </Key>
+    <Property Name="MAHOCSINH" Type="int" Nullable="false" />
+    <Property Name="MAMONHOC" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="MAHOCKY" Type="int" Nullable="false" />
+    <Property Name="NAMHOC" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="MADIEM15" Type="int" />
+    <Property Name="MADIEM1T" Type="int" />
+    <Property Name="MADIEMHK" Type="int" />
+    <Property Name="DIEMTRUNGBINH" Type="float" />
+  </EntityType>
+  <EntityType Name="BAOCAOHOCKY">
+    <Key>
+      <PropertyRef Name="MABAOCAOHOCKY" />
+    </Key>
+    <Property Name="MABAOCAOHOCKY" Type="int" Nullable="false" />
+    <Property Name="MAHOCKY" Type="int" />
+    <Property Name="NAMHOC" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="BAOCAOMONHOC">
+    <Key>
+      <PropertyRef Name="MABAOCAOMON" />
+    </Key>
+    <Property Name="MABAOCAOMON" Type="int" Nullable="false" />
+    <Property Name="MAMONHOC" Type="varchar" MaxLength="5" />
+    <Property Name="MAHOCKY" Type="int" />
+    <Property Name="NAMHOC" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="CHITIETBAOCAOHOCKY">
+    <Key>
+      <PropertyRef Name="MABAOCAOHOCKY" />
+      <PropertyRef Name="MALOP" />
+    </Key>
+    <Property Name="MABAOCAOHOCKY" Type="int" Nullable="false" />
+    <Property Name="MALOP" Type="int" Nullable="false" />
+    <Property Name="SOLUONGDAT" Type="int" />
+  </EntityType>
+  <EntityType Name="CHITIETBAOCAOMON">
+    <Key>
+      <PropertyRef Name="MABAOCAOMON" />
+      <PropertyRef Name="MALOP" />
+    </Key>
+    <Property Name="MABAOCAOMON" Type="int" Nullable="false" />
+    <Property Name="MALOP" Type="int" Nullable="false" />
+    <Property Name="SOLUONGDAT" Type="int" />
+  </EntityType>
+  <EntityType Name="DIEM">
+    <Key>
+      <PropertyRef Name="MADIEM" />
+    </Key>
+    <Property Name="MADIEM" Type="int" Nullable="false" />
+    <Property Name="MALOAIDIEM" Type="varchar" MaxLength="3" />
+    <Property Name="GIATRI" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="HOCKY">
+    <Key>
+      <PropertyRef Name="MAHOCKY" />
+    </Key>
+    <Property Name="MAHOCKY" Type="int" Nullable="false" />
+    <Property Name="TENHOCKY" Type="nvarchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="HOSOHOCSINH">
+    <Key>
+      <PropertyRef Name="MAHOCSINH" />
+    </Key>
+    <Property Name="MAHOCSINH" Type="int" Nullable="false" />
+    <Property Name="HOTEN" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DIACHI" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="NGAYSINH" Type="smalldatetime" Nullable="false" />
+    <Property Name="EMAIL" Type="varchar" MaxLength="50" />
+    <Property Name="GIOITINH" Type="nvarchar" MaxLength="3" Nullable="false" />
+  </EntityType>
+  <EntityType Name="KHOI">
+    <Key>
+      <PropertyRef Name="MAKHOI" />
+    </Key>
+    <Property Name="MAKHOI" Type="varchar" MaxLength="3" Nullable="false" />
+    <Property Name="KHOI" Type="nvarchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LOAIDIEM">
+    <Key>
+      <PropertyRef Name="MALOAIDIEM" />
+    </Key>
+    <Property Name="MALOAIDIEM" Type="varchar" MaxLength="3" Nullable="false" />
+    <Property Name="TENLOAIDIEM" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="HESO" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LOP">
+    <Key>
+      <PropertyRef Name="MALOP" />
+    </Key>
+    <Property Name="MALOP" Type="int" Nullable="false" />
+    <Property Name="MAKHOI" Type="varchar" MaxLength="3" />
+    <Property Name="TENLOP" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="NAMHOC" Type="varchar" MaxLength="10" />
+    <Property Name="SISO" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MONHOC">
+    <Key>
+      <PropertyRef Name="MAMONHOC" />
+    </Key>
+    <Property Name="MAMONHOC" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="TENMONHOC" Type="nvarchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="NAMHOC">
+    <Key>
+      <PropertyRef Name="NAMHOC" />
+    </Key>
+    <Property Name="NAMHOC" Type="varchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'CNPM.dbo.THAMSO' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="THAMSO">
+          <Property Name="TUOITOITHIEU" Type="int" />
+          <Property Name="TUOITOIDA" Type="int" />
+          <Property Name="SISOTOIDA" Type="int" />
+          <Property Name="DIEMTOITHIEU" Type="int" />
+          <Property Name="DIEMTOIDA" Type="int" />
+          <Property Name="DIEMDATMON" Type="int" />
+          <Property Name="SOLOPTOIDAKHOI10" Type="int" />
+          <Property Name="SOLOPTOIDAKHOI11" Type="int" />
+          <Property Name="SOLOPTOIDAKHOI12" Type="int" />
+        </EntityType>-->
+  <EntityType Name="XEPLOP">
+    <Key>
+      <PropertyRef Name="MAHOCSINH" />
+      <PropertyRef Name="MALOP" />
+    </Key>
+    <Property Name="MAHOCSINH" Type="int" Nullable="false" />
+    <Property Name="MALOP" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__BANGDIEM__MADIEM__7D439ABD">
+    <End Role="DIEM" Type="Self.DIEM" Multiplicity="0..1" />
+    <End Role="BANGDIEM" Type="Self.BANGDIEM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DIEM">
+        <PropertyRef Name="MADIEM" />
+      </Principal>
+      <Dependent Role="BANGDIEM">
+        <PropertyRef Name="MADIEM15" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BANGDIEM__MADIEM__7E37BEF6">
+    <End Role="DIEM" Type="Self.DIEM" Multiplicity="0..1" />
+    <End Role="BANGDIEM" Type="Self.BANGDIEM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DIEM">
+        <PropertyRef Name="MADIEM" />
+      </Principal>
+      <Dependent Role="BANGDIEM">
+        <PropertyRef Name="MADIEM1T" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BANGDIEM__MADIEM__7F2BE32F">
+    <End Role="DIEM" Type="Self.DIEM" Multiplicity="0..1" />
+    <End Role="BANGDIEM" Type="Self.BANGDIEM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DIEM">
+        <PropertyRef Name="MADIEM" />
+      </Principal>
+      <Dependent Role="BANGDIEM">
+        <PropertyRef Name="MADIEMHK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BANGDIEM__MAHOCK__00200768">
+    <End Role="HOCKY" Type="Self.HOCKY" Multiplicity="1" />
+    <End Role="BANGDIEM" Type="Self.BANGDIEM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HOCKY">
+        <PropertyRef Name="MAHOCKY" />
+      </Principal>
+      <Dependent Role="BANGDIEM">
+        <PropertyRef Name="MAHOCKY" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BANGDIEM__MAHOCS__01142BA1">
+    <End Role="HOSOHOCSINH" Type="Self.HOSOHOCSINH" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="BANGDIEM" Type="Self.BANGDIEM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HOSOHOCSINH">
+        <PropertyRef Name="MAHOCSINH" />
+      </Principal>
+      <Dependent Role="BANGDIEM">
+        <PropertyRef Name="MAHOCSINH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BANGDIEM__MAMONH__02084FDA">
+    <End Role="MONHOC" Type="Self.MONHOC" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="BANGDIEM" Type="Self.BANGDIEM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MONHOC">
+        <PropertyRef Name="MAMONHOC" />
+      </Principal>
+      <Dependent Role="BANGDIEM">
+        <PropertyRef Name="MAMONHOC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BANGDIEM__NAMHOC__02FC7413">
+    <End Role="NAMHOC" Type="Self.NAMHOC" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="BANGDIEM" Type="Self.BANGDIEM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NAMHOC">
+        <PropertyRef Name="NAMHOC" />
+      </Principal>
+      <Dependent Role="BANGDIEM">
+        <PropertyRef Name="NAMHOC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BAOCAOHOC__MAHOC__03F0984C">
+    <End Role="HOCKY" Type="Self.HOCKY" Multiplicity="0..1" />
+    <End Role="BAOCAOHOCKY" Type="Self.BAOCAOHOCKY" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HOCKY">
+        <PropertyRef Name="MAHOCKY" />
+      </Principal>
+      <Dependent Role="BAOCAOHOCKY">
+        <PropertyRef Name="MAHOCKY" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BAOCAOHOC__NAMHO__04E4BC85">
+    <End Role="NAMHOC" Type="Self.NAMHOC" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="BAOCAOHOCKY" Type="Self.BAOCAOHOCKY" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NAMHOC">
+        <PropertyRef Name="NAMHOC" />
+      </Principal>
+      <Dependent Role="BAOCAOHOCKY">
+        <PropertyRef Name="NAMHOC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BAOCAOMON__MAMON__05D8E0BE">
+    <End Role="MONHOC" Type="Self.MONHOC" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="BAOCAOMONHOC" Type="Self.BAOCAOMONHOC" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MONHOC">
+        <PropertyRef Name="MAMONHOC" />
+      </Principal>
+      <Dependent Role="BAOCAOMONHOC">
+        <PropertyRef Name="MAMONHOC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BAOCAOMON__NAMHO__06CD04F7">
+    <End Role="NAMHOC" Type="Self.NAMHOC" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="BAOCAOMONHOC" Type="Self.BAOCAOMONHOC" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NAMHOC">
+        <PropertyRef Name="NAMHOC" />
+      </Principal>
+      <Dependent Role="BAOCAOMONHOC">
+        <PropertyRef Name="NAMHOC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CHITIETBA__MABAO__07C12930">
+    <End Role="BAOCAOHOCKY" Type="Self.BAOCAOHOCKY" Multiplicity="1" />
+    <End Role="CHITIETBAOCAOHOCKY" Type="Self.CHITIETBAOCAOHOCKY" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BAOCAOHOCKY">
+        <PropertyRef Name="MABAOCAOHOCKY" />
+      </Principal>
+      <Dependent Role="CHITIETBAOCAOHOCKY">
+        <PropertyRef Name="MABAOCAOHOCKY" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CHITIETBA__MABAO__09A971A2">
+    <End Role="BAOCAOMONHOC" Type="Self.BAOCAOMONHOC" Multiplicity="1" />
+    <End Role="CHITIETBAOCAOMON" Type="Self.CHITIETBAOCAOMON" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BAOCAOMONHOC">
+        <PropertyRef Name="MABAOCAOMON" />
+      </Principal>
+      <Dependent Role="CHITIETBAOCAOMON">
+        <PropertyRef Name="MABAOCAOMON" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CHITIETBA__MALOP__08B54D69">
+    <End Role="LOP" Type="Self.LOP" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CHITIETBAOCAOHOCKY" Type="Self.CHITIETBAOCAOHOCKY" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LOP">
+        <PropertyRef Name="MALOP" />
+      </Principal>
+      <Dependent Role="CHITIETBAOCAOHOCKY">
+        <PropertyRef Name="MALOP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CHITIETBA__MALOP__0A9D95DB">
+    <End Role="LOP" Type="Self.LOP" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CHITIETBAOCAOMON" Type="Self.CHITIETBAOCAOMON" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LOP">
+        <PropertyRef Name="MALOP" />
+      </Principal>
+      <Dependent Role="CHITIETBAOCAOMON">
+        <PropertyRef Name="MALOP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DIEM__MALOAIDIEM__0B91BA14">
+    <End Role="LOAIDIEM" Type="Self.LOAIDIEM" Multiplicity="0..1" />
+    <End Role="DIEM" Type="Self.DIEM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LOAIDIEM">
+        <PropertyRef Name="MALOAIDIEM" />
+      </Principal>
+      <Dependent Role="DIEM">
+        <PropertyRef Name="MALOAIDIEM" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LOP__MAKHOI__0C85DE4D">
+    <End Role="KHOI" Type="Self.KHOI" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="LOP" Type="Self.LOP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KHOI">
+        <PropertyRef Name="MAKHOI" />
+      </Principal>
+      <Dependent Role="LOP">
+        <PropertyRef Name="MAKHOI" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LOP__NAMHOC__0D7A0286">
+    <End Role="NAMHOC" Type="Self.NAMHOC" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="LOP" Type="Self.LOP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NAMHOC">
+        <PropertyRef Name="NAMHOC" />
+      </Principal>
+      <Dependent Role="LOP">
+        <PropertyRef Name="NAMHOC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__XEPLOP__MAHOCSIN__0E6E26BF">
+    <End Role="HOSOHOCSINH" Type="Self.HOSOHOCSINH" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="XEPLOP" Type="Self.XEPLOP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HOSOHOCSINH">
+        <PropertyRef Name="MAHOCSINH" />
+      </Principal>
+      <Dependent Role="XEPLOP">
+        <PropertyRef Name="MAHOCSINH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__XEPLOP__MALOP__0F624AF8">
+    <End Role="LOP" Type="Self.LOP" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="XEPLOP" Type="Self.XEPLOP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LOP">
+        <PropertyRef Name="MALOP" />
+      </Principal>
+      <Dependent Role="XEPLOP">
+        <PropertyRef Name="MALOP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="usp_DeleteBangdiem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MAHOCSINH" Type="int" Mode="In" />
+    <Parameter Name="MAHOCKY" Type="int" Mode="In" />
+    <Parameter Name="MAMONHOC" Type="varchar" Mode="In" />
+    <Parameter Name="NAMHOC" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_DeleteBangdiemsDynamic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="WhereCondition" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="usp_DeleteDiem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MADIEM" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_DeleteDiemsDynamic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="WhereCondition" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="usp_DeleteHockiesDynamic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="WhereCondition" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="usp_DeleteHocky" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MAHOCKY" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_DeleteHosohocsinh" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MAHOCSINH" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_DeleteHosohocsinhsDynamic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="WhereCondition" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="usp_DeleteKhoi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MAKHOI" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_DeleteKhoisDynamic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="WhereCondition" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="usp_DeleteLoaidiem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MALOAIDIEM" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_DeleteLoaidiemsDynamic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="WhereCondition" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="usp_DeleteLop" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MALOP" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_DeleteLopsDynamic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="WhereCondition" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="usp_DeleteMonhoc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MAMONHOC" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_DeleteMonhocsDynamic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="WhereCondition" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="usp_DeleteNamhoc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NAMHOC" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_DeleteNamhocsDynamic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="WhereCondition" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="usp_DeleteXeplop" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MALOP" Type="int" Mode="In" />
+    <Parameter Name="MAHOCSINH" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_DeleteXeplopsByMALOP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MALOP" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_DeleteXeplopsDynamic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="WhereCondition" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="usp_InsertBangdiem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MAHOCSINH" Type="int" Mode="In" />
+    <Parameter Name="MAMONHOC" Type="varchar" Mode="In" />
+    <Parameter Name="MAHOCKY" Type="int" Mode="In" />
+    <Parameter Name="NAMHOC" Type="varchar" Mode="In" />
+    <Parameter Name="MADIEM15" Type="int" Mode="In" />
+    <Parameter Name="MADIEM1T" Type="int" Mode="In" />
+    <Parameter Name="MADIEMHK" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_InsertBangdiemNull" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MAHOCSINH" Type="int" Mode="In" />
+    <Parameter Name="MAMONHOC" Type="varchar" Mode="In" />
+    <Parameter Name="MAHOCKY" Type="int" Mode="In" />
+    <Parameter Name="NAMHOC" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_InsertDiem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MADIEM" Type="int" Mode="In" />
+    <Parameter Name="MALOAIDIEM" Type="varchar" Mode="In" />
+    <Parameter Name="GIATRI" Type="float" Mode="In" />
+  </Function>
+  <Function Name="usp_InsertHocky" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MAHOCKY" Type="int" Mode="In" />
+    <Parameter Name="TENHOCKY" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="usp_InsertHosohocsinh" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MAHOCSINH" Type="int" Mode="In" />
+    <Parameter Name="HOTEN" Type="nvarchar" Mode="In" />
+    <Parameter Name="DIACHI" Type="nvarchar" Mode="In" />
+    <Parameter Name="NGAYSINH" Type="smalldatetime" Mode="In" />
+    <Parameter Name="EMAIL" Type="varchar" Mode="In" />
+    <Parameter Name="GIOITINH" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="usp_InsertKhoi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MAKHOI" Type="varchar" Mode="In" />
+    <Parameter Name="KHOI" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="usp_InsertLoaidiem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MALOAIDIEM" Type="varchar" Mode="In" />
+    <Parameter Name="TENLOAIDIEM" Type="nvarchar" Mode="In" />
+    <Parameter Name="HESO" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_InsertLop" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MALOP" Type="int" Mode="In" />
+    <Parameter Name="MAKHOI" Type="varchar" Mode="In" />
+    <Parameter Name="TENLOP" Type="nvarchar" Mode="In" />
+    <Parameter Name="NAMHOC" Type="varchar" Mode="In" />
+    <Parameter Name="SISO" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_InsertMonhoc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MAMONHOC" Type="varchar" Mode="In" />
+    <Parameter Name="TENMONHOC" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="usp_InsertNamhoc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NAMHOC" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_InsertXeplop" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MAHOCSINH" Type="int" Mode="In" />
+    <Parameter Name="MALOP" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_SelectBangdiem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MAHOCSINH" Type="int" Mode="In" />
+    <Parameter Name="MAHOCKY" Type="int" Mode="In" />
+    <Parameter Name="MAMONHOC" Type="varchar" Mode="In" />
+    <Parameter Name="NAMHOC" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_SelectBangdiemNamHocByMaHocSinh" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MAHOCSINH" Type="int" Mode="In" />
+    <Parameter Name="NAMHOC" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_SelectBangdiemsAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="usp_SelectBangdiemsDynamic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="WhereCondition" Type="nvarchar" Mode="In" />
+    <Parameter Name="OrderByExpression" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="usp_SelectBaoCaoMonHocByNAMHOC_MONHOC_HOCKY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MAMONHOC" Type="varchar" Mode="In" />
+    <Parameter Name="MAHOCKY" Type="int" Mode="In" />
+    <Parameter Name="NAMHOC" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_SelectDiem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MADIEM" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_SelectDiemsAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="usp_SelectDiemsDynamic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="WhereCondition" Type="nvarchar" Mode="In" />
+    <Parameter Name="OrderByExpression" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="usp_SelectHockiesAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="usp_SelectHockiesDynamic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="WhereCondition" Type="nvarchar" Mode="In" />
+    <Parameter Name="OrderByExpression" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="usp_SelectHocky" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MAHOCKY" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_SelectHocSinhChuaPhanLop" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NAMHOC" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_SelectHocSinhTheoMALOP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MALOP" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_SelectHosohocsinh" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MAHOCSINH" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_SelectHosohocsinhsAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="usp_SelectHosohocsinhsDynamic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="WhereCondition" Type="nvarchar" Mode="In" />
+    <Parameter Name="OrderByExpression" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="usp_SelectKhoi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MAKHOI" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_SelectKhoisAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="usp_SelectKhoisDynamic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="WhereCondition" Type="nvarchar" Mode="In" />
+    <Parameter Name="OrderByExpression" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="usp_SelectLastMaDiem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="usp_SelectLastMaHocSinh" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="usp_SelectLastMaLop" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="usp_SelectLoaidiem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MALOAIDIEM" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_SelectLoaidiemsAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="usp_SelectLoaidiemsDynamic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="WhereCondition" Type="nvarchar" Mode="In" />
+    <Parameter Name="OrderByExpression" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="usp_SelectLop" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MALOP" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_SelectLopByNamHoc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NAMHOC" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_SelectLopsAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="usp_SelectLopsByMAKHOI_NAMHOC" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MAKHOI" Type="varchar" Mode="In" />
+    <Parameter Name="NAMHOC" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_SelectLopsDynamic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="WhereCondition" Type="nvarchar" Mode="In" />
+    <Parameter Name="OrderByExpression" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="usp_SelectMALOPByMAHOCSINH_NAMHOC" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MAHOCSINH" Type="int" Mode="In" />
+    <Parameter Name="NAMHOC" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_SelectMonhoc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MAMONHOC" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_SelectMonhocsAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="usp_SelectMonhocsDynamic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="WhereCondition" Type="nvarchar" Mode="In" />
+    <Parameter Name="OrderByExpression" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="usp_SelectNamhoc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NAMHOC" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_SelectNamhocsAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="usp_SelectNamhocsDynamic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="WhereCondition" Type="nvarchar" Mode="In" />
+    <Parameter Name="OrderByExpression" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="usp_SelectThamSoAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="usp_SelectXeplop" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MAHOCSINH" Type="int" Mode="In" />
+    <Parameter Name="MALOP" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_SelectXeplopsAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="usp_SelectXeplopsByMAHOCSINH" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MAHOCSINH" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_SelectXeplopsByMALOP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MALOP" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_SelectXeplopsDynamic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="WhereCondition" Type="nvarchar" Mode="In" />
+    <Parameter Name="OrderByExpression" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="usp_UpdateBangdiem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MAHOCSINH" Type="int" Mode="In" />
+    <Parameter Name="MAMONHOC" Type="varchar" Mode="In" />
+    <Parameter Name="MAHOCKY" Type="int" Mode="In" />
+    <Parameter Name="NAMHOC" Type="varchar" Mode="In" />
+    <Parameter Name="MADIEM15" Type="int" Mode="In" />
+    <Parameter Name="MADIEM1T" Type="int" Mode="In" />
+    <Parameter Name="MADIEMHK" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_UpdateDiem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MADIEM" Type="int" Mode="In" />
+    <Parameter Name="MALOAIDIEM" Type="varchar" Mode="In" />
+    <Parameter Name="GIATRI" Type="float" Mode="In" />
+  </Function>
+  <Function Name="usp_UpdateHocky" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MAHOCKY" Type="int" Mode="In" />
+    <Parameter Name="TENHOCKY" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="usp_UpdateHosohocsinh" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MAHOCSINH" Type="int" Mode="In" />
+    <Parameter Name="HOTEN" Type="nvarchar" Mode="In" />
+    <Parameter Name="DIACHI" Type="nvarchar" Mode="In" />
+    <Parameter Name="NGAYSINH" Type="smalldatetime" Mode="In" />
+    <Parameter Name="EMAIL" Type="varchar" Mode="In" />
+    <Parameter Name="GIOITINH" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="usp_UpdateKhoi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MAKHOI" Type="varchar" Mode="In" />
+    <Parameter Name="KHOI" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="usp_UpdateLoaidiem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MALOAIDIEM" Type="varchar" Mode="In" />
+    <Parameter Name="TENLOAIDIEM" Type="nvarchar" Mode="In" />
+    <Parameter Name="HESO" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_UpdateLop" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MALOP" Type="int" Mode="In" />
+    <Parameter Name="MAKHOI" Type="varchar" Mode="In" />
+    <Parameter Name="TENLOP" Type="nvarchar" Mode="In" />
+    <Parameter Name="NAMHOC" Type="varchar" Mode="In" />
+    <Parameter Name="SISO" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_UpdateMonhoc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MAMONHOC" Type="varchar" Mode="In" />
+    <Parameter Name="TENMONHOC" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="usp_UpdateThamSo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TUOITOIDA" Type="int" Mode="In" />
+    <Parameter Name="TUOITOITHIEU" Type="int" Mode="In" />
+    <Parameter Name="SISOTOIDA" Type="int" Mode="In" />
+    <Parameter Name="DIEMTOIDA" Type="int" Mode="In" />
+    <Parameter Name="DIEMTOITHIEU" Type="int" Mode="In" />
+    <Parameter Name="ĐIEMDATMON" Type="int" Mode="In" />
+    <Parameter Name="SOLOPTOIDAKHOI10" Type="int" Mode="In" />
+    <Parameter Name="SOLOPTOIDAKHOI11" Type="int" Mode="In" />
+    <Parameter Name="SOLOPTOIDAKHOI12" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_UpdateXeplop" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MAHOCSINH" Type="int" Mode="In" />
+    <Parameter Name="MALOP" Type="int" Mode="In" />
+    <Parameter Name="NEWMAHOCSINH" Type="int" Mode="In" />
+    <Parameter Name="NEWMALOP" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="ModelsStoreContainer">
+    <EntitySet Name="BANGDIEM" EntityType="Self.BANGDIEM" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BAOCAOHOCKY" EntityType="Self.BAOCAOHOCKY" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BAOCAOMONHOC" EntityType="Self.BAOCAOMONHOC" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CHITIETBAOCAOHOCKY" EntityType="Self.CHITIETBAOCAOHOCKY" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CHITIETBAOCAOMON" EntityType="Self.CHITIETBAOCAOMON" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DIEM" EntityType="Self.DIEM" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HOCKY" EntityType="Self.HOCKY" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HOSOHOCSINH" EntityType="Self.HOSOHOCSINH" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="KHOI" EntityType="Self.KHOI" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LOAIDIEM" EntityType="Self.LOAIDIEM" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LOP" EntityType="Self.LOP" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MONHOC" EntityType="Self.MONHOC" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NAMHOC" EntityType="Self.NAMHOC" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="XEPLOP" EntityType="Self.XEPLOP" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__BANGDIEM__MADIEM__7D439ABD" Association="Self.FK__BANGDIEM__MADIEM__7D439ABD">
+      <End Role="DIEM" EntitySet="DIEM" />
+      <End Role="BANGDIEM" EntitySet="BANGDIEM" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BANGDIEM__MADIEM__7E37BEF6" Association="Self.FK__BANGDIEM__MADIEM__7E37BEF6">
+      <End Role="DIEM" EntitySet="DIEM" />
+      <End Role="BANGDIEM" EntitySet="BANGDIEM" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BANGDIEM__MADIEM__7F2BE32F" Association="Self.FK__BANGDIEM__MADIEM__7F2BE32F">
+      <End Role="DIEM" EntitySet="DIEM" />
+      <End Role="BANGDIEM" EntitySet="BANGDIEM" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BANGDIEM__MAHOCK__00200768" Association="Self.FK__BANGDIEM__MAHOCK__00200768">
+      <End Role="HOCKY" EntitySet="HOCKY" />
+      <End Role="BANGDIEM" EntitySet="BANGDIEM" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BANGDIEM__MAHOCS__01142BA1" Association="Self.FK__BANGDIEM__MAHOCS__01142BA1">
+      <End Role="HOSOHOCSINH" EntitySet="HOSOHOCSINH" />
+      <End Role="BANGDIEM" EntitySet="BANGDIEM" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BANGDIEM__MAMONH__02084FDA" Association="Self.FK__BANGDIEM__MAMONH__02084FDA">
+      <End Role="MONHOC" EntitySet="MONHOC" />
+      <End Role="BANGDIEM" EntitySet="BANGDIEM" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BANGDIEM__NAMHOC__02FC7413" Association="Self.FK__BANGDIEM__NAMHOC__02FC7413">
+      <End Role="NAMHOC" EntitySet="NAMHOC" />
+      <End Role="BANGDIEM" EntitySet="BANGDIEM" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BAOCAOHOC__MAHOC__03F0984C" Association="Self.FK__BAOCAOHOC__MAHOC__03F0984C">
+      <End Role="HOCKY" EntitySet="HOCKY" />
+      <End Role="BAOCAOHOCKY" EntitySet="BAOCAOHOCKY" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BAOCAOHOC__NAMHO__04E4BC85" Association="Self.FK__BAOCAOHOC__NAMHO__04E4BC85">
+      <End Role="NAMHOC" EntitySet="NAMHOC" />
+      <End Role="BAOCAOHOCKY" EntitySet="BAOCAOHOCKY" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BAOCAOMON__MAMON__05D8E0BE" Association="Self.FK__BAOCAOMON__MAMON__05D8E0BE">
+      <End Role="MONHOC" EntitySet="MONHOC" />
+      <End Role="BAOCAOMONHOC" EntitySet="BAOCAOMONHOC" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BAOCAOMON__NAMHO__06CD04F7" Association="Self.FK__BAOCAOMON__NAMHO__06CD04F7">
+      <End Role="NAMHOC" EntitySet="NAMHOC" />
+      <End Role="BAOCAOMONHOC" EntitySet="BAOCAOMONHOC" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CHITIETBA__MABAO__07C12930" Association="Self.FK__CHITIETBA__MABAO__07C12930">
+      <End Role="BAOCAOHOCKY" EntitySet="BAOCAOHOCKY" />
+      <End Role="CHITIETBAOCAOHOCKY" EntitySet="CHITIETBAOCAOHOCKY" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CHITIETBA__MABAO__09A971A2" Association="Self.FK__CHITIETBA__MABAO__09A971A2">
+      <End Role="BAOCAOMONHOC" EntitySet="BAOCAOMONHOC" />
+      <End Role="CHITIETBAOCAOMON" EntitySet="CHITIETBAOCAOMON" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CHITIETBA__MALOP__08B54D69" Association="Self.FK__CHITIETBA__MALOP__08B54D69">
+      <End Role="LOP" EntitySet="LOP" />
+      <End Role="CHITIETBAOCAOHOCKY" EntitySet="CHITIETBAOCAOHOCKY" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CHITIETBA__MALOP__0A9D95DB" Association="Self.FK__CHITIETBA__MALOP__0A9D95DB">
+      <End Role="LOP" EntitySet="LOP" />
+      <End Role="CHITIETBAOCAOMON" EntitySet="CHITIETBAOCAOMON" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DIEM__MALOAIDIEM__0B91BA14" Association="Self.FK__DIEM__MALOAIDIEM__0B91BA14">
+      <End Role="LOAIDIEM" EntitySet="LOAIDIEM" />
+      <End Role="DIEM" EntitySet="DIEM" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LOP__MAKHOI__0C85DE4D" Association="Self.FK__LOP__MAKHOI__0C85DE4D">
+      <End Role="KHOI" EntitySet="KHOI" />
+      <End Role="LOP" EntitySet="LOP" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LOP__NAMHOC__0D7A0286" Association="Self.FK__LOP__NAMHOC__0D7A0286">
+      <End Role="NAMHOC" EntitySet="NAMHOC" />
+      <End Role="LOP" EntitySet="LOP" />
+    </AssociationSet>
+    <AssociationSet Name="FK__XEPLOP__MAHOCSIN__0E6E26BF" Association="Self.FK__XEPLOP__MAHOCSIN__0E6E26BF">
+      <End Role="HOSOHOCSINH" EntitySet="HOSOHOCSINH" />
+      <End Role="XEPLOP" EntitySet="XEPLOP" />
+    </AssociationSet>
+    <AssociationSet Name="FK__XEPLOP__MALOP__0F624AF8" Association="Self.FK__XEPLOP__MALOP__0F624AF8">
+      <End Role="LOP" EntitySet="LOP" />
+      <End Role="XEPLOP" EntitySet="XEPLOP" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

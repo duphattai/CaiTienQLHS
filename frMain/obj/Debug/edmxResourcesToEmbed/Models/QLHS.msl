@@ -1,0 +1,468 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelsStoreContainer" CdmEntityContainer="QLHSEntities">
+    <EntitySetMapping Name="BANGDIEM">
+      <EntityTypeMapping TypeName="Models.BANGDIEM">
+        <MappingFragment StoreEntitySet="BANGDIEM">
+          <ScalarProperty Name="MAHOCSINH" ColumnName="MAHOCSINH" />
+          <ScalarProperty Name="MAMONHOC" ColumnName="MAMONHOC" />
+          <ScalarProperty Name="MAHOCKY" ColumnName="MAHOCKY" />
+          <ScalarProperty Name="NAMHOC" ColumnName="NAMHOC" />
+          <ScalarProperty Name="MADIEM15" ColumnName="MADIEM15" />
+          <ScalarProperty Name="MADIEM1T" ColumnName="MADIEM1T" />
+          <ScalarProperty Name="MADIEMHK" ColumnName="MADIEMHK" />
+          <ScalarProperty Name="DIEMTRUNGBINH" ColumnName="DIEMTRUNGBINH" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BAOCAOHOCKY">
+      <EntityTypeMapping TypeName="Models.BAOCAOHOCKY">
+        <MappingFragment StoreEntitySet="BAOCAOHOCKY">
+          <ScalarProperty Name="MABAOCAOHOCKY" ColumnName="MABAOCAOHOCKY" />
+          <ScalarProperty Name="MAHOCKY" ColumnName="MAHOCKY" />
+          <ScalarProperty Name="NAMHOC" ColumnName="NAMHOC" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BAOCAOMONHOC">
+      <EntityTypeMapping TypeName="Models.BAOCAOMONHOC">
+        <MappingFragment StoreEntitySet="BAOCAOMONHOC">
+          <ScalarProperty Name="MABAOCAOMON" ColumnName="MABAOCAOMON" />
+          <ScalarProperty Name="MAMONHOC" ColumnName="MAMONHOC" />
+          <ScalarProperty Name="MAHOCKY" ColumnName="MAHOCKY" />
+          <ScalarProperty Name="NAMHOC" ColumnName="NAMHOC" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CHITIETBAOCAOHOCKY">
+      <EntityTypeMapping TypeName="Models.CHITIETBAOCAOHOCKY">
+        <MappingFragment StoreEntitySet="CHITIETBAOCAOHOCKY">
+          <ScalarProperty Name="MABAOCAOHOCKY" ColumnName="MABAOCAOHOCKY" />
+          <ScalarProperty Name="MALOP" ColumnName="MALOP" />
+          <ScalarProperty Name="SOLUONGDAT" ColumnName="SOLUONGDAT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CHITIETBAOCAOMON">
+      <EntityTypeMapping TypeName="Models.CHITIETBAOCAOMON">
+        <MappingFragment StoreEntitySet="CHITIETBAOCAOMON">
+          <ScalarProperty Name="MABAOCAOMON" ColumnName="MABAOCAOMON" />
+          <ScalarProperty Name="MALOP" ColumnName="MALOP" />
+          <ScalarProperty Name="SOLUONGDAT" ColumnName="SOLUONGDAT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DIEM">
+      <EntityTypeMapping TypeName="Models.DIEM">
+        <MappingFragment StoreEntitySet="DIEM">
+          <ScalarProperty Name="MADIEM" ColumnName="MADIEM" />
+          <ScalarProperty Name="MALOAIDIEM" ColumnName="MALOAIDIEM" />
+          <ScalarProperty Name="GIATRI" ColumnName="GIATRI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HOCKY">
+      <EntityTypeMapping TypeName="Models.HOCKY">
+        <MappingFragment StoreEntitySet="HOCKY">
+          <ScalarProperty Name="MAHOCKY" ColumnName="MAHOCKY" />
+          <ScalarProperty Name="TENHOCKY" ColumnName="TENHOCKY" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HOSOHOCSINH">
+      <EntityTypeMapping TypeName="Models.HOSOHOCSINH">
+        <MappingFragment StoreEntitySet="HOSOHOCSINH">
+          <ScalarProperty Name="MAHOCSINH" ColumnName="MAHOCSINH" />
+          <ScalarProperty Name="HOTEN" ColumnName="HOTEN" />
+          <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+          <ScalarProperty Name="NGAYSINH" ColumnName="NGAYSINH" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KHOI">
+      <EntityTypeMapping TypeName="Models.KHOI">
+        <MappingFragment StoreEntitySet="KHOI">
+          <ScalarProperty Name="MAKHOI" ColumnName="MAKHOI" />
+          <ScalarProperty Name="KHOI1" ColumnName="KHOI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LOAIDIEM">
+      <EntityTypeMapping TypeName="Models.LOAIDIEM">
+        <MappingFragment StoreEntitySet="LOAIDIEM">
+          <ScalarProperty Name="MALOAIDIEM" ColumnName="MALOAIDIEM" />
+          <ScalarProperty Name="TENLOAIDIEM" ColumnName="TENLOAIDIEM" />
+          <ScalarProperty Name="HESO" ColumnName="HESO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LOP">
+      <EntityTypeMapping TypeName="Models.LOP">
+        <MappingFragment StoreEntitySet="LOP">
+          <ScalarProperty Name="MALOP" ColumnName="MALOP" />
+          <ScalarProperty Name="MAKHOI" ColumnName="MAKHOI" />
+          <ScalarProperty Name="TENLOP" ColumnName="TENLOP" />
+          <ScalarProperty Name="NAMHOC" ColumnName="NAMHOC" />
+          <ScalarProperty Name="SISO" ColumnName="SISO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MONHOC">
+      <EntityTypeMapping TypeName="Models.MONHOC">
+        <MappingFragment StoreEntitySet="MONHOC">
+          <ScalarProperty Name="MAMONHOC" ColumnName="MAMONHOC" />
+          <ScalarProperty Name="TENMONHOC" ColumnName="TENMONHOC" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NAMHOC">
+      <EntityTypeMapping TypeName="Models.NAMHOC">
+        <MappingFragment StoreEntitySet="NAMHOC">
+          <ScalarProperty Name="NAMHOC1" ColumnName="NAMHOC" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="XEPLOP" TypeName="Models.XEPLOP" StoreEntitySet="XEPLOP">
+      <EndProperty Name="HOSOHOCSINH">
+        <ScalarProperty Name="MAHOCSINH" ColumnName="MAHOCSINH" />
+      </EndProperty>
+      <EndProperty Name="LOP">
+        <ScalarProperty Name="MALOP" ColumnName="MALOP" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <FunctionImportMapping FunctionImportName="usp_DeleteBangdiem" FunctionName="Models.Store.usp_DeleteBangdiem" />
+    <FunctionImportMapping FunctionImportName="usp_DeleteBangdiemsDynamic" FunctionName="Models.Store.usp_DeleteBangdiemsDynamic" />
+    <FunctionImportMapping FunctionImportName="usp_DeleteDiem" FunctionName="Models.Store.usp_DeleteDiem" />
+    <FunctionImportMapping FunctionImportName="usp_DeleteDiemsDynamic" FunctionName="Models.Store.usp_DeleteDiemsDynamic" />
+    <FunctionImportMapping FunctionImportName="usp_DeleteHockiesDynamic" FunctionName="Models.Store.usp_DeleteHockiesDynamic" />
+    <FunctionImportMapping FunctionImportName="usp_DeleteHocky" FunctionName="Models.Store.usp_DeleteHocky" />
+    <FunctionImportMapping FunctionImportName="usp_DeleteHosohocsinh" FunctionName="Models.Store.usp_DeleteHosohocsinh" />
+    <FunctionImportMapping FunctionImportName="usp_DeleteHosohocsinhsDynamic" FunctionName="Models.Store.usp_DeleteHosohocsinhsDynamic" />
+    <FunctionImportMapping FunctionImportName="usp_DeleteKhoi" FunctionName="Models.Store.usp_DeleteKhoi" />
+    <FunctionImportMapping FunctionImportName="usp_DeleteKhoisDynamic" FunctionName="Models.Store.usp_DeleteKhoisDynamic" />
+    <FunctionImportMapping FunctionImportName="usp_DeleteLoaidiem" FunctionName="Models.Store.usp_DeleteLoaidiem" />
+    <FunctionImportMapping FunctionImportName="usp_DeleteLoaidiemsDynamic" FunctionName="Models.Store.usp_DeleteLoaidiemsDynamic" />
+    <FunctionImportMapping FunctionImportName="usp_DeleteLop" FunctionName="Models.Store.usp_DeleteLop" />
+    <FunctionImportMapping FunctionImportName="usp_DeleteLopsDynamic" FunctionName="Models.Store.usp_DeleteLopsDynamic" />
+    <FunctionImportMapping FunctionImportName="usp_DeleteMonhoc" FunctionName="Models.Store.usp_DeleteMonhoc" />
+    <FunctionImportMapping FunctionImportName="usp_DeleteMonhocsDynamic" FunctionName="Models.Store.usp_DeleteMonhocsDynamic" />
+    <FunctionImportMapping FunctionImportName="usp_DeleteNamhoc" FunctionName="Models.Store.usp_DeleteNamhoc" />
+    <FunctionImportMapping FunctionImportName="usp_DeleteNamhocsDynamic" FunctionName="Models.Store.usp_DeleteNamhocsDynamic" />
+    <FunctionImportMapping FunctionImportName="usp_DeleteXeplop" FunctionName="Models.Store.usp_DeleteXeplop" />
+    <FunctionImportMapping FunctionImportName="usp_DeleteXeplopsByMALOP" FunctionName="Models.Store.usp_DeleteXeplopsByMALOP" />
+    <FunctionImportMapping FunctionImportName="usp_DeleteXeplopsDynamic" FunctionName="Models.Store.usp_DeleteXeplopsDynamic" />
+    <FunctionImportMapping FunctionImportName="usp_InsertBangdiem" FunctionName="Models.Store.usp_InsertBangdiem" />
+    <FunctionImportMapping FunctionImportName="usp_InsertBangdiemNull" FunctionName="Models.Store.usp_InsertBangdiemNull" />
+    <FunctionImportMapping FunctionImportName="usp_InsertDiem" FunctionName="Models.Store.usp_InsertDiem" />
+    <FunctionImportMapping FunctionImportName="usp_InsertHocky" FunctionName="Models.Store.usp_InsertHocky" />
+    <FunctionImportMapping FunctionImportName="usp_InsertHosohocsinh" FunctionName="Models.Store.usp_InsertHosohocsinh" />
+    <FunctionImportMapping FunctionImportName="usp_InsertKhoi" FunctionName="Models.Store.usp_InsertKhoi" />
+    <FunctionImportMapping FunctionImportName="usp_InsertLoaidiem" FunctionName="Models.Store.usp_InsertLoaidiem" />
+    <FunctionImportMapping FunctionImportName="usp_InsertLop" FunctionName="Models.Store.usp_InsertLop" />
+    <FunctionImportMapping FunctionImportName="usp_InsertMonhoc" FunctionName="Models.Store.usp_InsertMonhoc" />
+    <FunctionImportMapping FunctionImportName="usp_InsertNamhoc" FunctionName="Models.Store.usp_InsertNamhoc" />
+    <FunctionImportMapping FunctionImportName="usp_InsertXeplop" FunctionName="Models.Store.usp_InsertXeplop" />
+    <FunctionImportMapping FunctionImportName="usp_SelectBangdiem" FunctionName="Models.Store.usp_SelectBangdiem">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.usp_SelectBangdiem_Result">
+          <ScalarProperty Name="MAHOCSINH" ColumnName="MAHOCSINH" />
+          <ScalarProperty Name="MAMONHOC" ColumnName="MAMONHOC" />
+          <ScalarProperty Name="MAHOCKY" ColumnName="MAHOCKY" />
+          <ScalarProperty Name="NAMHOC" ColumnName="NAMHOC" />
+          <ScalarProperty Name="MADIEM15" ColumnName="MADIEM15" />
+          <ScalarProperty Name="MADIEM1T" ColumnName="MADIEM1T" />
+          <ScalarProperty Name="MADIEMHK" ColumnName="MADIEMHK" />
+          <ScalarProperty Name="DIEMTRUNGBINH" ColumnName="DIEMTRUNGBINH" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_SelectBangdiemNamHocByMaHocSinh" FunctionName="Models.Store.usp_SelectBangdiemNamHocByMaHocSinh">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.usp_SelectBangdiemNamHocByMaHocSinh_Result">
+          <ScalarProperty Name="MAHOCSINH" ColumnName="MAHOCSINH" />
+          <ScalarProperty Name="MAMONHOC" ColumnName="MAMONHOC" />
+          <ScalarProperty Name="MAHOCKY" ColumnName="MAHOCKY" />
+          <ScalarProperty Name="NAMHOC" ColumnName="NAMHOC" />
+          <ScalarProperty Name="MADIEM15" ColumnName="MADIEM15" />
+          <ScalarProperty Name="MADIEM1T" ColumnName="MADIEM1T" />
+          <ScalarProperty Name="MADIEMHK" ColumnName="MADIEMHK" />
+          <ScalarProperty Name="DIEMTRUNGBINH" ColumnName="DIEMTRUNGBINH" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_SelectBangdiemsAll" FunctionName="Models.Store.usp_SelectBangdiemsAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.usp_SelectBangdiemsAll_Result">
+          <ScalarProperty Name="MAHOCSINH" ColumnName="MAHOCSINH" />
+          <ScalarProperty Name="MAMONHOC" ColumnName="MAMONHOC" />
+          <ScalarProperty Name="MAHOCKY" ColumnName="MAHOCKY" />
+          <ScalarProperty Name="NAMHOC" ColumnName="NAMHOC" />
+          <ScalarProperty Name="MADIEM15" ColumnName="MADIEM15" />
+          <ScalarProperty Name="MADIEM1T" ColumnName="MADIEM1T" />
+          <ScalarProperty Name="MADIEMHK" ColumnName="MADIEMHK" />
+          <ScalarProperty Name="DIEMTRUNGBINH" ColumnName="DIEMTRUNGBINH" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_SelectBangdiemsDynamic" FunctionName="Models.Store.usp_SelectBangdiemsDynamic" />
+    <FunctionImportMapping FunctionImportName="usp_SelectBaoCaoMonHocByNAMHOC_MONHOC_HOCKY" FunctionName="Models.Store.usp_SelectBaoCaoMonHocByNAMHOC_MONHOC_HOCKY">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.usp_SelectBaoCaoMonHocByNAMHOC_MONHOC_HOCKY_Result">
+          <ScalarProperty Name="TENLOP" ColumnName="TENLOP" />
+          <ScalarProperty Name="SISO" ColumnName="SISO" />
+          <ScalarProperty Name="SOLUONGDAT" ColumnName="SOLUONGDAT" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_SelectDiem" FunctionName="Models.Store.usp_SelectDiem">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.usp_SelectDiem_Result">
+          <ScalarProperty Name="MADIEM" ColumnName="MADIEM" />
+          <ScalarProperty Name="MALOAIDIEM" ColumnName="MALOAIDIEM" />
+          <ScalarProperty Name="GIATRI" ColumnName="GIATRI" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_SelectDiemsAll" FunctionName="Models.Store.usp_SelectDiemsAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.usp_SelectDiemsAll_Result">
+          <ScalarProperty Name="MADIEM" ColumnName="MADIEM" />
+          <ScalarProperty Name="MALOAIDIEM" ColumnName="MALOAIDIEM" />
+          <ScalarProperty Name="GIATRI" ColumnName="GIATRI" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_SelectDiemsDynamic" FunctionName="Models.Store.usp_SelectDiemsDynamic" />
+    <FunctionImportMapping FunctionImportName="usp_SelectHockiesAll" FunctionName="Models.Store.usp_SelectHockiesAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.usp_SelectHockiesAll_Result">
+          <ScalarProperty Name="MAHOCKY" ColumnName="MAHOCKY" />
+          <ScalarProperty Name="TENHOCKY" ColumnName="TENHOCKY" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_SelectHockiesDynamic" FunctionName="Models.Store.usp_SelectHockiesDynamic" />
+    <FunctionImportMapping FunctionImportName="usp_SelectHocky" FunctionName="Models.Store.usp_SelectHocky">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.usp_SelectHocky_Result">
+          <ScalarProperty Name="MAHOCKY" ColumnName="MAHOCKY" />
+          <ScalarProperty Name="TENHOCKY" ColumnName="TENHOCKY" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_SelectHocSinhChuaPhanLop" FunctionName="Models.Store.usp_SelectHocSinhChuaPhanLop">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.usp_SelectHocSinhChuaPhanLop_Result">
+          <ScalarProperty Name="MAHOCSINH" ColumnName="MAHOCSINH" />
+          <ScalarProperty Name="HOTEN" ColumnName="HOTEN" />
+          <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+          <ScalarProperty Name="NGAYSINH" ColumnName="NGAYSINH" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_SelectHocSinhTheoMALOP" FunctionName="Models.Store.usp_SelectHocSinhTheoMALOP">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.usp_SelectHocSinhTheoMALOP_Result">
+          <ScalarProperty Name="MAHOCSINH" ColumnName="MAHOCSINH" />
+          <ScalarProperty Name="HOTEN" ColumnName="HOTEN" />
+          <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+          <ScalarProperty Name="NGAYSINH" ColumnName="NGAYSINH" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_SelectHosohocsinh" FunctionName="Models.Store.usp_SelectHosohocsinh">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.usp_SelectHosohocsinh_Result">
+          <ScalarProperty Name="MAHOCSINH" ColumnName="MAHOCSINH" />
+          <ScalarProperty Name="HOTEN" ColumnName="HOTEN" />
+          <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+          <ScalarProperty Name="NGAYSINH" ColumnName="NGAYSINH" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_SelectHosohocsinhsAll" FunctionName="Models.Store.usp_SelectHosohocsinhsAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.usp_SelectHosohocsinhsAll_Result">
+          <ScalarProperty Name="MAHOCSINH" ColumnName="MAHOCSINH" />
+          <ScalarProperty Name="HOTEN" ColumnName="HOTEN" />
+          <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+          <ScalarProperty Name="NGAYSINH" ColumnName="NGAYSINH" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_SelectHosohocsinhsDynamic" FunctionName="Models.Store.usp_SelectHosohocsinhsDynamic" />
+    <FunctionImportMapping FunctionImportName="usp_SelectKhoi" FunctionName="Models.Store.usp_SelectKhoi">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.usp_SelectKhoi_Result">
+          <ScalarProperty Name="MAKHOI" ColumnName="MAKHOI" />
+          <ScalarProperty Name="KHOI" ColumnName="KHOI" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_SelectKhoisAll" FunctionName="Models.Store.usp_SelectKhoisAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.usp_SelectKhoisAll_Result">
+          <ScalarProperty Name="MAKHOI" ColumnName="MAKHOI" />
+          <ScalarProperty Name="KHOI" ColumnName="KHOI" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_SelectKhoisDynamic" FunctionName="Models.Store.usp_SelectKhoisDynamic" />
+    <FunctionImportMapping FunctionImportName="usp_SelectLastMaDiem" FunctionName="Models.Store.usp_SelectLastMaDiem" />
+    <FunctionImportMapping FunctionImportName="usp_SelectLastMaHocSinh" FunctionName="Models.Store.usp_SelectLastMaHocSinh" />
+    <FunctionImportMapping FunctionImportName="usp_SelectLastMaLop" FunctionName="Models.Store.usp_SelectLastMaLop" />
+    <FunctionImportMapping FunctionImportName="usp_SelectLoaidiem" FunctionName="Models.Store.usp_SelectLoaidiem">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.usp_SelectLoaidiem_Result">
+          <ScalarProperty Name="MALOAIDIEM" ColumnName="MALOAIDIEM" />
+          <ScalarProperty Name="TENLOAIDIEM" ColumnName="TENLOAIDIEM" />
+          <ScalarProperty Name="HESO" ColumnName="HESO" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_SelectLoaidiemsAll" FunctionName="Models.Store.usp_SelectLoaidiemsAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.usp_SelectLoaidiemsAll_Result">
+          <ScalarProperty Name="MALOAIDIEM" ColumnName="MALOAIDIEM" />
+          <ScalarProperty Name="TENLOAIDIEM" ColumnName="TENLOAIDIEM" />
+          <ScalarProperty Name="HESO" ColumnName="HESO" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_SelectLoaidiemsDynamic" FunctionName="Models.Store.usp_SelectLoaidiemsDynamic" />
+    <FunctionImportMapping FunctionImportName="usp_SelectLop" FunctionName="Models.Store.usp_SelectLop">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.usp_SelectLop_Result">
+          <ScalarProperty Name="MALOP" ColumnName="MALOP" />
+          <ScalarProperty Name="MAKHOI" ColumnName="MAKHOI" />
+          <ScalarProperty Name="TENLOP" ColumnName="TENLOP" />
+          <ScalarProperty Name="NAMHOC" ColumnName="NAMHOC" />
+          <ScalarProperty Name="SISO" ColumnName="SISO" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_SelectLopByNamHoc" FunctionName="Models.Store.usp_SelectLopByNamHoc">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.usp_SelectLopByNamHoc_Result">
+          <ScalarProperty Name="MALOP" ColumnName="MALOP" />
+          <ScalarProperty Name="MAKHOI" ColumnName="MAKHOI" />
+          <ScalarProperty Name="TENLOP" ColumnName="TENLOP" />
+          <ScalarProperty Name="NAMHOC" ColumnName="NAMHOC" />
+          <ScalarProperty Name="SISO" ColumnName="SISO" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_SelectLopsAll" FunctionName="Models.Store.usp_SelectLopsAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.usp_SelectLopsAll_Result">
+          <ScalarProperty Name="MALOP" ColumnName="MALOP" />
+          <ScalarProperty Name="MAKHOI" ColumnName="MAKHOI" />
+          <ScalarProperty Name="TENLOP" ColumnName="TENLOP" />
+          <ScalarProperty Name="NAMHOC" ColumnName="NAMHOC" />
+          <ScalarProperty Name="SISO" ColumnName="SISO" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_SelectLopsByMAKHOI_NAMHOC" FunctionName="Models.Store.usp_SelectLopsByMAKHOI_NAMHOC">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.usp_SelectLopsByMAKHOI_NAMHOC_Result">
+          <ScalarProperty Name="MALOP" ColumnName="MALOP" />
+          <ScalarProperty Name="MAKHOI" ColumnName="MAKHOI" />
+          <ScalarProperty Name="TENLOP" ColumnName="TENLOP" />
+          <ScalarProperty Name="NAMHOC" ColumnName="NAMHOC" />
+          <ScalarProperty Name="SISO" ColumnName="SISO" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_SelectLopsDynamic" FunctionName="Models.Store.usp_SelectLopsDynamic" />
+    <FunctionImportMapping FunctionImportName="usp_SelectMALOPByMAHOCSINH_NAMHOC" FunctionName="Models.Store.usp_SelectMALOPByMAHOCSINH_NAMHOC" />
+    <FunctionImportMapping FunctionImportName="usp_SelectMonhoc" FunctionName="Models.Store.usp_SelectMonhoc">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.usp_SelectMonhoc_Result">
+          <ScalarProperty Name="MAMONHOC" ColumnName="MAMONHOC" />
+          <ScalarProperty Name="TENMONHOC" ColumnName="TENMONHOC" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_SelectMonhocsAll" FunctionName="Models.Store.usp_SelectMonhocsAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.usp_SelectMonhocsAll_Result">
+          <ScalarProperty Name="MAMONHOC" ColumnName="MAMONHOC" />
+          <ScalarProperty Name="TENMONHOC" ColumnName="TENMONHOC" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_SelectMonhocsDynamic" FunctionName="Models.Store.usp_SelectMonhocsDynamic" />
+    <FunctionImportMapping FunctionImportName="usp_SelectNamhoc" FunctionName="Models.Store.usp_SelectNamhoc" />
+    <FunctionImportMapping FunctionImportName="usp_SelectNamhocsAll" FunctionName="Models.Store.usp_SelectNamhocsAll" />
+    <FunctionImportMapping FunctionImportName="usp_SelectNamhocsDynamic" FunctionName="Models.Store.usp_SelectNamhocsDynamic" />
+    <FunctionImportMapping FunctionImportName="usp_SelectThamSoAll" FunctionName="Models.Store.usp_SelectThamSoAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.usp_SelectThamSoAll_Result">
+          <ScalarProperty Name="TUOITOITHIEU" ColumnName="TUOITOITHIEU" />
+          <ScalarProperty Name="TUOITOIDA" ColumnName="TUOITOIDA" />
+          <ScalarProperty Name="SISOTOIDA" ColumnName="SISOTOIDA" />
+          <ScalarProperty Name="DIEMTOITHIEU" ColumnName="DIEMTOITHIEU" />
+          <ScalarProperty Name="DIEMTOIDA" ColumnName="DIEMTOIDA" />
+          <ScalarProperty Name="DIEMDATMON" ColumnName="DIEMDATMON" />
+          <ScalarProperty Name="SOLOPTOIDAKHOI10" ColumnName="SOLOPTOIDAKHOI10" />
+          <ScalarProperty Name="SOLOPTOIDAKHOI11" ColumnName="SOLOPTOIDAKHOI11" />
+          <ScalarProperty Name="SOLOPTOIDAKHOI12" ColumnName="SOLOPTOIDAKHOI12" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_SelectXeplop" FunctionName="Models.Store.usp_SelectXeplop">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.usp_SelectXeplop_Result">
+          <ScalarProperty Name="MAHOCSINH" ColumnName="MAHOCSINH" />
+          <ScalarProperty Name="MALOP" ColumnName="MALOP" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_SelectXeplopsAll" FunctionName="Models.Store.usp_SelectXeplopsAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.usp_SelectXeplopsAll_Result">
+          <ScalarProperty Name="MAHOCSINH" ColumnName="MAHOCSINH" />
+          <ScalarProperty Name="MALOP" ColumnName="MALOP" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_SelectXeplopsByMAHOCSINH" FunctionName="Models.Store.usp_SelectXeplopsByMAHOCSINH">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.usp_SelectXeplopsByMAHOCSINH_Result">
+          <ScalarProperty Name="MAHOCSINH" ColumnName="MAHOCSINH" />
+          <ScalarProperty Name="MALOP" ColumnName="MALOP" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_SelectXeplopsByMALOP" FunctionName="Models.Store.usp_SelectXeplopsByMALOP">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.usp_SelectXeplopsByMALOP_Result">
+          <ScalarProperty Name="MAHOCSINH" ColumnName="MAHOCSINH" />
+          <ScalarProperty Name="MALOP" ColumnName="MALOP" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_SelectXeplopsDynamic" FunctionName="Models.Store.usp_SelectXeplopsDynamic" />
+    <FunctionImportMapping FunctionImportName="usp_UpdateBangdiem" FunctionName="Models.Store.usp_UpdateBangdiem" />
+    <FunctionImportMapping FunctionImportName="usp_UpdateDiem" FunctionName="Models.Store.usp_UpdateDiem" />
+    <FunctionImportMapping FunctionImportName="usp_UpdateHocky" FunctionName="Models.Store.usp_UpdateHocky" />
+    <FunctionImportMapping FunctionImportName="usp_UpdateHosohocsinh" FunctionName="Models.Store.usp_UpdateHosohocsinh" />
+    <FunctionImportMapping FunctionImportName="usp_UpdateKhoi" FunctionName="Models.Store.usp_UpdateKhoi" />
+    <FunctionImportMapping FunctionImportName="usp_UpdateLoaidiem" FunctionName="Models.Store.usp_UpdateLoaidiem" />
+    <FunctionImportMapping FunctionImportName="usp_UpdateLop" FunctionName="Models.Store.usp_UpdateLop" />
+    <FunctionImportMapping FunctionImportName="usp_UpdateMonhoc" FunctionName="Models.Store.usp_UpdateMonhoc" />
+    <FunctionImportMapping FunctionImportName="usp_UpdateThamSo" FunctionName="Models.Store.usp_UpdateThamSo" />
+    <FunctionImportMapping FunctionImportName="usp_UpdateXeplop" FunctionName="Models.Store.usp_UpdateXeplop" />
+  </EntityContainerMapping>
+</Mapping>

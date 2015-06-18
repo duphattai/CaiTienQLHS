@@ -1,0 +1,962 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="BANGDIEM">
+    <Key>
+      <PropertyRef Name="MAHOCSINH" />
+      <PropertyRef Name="MAMONHOC" />
+      <PropertyRef Name="MAHOCKY" />
+      <PropertyRef Name="NAMHOC" />
+    </Key>
+    <Property Name="MAHOCSINH" Type="Int32" Nullable="false" />
+    <Property Name="MAMONHOC" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MAHOCKY" Type="Int32" Nullable="false" />
+    <Property Name="NAMHOC" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MADIEM15" Type="Int32" />
+    <Property Name="MADIEM1T" Type="Int32" />
+    <Property Name="MADIEMHK" Type="Int32" />
+    <Property Name="DIEMTRUNGBINH" Type="Double" />
+    <NavigationProperty Name="DIEM" Relationship="Self.FK__BANGDIEM__MADIEM__7D439ABD" FromRole="BANGDIEM" ToRole="DIEM" />
+    <NavigationProperty Name="DIEM1" Relationship="Self.FK__BANGDIEM__MADIEM__7E37BEF6" FromRole="BANGDIEM" ToRole="DIEM" />
+    <NavigationProperty Name="DIEM2" Relationship="Self.FK__BANGDIEM__MADIEM__7F2BE32F" FromRole="BANGDIEM" ToRole="DIEM" />
+    <NavigationProperty Name="HOCKY" Relationship="Self.FK__BANGDIEM__MAHOCK__00200768" FromRole="BANGDIEM" ToRole="HOCKY" />
+    <NavigationProperty Name="HOSOHOCSINH" Relationship="Self.FK__BANGDIEM__MAHOCS__01142BA1" FromRole="BANGDIEM" ToRole="HOSOHOCSINH" />
+    <NavigationProperty Name="MONHOC" Relationship="Self.FK__BANGDIEM__MAMONH__02084FDA" FromRole="BANGDIEM" ToRole="MONHOC" />
+    <NavigationProperty Name="NAMHOC1" Relationship="Self.FK__BANGDIEM__NAMHOC__02FC7413" FromRole="BANGDIEM" ToRole="NAMHOC" />
+  </EntityType>
+  <EntityType Name="BAOCAOHOCKY">
+    <Key>
+      <PropertyRef Name="MABAOCAOHOCKY" />
+    </Key>
+    <Property Name="MABAOCAOHOCKY" Type="Int32" Nullable="false" />
+    <Property Name="MAHOCKY" Type="Int32" />
+    <Property Name="NAMHOC" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="HOCKY" Relationship="Self.FK__BAOCAOHOC__MAHOC__03F0984C" FromRole="BAOCAOHOCKY" ToRole="HOCKY" />
+    <NavigationProperty Name="NAMHOC1" Relationship="Self.FK__BAOCAOHOC__NAMHO__04E4BC85" FromRole="BAOCAOHOCKY" ToRole="NAMHOC" />
+    <NavigationProperty Name="CHITIETBAOCAOHOCKY" Relationship="Self.FK__CHITIETBA__MABAO__07C12930" FromRole="BAOCAOHOCKY" ToRole="CHITIETBAOCAOHOCKY" />
+  </EntityType>
+  <EntityType Name="BAOCAOMONHOC">
+    <Key>
+      <PropertyRef Name="MABAOCAOMON" />
+    </Key>
+    <Property Name="MABAOCAOMON" Type="Int32" Nullable="false" />
+    <Property Name="MAMONHOC" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="MAHOCKY" Type="Int32" />
+    <Property Name="NAMHOC" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="MONHOC" Relationship="Self.FK__BAOCAOMON__MAMON__05D8E0BE" FromRole="BAOCAOMONHOC" ToRole="MONHOC" />
+    <NavigationProperty Name="NAMHOC1" Relationship="Self.FK__BAOCAOMON__NAMHO__06CD04F7" FromRole="BAOCAOMONHOC" ToRole="NAMHOC" />
+    <NavigationProperty Name="CHITIETBAOCAOMON" Relationship="Self.FK__CHITIETBA__MABAO__09A971A2" FromRole="BAOCAOMONHOC" ToRole="CHITIETBAOCAOMON" />
+  </EntityType>
+  <EntityType Name="CHITIETBAOCAOHOCKY">
+    <Key>
+      <PropertyRef Name="MABAOCAOHOCKY" />
+      <PropertyRef Name="MALOP" />
+    </Key>
+    <Property Name="MABAOCAOHOCKY" Type="Int32" Nullable="false" />
+    <Property Name="MALOP" Type="Int32" Nullable="false" />
+    <Property Name="SOLUONGDAT" Type="Int32" />
+    <NavigationProperty Name="BAOCAOHOCKY" Relationship="Self.FK__CHITIETBA__MABAO__07C12930" FromRole="CHITIETBAOCAOHOCKY" ToRole="BAOCAOHOCKY" />
+    <NavigationProperty Name="LOP" Relationship="Self.FK__CHITIETBA__MALOP__08B54D69" FromRole="CHITIETBAOCAOHOCKY" ToRole="LOP" />
+  </EntityType>
+  <EntityType Name="CHITIETBAOCAOMON">
+    <Key>
+      <PropertyRef Name="MABAOCAOMON" />
+      <PropertyRef Name="MALOP" />
+    </Key>
+    <Property Name="MABAOCAOMON" Type="Int32" Nullable="false" />
+    <Property Name="MALOP" Type="Int32" Nullable="false" />
+    <Property Name="SOLUONGDAT" Type="Int32" />
+    <NavigationProperty Name="BAOCAOMONHOC" Relationship="Self.FK__CHITIETBA__MABAO__09A971A2" FromRole="CHITIETBAOCAOMON" ToRole="BAOCAOMONHOC" />
+    <NavigationProperty Name="LOP" Relationship="Self.FK__CHITIETBA__MALOP__0A9D95DB" FromRole="CHITIETBAOCAOMON" ToRole="LOP" />
+  </EntityType>
+  <EntityType Name="DIEM">
+    <Key>
+      <PropertyRef Name="MADIEM" />
+    </Key>
+    <Property Name="MADIEM" Type="Int32" Nullable="false" />
+    <Property Name="MALOAIDIEM" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="GIATRI" Type="Double" Nullable="false" />
+    <NavigationProperty Name="BANGDIEM" Relationship="Self.FK__BANGDIEM__MADIEM__7D439ABD" FromRole="DIEM" ToRole="BANGDIEM" />
+    <NavigationProperty Name="BANGDIEM1" Relationship="Self.FK__BANGDIEM__MADIEM__7E37BEF6" FromRole="DIEM" ToRole="BANGDIEM" />
+    <NavigationProperty Name="BANGDIEM2" Relationship="Self.FK__BANGDIEM__MADIEM__7F2BE32F" FromRole="DIEM" ToRole="BANGDIEM" />
+    <NavigationProperty Name="LOAIDIEM" Relationship="Self.FK__DIEM__MALOAIDIEM__0B91BA14" FromRole="DIEM" ToRole="LOAIDIEM" />
+  </EntityType>
+  <EntityType Name="HOCKY">
+    <Key>
+      <PropertyRef Name="MAHOCKY" />
+    </Key>
+    <Property Name="MAHOCKY" Type="Int32" Nullable="false" />
+    <Property Name="TENHOCKY" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="BANGDIEM" Relationship="Self.FK__BANGDIEM__MAHOCK__00200768" FromRole="HOCKY" ToRole="BANGDIEM" />
+    <NavigationProperty Name="BAOCAOHOCKY" Relationship="Self.FK__BAOCAOHOC__MAHOC__03F0984C" FromRole="HOCKY" ToRole="BAOCAOHOCKY" />
+  </EntityType>
+  <EntityType Name="HOSOHOCSINH">
+    <Key>
+      <PropertyRef Name="MAHOCSINH" />
+    </Key>
+    <Property Name="MAHOCSINH" Type="Int32" Nullable="false" />
+    <Property Name="HOTEN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DIACHI" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NGAYSINH" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="GIOITINH" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="BANGDIEM" Relationship="Self.FK__BANGDIEM__MAHOCS__01142BA1" FromRole="HOSOHOCSINH" ToRole="BANGDIEM" />
+    <NavigationProperty Name="LOP" Relationship="Self.XEPLOP" FromRole="HOSOHOCSINH" ToRole="LOP" />
+  </EntityType>
+  <EntityType Name="KHOI">
+    <Key>
+      <PropertyRef Name="MAKHOI" />
+    </Key>
+    <Property Name="MAKHOI" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="KHOI1" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="LOP" Relationship="Self.FK__LOP__MAKHOI__0C85DE4D" FromRole="KHOI" ToRole="LOP" />
+  </EntityType>
+  <EntityType Name="LOAIDIEM">
+    <Key>
+      <PropertyRef Name="MALOAIDIEM" />
+    </Key>
+    <Property Name="MALOAIDIEM" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TENLOAIDIEM" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="HESO" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="DIEM" Relationship="Self.FK__DIEM__MALOAIDIEM__0B91BA14" FromRole="LOAIDIEM" ToRole="DIEM" />
+  </EntityType>
+  <EntityType Name="LOP">
+    <Key>
+      <PropertyRef Name="MALOP" />
+    </Key>
+    <Property Name="MALOP" Type="Int32" Nullable="false" />
+    <Property Name="MAKHOI" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="TENLOP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NAMHOC" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="SISO" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CHITIETBAOCAOHOCKY" Relationship="Self.FK__CHITIETBA__MALOP__08B54D69" FromRole="LOP" ToRole="CHITIETBAOCAOHOCKY" />
+    <NavigationProperty Name="CHITIETBAOCAOMON" Relationship="Self.FK__CHITIETBA__MALOP__0A9D95DB" FromRole="LOP" ToRole="CHITIETBAOCAOMON" />
+    <NavigationProperty Name="KHOI" Relationship="Self.FK__LOP__MAKHOI__0C85DE4D" FromRole="LOP" ToRole="KHOI" />
+    <NavigationProperty Name="NAMHOC1" Relationship="Self.FK__LOP__NAMHOC__0D7A0286" FromRole="LOP" ToRole="NAMHOC" />
+    <NavigationProperty Name="HOSOHOCSINH" Relationship="Self.XEPLOP" FromRole="LOP" ToRole="HOSOHOCSINH" />
+  </EntityType>
+  <EntityType Name="MONHOC">
+    <Key>
+      <PropertyRef Name="MAMONHOC" />
+    </Key>
+    <Property Name="MAMONHOC" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TENMONHOC" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="BANGDIEM" Relationship="Self.FK__BANGDIEM__MAMONH__02084FDA" FromRole="MONHOC" ToRole="BANGDIEM" />
+    <NavigationProperty Name="BAOCAOMONHOC" Relationship="Self.FK__BAOCAOMON__MAMON__05D8E0BE" FromRole="MONHOC" ToRole="BAOCAOMONHOC" />
+  </EntityType>
+  <EntityType Name="NAMHOC">
+    <Key>
+      <PropertyRef Name="NAMHOC1" />
+    </Key>
+    <Property Name="NAMHOC1" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="BANGDIEM" Relationship="Self.FK__BANGDIEM__NAMHOC__02FC7413" FromRole="NAMHOC" ToRole="BANGDIEM" />
+    <NavigationProperty Name="BAOCAOHOCKY" Relationship="Self.FK__BAOCAOHOC__NAMHO__04E4BC85" FromRole="NAMHOC" ToRole="BAOCAOHOCKY" />
+    <NavigationProperty Name="BAOCAOMONHOC" Relationship="Self.FK__BAOCAOMON__NAMHO__06CD04F7" FromRole="NAMHOC" ToRole="BAOCAOMONHOC" />
+    <NavigationProperty Name="LOP" Relationship="Self.FK__LOP__NAMHOC__0D7A0286" FromRole="NAMHOC" ToRole="LOP" />
+  </EntityType>
+  <Association Name="FK__BANGDIEM__MADIEM__7D439ABD">
+    <End Role="DIEM" Type="Self.DIEM" Multiplicity="0..1" />
+    <End Role="BANGDIEM" Type="Self.BANGDIEM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DIEM">
+        <PropertyRef Name="MADIEM" />
+      </Principal>
+      <Dependent Role="BANGDIEM">
+        <PropertyRef Name="MADIEM15" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BANGDIEM__MADIEM__7E37BEF6">
+    <End Role="DIEM" Type="Self.DIEM" Multiplicity="0..1" />
+    <End Role="BANGDIEM" Type="Self.BANGDIEM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DIEM">
+        <PropertyRef Name="MADIEM" />
+      </Principal>
+      <Dependent Role="BANGDIEM">
+        <PropertyRef Name="MADIEM1T" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BANGDIEM__MADIEM__7F2BE32F">
+    <End Role="DIEM" Type="Self.DIEM" Multiplicity="0..1" />
+    <End Role="BANGDIEM" Type="Self.BANGDIEM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DIEM">
+        <PropertyRef Name="MADIEM" />
+      </Principal>
+      <Dependent Role="BANGDIEM">
+        <PropertyRef Name="MADIEMHK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BANGDIEM__MAHOCK__00200768">
+    <End Role="HOCKY" Type="Self.HOCKY" Multiplicity="1" />
+    <End Role="BANGDIEM" Type="Self.BANGDIEM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HOCKY">
+        <PropertyRef Name="MAHOCKY" />
+      </Principal>
+      <Dependent Role="BANGDIEM">
+        <PropertyRef Name="MAHOCKY" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BANGDIEM__MAHOCS__01142BA1">
+    <End Role="HOSOHOCSINH" Type="Self.HOSOHOCSINH" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="BANGDIEM" Type="Self.BANGDIEM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HOSOHOCSINH">
+        <PropertyRef Name="MAHOCSINH" />
+      </Principal>
+      <Dependent Role="BANGDIEM">
+        <PropertyRef Name="MAHOCSINH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BANGDIEM__MAMONH__02084FDA">
+    <End Role="MONHOC" Type="Self.MONHOC" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="BANGDIEM" Type="Self.BANGDIEM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MONHOC">
+        <PropertyRef Name="MAMONHOC" />
+      </Principal>
+      <Dependent Role="BANGDIEM">
+        <PropertyRef Name="MAMONHOC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BANGDIEM__NAMHOC__02FC7413">
+    <End Role="NAMHOC" Type="Self.NAMHOC" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="BANGDIEM" Type="Self.BANGDIEM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NAMHOC">
+        <PropertyRef Name="NAMHOC1" />
+      </Principal>
+      <Dependent Role="BANGDIEM">
+        <PropertyRef Name="NAMHOC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BAOCAOHOC__MAHOC__03F0984C">
+    <End Role="HOCKY" Type="Self.HOCKY" Multiplicity="0..1" />
+    <End Role="BAOCAOHOCKY" Type="Self.BAOCAOHOCKY" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HOCKY">
+        <PropertyRef Name="MAHOCKY" />
+      </Principal>
+      <Dependent Role="BAOCAOHOCKY">
+        <PropertyRef Name="MAHOCKY" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BAOCAOHOC__NAMHO__04E4BC85">
+    <End Role="NAMHOC" Type="Self.NAMHOC" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="BAOCAOHOCKY" Type="Self.BAOCAOHOCKY" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NAMHOC">
+        <PropertyRef Name="NAMHOC1" />
+      </Principal>
+      <Dependent Role="BAOCAOHOCKY">
+        <PropertyRef Name="NAMHOC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CHITIETBA__MABAO__07C12930">
+    <End Role="BAOCAOHOCKY" Type="Self.BAOCAOHOCKY" Multiplicity="1" />
+    <End Role="CHITIETBAOCAOHOCKY" Type="Self.CHITIETBAOCAOHOCKY" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BAOCAOHOCKY">
+        <PropertyRef Name="MABAOCAOHOCKY" />
+      </Principal>
+      <Dependent Role="CHITIETBAOCAOHOCKY">
+        <PropertyRef Name="MABAOCAOHOCKY" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BAOCAOMON__MAMON__05D8E0BE">
+    <End Role="MONHOC" Type="Self.MONHOC" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="BAOCAOMONHOC" Type="Self.BAOCAOMONHOC" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MONHOC">
+        <PropertyRef Name="MAMONHOC" />
+      </Principal>
+      <Dependent Role="BAOCAOMONHOC">
+        <PropertyRef Name="MAMONHOC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BAOCAOMON__NAMHO__06CD04F7">
+    <End Role="NAMHOC" Type="Self.NAMHOC" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="BAOCAOMONHOC" Type="Self.BAOCAOMONHOC" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NAMHOC">
+        <PropertyRef Name="NAMHOC1" />
+      </Principal>
+      <Dependent Role="BAOCAOMONHOC">
+        <PropertyRef Name="NAMHOC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CHITIETBA__MABAO__09A971A2">
+    <End Role="BAOCAOMONHOC" Type="Self.BAOCAOMONHOC" Multiplicity="1" />
+    <End Role="CHITIETBAOCAOMON" Type="Self.CHITIETBAOCAOMON" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BAOCAOMONHOC">
+        <PropertyRef Name="MABAOCAOMON" />
+      </Principal>
+      <Dependent Role="CHITIETBAOCAOMON">
+        <PropertyRef Name="MABAOCAOMON" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CHITIETBA__MALOP__08B54D69">
+    <End Role="LOP" Type="Self.LOP" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CHITIETBAOCAOHOCKY" Type="Self.CHITIETBAOCAOHOCKY" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LOP">
+        <PropertyRef Name="MALOP" />
+      </Principal>
+      <Dependent Role="CHITIETBAOCAOHOCKY">
+        <PropertyRef Name="MALOP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CHITIETBA__MALOP__0A9D95DB">
+    <End Role="LOP" Type="Self.LOP" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CHITIETBAOCAOMON" Type="Self.CHITIETBAOCAOMON" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LOP">
+        <PropertyRef Name="MALOP" />
+      </Principal>
+      <Dependent Role="CHITIETBAOCAOMON">
+        <PropertyRef Name="MALOP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DIEM__MALOAIDIEM__0B91BA14">
+    <End Role="LOAIDIEM" Type="Self.LOAIDIEM" Multiplicity="0..1" />
+    <End Role="DIEM" Type="Self.DIEM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LOAIDIEM">
+        <PropertyRef Name="MALOAIDIEM" />
+      </Principal>
+      <Dependent Role="DIEM">
+        <PropertyRef Name="MALOAIDIEM" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LOP__MAKHOI__0C85DE4D">
+    <End Role="KHOI" Type="Self.KHOI" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="LOP" Type="Self.LOP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KHOI">
+        <PropertyRef Name="MAKHOI" />
+      </Principal>
+      <Dependent Role="LOP">
+        <PropertyRef Name="MAKHOI" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LOP__NAMHOC__0D7A0286">
+    <End Role="NAMHOC" Type="Self.NAMHOC" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="LOP" Type="Self.LOP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NAMHOC">
+        <PropertyRef Name="NAMHOC1" />
+      </Principal>
+      <Dependent Role="LOP">
+        <PropertyRef Name="NAMHOC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="XEPLOP">
+    <End Role="HOSOHOCSINH" Type="Self.HOSOHOCSINH" Multiplicity="*" />
+    <End Role="LOP" Type="Self.LOP" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="QLHSEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="BANGDIEM" EntityType="Self.BANGDIEM" />
+    <EntitySet Name="BAOCAOHOCKY" EntityType="Self.BAOCAOHOCKY" />
+    <EntitySet Name="BAOCAOMONHOC" EntityType="Self.BAOCAOMONHOC" />
+    <EntitySet Name="CHITIETBAOCAOHOCKY" EntityType="Self.CHITIETBAOCAOHOCKY" />
+    <EntitySet Name="CHITIETBAOCAOMON" EntityType="Self.CHITIETBAOCAOMON" />
+    <EntitySet Name="DIEM" EntityType="Self.DIEM" />
+    <EntitySet Name="HOCKY" EntityType="Self.HOCKY" />
+    <EntitySet Name="HOSOHOCSINH" EntityType="Self.HOSOHOCSINH" />
+    <EntitySet Name="KHOI" EntityType="Self.KHOI" />
+    <EntitySet Name="LOAIDIEM" EntityType="Self.LOAIDIEM" />
+    <EntitySet Name="LOP" EntityType="Self.LOP" />
+    <EntitySet Name="MONHOC" EntityType="Self.MONHOC" />
+    <EntitySet Name="NAMHOC" EntityType="Self.NAMHOC" />
+    <AssociationSet Name="FK__BANGDIEM__MADIEM__7D439ABD" Association="Self.FK__BANGDIEM__MADIEM__7D439ABD">
+      <End Role="DIEM" EntitySet="DIEM" />
+      <End Role="BANGDIEM" EntitySet="BANGDIEM" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BANGDIEM__MADIEM__7E37BEF6" Association="Self.FK__BANGDIEM__MADIEM__7E37BEF6">
+      <End Role="DIEM" EntitySet="DIEM" />
+      <End Role="BANGDIEM" EntitySet="BANGDIEM" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BANGDIEM__MADIEM__7F2BE32F" Association="Self.FK__BANGDIEM__MADIEM__7F2BE32F">
+      <End Role="DIEM" EntitySet="DIEM" />
+      <End Role="BANGDIEM" EntitySet="BANGDIEM" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BANGDIEM__MAHOCK__00200768" Association="Self.FK__BANGDIEM__MAHOCK__00200768">
+      <End Role="HOCKY" EntitySet="HOCKY" />
+      <End Role="BANGDIEM" EntitySet="BANGDIEM" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BANGDIEM__MAHOCS__01142BA1" Association="Self.FK__BANGDIEM__MAHOCS__01142BA1">
+      <End Role="HOSOHOCSINH" EntitySet="HOSOHOCSINH" />
+      <End Role="BANGDIEM" EntitySet="BANGDIEM" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BANGDIEM__MAMONH__02084FDA" Association="Self.FK__BANGDIEM__MAMONH__02084FDA">
+      <End Role="MONHOC" EntitySet="MONHOC" />
+      <End Role="BANGDIEM" EntitySet="BANGDIEM" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BANGDIEM__NAMHOC__02FC7413" Association="Self.FK__BANGDIEM__NAMHOC__02FC7413">
+      <End Role="NAMHOC" EntitySet="NAMHOC" />
+      <End Role="BANGDIEM" EntitySet="BANGDIEM" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BAOCAOHOC__MAHOC__03F0984C" Association="Self.FK__BAOCAOHOC__MAHOC__03F0984C">
+      <End Role="HOCKY" EntitySet="HOCKY" />
+      <End Role="BAOCAOHOCKY" EntitySet="BAOCAOHOCKY" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BAOCAOHOC__NAMHO__04E4BC85" Association="Self.FK__BAOCAOHOC__NAMHO__04E4BC85">
+      <End Role="NAMHOC" EntitySet="NAMHOC" />
+      <End Role="BAOCAOHOCKY" EntitySet="BAOCAOHOCKY" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CHITIETBA__MABAO__07C12930" Association="Self.FK__CHITIETBA__MABAO__07C12930">
+      <End Role="BAOCAOHOCKY" EntitySet="BAOCAOHOCKY" />
+      <End Role="CHITIETBAOCAOHOCKY" EntitySet="CHITIETBAOCAOHOCKY" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BAOCAOMON__MAMON__05D8E0BE" Association="Self.FK__BAOCAOMON__MAMON__05D8E0BE">
+      <End Role="MONHOC" EntitySet="MONHOC" />
+      <End Role="BAOCAOMONHOC" EntitySet="BAOCAOMONHOC" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BAOCAOMON__NAMHO__06CD04F7" Association="Self.FK__BAOCAOMON__NAMHO__06CD04F7">
+      <End Role="NAMHOC" EntitySet="NAMHOC" />
+      <End Role="BAOCAOMONHOC" EntitySet="BAOCAOMONHOC" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CHITIETBA__MABAO__09A971A2" Association="Self.FK__CHITIETBA__MABAO__09A971A2">
+      <End Role="BAOCAOMONHOC" EntitySet="BAOCAOMONHOC" />
+      <End Role="CHITIETBAOCAOMON" EntitySet="CHITIETBAOCAOMON" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CHITIETBA__MALOP__08B54D69" Association="Self.FK__CHITIETBA__MALOP__08B54D69">
+      <End Role="LOP" EntitySet="LOP" />
+      <End Role="CHITIETBAOCAOHOCKY" EntitySet="CHITIETBAOCAOHOCKY" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CHITIETBA__MALOP__0A9D95DB" Association="Self.FK__CHITIETBA__MALOP__0A9D95DB">
+      <End Role="LOP" EntitySet="LOP" />
+      <End Role="CHITIETBAOCAOMON" EntitySet="CHITIETBAOCAOMON" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DIEM__MALOAIDIEM__0B91BA14" Association="Self.FK__DIEM__MALOAIDIEM__0B91BA14">
+      <End Role="LOAIDIEM" EntitySet="LOAIDIEM" />
+      <End Role="DIEM" EntitySet="DIEM" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LOP__MAKHOI__0C85DE4D" Association="Self.FK__LOP__MAKHOI__0C85DE4D">
+      <End Role="KHOI" EntitySet="KHOI" />
+      <End Role="LOP" EntitySet="LOP" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LOP__NAMHOC__0D7A0286" Association="Self.FK__LOP__NAMHOC__0D7A0286">
+      <End Role="NAMHOC" EntitySet="NAMHOC" />
+      <End Role="LOP" EntitySet="LOP" />
+    </AssociationSet>
+    <AssociationSet Name="XEPLOP" Association="Self.XEPLOP">
+      <End Role="HOSOHOCSINH" EntitySet="HOSOHOCSINH" />
+      <End Role="LOP" EntitySet="LOP" />
+    </AssociationSet>
+    <FunctionImport Name="usp_DeleteBangdiem">
+      <Parameter Name="MAHOCSINH" Mode="In" Type="Int32" />
+      <Parameter Name="MAHOCKY" Mode="In" Type="Int32" />
+      <Parameter Name="MAMONHOC" Mode="In" Type="String" />
+      <Parameter Name="NAMHOC" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_DeleteBangdiemsDynamic">
+      <Parameter Name="WhereCondition" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_DeleteDiem">
+      <Parameter Name="MADIEM" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_DeleteDiemsDynamic">
+      <Parameter Name="WhereCondition" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_DeleteHockiesDynamic">
+      <Parameter Name="WhereCondition" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_DeleteHocky">
+      <Parameter Name="MAHOCKY" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_DeleteHosohocsinh">
+      <Parameter Name="MAHOCSINH" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_DeleteHosohocsinhsDynamic">
+      <Parameter Name="WhereCondition" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_DeleteKhoi">
+      <Parameter Name="MAKHOI" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_DeleteKhoisDynamic">
+      <Parameter Name="WhereCondition" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_DeleteLoaidiem">
+      <Parameter Name="MALOAIDIEM" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_DeleteLoaidiemsDynamic">
+      <Parameter Name="WhereCondition" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_DeleteLop">
+      <Parameter Name="MALOP" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_DeleteLopsDynamic">
+      <Parameter Name="WhereCondition" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_DeleteMonhoc">
+      <Parameter Name="MAMONHOC" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_DeleteMonhocsDynamic">
+      <Parameter Name="WhereCondition" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_DeleteNamhoc">
+      <Parameter Name="NAMHOC" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_DeleteNamhocsDynamic">
+      <Parameter Name="WhereCondition" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_DeleteXeplop">
+      <Parameter Name="MALOP" Mode="In" Type="Int32" />
+      <Parameter Name="MAHOCSINH" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_DeleteXeplopsByMALOP">
+      <Parameter Name="MALOP" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_DeleteXeplopsDynamic">
+      <Parameter Name="WhereCondition" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_InsertBangdiem">
+      <Parameter Name="MAHOCSINH" Mode="In" Type="Int32" />
+      <Parameter Name="MAMONHOC" Mode="In" Type="String" />
+      <Parameter Name="MAHOCKY" Mode="In" Type="Int32" />
+      <Parameter Name="NAMHOC" Mode="In" Type="String" />
+      <Parameter Name="MADIEM15" Mode="In" Type="Int32" />
+      <Parameter Name="MADIEM1T" Mode="In" Type="Int32" />
+      <Parameter Name="MADIEMHK" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_InsertBangdiemNull">
+      <Parameter Name="MAHOCSINH" Mode="In" Type="Int32" />
+      <Parameter Name="MAMONHOC" Mode="In" Type="String" />
+      <Parameter Name="MAHOCKY" Mode="In" Type="Int32" />
+      <Parameter Name="NAMHOC" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_InsertDiem">
+      <Parameter Name="MADIEM" Mode="In" Type="Int32" />
+      <Parameter Name="MALOAIDIEM" Mode="In" Type="String" />
+      <Parameter Name="GIATRI" Mode="In" Type="Double" />
+    </FunctionImport>
+    <FunctionImport Name="usp_InsertHocky">
+      <Parameter Name="MAHOCKY" Mode="In" Type="Int32" />
+      <Parameter Name="TENHOCKY" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_InsertHosohocsinh">
+      <Parameter Name="MAHOCSINH" Mode="In" Type="Int32" />
+      <Parameter Name="HOTEN" Mode="In" Type="String" />
+      <Parameter Name="DIACHI" Mode="In" Type="String" />
+      <Parameter Name="NGAYSINH" Mode="In" Type="DateTime" />
+      <Parameter Name="EMAIL" Mode="In" Type="String" />
+      <Parameter Name="GIOITINH" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_InsertKhoi">
+      <Parameter Name="MAKHOI" Mode="In" Type="String" />
+      <Parameter Name="KHOI" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_InsertLoaidiem">
+      <Parameter Name="MALOAIDIEM" Mode="In" Type="String" />
+      <Parameter Name="TENLOAIDIEM" Mode="In" Type="String" />
+      <Parameter Name="HESO" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_InsertLop">
+      <Parameter Name="MALOP" Mode="In" Type="Int32" />
+      <Parameter Name="MAKHOI" Mode="In" Type="String" />
+      <Parameter Name="TENLOP" Mode="In" Type="String" />
+      <Parameter Name="NAMHOC" Mode="In" Type="String" />
+      <Parameter Name="SISO" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_InsertMonhoc">
+      <Parameter Name="MAMONHOC" Mode="In" Type="String" />
+      <Parameter Name="TENMONHOC" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_InsertNamhoc">
+      <Parameter Name="NAMHOC" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_InsertXeplop">
+      <Parameter Name="MAHOCSINH" Mode="In" Type="Int32" />
+      <Parameter Name="MALOP" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_SelectBangdiem" ReturnType="Collection(Models.usp_SelectBangdiem_Result)">
+      <Parameter Name="MAHOCSINH" Mode="In" Type="Int32" />
+      <Parameter Name="MAHOCKY" Mode="In" Type="Int32" />
+      <Parameter Name="MAMONHOC" Mode="In" Type="String" />
+      <Parameter Name="NAMHOC" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_SelectBangdiemNamHocByMaHocSinh" ReturnType="Collection(Models.usp_SelectBangdiemNamHocByMaHocSinh_Result)">
+      <Parameter Name="MAHOCSINH" Mode="In" Type="Int32" />
+      <Parameter Name="NAMHOC" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_SelectBangdiemsAll" ReturnType="Collection(Models.usp_SelectBangdiemsAll_Result)" />
+    <FunctionImport Name="usp_SelectBangdiemsDynamic">
+      <Parameter Name="WhereCondition" Mode="In" Type="String" />
+      <Parameter Name="OrderByExpression" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_SelectBaoCaoMonHocByNAMHOC_MONHOC_HOCKY" ReturnType="Collection(Models.usp_SelectBaoCaoMonHocByNAMHOC_MONHOC_HOCKY_Result)">
+      <Parameter Name="MAMONHOC" Mode="In" Type="String" />
+      <Parameter Name="MAHOCKY" Mode="In" Type="Int32" />
+      <Parameter Name="NAMHOC" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_SelectDiem" ReturnType="Collection(Models.usp_SelectDiem_Result)">
+      <Parameter Name="MADIEM" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_SelectDiemsAll" ReturnType="Collection(Models.usp_SelectDiemsAll_Result)" />
+    <FunctionImport Name="usp_SelectDiemsDynamic">
+      <Parameter Name="WhereCondition" Mode="In" Type="String" />
+      <Parameter Name="OrderByExpression" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_SelectHockiesAll" ReturnType="Collection(Models.usp_SelectHockiesAll_Result)" />
+    <FunctionImport Name="usp_SelectHockiesDynamic">
+      <Parameter Name="WhereCondition" Mode="In" Type="String" />
+      <Parameter Name="OrderByExpression" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_SelectHocky" ReturnType="Collection(Models.usp_SelectHocky_Result)">
+      <Parameter Name="MAHOCKY" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_SelectHocSinhChuaPhanLop" ReturnType="Collection(Models.usp_SelectHocSinhChuaPhanLop_Result)">
+      <Parameter Name="NAMHOC" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_SelectHocSinhTheoMALOP" ReturnType="Collection(Models.usp_SelectHocSinhTheoMALOP_Result)">
+      <Parameter Name="MALOP" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_SelectHosohocsinh" ReturnType="Collection(Models.usp_SelectHosohocsinh_Result)">
+      <Parameter Name="MAHOCSINH" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_SelectHosohocsinhsAll" ReturnType="Collection(Models.usp_SelectHosohocsinhsAll_Result)" />
+    <FunctionImport Name="usp_SelectHosohocsinhsDynamic">
+      <Parameter Name="WhereCondition" Mode="In" Type="String" />
+      <Parameter Name="OrderByExpression" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_SelectKhoi" ReturnType="Collection(Models.usp_SelectKhoi_Result)">
+      <Parameter Name="MAKHOI" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_SelectKhoisAll" ReturnType="Collection(Models.usp_SelectKhoisAll_Result)" />
+    <FunctionImport Name="usp_SelectKhoisDynamic">
+      <Parameter Name="WhereCondition" Mode="In" Type="String" />
+      <Parameter Name="OrderByExpression" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_SelectLastMaDiem" ReturnType="Collection(Int32)" />
+    <FunctionImport Name="usp_SelectLastMaHocSinh" ReturnType="Collection(Int32)" />
+    <FunctionImport Name="usp_SelectLastMaLop" ReturnType="Collection(Int32)" />
+    <FunctionImport Name="usp_SelectLoaidiem" ReturnType="Collection(Models.usp_SelectLoaidiem_Result)">
+      <Parameter Name="MALOAIDIEM" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_SelectLoaidiemsAll" ReturnType="Collection(Models.usp_SelectLoaidiemsAll_Result)" />
+    <FunctionImport Name="usp_SelectLoaidiemsDynamic">
+      <Parameter Name="WhereCondition" Mode="In" Type="String" />
+      <Parameter Name="OrderByExpression" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_SelectLop" ReturnType="Collection(Models.usp_SelectLop_Result)">
+      <Parameter Name="MALOP" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_SelectLopByNamHoc" ReturnType="Collection(Models.usp_SelectLopByNamHoc_Result)">
+      <Parameter Name="NAMHOC" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_SelectLopsAll" ReturnType="Collection(Models.usp_SelectLopsAll_Result)" />
+    <FunctionImport Name="usp_SelectLopsByMAKHOI_NAMHOC" ReturnType="Collection(Models.usp_SelectLopsByMAKHOI_NAMHOC_Result)">
+      <Parameter Name="MAKHOI" Mode="In" Type="String" />
+      <Parameter Name="NAMHOC" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_SelectLopsDynamic">
+      <Parameter Name="WhereCondition" Mode="In" Type="String" />
+      <Parameter Name="OrderByExpression" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_SelectMALOPByMAHOCSINH_NAMHOC" ReturnType="Collection(Int32)">
+      <Parameter Name="MAHOCSINH" Mode="In" Type="Int32" />
+      <Parameter Name="NAMHOC" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_SelectMonhoc" ReturnType="Collection(Models.usp_SelectMonhoc_Result)">
+      <Parameter Name="MAMONHOC" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_SelectMonhocsAll" ReturnType="Collection(Models.usp_SelectMonhocsAll_Result)" />
+    <FunctionImport Name="usp_SelectMonhocsDynamic">
+      <Parameter Name="WhereCondition" Mode="In" Type="String" />
+      <Parameter Name="OrderByExpression" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_SelectNamhoc" ReturnType="Collection(String)">
+      <Parameter Name="NAMHOC" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_SelectNamhocsAll" ReturnType="Collection(String)" />
+    <FunctionImport Name="usp_SelectNamhocsDynamic">
+      <Parameter Name="WhereCondition" Mode="In" Type="String" />
+      <Parameter Name="OrderByExpression" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_SelectThamSoAll" ReturnType="Collection(Models.usp_SelectThamSoAll_Result)" />
+    <FunctionImport Name="usp_SelectXeplop" ReturnType="Collection(Models.usp_SelectXeplop_Result)">
+      <Parameter Name="MAHOCSINH" Mode="In" Type="Int32" />
+      <Parameter Name="MALOP" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_SelectXeplopsAll" ReturnType="Collection(Models.usp_SelectXeplopsAll_Result)" />
+    <FunctionImport Name="usp_SelectXeplopsByMAHOCSINH" ReturnType="Collection(Models.usp_SelectXeplopsByMAHOCSINH_Result)">
+      <Parameter Name="MAHOCSINH" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_SelectXeplopsByMALOP" ReturnType="Collection(Models.usp_SelectXeplopsByMALOP_Result)">
+      <Parameter Name="MALOP" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_SelectXeplopsDynamic">
+      <Parameter Name="WhereCondition" Mode="In" Type="String" />
+      <Parameter Name="OrderByExpression" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_UpdateBangdiem">
+      <Parameter Name="MAHOCSINH" Mode="In" Type="Int32" />
+      <Parameter Name="MAMONHOC" Mode="In" Type="String" />
+      <Parameter Name="MAHOCKY" Mode="In" Type="Int32" />
+      <Parameter Name="NAMHOC" Mode="In" Type="String" />
+      <Parameter Name="MADIEM15" Mode="In" Type="Int32" />
+      <Parameter Name="MADIEM1T" Mode="In" Type="Int32" />
+      <Parameter Name="MADIEMHK" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_UpdateDiem">
+      <Parameter Name="MADIEM" Mode="In" Type="Int32" />
+      <Parameter Name="MALOAIDIEM" Mode="In" Type="String" />
+      <Parameter Name="GIATRI" Mode="In" Type="Double" />
+    </FunctionImport>
+    <FunctionImport Name="usp_UpdateHocky">
+      <Parameter Name="MAHOCKY" Mode="In" Type="Int32" />
+      <Parameter Name="TENHOCKY" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_UpdateHosohocsinh">
+      <Parameter Name="MAHOCSINH" Mode="In" Type="Int32" />
+      <Parameter Name="HOTEN" Mode="In" Type="String" />
+      <Parameter Name="DIACHI" Mode="In" Type="String" />
+      <Parameter Name="NGAYSINH" Mode="In" Type="DateTime" />
+      <Parameter Name="EMAIL" Mode="In" Type="String" />
+      <Parameter Name="GIOITINH" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_UpdateKhoi">
+      <Parameter Name="MAKHOI" Mode="In" Type="String" />
+      <Parameter Name="KHOI" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_UpdateLoaidiem">
+      <Parameter Name="MALOAIDIEM" Mode="In" Type="String" />
+      <Parameter Name="TENLOAIDIEM" Mode="In" Type="String" />
+      <Parameter Name="HESO" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_UpdateLop">
+      <Parameter Name="MALOP" Mode="In" Type="Int32" />
+      <Parameter Name="MAKHOI" Mode="In" Type="String" />
+      <Parameter Name="TENLOP" Mode="In" Type="String" />
+      <Parameter Name="NAMHOC" Mode="In" Type="String" />
+      <Parameter Name="SISO" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_UpdateMonhoc">
+      <Parameter Name="MAMONHOC" Mode="In" Type="String" />
+      <Parameter Name="TENMONHOC" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_UpdateThamSo">
+      <Parameter Name="TUOITOIDA" Mode="In" Type="Int32" />
+      <Parameter Name="TUOITOITHIEU" Mode="In" Type="Int32" />
+      <Parameter Name="SISOTOIDA" Mode="In" Type="Int32" />
+      <Parameter Name="DIEMTOIDA" Mode="In" Type="Int32" />
+      <Parameter Name="DIEMTOITHIEU" Mode="In" Type="Int32" />
+      <Parameter Name="ĐIEMDATMON" Mode="In" Type="Int32" />
+      <Parameter Name="SOLOPTOIDAKHOI10" Mode="In" Type="Int32" />
+      <Parameter Name="SOLOPTOIDAKHOI11" Mode="In" Type="Int32" />
+      <Parameter Name="SOLOPTOIDAKHOI12" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_UpdateXeplop">
+      <Parameter Name="MAHOCSINH" Mode="In" Type="Int32" />
+      <Parameter Name="MALOP" Mode="In" Type="Int32" />
+      <Parameter Name="NEWMAHOCSINH" Mode="In" Type="Int32" />
+      <Parameter Name="NEWMALOP" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="usp_SelectBangdiem_Result">
+    <Property Type="Int32" Name="MAHOCSINH" Nullable="false" />
+    <Property Type="String" Name="MAMONHOC" Nullable="false" MaxLength="5" />
+    <Property Type="Int32" Name="MAHOCKY" Nullable="false" />
+    <Property Type="String" Name="NAMHOC" Nullable="false" MaxLength="10" />
+    <Property Type="Int32" Name="MADIEM15" Nullable="true" />
+    <Property Type="Int32" Name="MADIEM1T" Nullable="true" />
+    <Property Type="Int32" Name="MADIEMHK" Nullable="true" />
+    <Property Type="Double" Name="DIEMTRUNGBINH" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="usp_SelectBangdiemNamHocByMaHocSinh_Result">
+    <Property Type="Int32" Name="MAHOCSINH" Nullable="false" />
+    <Property Type="String" Name="MAMONHOC" Nullable="false" MaxLength="5" />
+    <Property Type="Int32" Name="MAHOCKY" Nullable="false" />
+    <Property Type="String" Name="NAMHOC" Nullable="false" MaxLength="10" />
+    <Property Type="Int32" Name="MADIEM15" Nullable="true" />
+    <Property Type="Int32" Name="MADIEM1T" Nullable="true" />
+    <Property Type="Int32" Name="MADIEMHK" Nullable="true" />
+    <Property Type="Double" Name="DIEMTRUNGBINH" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="usp_SelectBangdiemsAll_Result">
+    <Property Type="Int32" Name="MAHOCSINH" Nullable="false" />
+    <Property Type="String" Name="MAMONHOC" Nullable="false" MaxLength="5" />
+    <Property Type="Int32" Name="MAHOCKY" Nullable="false" />
+    <Property Type="String" Name="NAMHOC" Nullable="false" MaxLength="10" />
+    <Property Type="Int32" Name="MADIEM15" Nullable="true" />
+    <Property Type="Int32" Name="MADIEM1T" Nullable="true" />
+    <Property Type="Int32" Name="MADIEMHK" Nullable="true" />
+    <Property Type="Double" Name="DIEMTRUNGBINH" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="usp_SelectBaoCaoMonHocByNAMHOC_MONHOC_HOCKY_Result">
+    <Property Type="String" Name="TENLOP" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="SISO" Nullable="false" />
+    <Property Type="Int32" Name="SOLUONGDAT" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="usp_SelectDiem_Result">
+    <Property Type="Int32" Name="MADIEM" Nullable="false" />
+    <Property Type="String" Name="MALOAIDIEM" Nullable="true" MaxLength="3" />
+    <Property Type="Double" Name="GIATRI" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="usp_SelectDiemsAll_Result">
+    <Property Type="Int32" Name="MADIEM" Nullable="false" />
+    <Property Type="String" Name="MALOAIDIEM" Nullable="true" MaxLength="3" />
+    <Property Type="Double" Name="GIATRI" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="usp_SelectHockiesAll_Result">
+    <Property Type="Int32" Name="MAHOCKY" Nullable="false" />
+    <Property Type="String" Name="TENHOCKY" Nullable="false" MaxLength="30" />
+  </ComplexType>
+  <ComplexType Name="usp_SelectHocky_Result">
+    <Property Type="Int32" Name="MAHOCKY" Nullable="false" />
+    <Property Type="String" Name="TENHOCKY" Nullable="false" MaxLength="30" />
+  </ComplexType>
+  <ComplexType Name="usp_SelectHocSinhChuaPhanLop_Result">
+    <Property Type="Int32" Name="MAHOCSINH" Nullable="false" />
+    <Property Type="String" Name="HOTEN" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="DIACHI" Nullable="false" MaxLength="100" />
+    <Property Type="DateTime" Name="NGAYSINH" Nullable="false" Precision="16" />
+    <Property Type="String" Name="EMAIL" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="GIOITINH" Nullable="false" MaxLength="3" />
+  </ComplexType>
+  <ComplexType Name="usp_SelectHocSinhTheoMALOP_Result">
+    <Property Type="Int32" Name="MAHOCSINH" Nullable="false" />
+    <Property Type="String" Name="HOTEN" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="DIACHI" Nullable="false" MaxLength="100" />
+    <Property Type="DateTime" Name="NGAYSINH" Nullable="false" Precision="16" />
+    <Property Type="String" Name="EMAIL" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="GIOITINH" Nullable="false" MaxLength="3" />
+  </ComplexType>
+  <ComplexType Name="usp_SelectHosohocsinh_Result">
+    <Property Type="Int32" Name="MAHOCSINH" Nullable="false" />
+    <Property Type="String" Name="HOTEN" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="DIACHI" Nullable="false" MaxLength="100" />
+    <Property Type="DateTime" Name="NGAYSINH" Nullable="false" Precision="16" />
+    <Property Type="String" Name="EMAIL" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="GIOITINH" Nullable="false" MaxLength="3" />
+  </ComplexType>
+  <ComplexType Name="usp_SelectHosohocsinhsAll_Result">
+    <Property Type="Int32" Name="MAHOCSINH" Nullable="false" />
+    <Property Type="String" Name="HOTEN" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="DIACHI" Nullable="false" MaxLength="100" />
+    <Property Type="DateTime" Name="NGAYSINH" Nullable="false" Precision="16" />
+    <Property Type="String" Name="EMAIL" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="GIOITINH" Nullable="false" MaxLength="3" />
+  </ComplexType>
+  <ComplexType Name="usp_SelectKhoi_Result">
+    <Property Type="String" Name="MAKHOI" Nullable="false" MaxLength="3" />
+    <Property Type="String" Name="KHOI" Nullable="false" MaxLength="10" />
+  </ComplexType>
+  <ComplexType Name="usp_SelectKhoisAll_Result">
+    <Property Type="String" Name="MAKHOI" Nullable="false" MaxLength="3" />
+    <Property Type="String" Name="KHOI" Nullable="false" MaxLength="10" />
+  </ComplexType>
+  <ComplexType Name="usp_SelectLoaidiem_Result">
+    <Property Type="String" Name="MALOAIDIEM" Nullable="false" MaxLength="3" />
+    <Property Type="String" Name="TENLOAIDIEM" Nullable="false" MaxLength="30" />
+    <Property Type="Int32" Name="HESO" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="usp_SelectLoaidiemsAll_Result">
+    <Property Type="String" Name="MALOAIDIEM" Nullable="false" MaxLength="3" />
+    <Property Type="String" Name="TENLOAIDIEM" Nullable="false" MaxLength="30" />
+    <Property Type="Int32" Name="HESO" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="usp_SelectLop_Result">
+    <Property Type="Int32" Name="MALOP" Nullable="false" />
+    <Property Type="String" Name="MAKHOI" Nullable="true" MaxLength="3" />
+    <Property Type="String" Name="TENLOP" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="NAMHOC" Nullable="true" MaxLength="10" />
+    <Property Type="Int32" Name="SISO" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="usp_SelectLopByNamHoc_Result">
+    <Property Type="Int32" Name="MALOP" Nullable="false" />
+    <Property Type="String" Name="MAKHOI" Nullable="true" MaxLength="3" />
+    <Property Type="String" Name="TENLOP" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="NAMHOC" Nullable="true" MaxLength="10" />
+    <Property Type="Int32" Name="SISO" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="usp_SelectLopsAll_Result">
+    <Property Type="Int32" Name="MALOP" Nullable="false" />
+    <Property Type="String" Name="MAKHOI" Nullable="true" MaxLength="3" />
+    <Property Type="String" Name="TENLOP" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="NAMHOC" Nullable="true" MaxLength="10" />
+    <Property Type="Int32" Name="SISO" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="usp_SelectLopsByMAKHOI_NAMHOC_Result">
+    <Property Type="Int32" Name="MALOP" Nullable="false" />
+    <Property Type="String" Name="MAKHOI" Nullable="true" MaxLength="3" />
+    <Property Type="String" Name="TENLOP" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="NAMHOC" Nullable="true" MaxLength="10" />
+    <Property Type="Int32" Name="SISO" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="usp_SelectMonhoc_Result">
+    <Property Type="String" Name="MAMONHOC" Nullable="false" MaxLength="5" />
+    <Property Type="String" Name="TENMONHOC" Nullable="false" MaxLength="30" />
+  </ComplexType>
+  <ComplexType Name="usp_SelectMonhocsAll_Result">
+    <Property Type="String" Name="MAMONHOC" Nullable="false" MaxLength="5" />
+    <Property Type="String" Name="TENMONHOC" Nullable="false" MaxLength="30" />
+  </ComplexType>
+  <ComplexType Name="usp_SelectThamSoAll_Result">
+    <Property Type="Int32" Name="TUOITOITHIEU" Nullable="true" />
+    <Property Type="Int32" Name="TUOITOIDA" Nullable="true" />
+    <Property Type="Int32" Name="SISOTOIDA" Nullable="true" />
+    <Property Type="Int32" Name="DIEMTOITHIEU" Nullable="true" />
+    <Property Type="Int32" Name="DIEMTOIDA" Nullable="true" />
+    <Property Type="Int32" Name="DIEMDATMON" Nullable="true" />
+    <Property Type="Int32" Name="SOLOPTOIDAKHOI10" Nullable="true" />
+    <Property Type="Int32" Name="SOLOPTOIDAKHOI11" Nullable="true" />
+    <Property Type="Int32" Name="SOLOPTOIDAKHOI12" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="usp_SelectXeplop_Result">
+    <Property Type="Int32" Name="MAHOCSINH" Nullable="false" />
+    <Property Type="Int32" Name="MALOP" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="usp_SelectXeplopsAll_Result">
+    <Property Type="Int32" Name="MAHOCSINH" Nullable="false" />
+    <Property Type="Int32" Name="MALOP" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="usp_SelectXeplopsByMAHOCSINH_Result">
+    <Property Type="Int32" Name="MAHOCSINH" Nullable="false" />
+    <Property Type="Int32" Name="MALOP" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="usp_SelectXeplopsByMALOP_Result">
+    <Property Type="Int32" Name="MAHOCSINH" Nullable="false" />
+    <Property Type="Int32" Name="MALOP" Nullable="false" />
+  </ComplexType>
+</Schema>
