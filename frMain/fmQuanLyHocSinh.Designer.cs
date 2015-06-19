@@ -786,6 +786,7 @@
             this._dsgiaovien.Id = 39;
             this._dsgiaovien.ItemSize = DevExpress.XtraEditors.TileItemSize.Medium;
             this._dsgiaovien.Name = "_dsgiaovien";
+            this._dsgiaovien.ItemClick += new DevExpress.XtraEditors.TileItemClickEventHandler(this.danhSachGiaoVien_ItemClick);
             // 
             // _hocsinhmoi
             // 
