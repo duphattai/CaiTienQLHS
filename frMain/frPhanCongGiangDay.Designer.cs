@@ -28,9 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
             this.dataGridViewDanhSachGiaoVien = new System.Windows.Forms.DataGridView();
             this.STT = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -93,14 +90,6 @@
             this.Email,
             this.MaMonHoc,
             this.DayMon});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 8.25F);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(31)))), ((int)(((byte)(53)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewDanhSachGiaoVien.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewDanhSachGiaoVien.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewDanhSachGiaoVien.Location = new System.Drawing.Point(2, 21);
             this.dataGridViewDanhSachGiaoVien.MultiSelect = false;
@@ -196,14 +185,6 @@
             this.dataGridViewTextBoxColumn1,
             this.MaLop2,
             this.TenLop2});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 8.25F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(31)))), ((int)(((byte)(53)))));
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewDanhSachLopPhanCong.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewDanhSachLopPhanCong.Location = new System.Drawing.Point(2, 21);
             this.dataGridViewDanhSachLopPhanCong.MultiSelect = false;
             this.dataGridViewDanhSachLopPhanCong.Name = "dataGridViewDanhSachLopPhanCong";
@@ -274,14 +255,6 @@
             this.dataGridViewTextBoxColumn2,
             this.MaLop1,
             this.TenLop1});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Tahoma", 8.25F);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(31)))), ((int)(((byte)(53)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewDanhSachLopChuaPhanCong.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewDanhSachLopChuaPhanCong.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewDanhSachLopChuaPhanCong.Location = new System.Drawing.Point(2, 21);
             this.dataGridViewDanhSachLopChuaPhanCong.MultiSelect = false;
@@ -311,7 +284,7 @@
             // 
             // buttonThem
             // 
-            this.buttonThem.Location = new System.Drawing.Point(342, 293);
+            this.buttonThem.Location = new System.Drawing.Point(342, 301);
             this.buttonThem.Name = "buttonThem";
             this.buttonThem.Size = new System.Drawing.Size(75, 23);
             this.buttonThem.TabIndex = 12;
@@ -320,7 +293,7 @@
             // 
             // buttonXoa
             // 
-            this.buttonXoa.Location = new System.Drawing.Point(342, 334);
+            this.buttonXoa.Location = new System.Drawing.Point(342, 347);
             this.buttonXoa.Name = "buttonXoa";
             this.buttonXoa.Size = new System.Drawing.Size(75, 23);
             this.buttonXoa.TabIndex = 13;
@@ -329,7 +302,7 @@
             // 
             // buttonThoat
             // 
-            this.buttonThoat.Location = new System.Drawing.Point(342, 378);
+            this.buttonThoat.Location = new System.Drawing.Point(342, 392);
             this.buttonThoat.Name = "buttonThoat";
             this.buttonThoat.Size = new System.Drawing.Size(75, 23);
             this.buttonThoat.TabIndex = 15;

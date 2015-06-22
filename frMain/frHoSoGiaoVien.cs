@@ -25,6 +25,8 @@ namespace frMain
         private List<MONHOC> _listMonHoc = new List<MONHOC>(); // chứa danh sách môn học lấy từ CSDL
         private List<GIAOVIEN> _listGiaoVien = new List<GIAOVIEN>(); // chứa danh sách giáo viên lấy từ CSDL
         private GIAOVIEN _currentSelected = null; // chứa thông tin giáo viên được chọn trên gridview
+
+        private bool _isChanged = false;
         public frHoSoGiaoVien()
         {
             InitializeComponent();
@@ -91,6 +93,8 @@ namespace frMain
                 return;
             }
 
+
+            _isChanged = true;
             // lấy STT để phát sinh mã giáo viên
             int STT = _giaoVienBus.LaySTTMaGiaoVienCuoiCung();
             // thiết lập thuộc tính
@@ -105,7 +109,17 @@ namespace frMain
            
 
             //Thêm giáo viên vào CSDL, thêm giảng dạy vào CSDL
-            if (_giaoVienBus.Them("GV" + Convert.ToInt32(STT + 1), textHoTen.Text, textDiaChi.Text, dateNgaySinh.DateTime, textEmail.Text, comboBoxGioiTinh.SelectedText, _listMonHoc[comboBoxDayMon.SelectedIndex].MAMONHOC) == 1)
+            //if (_giaoVienBus.Them("GV" + Convert.ToInt32(STT + 1), textHoTen.Text, textDiaChi.Text, dateNgaySinh.DateTime, textEmail.Text, comboBoxGioiTinh.SelectedText, _listMonHoc[comboBoxDayMon.SelectedIndex].MAMONHOC) == 1)
+            //{
+            //    MessageBox.Show("Thêm thành công!", "Thông báo");
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Thêm thất bại! Môn học bạn chọn không tồn tại trong danh sách môn học", "Thông báo");
+            //    return;
+            //}
+
+            if (_giaoVienBus.Them(temp) == 1)
             {
                 MessageBox.Show("Thêm thành công!", "Thông báo");
             }
@@ -140,6 +154,7 @@ namespace frMain
                 return;
             }
 
+            _isChanged = true;
             if(_currentSelected != null) // nếu tồn tại thông tin giáo viên được chọn
             {
                 if(_giaoVienBus.Update(_currentSelected.MaGiaoVien, _currentSelected.HoTen, _currentSelected.DiaChi, _currentSelected.NgaySinh, _currentSelected.Email, _currentSelected.GioiTinh, _currentSelected.MaMonHoc) == 0)
@@ -174,6 +189,11 @@ namespace frMain
         /// </summary>
         private void buttonThoat_Click(object sender, EventArgs e)
         {
+            if(_isChanged && MessageBox.Show("Dữ liệu đã thay đổi, bạn có muốn lưu sự thay đổi?","Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                _giaoVienBus.setSubmitChanged();
+                MessageBox.Show("Lưu thành công", "Thông báo");
+            }
             this.Close();
         }
 
@@ -192,10 +212,18 @@ namespace frMain
             {
                 try 
                 {
-                    // xóa khóa ngoại trong bảng GiIANGDAY
-                    _giangDayBus.Delete(_currentSelected.MaGiaoVien);
+                    _isChanged = true;
+                    // xóa khóa ngoại trong bảng GIANGDAY
+                    //_giangDayBus.Delete(_currentSelected.MaGiaoVien);
+                    List<GIANGDAY> temp =  _giangDayBus.DB.GIANGDAYs.Where(gd => gd.MaGiaoVien == _currentSelected.MaGiaoVien).ToList<GIANGDAY>();
+                    if( temp.Count != 0)
+                    {
+                        MessageBox.Show("Không thể xóa giáo viên đã phân công giảng dạy!", "Thông báo");
+                        return;
+                    }
 
-                    //xóa giáo viên trong bảng GIAOVIEN
+
+                    //xóa giáo viên trong bảng GIAOVIEN, xảy ra ngoại lệ khi có khóa ngoại
                     _giaoVienBus.Delete(_currentSelected.MaGiaoVien);
 
                     MessageBox.Show("Xóa thành công!", "Thông báo");
@@ -213,9 +241,8 @@ namespace frMain
                     hienThiDanhSachGiaoVienTrenGridView();
                 }catch(Exception ex)
                 {
-                    MessageBox.Show("Lỗi không xóa được", "Thông báo");
-                }
-               
+                    MessageBox.Show("Không thể xóa!", "Thông báo");
+                }              
             }
         }
 
@@ -327,7 +354,12 @@ namespace frMain
 
                     temp.MaGiaoVien = "GV" + Convert.ToInt64(_giaoVienBus.LaySTTMaGiaoVienCuoiCung() + 1);
 
-                    if (_giaoVienBus.Them(temp.MaGiaoVien, temp.HoTen, temp.DiaChi, temp.NgaySinh, temp.Email, temp.GioiTinh, temp.MaMonHoc) == 0)
+                    //if (_giaoVienBus.Them(temp.MaGiaoVien, temp.HoTen, temp.DiaChi, temp.NgaySinh, temp.Email, temp.GioiTinh, temp.MaMonHoc) == 0)
+                    //    MessageBox.Show("Giáo viên: " + temp.HoTen + " dạy môn không nằm trong danh sách quy định!", "Lỗi");
+                    //else
+                    //    _listGiaoVien.Add(temp);
+
+                    if (_giaoVienBus.Them(temp) == 0)
                         MessageBox.Show("Giáo viên: " + temp.HoTen + " dạy môn không nằm trong danh sách quy định!", "Lỗi");
                     else
                         _listGiaoVien.Add(temp);
@@ -336,7 +368,18 @@ namespace frMain
             FileExcel.Close();
 
             hienThiDanhSachGiaoVienTrenGridView();
+            _isChanged = true;
             MessageBox.Show("Mở tập tin excel thành công!", "Thông báo");
+        }
+
+        private void buttonLuu_Click(object sender, EventArgs e)
+        {
+            if(MessageBox.Show("Bạn muốn lưu những thay đổi dữ liệu!", "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                _giaoVienBus.setSubmitChanged();
+                MessageBox.Show("Lưu thành công", "Thông báo");
+                _isChanged = false;
+            }
         }
     }
 }

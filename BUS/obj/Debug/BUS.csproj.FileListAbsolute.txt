@@ -9,4 +9,3 @@ C:\Users\Tai\Desktop\PTVHBTPM\BUS\bin\Debug\DataAccessObject.pdb
 C:\Users\Tai\Desktop\PTVHBTPM\BUS\obj\Debug\BUS.csprojResolveAssemblyReference.cache
 C:\Users\Tai\Desktop\PTVHBTPM\BUS\obj\Debug\BUS.dll
 C:\Users\Tai\Desktop\PTVHBTPM\BUS\obj\Debug\BUS.pdb
-C:\Users\Tai\Desktop\CaiTienQLHS\BUS\bin\Debug\APPDATA.mdf

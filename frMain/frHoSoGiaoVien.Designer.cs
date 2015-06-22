@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.comboBoxGioiTinh = new System.Windows.Forms.ComboBox();
             this.comboBoxDayMon = new System.Windows.Forms.ComboBox();
@@ -57,6 +58,7 @@
             this.MaMonHoc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DayMon = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonOpenDataFromExcell = new DevExpress.XtraEditors.SimpleButton();
+            this.buttonLuu = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.textDiaChi.Properties)).BeginInit();
@@ -253,6 +255,14 @@
             this.Email,
             this.MaMonHoc,
             this.DayMon});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 8.25F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(31)))), ((int)(((byte)(53)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewDanhSachGiaoVien.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewDanhSachGiaoVien.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewDanhSachGiaoVien.Location = new System.Drawing.Point(2, 21);
             this.dataGridViewDanhSachGiaoVien.MultiSelect = false;
@@ -341,11 +351,22 @@
             this.buttonOpenDataFromExcell.Text = "Mở file excell";
             this.buttonOpenDataFromExcell.Click += new System.EventHandler(this.buttonOpenDataFromExcell_Click);
             // 
+            // buttonLuu
+            // 
+            this.buttonLuu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonLuu.Location = new System.Drawing.Point(672, 125);
+            this.buttonLuu.Name = "buttonLuu";
+            this.buttonLuu.Size = new System.Drawing.Size(75, 23);
+            this.buttonLuu.TabIndex = 7;
+            this.buttonLuu.Text = "Lưu";
+            this.buttonLuu.Click += new System.EventHandler(this.buttonLuu_Click);
+            // 
             // frHoSoGiaoVien
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(899, 323);
+            this.Controls.Add(this.buttonLuu);
             this.Controls.Add(this.buttonOpenDataFromExcell);
             this.Controls.Add(this.groupControl2);
             this.Controls.Add(this.buttonThoat);
@@ -402,6 +423,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Email;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaMonHoc;
         private System.Windows.Forms.DataGridViewTextBoxColumn DayMon;
+        private DevExpress.XtraEditors.SimpleButton buttonLuu;
 
     }
 }

@@ -10,13 +10,14 @@ namespace BUS
 {
     public class GiangDay_BUS
     {
-        QLHSDataContext DB = new QLHSDataContext(Settings.Default.ConnectString);
+        public QLHSDataContext DB = new QLHSDataContext(Settings.Default.ConnectString);
 
         public void Them(String MaGiaoVien, int MaKhoi)
         {
             DB.usp_InsertGiangDay(MaGiaoVien, MaKhoi);
             DB.SubmitChanges();
         }
+
 
         public void Delete(String MaGiaoVien)
         {
@@ -29,6 +30,7 @@ namespace BUS
             DB.usp_DeleteGiangDayBy_MaGiaoVien_MaLop(MaGiaoVien, MaLop);
             DB.SubmitChanges();
         }
+
         public List<usp_SelectGiangDayResult> LayGiangDayTheoMaGiaoVien(String MaGiaoVien, String NamHoc)
         {
             return DB.usp_SelectGiangDay(MaGiaoVien, NamHoc).ToList();
@@ -49,8 +51,7 @@ namespace BUS
             }catch(Exception ex)
             {
                 return null;
-            }
-            
+            }          
         }
     }
 }
