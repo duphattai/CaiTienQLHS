@@ -22,68 +22,69 @@ namespace BUS
         /// Thêm một record vào table GIAOVIEN
         /// thêm thành công trả về 1 và ngược lại
         /// </summary>
-        //public int Them(String MaGiaoVien, String TenGiaoVien, String DiaChi, DateTime NgaySinh, String Email, String GioiTinh, String MaMonHoc)
-        //{
-        //    int result =  DB.usp_InsertGiaoVien(MaGiaoVien, TenGiaoVien, DiaChi, NgaySinh, Email, GioiTinh, MaMonHoc);
-        //    //DB.SubmitChanges();
-
-        //    return result;
-        //}
-        public int Them(GIAOVIEN gv)
+        public int Them(String MaGiaoVien, String TenGiaoVien, String DiaChi, DateTime NgaySinh, String Email, String GioiTinh, String MaMonHoc)
         {
-            try
-            {
-                DB.GIAOVIENs.InsertOnSubmit(gv);
-                return 1;
-            }catch(Exception ex)
-            {
-                return -1;
-            }
+            int result = DB.usp_InsertGiaoVien(MaGiaoVien, TenGiaoVien, DiaChi, NgaySinh, Email, GioiTinh, MaMonHoc);
+            //DB.SubmitChanges();
+
+            return result;
         }
+        //public int Them(GIAOVIEN gv)
+        //{
+        //    try
+        //    {
+        //        DB.GIAOVIENs.InsertOnSubmit(gv);
+        //        return 1;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return -1;
+        //    }
+        //}
 
 
         /// <summary>
         /// Cập nhật record vào table GIAOVIEN
         /// Cập nhật thành công trả về 1 và ngược lại
         /// </summary>
-        //public int Update(String MaGiaoVien, String TenGiaoVien, String DiaChi, DateTime NgaySinh, String Email, String GioiTinh, String MaMonHoc)
-        //{
-        //    int result = DB.usp_UpdateGiaoVien(MaGiaoVien, TenGiaoVien, DiaChi, NgaySinh, Email, GioiTinh, MaMonHoc);
-        //    //DB.SubmitChanges();
-
-        //    return result;
-        //}
         public int Update(String MaGiaoVien, String TenGiaoVien, String DiaChi, DateTime NgaySinh, String Email, String GioiTinh, String MaMonHoc)
         {
-            GIAOVIEN gv = DB.GIAOVIENs.Where(g => g.MaGiaoVien == MaGiaoVien).SingleOrDefault<GIAOVIEN>();
-            if(gv != null)
-            {
-                gv.HoTen = TenGiaoVien;
-                gv.DiaChi = DiaChi;
-                gv.NgaySinh = NgaySinh;
-                gv.Email = Email;
-                gv.GioiTinh = GioiTinh;
-                gv.MaMonHoc = MaMonHoc;
+            int result = DB.usp_UpdateGiaoVien(MaGiaoVien, TenGiaoVien, DiaChi, NgaySinh, Email, GioiTinh, MaMonHoc);
+            //DB.SubmitChanges();
 
-                return 1;
-            }
-            return -1;
+            return result;
         }
-
-
-        //public void Delete(String MaGiaoVien)
+        //public int Update(String MaGiaoVien, String TenGiaoVien, String DiaChi, DateTime NgaySinh, String Email, String GioiTinh, String MaMonHoc)
         //{
-        //    DB.usp_DeleteGiaoVien(MaGiaoVien);
-        //    //DB.SubmitChanges();
+        //    GIAOVIEN gv = DB.GIAOVIENs.Where(g => g.MaGiaoVien == MaGiaoVien).SingleOrDefault<GIAOVIEN>();
+        //    if(gv != null)
+        //    {
+        //        gv.HoTen = TenGiaoVien;
+        //        gv.DiaChi = DiaChi;
+        //        gv.NgaySinh = NgaySinh;
+        //        gv.Email = Email;
+        //        gv.GioiTinh = GioiTinh;
+        //        gv.MaMonHoc = MaMonHoc;
+
+        //        return 1;
+        //    }
+        //    return -1;
         //}
+
+
         public void Delete(String MaGiaoVien)
         {
-            GIAOVIEN gv = DB.GIAOVIENs.Where(g => g.MaGiaoVien == MaGiaoVien).SingleOrDefault<GIAOVIEN>();
-            if (gv != null)
-            {
-                DB.GIAOVIENs.DeleteOnSubmit(gv);
-            }
+            DB.usp_DeleteGiaoVien(MaGiaoVien);
+            //DB.SubmitChanges();
         }
+        //public void Delete(String MaGiaoVien)
+        //{
+        //    GIAOVIEN gv = DB.GIAOVIENs.Where(g => g.MaGiaoVien == MaGiaoVien).SingleOrDefault<GIAOVIEN>();
+        //    if (gv != null)
+        //    {
+        //        DB.GIAOVIENs.DeleteOnSubmit(gv);
+        //    }
+        //}
 
         public int LaySTTMaGiaoVienCuoiCung()
         {

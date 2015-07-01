@@ -125,7 +125,7 @@ namespace ConnectToDatabase
             else
             {
                 connectStr = @"Server=" + Settings.Default.Server + ";Database=" + Settings.Default.DatabaseName +
-                             ";Integrated Security=SSPI;User ID=" + Settings.Default.UserName + ";Password=" +
+                             ";User ID=" + Settings.Default.UserName + ";Password=" +
                              Settings.Default.Password + ";";
             }
             return connectStr;
@@ -349,10 +349,26 @@ namespace ConnectToDatabase
 
                 Settings.Default.ConnectString = CreateConnectionString();
                 Settings.Default.Save();
-
+                
                 DialogResult = DialogResult.OK;
                 _IsOKClicked = true;
                 this.Close();
+            }
+            else if (_mServer.Databases[cbDbName.Text].Tables.Count == 0)
+            {
+                this.Cursor = Cursors.WaitCursor;// chuyển con chuột thành đồng hồ cát
+                string dataCreateDatabase = Properties.Resources.CreateDatabase; // lưu trữ dữ liệu để tạo database cùng với các table, trigger
+                string dataCreateStroredProcedures = Properties.Resources.StroredProcedures; // dữ liệu dùng để tạo storedProcedures
+                string dbName = cbDbName.Text;
+
+                dataCreateDatabase = dataCreateDatabase.Replace("[PlaceHolder]", dbName);
+                dataCreateStroredProcedures = dataCreateStroredProcedures.Replace("[PlaceHolder]", dbName);
+                _mServer.ConnectionContext.ExecuteNonQuery(dataCreateDatabase); // thực thi tạo database trên sql server
+                _mServer.ConnectionContext.ExecuteNonQuery(dataCreateStroredProcedures); // thực thi tạo storedProcedures
+                btnCreateSample.Enabled = true;
+
+                MessageBox.Show("Đã tạo database thành công", "Success");
+                this.Cursor = Cursors.Default;// chuyển con chuột trở về dạng ban đầu
             }
             else
             {

@@ -109,17 +109,7 @@ namespace frMain
            
 
             //Thêm giáo viên vào CSDL, thêm giảng dạy vào CSDL
-            //if (_giaoVienBus.Them("GV" + Convert.ToInt32(STT + 1), textHoTen.Text, textDiaChi.Text, dateNgaySinh.DateTime, textEmail.Text, comboBoxGioiTinh.SelectedText, _listMonHoc[comboBoxDayMon.SelectedIndex].MAMONHOC) == 1)
-            //{
-            //    MessageBox.Show("Thêm thành công!", "Thông báo");
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Thêm thất bại! Môn học bạn chọn không tồn tại trong danh sách môn học", "Thông báo");
-            //    return;
-            //}
-
-            if (_giaoVienBus.Them(temp) == 1)
+            if (_giaoVienBus.Them("GV" + Convert.ToInt32(STT + 1), textHoTen.Text, textDiaChi.Text, dateNgaySinh.DateTime, textEmail.Text, comboBoxGioiTinh.SelectedText, _listMonHoc[comboBoxDayMon.SelectedIndex].MAMONHOC) == 1)
             {
                 MessageBox.Show("Thêm thành công!", "Thông báo");
             }
@@ -128,6 +118,16 @@ namespace frMain
                 MessageBox.Show("Thêm thất bại! Môn học bạn chọn không tồn tại trong danh sách môn học", "Thông báo");
                 return;
             }
+
+            //if (_giaoVienBus.Them(temp) == 1)
+            //{
+            //    MessageBox.Show("Thêm thành công!", "Thông báo");
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Thêm thất bại! Môn học bạn chọn không tồn tại trong danh sách môn học", "Thông báo");
+            //    return;
+            //}
            
             _listGiaoVien.Add(temp);
             hienThiDanhSachGiaoVienTrenGridView();
@@ -354,15 +354,15 @@ namespace frMain
 
                     temp.MaGiaoVien = "GV" + Convert.ToInt64(_giaoVienBus.LaySTTMaGiaoVienCuoiCung() + 1);
 
-                    //if (_giaoVienBus.Them(temp.MaGiaoVien, temp.HoTen, temp.DiaChi, temp.NgaySinh, temp.Email, temp.GioiTinh, temp.MaMonHoc) == 0)
-                    //    MessageBox.Show("Giáo viên: " + temp.HoTen + " dạy môn không nằm trong danh sách quy định!", "Lỗi");
-                    //else
-                    //    _listGiaoVien.Add(temp);
-
-                    if (_giaoVienBus.Them(temp) == 0)
+                    if (_giaoVienBus.Them(temp.MaGiaoVien, temp.HoTen, temp.DiaChi, temp.NgaySinh, temp.Email, temp.GioiTinh, temp.MaMonHoc) == 0)
                         MessageBox.Show("Giáo viên: " + temp.HoTen + " dạy môn không nằm trong danh sách quy định!", "Lỗi");
                     else
                         _listGiaoVien.Add(temp);
+
+                    //if (_giaoVienBus.Them(temp) == 0)
+                    //    MessageBox.Show("Giáo viên: " + temp.HoTen + " dạy môn không nằm trong danh sách quy định!", "Lỗi");
+                    //else
+                    //    _listGiaoVien.Add(temp);
                 }
             }
             FileExcel.Close();
