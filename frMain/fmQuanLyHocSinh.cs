@@ -10,9 +10,12 @@ using System.Windows.Forms;
 using System.Threading;
 using frMain;
 using ConnectToDatabase;
+
 using Settings = ConnectToDatabase.Properties.Settings;
 using System.Data.SqlClient;
-
+using Microsoft.SqlServer.Management.Common;
+using Microsoft.SqlServer.Management.Smo;
+using frMain.GiaiThuat;
 namespace frMain
 {
     public partial class fmQuanLyHocSinh : DevExpress.XtraBars.Ribbon.RibbonForm

@@ -15,7 +15,7 @@ namespace BUS
     public class QuiDinh_BUS
     {
         QLHSDataContext DB = new QLHSDataContext(Settings.Default.ConnectString);
-
+        QLHSDataContext DBServer = new QLHSDataContext(ConnectionServer.connectionServer);
         /// <summary>
         /// lấy danh sách các tham số từ bảng THAMSO
         /// </summary>
@@ -86,8 +86,8 @@ namespace BUS
        /// <param name="_Khoi12"></param>
         public void Update(String _TuoiToiThieu, String _TuoiToiDa, String _DiemDatMon, String _SiSoToiDa, String _DiemToiThieu, String _DiemToiDa,String _Khoi10,String _Khoi11,String _Khoi12)
         {
-
             DB.usp_UpdateThamSo(int.Parse(_TuoiToiDa), int.Parse(_TuoiToiThieu), int.Parse(_SiSoToiDa), int.Parse(_DiemToiDa),int.Parse(_DiemToiThieu), int.Parse(_DiemDatMon),int.Parse(_Khoi10),int.Parse(_Khoi11),int.Parse(_Khoi12));
+            DBServer.usp_UpdateThamSo(int.Parse(_TuoiToiDa), int.Parse(_TuoiToiThieu), int.Parse(_SiSoToiDa), int.Parse(_DiemToiDa), int.Parse(_DiemToiThieu), int.Parse(_DiemDatMon), int.Parse(_Khoi10), int.Parse(_Khoi11), int.Parse(_Khoi12));
         }
 
         /// <summary>

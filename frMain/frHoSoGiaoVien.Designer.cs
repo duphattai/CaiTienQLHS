@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.comboBoxGioiTinh = new System.Windows.Forms.ComboBox();
             this.comboBoxDayMon = new System.Windows.Forms.ComboBox();
@@ -253,6 +254,14 @@
             this.Email,
             this.MaMonHoc,
             this.DayMon});
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 8.25F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(31)))), ((int)(((byte)(53)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewDanhSachGiaoVien.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewDanhSachGiaoVien.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewDanhSachGiaoVien.Location = new System.Drawing.Point(2, 21);
             this.dataGridViewDanhSachGiaoVien.MultiSelect = false;

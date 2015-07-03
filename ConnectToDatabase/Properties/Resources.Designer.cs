@@ -105,6 +105,26 @@ namespace ConnectToDatabase.Properties {
         /// <summary>
         ///   Looks up a localized string similar to USE [PlaceHolder]
         ///GO
+        ///DELETE FROM BANGDIEM
+        ///DELETE FROM DIEM
+        ///DELETE FROM CHITIETBAOCAOMON
+        ///DELETE FROM BAOCAOMONHOC
+        ///DELETE FROM XEPLOP
+        ///DELETE FROM HOSOHOCSINH
+        ///DELETE FROM CHITIETBAOCAOHOCKY
+        ///DELETE FROM BAOCAOHOCKY
+        ///DELETE FROM LOP
+        ///DELETE FROM NAMHOC.
+        /// </summary>
+        internal static string DeleteAllData {
+            get {
+                return ResourceManager.GetString("DeleteAllData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to USE [PlaceHolder]
+        ///GO
         ///
         ///SET DATEFORMAT DMY
         ///

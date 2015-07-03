@@ -12,7 +12,7 @@ namespace BUS
     public class GiaoVien_BUS
     {
         private QLHSDataContext DB = new QLHSDataContext(Settings.Default.ConnectString);
-
+        private QLHSDataContext DBServer = new QLHSDataContext(ConnectionServer.connectionServer);
         public List<GIAOVIEN> LayTatCaDanhSachGiaoVien()
         {
             return DB.GIAOVIENs.ToList();
@@ -25,7 +25,7 @@ namespace BUS
         public int Them(String MaGiaoVien, String TenGiaoVien, String DiaChi, DateTime NgaySinh, String Email, String GioiTinh, String MaMonHoc)
         {
             int result = DB.usp_InsertGiaoVien(MaGiaoVien, TenGiaoVien, DiaChi, NgaySinh, Email, GioiTinh, MaMonHoc);
-            //DB.SubmitChanges();
+            DBServer.usp_InsertGiaoVien(MaGiaoVien, TenGiaoVien, DiaChi, NgaySinh, Email, GioiTinh, MaMonHoc);
 
             return result;
         }
@@ -50,8 +50,7 @@ namespace BUS
         public int Update(String MaGiaoVien, String TenGiaoVien, String DiaChi, DateTime NgaySinh, String Email, String GioiTinh, String MaMonHoc)
         {
             int result = DB.usp_UpdateGiaoVien(MaGiaoVien, TenGiaoVien, DiaChi, NgaySinh, Email, GioiTinh, MaMonHoc);
-            //DB.SubmitChanges();
-
+            DBServer.usp_UpdateGiaoVien(MaGiaoVien, TenGiaoVien, DiaChi, NgaySinh, Email, GioiTinh, MaMonHoc);
             return result;
         }
         //public int Update(String MaGiaoVien, String TenGiaoVien, String DiaChi, DateTime NgaySinh, String Email, String GioiTinh, String MaMonHoc)
@@ -75,7 +74,7 @@ namespace BUS
         public void Delete(String MaGiaoVien)
         {
             DB.usp_DeleteGiaoVien(MaGiaoVien);
-            //DB.SubmitChanges();
+            DBServer.usp_DeleteGiaoVien(MaGiaoVien);
         }
         //public void Delete(String MaGiaoVien)
         //{
@@ -94,11 +93,6 @@ namespace BUS
         public List<usp_SelectAllGiaoVienResult> LayDanhSachGiaoVien()
         {
             return DB.usp_SelectAllGiaoVien().ToList();
-        }
-
-        public void setSubmitChanged()
-        {
-            DB.SubmitChanges();
         }
     }
 }

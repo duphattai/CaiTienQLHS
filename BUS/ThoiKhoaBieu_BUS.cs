@@ -12,7 +12,7 @@ namespace BUS
     public class ThoiKhoaBieu_BUS
     {
         QLHSDataContext DB = new QLHSDataContext(Settings.Default.ConnectString);
-
+        QLHSDataContext DBServer = new QLHSDataContext(ConnectionServer.connectionServer);
         /// <summary>
         /// Thêm một record vào table THOIKHOABIEU
         /// thêm thành công trả về 1 và ngược lại
@@ -22,6 +22,7 @@ namespace BUS
             int result = DB.usp_InsertThoiKhoaBieu(MaLop, MaGiaoVien, Tiet);
             DB.SubmitChanges();
 
+            DBServer.usp_InsertThoiKhoaBieu(MaLop, MaGiaoVien, Tiet);
             return result;
         }
 
@@ -33,6 +34,8 @@ namespace BUS
         {
             int result = DB.usp_UpdateThoiKhoaBieu(MaLop, MaGiaoVien, Tiet);
             DB.SubmitChanges();
+
+            DBServer.usp_UpdateThoiKhoaBieu(MaLop, MaGiaoVien, Tiet);
 
             return result;
         }
@@ -55,6 +58,7 @@ namespace BUS
         public void Delete(int MaLop)
         {
             DB.usp_DeleteThoiKhoaBieuBy_MaLop(MaLop);
+            DBServer.usp_DeleteThoiKhoaBieuBy_MaLop(MaLop);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace BUS
     {
 
         QLHSDataContext DB = new QLHSDataContext(Settings.Default.ConnectString);
-         
+        QLHSDataContext DBServer = new QLHSDataContext(ConnectionServer.connectionServer);
         /// <summary>
         /// Lấy danh sách các năm học từ database
         /// </summary>
@@ -30,6 +30,7 @@ namespace BUS
         public void XoaNamHoc(NAMHOC namhoc)
         {
             DB.usp_DeleteNamhoc(namhoc.NAMHOC1);
+            DBServer.usp_DeleteNamhoc(namhoc.NAMHOC1);
         }
 
         /// <summary>
@@ -38,6 +39,7 @@ namespace BUS
         public void ThemNamHoc(NAMHOC namhoc)
         {
             DB.usp_InsertNamhoc(namhoc.NAMHOC1);
+            DBServer.usp_InsertNamhoc(namhoc.NAMHOC1);
         } 
     }
 }

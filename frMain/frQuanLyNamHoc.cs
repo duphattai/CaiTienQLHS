@@ -205,10 +205,15 @@ namespace frMain
                 }
             }
             LoadDataGridView();
-            if(k == dataGridView.Rows.Count)
-                dataGridView.CurrentCell = dataGridView.Rows[k - 1].Cells[0]; 
-            else
-                dataGridView.CurrentCell = dataGridView.Rows[k].Cells[0];
+
+            try
+            {
+                if (k == dataGridView.Rows.Count)
+                    dataGridView.CurrentCell = dataGridView.Rows[k - 1].Cells[0];
+                else
+                    dataGridView.CurrentCell = dataGridView.Rows[k].Cells[0];
+            }catch(Exception ex)
+            { }   
         }
 
         private void btluu_Click(object sender, EventArgs e)
