@@ -254,7 +254,6 @@
       <DependentUpon>frLapKhoiKhoaBieu.cs</DependentUpon>
     </Compile>
     <Compile Include="GiaiThuat\LapThoiKhoaBieu.cs" />
-    <Compile Include="GiaiThuat\Tool.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="fmPhanQuyen.resx">
@@ -419,6 +418,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\tileItemElement4.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeleteDataAllTables.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.94.0\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.94.0\build\net45\System.Data.SQLite.Core.targets')" />

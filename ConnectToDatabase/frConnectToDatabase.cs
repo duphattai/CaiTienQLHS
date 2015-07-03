@@ -256,7 +256,7 @@ namespace ConnectToDatabase
             // Create a new SQL Server object using the connection we created
             _mServer = new Server(_mServerConnection);
 
-            string dataCreateDatabase = Properties.Resources.DeleteAllData;
+            string dataCreateDatabase = Properties.Resources.DeleteDataTables;
             dataCreateDatabase = dataCreateDatabase.Replace("[PlaceHolder]", dbName);
             _mServer.ConnectionContext.ExecuteNonQuery(dataCreateDatabase); 
            

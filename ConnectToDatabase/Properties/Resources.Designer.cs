@@ -107,6 +107,34 @@ namespace ConnectToDatabase.Properties {
         ///GO
         ///DELETE FROM BANGDIEM
         ///DELETE FROM DIEM
+        ///DELETE FROM LOAIDIEM
+        ///DELETE FROM CHITIETBAOCAOMON
+        ///DELETE FROM BAOCAOMONHOC
+        ///DELETE FROM MONHOC
+        ///DELETE FROM XEPLOP
+        ///DELETE FROM HOSOHOCSINH
+        ///DELETE FROM CHITIETBAOCAOHOCKY
+        ///DELETE FROM BAOCAOHOCKY
+        ///DELETE FROM GIANGDAY
+        ///DELETE FROM THOIKHOABIEU
+        ///DELETE FROM GIAOVIEN
+        ///DELETE FROM LOP
+        ///DELETE FROM KHOI
+        ///DELETE FROM NAMHOC
+        ///DELETE FROM THAMSO
+        ///DELETE FROM HOCKY.
+        /// </summary>
+        internal static string DeleteDataAllTables {
+            get {
+                return ResourceManager.GetString("DeleteDataAllTables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to USE [PlaceHolder]
+        ///GO
+        ///DELETE FROM BANGDIEM
+        ///DELETE FROM DIEM
         ///DELETE FROM CHITIETBAOCAOMON
         ///DELETE FROM BAOCAOMONHOC
         ///DELETE FROM XEPLOP
@@ -116,9 +144,9 @@ namespace ConnectToDatabase.Properties {
         ///DELETE FROM LOP
         ///DELETE FROM NAMHOC.
         /// </summary>
-        internal static string DeleteAllData {
+        internal static string DeleteDataTables {
             get {
-                return ResourceManager.GetString("DeleteAllData", resourceCulture);
+                return ResourceManager.GetString("DeleteDataTables", resourceCulture);
             }
         }
         

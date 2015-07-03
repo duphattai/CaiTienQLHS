@@ -16,6 +16,8 @@ using System.Data.SqlClient;
 using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;
 using frMain.GiaiThuat;
+
+using BUS;
 namespace frMain
 {
     public partial class fmQuanLyHocSinh : DevExpress.XtraBars.Ribbon.RibbonForm
@@ -398,6 +400,79 @@ namespace frMain
             phucHoiDuLieu();
         }
 
+        private List<String> GetTransferScript(Server server, Database database)
+        {
+            List<String> list = new List<string>();
+            Scripter scripter = new Scripter(server);
+            scripter.Options.ScriptData = true;
+            scripter.Options.ScriptSchema = false;
+            scripter.Options.ScriptDataCompression = true;
+
+            list.AddRange(scripter.EnumScript(new SqlSmoObject[] { database.Tables["NAMHOC"] }).ToList());
+            list.AddRange(scripter.EnumScript(new SqlSmoObject[] { database.Tables["HOCKY"] }).ToList());
+            list.AddRange(scripter.EnumScript(new SqlSmoObject[] { database.Tables["KHOI"] }).ToList());
+            list.AddRange(scripter.EnumScript(new SqlSmoObject[] { database.Tables["LOP"] }).ToList());
+            list.AddRange(scripter.EnumScript(new SqlSmoObject[] { database.Tables["HOSOHOCSINH"] }).ToList());
+            list.AddRange(scripter.EnumScript(new SqlSmoObject[] { database.Tables["XEPLOP"] }).ToList());
+            list.AddRange(scripter.EnumScript(new SqlSmoObject[] { database.Tables["MONHOC"] }).ToList());
+            list.AddRange(scripter.EnumScript(new SqlSmoObject[] { database.Tables["LOAIDIEM"] }).ToList());
+            list.AddRange(scripter.EnumScript(new SqlSmoObject[] { database.Tables["DIEM"] }).ToList());
+            list.AddRange(scripter.EnumScript(new SqlSmoObject[] { database.Tables["BANGDIEM"] }).ToList());
+            list.AddRange(scripter.EnumScript(new SqlSmoObject[] { database.Tables["THAMSO"] }).ToList());
+            list.AddRange(scripter.EnumScript(new SqlSmoObject[] { database.Tables["BAOCAOMONHOC"] }).ToList());
+            list.AddRange(scripter.EnumScript(new SqlSmoObject[] { database.Tables["CHITIETBAOCAOMON"] }).ToList());
+            list.AddRange(scripter.EnumScript(new SqlSmoObject[] { database.Tables["BAOCAOHOCKY"] }).ToList());
+            list.AddRange(scripter.EnumScript(new SqlSmoObject[] { database.Tables["CHITIETBAOCAOHOCKY"] }).ToList());
+            list.AddRange(scripter.EnumScript(new SqlSmoObject[] { database.Tables["GIAOVIEN"] }).ToList());
+            list.AddRange(scripter.EnumScript(new SqlSmoObject[] { database.Tables["GIANGDAY"] }).ToList());
+            list.AddRange(scripter.EnumScript(new SqlSmoObject[] { database.Tables["THOIKHOABIEU"] }).ToList());
+
+            return list;
+        }
+        private void phucHoiDuLieuServer()
+        {
+            string dbName = "db9bb53d537cd2482faf21a4ca0005beed";
+            string user = "qvjbkygtnotctllb";
+            string pass = "T2HrD3ohwSHpCbeAsaYXYdSPidqCJ58vXLsbeaNTJpMNyasEDtUTJKkPh3izLTFA";
+            string host = "9bb53d53-7cd2-482f-af21-a4ca0005beed.sqlserver.sequelizer.com";
+
+            List<String> list = new List<string>();
+            try
+            {
+                // script data will be insert to server hosting
+                Server serverLocalhost = new Server(Settings.Default.Server);
+                serverLocalhost.ConnectionContext.Connect();
+                list.AddRange(GetTransferScript(serverLocalhost, serverLocalhost.Databases[Settings.Default.DatabaseName])); // general script from database just restore success 
+
+                string queryInsert = string.Format("USE {0}\nGO\n {1}\n\n", dbName, "SET DATEFORMAT DMY");
+                foreach(string temp in list)
+                {
+                    queryInsert += temp;
+                }
+
+
+
+                // delete old record and insert new record into server hosting
+                Server serverHosting;
+                ServerConnection serverConection = new ServerConnection(host);
+                string clearData = Properties.Resources.DeleteDataAllTables;
+                clearData = clearData.Replace("[PlaceHolder]", dbName);
+
+                serverConection.LoginSecure = false;
+                serverConection.Login = user;
+                serverConection.Password = pass;
+
+                serverHosting = new Server(serverConection);
+                serverHosting.ConnectionContext.ExecuteNonQuery(clearData); // xóa dữ liệu cũ trên server
+                serverHosting.ConnectionContext.ExecuteNonQuery(queryInsert); // thêm các records vào các table
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                Application.Exit();
+            }
+        }
+
         private void phucHoiDuLieu()
         {
             Connect = new SqlConnection(ConnectToDatabase.Properties.Settings.Default.ConnectString); //  tạo lập kết nối
@@ -420,6 +495,8 @@ namespace frMain
                     cm.ExecuteNonQuery();
 
                     Connect.Close();
+
+                    phucHoiDuLieuServer();
                     MessageBox.Show("Phục hồi thành công", "Thông báo");
                 }
                 catch (Exception ex)

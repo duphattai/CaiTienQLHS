@@ -74,11 +74,6 @@
     <Compile Include="MonHoc_BUS.cs" />
     <Compile Include="NamHoc_BUS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="QuiDinh_BUS.cs" />
     <Compile Include="TaiKhoan_BUS.cs" />
     <Compile Include="ThoiKhoaBieu_BUS.cs" />
@@ -95,13 +90,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <None Include="Resources\DeleteAllData.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\DeleteAllData.sql" />
+    <None Include="Resources\DeleteDataTables.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeleteDataAllTables.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

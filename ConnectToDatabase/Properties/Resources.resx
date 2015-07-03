@@ -124,8 +124,11 @@
   <data name="CreateDatabase" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\scripts\CreateDatabase.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="DeleteAllData" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\scripts\DeleteAllData.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="DeleteDataAllTables" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\scripts\DeleteDataAllTables.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="DeleteDataTables" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\scripts\DeleteDataTables.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="InitData" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\scripts\InitData.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
