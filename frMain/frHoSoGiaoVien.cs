@@ -26,7 +26,6 @@ namespace frMain
         private List<GIAOVIEN> _listGiaoVien = new List<GIAOVIEN>(); // chứa danh sách giáo viên lấy từ CSDL
         private GIAOVIEN _currentSelected = null; // chứa thông tin giáo viên được chọn trên gridview
 
-        private bool _isChanged = false;
         public frHoSoGiaoVien()
         {
             InitializeComponent();
@@ -94,7 +93,6 @@ namespace frMain
             }
 
 
-            _isChanged = true;
             // lấy STT để phát sinh mã giáo viên
             int STT = _giaoVienBus.LaySTTMaGiaoVienCuoiCung();
             // thiết lập thuộc tính
@@ -144,10 +142,9 @@ namespace frMain
                 return;
             }
 
-            _isChanged = true;
             if(_currentSelected != null) // nếu tồn tại thông tin giáo viên được chọn
             {
-                if(_giaoVienBus.Update(_currentSelected.MaGiaoVien, _currentSelected.HoTen, _currentSelected.DiaChi, _currentSelected.NgaySinh, _currentSelected.Email, _currentSelected.GioiTinh, _currentSelected.MaMonHoc) == 0)
+                if (_giaoVienBus.Update(_currentSelected.MaGiaoVien, textHoTen.Text, textDiaChi.Text, dateNgaySinh.DateTime, textEmail.Text, comboBoxGioiTinh.Items[comboBoxGioiTinh.SelectedIndex].ToString(), _listMonHoc[comboBoxDayMon.SelectedIndex].MAMONHOC) == 0)
                 {
                     MessageBox.Show("Cập nhật thất bại! Môn học bạn chọn không tồn tại trong danh sách môn học", "Thông báo");
                     return;
@@ -179,11 +176,10 @@ namespace frMain
         /// </summary>
         private void buttonThoat_Click(object sender, EventArgs e)
         {
-            if(_isChanged && MessageBox.Show("Dữ liệu đã thay đổi, bạn có muốn lưu sự thay đổi?","Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            if(MessageBox.Show("Bạn muốn thoát?","Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                MessageBox.Show("Lưu thành công", "Thông báo");
-            }
-            this.Close();
+                this.Close();
+            } 
         }
 
 
@@ -201,7 +197,6 @@ namespace frMain
             {
                 try 
                 {
-                    _isChanged = true;
                     // xóa khóa ngoại trong bảng GIANGDAY
                     //_giangDayBus.Delete(_currentSelected.MaGiaoVien);
                     List<GIANGDAY> temp =  _giangDayBus.DB.GIANGDAYs.Where(gd => gd.MaGiaoVien == _currentSelected.MaGiaoVien).ToList<GIANGDAY>();
@@ -237,32 +232,6 @@ namespace frMain
 
 
         /// <summary>
-        /// Sự kiện: khi người dùng double click vào dòng trên datagridview
-        /// lấy thông tin trên dòng được chọn
-        /// </summary>
-        private void dataGridViewDanhSachGiaoVien_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (_currentSelected != null)
-            {
-                // thiết lập hiển thị dữ liệu trên giao diện
-                textHoTen.Text = _currentSelected.HoTen;
-                textEmail.Text = _currentSelected.Email;
-                textDiaChi.Text = _currentSelected.DiaChi;
-                dateNgaySinh.EditValue = (DateTime)_currentSelected.NgaySinh;
-                comboBoxDayMon.SelectedItem = dataGridViewDanhSachGiaoVien.Rows[e.RowIndex].Cells["DayMon"].Value.ToString();
-
-                for (int i = 0; i < comboBoxGioiTinh.Items.Count; i++)
-                {
-                    if(comboBoxGioiTinh.Items[i].Equals(_listGiaoVien[e.RowIndex].GioiTinh))
-                    {
-                        comboBoxGioiTinh.SelectedIndex = i;
-                        break;
-                    }
-                }
-            }
-        }
-
-        /// <summary>
         /// Sự kiện: khi người dùng click vào cell trên gridview
         /// Lưu thông tin giáo viên tại dòng được click
         /// </summary>
@@ -279,6 +248,22 @@ namespace frMain
                 _currentSelected.NgaySinh = (DateTime)dataGridViewDanhSachGiaoVien.Rows[e.RowIndex].Cells["NgaySinh"].Value;
                 _currentSelected.MaMonHoc = _listMonHoc[comboBoxDayMon.SelectedIndex].MAMONHOC;
                 _currentSelected.DiaChi = dataGridViewDanhSachGiaoVien.Rows[e.RowIndex].Cells["DiaChi"].Value.ToString();
+
+
+                textHoTen.Text = _currentSelected.HoTen;
+                textEmail.Text = _currentSelected.Email;
+                textDiaChi.Text = _currentSelected.DiaChi;
+                dateNgaySinh.EditValue = (DateTime)_currentSelected.NgaySinh;
+                comboBoxDayMon.SelectedItem = dataGridViewDanhSachGiaoVien.Rows[e.RowIndex].Cells["DayMon"].Value.ToString();
+
+                for (int i = 0; i < comboBoxGioiTinh.Items.Count; i++)
+                {
+                    if (comboBoxGioiTinh.Items[i].Equals(_listGiaoVien[e.RowIndex].GioiTinh))
+                    {
+                        comboBoxGioiTinh.SelectedIndex = i;
+                        break;
+                    }
+                }
             }
             else
                 _currentSelected = null;
@@ -353,17 +338,7 @@ namespace frMain
             FileExcel.Close();
 
             hienThiDanhSachGiaoVienTrenGridView();
-            _isChanged = true;
             MessageBox.Show("Mở tập tin excel thành công!", "Thông báo");
-        }
-
-        private void buttonLuu_Click(object sender, EventArgs e)
-        {
-            if(MessageBox.Show("Bạn muốn lưu những thay đổi dữ liệu!", "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
-            {
-                MessageBox.Show("Lưu thành công", "Thông báo");
-                _isChanged = false;
-            }
         }
     }
 }

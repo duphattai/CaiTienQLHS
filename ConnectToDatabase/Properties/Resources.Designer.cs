@@ -141,6 +141,9 @@ namespace ConnectToDatabase.Properties {
         ///DELETE FROM HOSOHOCSINH
         ///DELETE FROM CHITIETBAOCAOHOCKY
         ///DELETE FROM BAOCAOHOCKY
+        ///DELETE FROM GIANGDAY
+        ///DELETE FROM THOIKHOABIEU
+        ///DELETE FROM GIAOVIEN
         ///DELETE FROM LOP
         ///DELETE FROM NAMHOC.
         /// </summary>

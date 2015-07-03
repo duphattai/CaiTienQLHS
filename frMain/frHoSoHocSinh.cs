@@ -31,7 +31,6 @@ namespace frMain
         public frHoSoHocSinh()
         {
             InitializeComponent();
-           
         }
 
         public frHoSoHocSinh(int MaHocSinh)
@@ -226,7 +225,8 @@ namespace frMain
 
             ListHoSoHocSinhDelete.Clear();
             ListHoSoHocSinhADD.Clear();
-            listHoSoHocSinh.Clear();
+            ListHoSoHocSinhUpdate.Clear();
+
             MessageBox.Show("Lưu thành công", "Success");
             listHoSoHocSinh = hoSoHocSinhBus.LayTatCaHocSinh();
             LoadDataGridView();

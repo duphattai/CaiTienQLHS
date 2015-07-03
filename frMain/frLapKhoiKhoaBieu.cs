@@ -40,16 +40,23 @@ namespace frMain
         /// </summary>
         private void frLapKhoiKhoaBieu_Load(object sender, EventArgs e)
         {
-            _danhSachMonHoc = _monHocBus.LayDanhSachMonHoc();
-
-            foreach (NAMHOC namHoc in _namHocBus.LayNamHoc())
+            try
             {
-                comBoBoxNamHoc.Items.Add(namHoc.NAMHOC1);
+                _danhSachMonHoc = _monHocBus.LayDanhSachMonHoc();
+
+                foreach (NAMHOC namHoc in _namHocBus.LayNamHoc())
+                {
+                    comBoBoxNamHoc.Items.Add(namHoc.NAMHOC1);
+                }
+                comBoBoxNamHoc.SelectedIndex = 0;
+
+                _listDanhSachLop = _danhSachLopBus.LayDanhSachLopNamHoc(comBoBoxNamHoc.SelectedItem.ToString()).ToList();
+                dataGridViewDanhSachLop.DataSource = _listDanhSachLop.ToList();
+            }catch(Exception ex)
+            {
+                MessageBox.Show("Không có dữ liệu để lập thời khóa biểu", "Thông báo");
+                Application.Exit();
             }
-            comBoBoxNamHoc.SelectedIndex = 0;
-            
-            _listDanhSachLop = _danhSachLopBus.LayDanhSachLopNamHoc(comBoBoxNamHoc.SelectedItem.ToString()).ToList();
-            dataGridViewDanhSachLop.DataSource = _listDanhSachLop.ToList();
         }
 
         /// <summary>
@@ -96,7 +103,6 @@ namespace frMain
             if(listLop.Count == 0) // có thể lập lịch
             {
                 MessageBox.Show("Có thể lập thời khóa biểu.", "Thông báo");
-                buttonThuCong.Visible = true;
                 buttonTuDong.Visible = true;
                
                 // lấy danh sách lớp được chọn lập thời khóa biểu

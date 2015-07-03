@@ -88,15 +88,19 @@ namespace frMain
         /// </summary>
         private void frPhanCongGiangDay_Load(object sender, EventArgs e)
         {
-            _listGiaoVien = _giaoVienBus.LayTatCaDanhSachGiaoVien();
-            _listMonHoc = _monHocBus.LayDanhSachMonHoc();
-
-            foreach(NAMHOC namHoc in _namHocBus.LayNamHoc())
+            try
             {
-                comboBoxNamHoc.Items.Add(namHoc.NAMHOC1);
-            }
-            comboBoxNamHoc.SelectedIndex = 0;
-            hienThiDanhSachGiaoVienTrenGridView();// hiển thị danh sách giao viên lên datagridview
+                _listGiaoVien = _giaoVienBus.LayTatCaDanhSachGiaoVien();
+                _listMonHoc = _monHocBus.LayDanhSachMonHoc();
+
+                foreach (NAMHOC namHoc in _namHocBus.LayNamHoc())
+                {
+                    comboBoxNamHoc.Items.Add(namHoc.NAMHOC1);
+                }
+                comboBoxNamHoc.SelectedIndex = 0;
+                hienThiDanhSachGiaoVienTrenGridView();// hiển thị danh sách giao viên lên datagridview
+            }catch(Exception ex)
+            { }
         }
 
         /// <summary>

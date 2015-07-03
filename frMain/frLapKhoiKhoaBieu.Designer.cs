@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
             this.dataGridViewDanhSachLop = new System.Windows.Forms.DataGridView();
@@ -41,7 +39,6 @@
             this.NamHoc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SiSo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonKiemTra = new DevExpress.XtraEditors.SimpleButton();
-            this.buttonThuCong = new DevExpress.XtraEditors.SimpleButton();
             this.buttonTuDong = new DevExpress.XtraEditors.SimpleButton();
             this.buttonThoat = new DevExpress.XtraEditors.SimpleButton();
             this.comBoBoxNamHoc = new System.Windows.Forms.ComboBox();
@@ -87,14 +84,6 @@
             this.MaKhoi,
             this.NamHoc,
             this.SiSo});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 8.25F);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(31)))), ((int)(((byte)(53)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewDanhSachLop.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewDanhSachLop.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewDanhSachLop.Location = new System.Drawing.Point(2, 21);
             this.dataGridViewDanhSachLop.MultiSelect = false;
@@ -166,22 +155,12 @@
             this.buttonKiemTra.Text = "Kiểm tra";
             this.buttonKiemTra.Click += new System.EventHandler(this.buttonKiemTra_Click);
             // 
-            // buttonThuCong
-            // 
-            this.buttonThuCong.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.buttonThuCong.Location = new System.Drawing.Point(395, 107);
-            this.buttonThuCong.Name = "buttonThuCong";
-            this.buttonThuCong.Size = new System.Drawing.Size(71, 23);
-            this.buttonThuCong.TabIndex = 14;
-            this.buttonThuCong.Text = "Lập lịch thủ công";
-            this.buttonThuCong.Visible = false;
-            // 
             // buttonTuDong
             // 
             this.buttonTuDong.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.buttonTuDong.Location = new System.Drawing.Point(328, 148);
+            this.buttonTuDong.Location = new System.Drawing.Point(395, 107);
             this.buttonTuDong.Name = "buttonTuDong";
-            this.buttonTuDong.Size = new System.Drawing.Size(61, 23);
+            this.buttonTuDong.Size = new System.Drawing.Size(71, 23);
             this.buttonTuDong.TabIndex = 15;
             this.buttonTuDong.Text = "Tự động";
             this.buttonTuDong.Visible = false;
@@ -220,14 +199,6 @@
             // 
             this.dataGridViewThoiKhoaBieu.AllowUserToAddRows = false;
             this.dataGridViewThoiKhoaBieu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 8.25F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(31)))), ((int)(((byte)(53)))));
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewThoiKhoaBieu.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewThoiKhoaBieu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewThoiKhoaBieu.Location = new System.Drawing.Point(2, 21);
             this.dataGridViewThoiKhoaBieu.MultiSelect = false;
@@ -249,7 +220,7 @@
             // buttonXuatExcel
             // 
             this.buttonXuatExcel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.buttonXuatExcel.Location = new System.Drawing.Point(328, 188);
+            this.buttonXuatExcel.Location = new System.Drawing.Point(328, 148);
             this.buttonXuatExcel.Name = "buttonXuatExcel";
             this.buttonXuatExcel.Size = new System.Drawing.Size(61, 23);
             this.buttonXuatExcel.TabIndex = 20;
@@ -267,7 +238,6 @@
             this.Controls.Add(this.comBoBoxNamHoc);
             this.Controls.Add(this.buttonThoat);
             this.Controls.Add(this.buttonTuDong);
-            this.Controls.Add(this.buttonThuCong);
             this.Controls.Add(this.buttonKiemTra);
             this.Controls.Add(this.groupControl3);
             this.Controls.Add(this.labelControl1);
@@ -291,7 +261,6 @@
         private DevExpress.XtraEditors.GroupControl groupControl3;
         private System.Windows.Forms.DataGridView dataGridViewDanhSachLop;
         private DevExpress.XtraEditors.SimpleButton buttonKiemTra;
-        private DevExpress.XtraEditors.SimpleButton buttonThuCong;
         private DevExpress.XtraEditors.SimpleButton buttonTuDong;
         private DevExpress.XtraEditors.SimpleButton buttonThoat;
         private System.Windows.Forms.ComboBox comBoBoxNamHoc;

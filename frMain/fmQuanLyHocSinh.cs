@@ -451,7 +451,6 @@ namespace frMain
                 }
 
 
-
                 // delete old record and insert new record into server hosting
                 Server serverHosting;
                 ServerConnection serverConection = new ServerConnection(host);

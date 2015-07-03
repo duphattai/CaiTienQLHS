@@ -269,7 +269,6 @@
             this.dataGridViewDanhSachGiaoVien.Size = new System.Drawing.Size(745, 112);
             this.dataGridViewDanhSachGiaoVien.TabIndex = 0;
             this.dataGridViewDanhSachGiaoVien.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewDanhSachGiaoVien_CellClick);
-            this.dataGridViewDanhSachGiaoVien.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewDanhSachGiaoVien_CellDoubleClick);
             this.dataGridViewDanhSachGiaoVien.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dataGridViewDanhSachGiaoVien_RowPrePaint);
             // 
             // STT

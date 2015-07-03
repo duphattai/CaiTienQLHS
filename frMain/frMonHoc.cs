@@ -180,14 +180,15 @@ namespace frMain
             }
         }
 
-        private void frMonHoc_Load_1(object sender, EventArgs e)
-        {
-
-        }
 
         private void dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0) return;
+
             txtmonhoc.Text = dataGridView.CurrentRow.Cells["TENMONHOC"].Value.ToString();
+            textSoTietKhoi10.Text = dataGridView.CurrentRow.Cells["SoTietKhoi10"].Value.ToString();
+            textSoTietKhoi11.Text = dataGridView.CurrentRow.Cells["SoTietKhoi11"].Value.ToString();
+            textSoTietKhoi12.Text = dataGridView.CurrentRow.Cells["SoTietKhoi12"].Value.ToString();
         }
     }
 }
