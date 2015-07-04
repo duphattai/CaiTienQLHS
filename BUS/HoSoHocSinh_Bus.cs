@@ -15,7 +15,6 @@ namespace BUS
    public class HoSoHocSinh_BUS
     {
         QLHSDataContext DB = new QLHSDataContext(Settings.Default.ConnectString);
-        QLHSDataContext DBServer = new QLHSDataContext(ConnectionServer.connectionServer);
        /// <summary>
        /// lấy tất cả danh sách học sinh
        /// </summary>
@@ -39,8 +38,6 @@ namespace BUS
         {
             DB.usp_InsertHosohocsinh(LayMaHocSinhCuoi() + 1, _HoTen, _DiaChi, _NgaySinh, _Email, _GioiTinh);
             DB.SubmitChanges();
-
-            DBServer.usp_InsertHosohocsinh(LayMaHocSinhCuoi() + 1, _HoTen, _DiaChi, _NgaySinh, _Email, _GioiTinh);
         }
 
        /// <summary>
@@ -55,7 +52,6 @@ namespace BUS
         public void Update( int _MSSV, String _HoTen,String _DiaChi, DateTime _NgaySinh, String _Email,String _GioiTinh)
        {
            DB.usp_UpdateHosohocsinh(_MSSV, _HoTen, _DiaChi, _NgaySinh, _Email, _GioiTinh);
-           DBServer.usp_UpdateHosohocsinh(_MSSV, _HoTen, _DiaChi, _NgaySinh, _Email, _GioiTinh);
        }
 
        /// <summary>
@@ -66,7 +62,6 @@ namespace BUS
         {
             DB.usp_DeleteHosohocsinh(_MAHS);
             DB.SubmitChanges();
-            DBServer.usp_DeleteHosohocsinh(_MAHS);
         }
 
        /// <summary>

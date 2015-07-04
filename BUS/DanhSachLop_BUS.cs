@@ -16,7 +16,6 @@ namespace BUS
     public class DanhSachLop_BUS
     {
         QLHSDataContext DB = new QLHSDataContext(Settings.Default.ConnectString);
-        QLHSDataContext DBServer = new QLHSDataContext("Server=9bb53d53-7cd2-482f-af21-a4ca0005beed.sqlserver.sequelizer.com;Database=db9bb53d537cd2482faf21a4ca0005beed;User ID=qvjbkygtnotctllb;Password=T2HrD3ohwSHpCbeAsaYXYdSPidqCJ58vXLsbeaNTJpMNyasEDtUTJKkPh3izLTFA;");
 
 
         HoSoHocSinh_BUS _HSBUS = new HoSoHocSinh_BUS();
@@ -134,7 +133,6 @@ namespace BUS
         public void Update(int _MaLop,String _TenLop,String _NamHoc,String _MaKhoi)
         {
             DB.usp_UpdateLop(_MaLop, _MaKhoi, _TenLop, _NamHoc, 0);
-            DBServer.usp_UpdateLop(_MaLop, _MaKhoi, _TenLop, _NamHoc, 0);
         }
 
         /// <summary>
@@ -143,7 +141,6 @@ namespace BUS
         public void Insert(int _MaLop,String _TenLop,String _NamHoc,String _MaKhoi)
         {
             DB.usp_InsertLop(_MaLop, _MaKhoi, _TenLop, _NamHoc, 0);
-            DBServer.usp_InsertLop(_MaLop, _MaKhoi, _TenLop, _NamHoc, 0);
         }
 
         /// <summary>
@@ -152,7 +149,6 @@ namespace BUS
         public void Delete(int _MaLop)
         {
             DB.usp_DeleteLop(_MaLop);
-            DBServer.usp_DeleteLop(_MaLop);
         }
 
         public List<usp_SelectDanhSachLopNotInGiangDayResult> LayDanhSachLopGiangVienChuaPhanCong(String MaMonHoc, String NamHoc)

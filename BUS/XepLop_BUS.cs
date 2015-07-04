@@ -15,7 +15,6 @@ namespace BUS
     public class XepLop_BUS
     {
         QLHSDataContext DB = new QLHSDataContext(Settings.Default.ConnectString);
-        QLHSDataContext DBServer = new QLHSDataContext(ConnectionServer.connectionServer);
         /// <summary>
         /// Lấy tất cả dữ liệu từ table XEPLOP 
         /// </summary>
@@ -77,7 +76,6 @@ namespace BUS
         public void Update(int? _MaHS, int? _MaLop, int? _NewMaHS, int? _NewMaLop)
         {
             DB.usp_UpdateXeplop(_MaHS, _MaLop, _NewMaHS, _NewMaLop);
-            DBServer.usp_UpdateXeplop(_MaHS, _MaLop, _NewMaHS, _NewMaLop);
         }
 
         /// <summary>
@@ -88,7 +86,6 @@ namespace BUS
         public void Delete(int _MaHS, int _MaLop)
         {
             DB.usp_DeleteXeplop(_MaLop, _MaHS);
-            DBServer.usp_DeleteXeplop(_MaLop, _MaHS);
         }
 
         /// <summary>
@@ -99,7 +96,6 @@ namespace BUS
         public void Insert(int _MaHS, int _MaLop)
         {
             DB.usp_InsertXeplop(_MaHS, _MaLop);
-            DBServer.usp_InsertXeplop(_MaHS, _MaLop);
         }
 
         /// <summary>

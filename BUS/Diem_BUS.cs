@@ -14,7 +14,6 @@ namespace BUS
     public class Diem_BUS
     {
         QLHSDataContext DB = new QLHSDataContext(Settings.Default.ConnectString);
-        private QLHSDataContext DBServer = new QLHSDataContext(ConnectionServer.connectionServer);
 
         MonHoc_BUS _MHBUS = new MonHoc_BUS(); // đối tượng truy xuất dữ liệu table MONHOC
         DanhSachLop_BUS _LopBUS = new DanhSachLop_BUS(); // truy xuất dữ liệu table DANHSACHLOP
@@ -207,7 +206,6 @@ namespace BUS
             if (_BangDiem._MaDiem15 != null)
             {
                 DB.usp_UpdateDiem(_BangDiem._MaDiem15, "D15", _BangDiem._Diem15);
-                DBServer.usp_UpdateDiem(_BangDiem._MaDiem15, "D15", _BangDiem._Diem15);
             }
             else
             {
@@ -215,14 +213,12 @@ namespace BUS
                 {
                     _MaDiem15 = LayMaDiemCuoi() + 1;
                     DB.usp_InsertDiem(_MaDiem15, "D15", _BangDiem._Diem15);
-                    DBServer.usp_InsertDiem(_MaDiem15, "D15", _BangDiem._Diem15);
                 }
             }
 
             if (_BangDiem._MaDiem1T != null)
             {
                 DB.usp_UpdateDiem(_BangDiem._MaDiem1T, "D1T", _BangDiem._Diem1Tiet);
-                DBServer.usp_UpdateDiem(_BangDiem._MaDiem1T, "D1T", _BangDiem._Diem1Tiet);
             }
             else
             {
@@ -230,14 +226,12 @@ namespace BUS
                 {
                     _MaDiem1T = LayMaDiemCuoi() + 1;
                     DB.usp_InsertDiem(_MaDiem1T, "D1T", _BangDiem._Diem1Tiet);
-                    DBServer.usp_InsertDiem(_MaDiem1T, "D1T", _BangDiem._Diem1Tiet);
                 }
             }
 
             if (_BangDiem._MaDiemHK != null)
             {
                 DB.usp_UpdateDiem(_BangDiem._MaDiemHK, "DHK", _BangDiem._DiemHK);
-                DBServer.usp_UpdateDiem(_BangDiem._MaDiemHK, "DHK", _BangDiem._DiemHK);
             }
             else
             {
@@ -245,11 +239,9 @@ namespace BUS
                 {
                     _MaDiemHK = LayMaDiemCuoi() + 1;
                     DB.usp_InsertDiem(_MaDiemHK, "DHK", _BangDiem._DiemHK);
-                    DBServer.usp_InsertDiem(_MaDiemHK, "DHK", _BangDiem._DiemHK);
                 }
             }
             DB.usp_UpdateBangdiem(_BangDiem._MaHocSinh, _MaMon, _MaHocKy, _NamHoc, _MaDiem15, _MaDiem1T, _MaDiemHK);
-            DBServer.usp_UpdateBangdiem(_BangDiem._MaHocSinh, _MaMon, _MaHocKy, _NamHoc, _MaDiem15, _MaDiem1T, _MaDiemHK);
         }
     }
 }

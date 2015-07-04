@@ -240,28 +240,6 @@ namespace ConnectToDatabase
 
 
 
-        private void deleteDataInServerDefault()
-        {
-            string dbName = "db9bb53d537cd2482faf21a4ca0005beed";
-            string user = "qvjbkygtnotctllb";
-            string pass = "T2HrD3ohwSHpCbeAsaYXYdSPidqCJ58vXLsbeaNTJpMNyasEDtUTJKkPh3izLTFA";
-            string host = "9bb53d53-7cd2-482f-af21-a4ca0005beed.sqlserver.sequelizer.com";
-            
-            Server _mServer; // dùng để truy cập server trong database
-            ServerConnection _mServerConnection = new ServerConnection(host); // cổng kết nối database
-
-            _mServerConnection.LoginSecure = false;
-            _mServerConnection.Login = user;
-            _mServerConnection.Password = pass;
-            // Create a new SQL Server object using the connection we created
-            _mServer = new Server(_mServerConnection);
-
-            string dataCreateDatabase = Properties.Resources.DeleteDataTables;
-            dataCreateDatabase = dataCreateDatabase.Replace("[PlaceHolder]", dbName);
-            _mServer.ConnectionContext.ExecuteNonQuery(dataCreateDatabase); 
-           
-        }
-
         /// <summary>
         /// Sự kiện: xảy ra khi button Tạo mới cơ sở dữ liệu được click
         /// Tạo database cùng với các trigger, store procedure
@@ -294,7 +272,6 @@ namespace ConnectToDatabase
                         cbDbName.SelectedItem = cbDbName.Items[cbDbName.Items.IndexOf(dbName)];
                         btnCreateSample.Enabled = true;
 
-                        deleteDataInServerDefault();                        
                         MessageBox.Show("Đã tạo database thành công", "Success");
                         this.Cursor = Cursors.Default;// chuyển con chuột trở về dạng ban đầu
                     }
@@ -316,28 +293,6 @@ namespace ConnectToDatabase
         }
 
 
-        private void createDataSampleOnDefaultServer()
-        {
-            string dbName = "db9bb53d537cd2482faf21a4ca0005beed";
-            string user = "qvjbkygtnotctllb";
-            string pass = "T2HrD3ohwSHpCbeAsaYXYdSPidqCJ58vXLsbeaNTJpMNyasEDtUTJKkPh3izLTFA";
-            string host = "9bb53d53-7cd2-482f-af21-a4ca0005beed.sqlserver.sequelizer.com";
-
-            Server server; // dùng để truy cập server trong database
-            ServerConnection _mServerConnection = new ServerConnection(host); // cổng kết nối database
-
-            _mServerConnection.LoginSecure = false;
-            _mServerConnection.Login = user;
-            _mServerConnection.Password = pass;
-            // Create a new SQL Server object using the connection we created
-            server = new Server(_mServerConnection);
-            this.Cursor = Cursors.WaitCursor; // chuyển con chuột thành đồng hồ cát
-            string data = Properties.Resources.InitData; // dữ liệu để tạo các records trên các table
-
-            data = data.Replace("[PlaceHolder]", dbName);
-
-            server.Databases[dbName].ExecuteNonQuery(data); // thêm các records vào các table
-        }
         /// <summary>
         /// Sự kiện: khi button Tạo dữ liệu mẫu được click
         /// Tạo records mẫu trên database
@@ -352,7 +307,6 @@ namespace ConnectToDatabase
                 data = data.Replace("[PlaceHolder]", txtNewDB.Text);
 
                 _mServer.Databases[txtNewDB.Text].ExecuteNonQuery(data); // thêm các records vào các table
-                createDataSampleOnDefaultServer();
 
                 MessageBox.Show("Đã tạo dữ liệu mẫu thành công", "Success");
                 btnCreateSample.Enabled = false;

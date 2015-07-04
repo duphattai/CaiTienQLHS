@@ -11,24 +11,20 @@ namespace BUS
     public class GiangDay_BUS
     {
         public QLHSDataContext DB = new QLHSDataContext(Settings.Default.ConnectString);
-        private QLHSDataContext DBServer = new QLHSDataContext(ConnectionServer.connectionServer);
         public void Them(String MaGiaoVien, int MaKhoi)
         {
             DB.usp_InsertGiangDay(MaGiaoVien, MaKhoi);
-            DBServer.usp_InsertGiangDay(MaGiaoVien, MaKhoi);
         }
 
 
         public void Delete(String MaGiaoVien)
         {
             DB.usp_DeleteGiangDay(MaGiaoVien);
-            DBServer.usp_DeleteGiangDay(MaGiaoVien);
         }
 
         public void Delete(String MaGiaoVien, int MaLop)
         {
             DB.usp_DeleteGiangDayBy_MaGiaoVien_MaLop(MaGiaoVien, MaLop);
-            DBServer.usp_DeleteGiangDayBy_MaGiaoVien_MaLop(MaGiaoVien, MaLop);
         }
 
         public List<usp_SelectGiangDayResult> LayGiangDayTheoMaGiaoVien(String MaGiaoVien, String NamHoc)

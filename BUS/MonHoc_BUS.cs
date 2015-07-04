@@ -15,7 +15,6 @@ namespace BUS
     public class MonHoc_BUS
     {
         QLHSDataContext DB = new QLHSDataContext(Settings.Default.ConnectString);
-        QLHSDataContext DBServer = new QLHSDataContext(ConnectionServer.connectionServer);
         /// <summary>
         /// Trả về danh sách các môn học lấy được từ database
         /// </summary>
@@ -45,7 +44,6 @@ namespace BUS
         public void Them(String _MaMon, String _TenMon, int? _SoTietKhoi10, int? _SoTietKhoi11, int? _SoTietKhoi12)
         {
             DB.usp_InsertMonhoc(_MaMon, _TenMon, _SoTietKhoi10, _SoTietKhoi11, _SoTietKhoi12);
-            DBServer.usp_InsertMonhoc(_MaMon, _TenMon, _SoTietKhoi10, _SoTietKhoi11, _SoTietKhoi12);
         }
 
         /// <summary>
@@ -54,7 +52,6 @@ namespace BUS
         public void Update(String _MaMon, String _TenMon, int? _SoTietKhoi10, int? _SoTietKhoi11, int? _SoTietKhoi12)
         {
             DB.usp_UpdateMonhoc(_MaMon, _TenMon, _SoTietKhoi10, _SoTietKhoi11, _SoTietKhoi12);
-            DBServer.usp_UpdateMonhoc(_MaMon, _TenMon, _SoTietKhoi10, _SoTietKhoi11, _SoTietKhoi12);
         }
 
         /// <summary>
@@ -63,7 +60,6 @@ namespace BUS
         public void Delete(String _MaMon)
         {
             DB.usp_DeleteMonhoc(_MaMon);
-            DBServer.usp_DeleteMonhoc(_MaMon);
         }
 
         public List<usp_SelectMonhocResult> LayMonHocTheoMaMonHoc(string maMonHoc)

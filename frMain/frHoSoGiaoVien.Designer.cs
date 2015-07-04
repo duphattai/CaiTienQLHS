@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.comboBoxGioiTinh = new System.Windows.Forms.ComboBox();
             this.comboBoxDayMon = new System.Windows.Forms.ComboBox();
@@ -58,6 +57,7 @@
             this.MaMonHoc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DayMon = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonOpenDataFromExcell = new DevExpress.XtraEditors.SimpleButton();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.textDiaChi.Properties)).BeginInit();
@@ -84,7 +84,7 @@
             this.groupControl1.Controls.Add(this.textEmail);
             this.groupControl1.Controls.Add(this.labelControl1);
             this.groupControl1.Controls.Add(this.textHoTen);
-            this.groupControl1.Location = new System.Drawing.Point(12, 12);
+            this.groupControl1.Location = new System.Drawing.Point(51, 56);
             this.groupControl1.Name = "groupControl1";
             this.groupControl1.Size = new System.Drawing.Size(630, 158);
             this.groupControl1.TabIndex = 0;
@@ -191,7 +191,7 @@
             // buttonThem
             // 
             this.buttonThem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonThem.Location = new System.Drawing.Point(672, 37);
+            this.buttonThem.Location = new System.Drawing.Point(697, 74);
             this.buttonThem.Name = "buttonThem";
             this.buttonThem.Size = new System.Drawing.Size(75, 23);
             this.buttonThem.TabIndex = 1;
@@ -201,7 +201,7 @@
             // buttonXoa
             // 
             this.buttonXoa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonXoa.Location = new System.Drawing.Point(766, 37);
+            this.buttonXoa.Location = new System.Drawing.Point(791, 74);
             this.buttonXoa.Name = "buttonXoa";
             this.buttonXoa.Size = new System.Drawing.Size(75, 23);
             this.buttonXoa.TabIndex = 2;
@@ -211,7 +211,7 @@
             // buttonSua
             // 
             this.buttonSua.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSua.Location = new System.Drawing.Point(671, 79);
+            this.buttonSua.Location = new System.Drawing.Point(696, 116);
             this.buttonSua.Name = "buttonSua";
             this.buttonSua.Size = new System.Drawing.Size(75, 23);
             this.buttonSua.TabIndex = 3;
@@ -221,7 +221,7 @@
             // buttonThoat
             // 
             this.buttonThoat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonThoat.Location = new System.Drawing.Point(766, 125);
+            this.buttonThoat.Location = new System.Drawing.Point(791, 162);
             this.buttonThoat.Name = "buttonThoat";
             this.buttonThoat.Size = new System.Drawing.Size(75, 23);
             this.buttonThoat.TabIndex = 4;
@@ -234,9 +234,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl2.Controls.Add(this.dataGridViewDanhSachGiaoVien);
-            this.groupControl2.Location = new System.Drawing.Point(12, 176);
+            this.groupControl2.Location = new System.Drawing.Point(48, 232);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(749, 135);
+            this.groupControl2.Size = new System.Drawing.Size(818, 320);
             this.groupControl2.TabIndex = 5;
             this.groupControl2.Text = "Danh sách giáo viên";
             // 
@@ -254,19 +254,11 @@
             this.Email,
             this.MaMonHoc,
             this.DayMon});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 8.25F);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(31)))), ((int)(((byte)(53)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewDanhSachGiaoVien.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewDanhSachGiaoVien.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewDanhSachGiaoVien.Location = new System.Drawing.Point(2, 21);
             this.dataGridViewDanhSachGiaoVien.MultiSelect = false;
             this.dataGridViewDanhSachGiaoVien.Name = "dataGridViewDanhSachGiaoVien";
-            this.dataGridViewDanhSachGiaoVien.Size = new System.Drawing.Size(745, 112);
+            this.dataGridViewDanhSachGiaoVien.Size = new System.Drawing.Size(814, 297);
             this.dataGridViewDanhSachGiaoVien.TabIndex = 0;
             this.dataGridViewDanhSachGiaoVien.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewDanhSachGiaoVien_CellClick);
             this.dataGridViewDanhSachGiaoVien.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dataGridViewDanhSachGiaoVien_RowPrePaint);
@@ -289,6 +281,7 @@
             // 
             // HoTen
             // 
+            this.HoTen.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.HoTen.DataPropertyName = "HoTen";
             this.HoTen.HeaderText = "Họ và tên";
             this.HoTen.Name = "HoTen";
@@ -311,19 +304,19 @@
             // 
             // DiaChi
             // 
+            this.DiaChi.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.DiaChi.DataPropertyName = "DiaChi";
             this.DiaChi.HeaderText = "Địa chỉ";
             this.DiaChi.Name = "DiaChi";
             this.DiaChi.ReadOnly = true;
-            this.DiaChi.Width = 150;
             // 
             // Email
             // 
+            this.Email.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Email.DataPropertyName = "Email";
             this.Email.HeaderText = "Email";
             this.Email.Name = "Email";
             this.Email.ReadOnly = true;
-            this.Email.Width = 150;
             // 
             // MaMonHoc
             // 
@@ -335,6 +328,7 @@
             // 
             // DayMon
             // 
+            this.DayMon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.DayMon.HeaderText = "Dạy môn";
             this.DayMon.Name = "DayMon";
             this.DayMon.ReadOnly = true;
@@ -342,18 +336,30 @@
             // buttonOpenDataFromExcell
             // 
             this.buttonOpenDataFromExcell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOpenDataFromExcell.Location = new System.Drawing.Point(766, 79);
+            this.buttonOpenDataFromExcell.Location = new System.Drawing.Point(791, 116);
             this.buttonOpenDataFromExcell.Name = "buttonOpenDataFromExcell";
             this.buttonOpenDataFromExcell.Size = new System.Drawing.Size(75, 23);
             this.buttonOpenDataFromExcell.TabIndex = 6;
             this.buttonOpenDataFromExcell.Text = "Mở file excell";
             this.buttonOpenDataFromExcell.Click += new System.EventHandler(this.buttonOpenDataFromExcell_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Red;
+            this.label1.Location = new System.Drawing.Point(262, 13);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(396, 26);
+            this.label1.TabIndex = 17;
+            this.label1.Text = "QUẢN LÝ THÔNG TIN GIÁO VIÊN";
+            // 
             // frHoSoGiaoVien
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(899, 323);
+            this.ClientSize = new System.Drawing.Size(899, 573);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonOpenDataFromExcell);
             this.Controls.Add(this.groupControl2);
             this.Controls.Add(this.buttonThoat);
@@ -361,6 +367,7 @@
             this.Controls.Add(this.buttonXoa);
             this.Controls.Add(this.buttonThem);
             this.Controls.Add(this.groupControl1);
+            this.MaximizeBox = false;
             this.Name = "frHoSoGiaoVien";
             this.Text = "frHoSoGiaoVien";
             this.Load += new System.EventHandler(this.frHoSoGiaoVien_Load);
@@ -376,6 +383,7 @@
             this.groupControl2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDanhSachGiaoVien)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -401,6 +409,7 @@
         private System.Windows.Forms.ComboBox comboBoxDayMon;
         private System.Windows.Forms.ComboBox comboBoxGioiTinh;
         private DevExpress.XtraEditors.SimpleButton buttonOpenDataFromExcell;
+        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridViewTextBoxColumn STT;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaGiaoVien;
         private System.Windows.Forms.DataGridViewTextBoxColumn HoTen;
